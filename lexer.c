@@ -9,11 +9,11 @@
 
 #include "lexer.h"
 
-FILE* readFile(){
-    FILE *code = fopen("testCode.txt", "r");
+FILE* readFile(char *filename){
+    FILE *code = fopen(filename , "r");
     return code; 
 }
 
 FILE* getStream(FILE *code){
-    
+
 }
