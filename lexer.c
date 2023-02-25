@@ -398,12 +398,61 @@ token getNextToken(FILE *code) {
             state = 1; 
             break;
 
-        
+        case 34: 
+            t.tid = PLUS;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
 
-        
+        case 35: 
+            t.tid = COMMA;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
 
-         
+        case 36: 
+            t.tid = SEMICOL;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
 
+        case 37: 
+            t.tid = DIV;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
+
+        case 38: 
+            t.tid = BO;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
+
+        case 39: 
+            t.tid = BC;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
+
+        case 40: 
+            t.tid = SQBO;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
+
+        case 41: 
+            t.tid = SQBC;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
 
         default:
             break;
