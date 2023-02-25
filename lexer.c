@@ -311,10 +311,19 @@ token getNextToken(FILE *code) {
             else if(c == EOF) {
                 // Error state -1 (comment mark not closed)
             }
+            else if(c == '\\') {
+                state = 43;
+            }
             else {
                 state = 16;
             }
         
+        case 43:
+            if(c == 'n') {
+                line_no++;
+            }
+            state = 16;
+
         case 17:
             if(c == '*') {
                 state = 18;
