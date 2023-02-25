@@ -2,13 +2,18 @@
 
 #include "lexerDef.h";
 
-FILE * readFile();
-FILE *getStream(FILE *fp);
-char getNextChar(FILE *fp);
-token getNextToken();
-void removeComments(char *testcaseFile, char *cleanFile);
-void addTokenToList(token* tk );
+FILE * readFile(char *filename);
+FILE *getStream(FILE *code);
+char getNextChar(FILE *code);
+
+token* addTokenToList();
 void resetLexeme();
-void retract(int num_char); 
+void retract(int n);
+char *getLexeme(); 
+
+token getNextToken(FILE* code);
+void removeComments(char *testcaseFile, char *cleanFile);
+
+ 
 void populate_keyword_table(); 
 token_key getTokenFromKT(char* lexeme);
