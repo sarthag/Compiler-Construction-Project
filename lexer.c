@@ -155,6 +155,7 @@ char *getLexeme() {
 
 token getNextToken(FILE *code) {
     state = 1;
+    err = 0;
     trap = -1;
     token t;
     char c;
@@ -275,6 +276,7 @@ token getNextToken(FILE *code) {
                 state = 1; 
             }
             else {
+                err = -3;
                 // Error state -3 (Invalid character after num .)
                 // Shreyas check
             }
@@ -646,6 +648,21 @@ token getNextToken(FILE *code) {
             state = 1; 
             break;
 
+        default:
+            break;
+        }
+    }
+    if(err < 0) {
+        state = -1;
+        switch (err)
+        {
+        case -1:
+            /* code */
+            break;
+        case -2:
+            break;
+        case -3:
+            break;
         default:
             break;
         }
