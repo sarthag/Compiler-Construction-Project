@@ -8,4 +8,6 @@ void removeComments(char *testcaseFile, char *cleanFile);
 
 FILE * readFile();
 
+void retract(int num_char); 
 void populate_keyword_table(); 
+token_key search_keyword_table(char* lexeme);

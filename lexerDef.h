@@ -8,7 +8,7 @@
 #include <string.h>
 #include "keywordTable.h"
 
-#define BUFFERSIZE 65535
+#define BUFFERSIZE 1024
 
 typedef struct twinBuffer{
     char buffer1[BUFFERSIZE+1];
@@ -34,9 +34,11 @@ typedef struct token{
         double rnum;
     };
     int line_no; 
-    struct token *next; // Makes the struct a linked list
+    struct token *next = NULL; // Makes the struct a linked list
 } token;
 
-ktElement keyword_table[KTSIZE];
+int begin_ptr; 
+int forward_ptr; 
+int line_no;
 
 #endif
