@@ -23,7 +23,7 @@ typedef union {
 typedef struct rhs_struct{
     int rhs_id;
     bool isTerminal;
-    struct rhs_struct *nextRHS;
+    struct rhs_struct* nextRHS;
 } rhs;
 
 typedef struct {

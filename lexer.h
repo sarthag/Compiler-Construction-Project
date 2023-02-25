@@ -2,11 +2,12 @@
 
 #include "lexerDef.h";
 
+FILE * readFile();
 FILE *getStream(FILE *fp);
+char getNextChar(FILE *fp);
 void getNextToken();
 void removeComments(char *testcaseFile, char *cleanFile);
 
-FILE * readFile();
 
 void retract(int num_char); 
 void populate_keyword_table(); 
