@@ -7,3 +7,5 @@ void getNextToken();
 void removeComments(char *testcaseFile, char *cleanFile);
 
 FILE * readFile();
+
+void populate_keyword_table(); 

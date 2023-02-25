@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "keywordTable.h"
 
 #define BUFFERSIZE 65535
 
@@ -36,6 +37,6 @@ typedef struct token{
     struct token *next; // Makes the struct a linked list
 } token;
 
-
+ktElement keyword_table[KTSIZE];
 
 #endif
