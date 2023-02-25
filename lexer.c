@@ -106,19 +106,80 @@ token getNextToken(FILE *code) {
             t = *addTokenToList();
             if(c >= '0' && c <= '9') {
                 state = 2;
-            }
+            } // figure out
+            
             else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
                 state = 8;
-            }
+            } // figure out
+
             else if(c == ' '){
                 state = 11;
-            }
+            } // done 
+
             else if(c == '\\'){
                 state = 12;
-            }
+            } // done 
+
+            else if(c == '*'){
+                state = 15;
+            } // not done
+
+            else if(c == ':'){
+                state = 19;
+            } // not done 
+
+            else if(c == '>'){
+                state = 21;
+            } // not done 
+
             else if(c == '<'){
                 state = 25;
-            }
+            } // figure out retraction 
+
+            else if(c == '!'){
+                state = 29;
+            } // not done 
+
+            else if(c == '='){
+                state = 31;
+            } // not done 
+
+            else if(c == '-'){
+                state = 33;
+            } // not done 
+
+            else if(c == '+'){
+                state = 34;
+            } // not done 
+
+            else if(c == ','){
+                state = 35; 
+            } // not done 
+
+            else if(c == ';'){
+                state = 36;
+            } // not done 
+
+            else if(c == '/'){
+                state = 37; 
+            } // not done 
+
+            else if(c == '('){
+                state = 38;
+            } // not done 
+
+            else if(c == ')'){
+                state = 39; 
+            } // not done
+
+            else if(c == '['){
+                state = 40;
+            } // not done 
+
+            else if(c == ']'){
+                state = 41; 
+            } // not done 
+
             break;
 
         case 2:
@@ -206,6 +267,7 @@ token getNextToken(FILE *code) {
         default:
             break;
         }
+
 
     }
 }
