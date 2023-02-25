@@ -167,11 +167,15 @@ token getNextToken(FILE *code) {
             t = *addTokenToList();
             if(c >= '0' && c <= '9') {
                 state = 2;
-            } // figure out
+            } // shreyas check
 
             else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
                 state = 8;
-            } // figure out
+            } // shreyas figure out
+
+            else if(c == '.') {
+                state = 9;
+            }
 
             else if(c == ' '){
                 state = 11;
@@ -247,7 +251,85 @@ token getNextToken(FILE *code) {
             if(c >= '0' && c <= '9') {
                 state = 2;
             }
-            // TBD
+            else if(c == '.') {
+                state = 3;
+            }
+            else {
+                t.tid = NUM;
+                t.num = atoi(getLexeme());
+                t.line_no = line_no; 
+                state = 1; 
+            }
+            // Shreyas check
+            break;
+
+        case 3:
+            if (c >= '0' && c <= '9') {
+                state = 4;
+            }
+            else if (c == '.') {
+                retract(2);
+                t.tid = NUM;
+                t.num = atoi(getLexeme());
+                t.line_no = line_no; 
+                state = 1; 
+            }
+            else {
+                // Error state -3 (Invalid character after num .)
+                // Shreyas check
+            }
+            break;
+
+        case 4:
+            if(c >= '0' && c <= '9') {
+                state = 4;
+            }
+            else if(c == 'E' || c == 'e') {
+                state = 5;
+            }
+            else {
+                t.tid = RNUM;
+                t.rnum = atof(getLexeme());
+                t.line_no = line_no; 
+                state = 1; 
+            }
+            break;
+
+        case 5:
+            if (c == '+' || c == '-') {
+                state = 6;
+            }
+            else if(c >= '0' && c <= '9') {
+                state = 7;
+            }
+            else {
+                retract(1);
+                t.tid = RNUM;
+                t.rnum = atof(getLexeme());
+                t.line_no = line_no; 
+                state = 1; 
+            }
+            break;
+        
+        case 6:
+            if(c >= '0' && c <= '9') {
+                state = 7;
+            }
+            else {
+                // Error state -3 (Invalid character after e+/-)
+            }
+            break;
+
+        case 7:
+            if (c >= '0' && c <= '9') {
+                state = 7;
+            }
+            else {
+                t.tid = RNUM;
+                t.rnum = atof(getLexeme());
+                t.line_no = line_no; 
+                state = 1; 
+            }
             break;
 
         case 8: //final state
@@ -260,6 +342,22 @@ token getNextToken(FILE *code) {
                 state = 1; 
             }
             //TBD
+            break;
+
+        case 9:
+            if(c == '.') {
+                state = 10;
+            }
+            else {
+                // Error state -3 (Invalid character after .)
+            }
+            break;
+
+        case 10:
+            t.tid = RANGEOP;
+            t.lexeme = getLexeme(); 
+            t.line_no = line_no; 
+            state = 1; 
             break;
 
         case 11: //final state
@@ -279,7 +377,7 @@ token getNextToken(FILE *code) {
                 state = 14;
             }
             else{
-                //error2 case need to figure what state reps it
+                //error state -2 (\ with random character)
             }
             break;
 
@@ -303,6 +401,7 @@ token getNextToken(FILE *code) {
                 t.line_no = line_no; 
                 state = 1; 
             }
+            break;
         
         case 16:
             if(c == '*') {
@@ -312,17 +411,18 @@ token getNextToken(FILE *code) {
                 // Error state -1 (comment mark not closed)
             }
             else if(c == '\\') {
-                state = 43;
+                state = 42;
             }
             else {
                 state = 16;
             }
         
-        case 43:
+        case 42:
             if(c == 'n') {
                 line_no++;
             }
             state = 16;
+            break;
 
         case 17:
             if(c == '*') {
@@ -331,12 +431,14 @@ token getNextToken(FILE *code) {
             else {
                 state = 16;
             }
+            break;
         
         case 18:
             t.tid = COMMENTMARK;
             t.lexeme = getLexeme(); 
             t.line_no = line_no; 
             state = 1; 
+            break;
 
         case 19:
             if(c == '='){
@@ -454,7 +556,7 @@ token getNextToken(FILE *code) {
                 state = 30;
             }
             else{ 
-                // make error stare 
+                // Error state -3 (invalid character after !)
             }
             break;
         
@@ -470,7 +572,7 @@ token getNextToken(FILE *code) {
                 state = 32;
             }
             else{ 
-                // make error stare 
+                // Error state -3 (Invalid character after =)
             }
             break;
         
