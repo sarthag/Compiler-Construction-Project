@@ -45,63 +45,8 @@ bool isTerm(char* str){
     return -1;
 }
 
-/*
-void addLinkedList(char* lineBuf, int count){
-    printf("entering add ll  \n ");
-    char str[20];
-    int wc=0;
-    for(int i=0; i<strlen(lineBuf); i++){
-        if(lineBuf[i]=='\n'){
-            //do something
-            return ;
-        }
-        else if(lineBuf[i]==' '){
-            //do something
-            char *str1 = (char*)malloc(sizeof(char)*wc);
-            strcpy(str1, str);
-            printf("%s ", str1);
-            wc=0;
-            memset(str, '\0', sizeof(str));
-        }
-        else{
-            str[wc] = lineBuf[i];
-            wc=wc+1;
-        }
-    }
-    printf("\n");
-}
-*/
 
 
-/*
-void generateGrammar(){
-    FILE *fp = fopen("grammar_fake.txt", "r");
-    if(fp ==NULL){
-        printf("Error in opening the file ");
-    }
-    char ch;
-    int count = 0;
-    char *lineBuf = (char *)malloc(sizeof(char)*MAX_LINE_LENGTH);
-    //char *lineBuf1 = (char *)malloc(sizeof(char)*MAX_LINE_LENGTH);
-    memset(lineBuf, ' ', MAX_LINE_LENGTH);
-    while(ch != EOF){
-        ch=getc(fp);
-        if(ch!='\n'){
-            lineBuf[count]=ch;
-            count=count + 1;
-        }
-        else{
-            //when we reach the end of line 
-            addLinkedList(lineBuf, count);
-            count = 0;
-            memset(lineBuf, ' ', MAX_LINE_LENGTH);
-        }
-    }
-    addLinkedList(lineBuf, count);
-
-}
-
-*/
 
 void generateGrammar(){
     FILE *fp = fopen("grammar_fake.txt", "r");
