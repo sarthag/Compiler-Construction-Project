@@ -16,11 +16,11 @@ int get_id(char *str, int t){
     if(t==0){
         for(int i=0;i< NO_NON_TERMINALS; i++ ){
             if(strcmp(non_terminals[i], str)==0){
-                printf("strcmp value %d ", strcmp(non_terminals[i], str));
-                printf("%s \n", non_terminals[i]);
+                //printf("strcmp value %d ", strcmp(non_terminals[i], str));
+                //printf("%s \n", non_terminals[i]);
                 return i;
             }
-        printf("%s non_terminal : Symbol doesn't exist %s \n", str, non_terminals[i]);
+        //printf("%s non_terminal : Symbol doesn't exist %s \n", str, non_terminals[i]);
         }
     }
     else {
@@ -28,10 +28,10 @@ int get_id(char *str, int t){
         if(strcmp(terminals[i], str)==0){
             return i;
         }
-        printf("%s terminal : Symbol doesn't exist %s \n", str, terminals[i]);
+        //printf("%s terminal : Symbol doesn't exist %s \n", str, terminals[i]);
     }
     }
-
+    printf("not detected \n");
     return -1;
     
 }
@@ -55,47 +55,62 @@ void generateGrammar(){
     }
     char lineBuf[MAX_LINE_LENGTH];
     int rule_no = 0;
-    rhs temp_rhs;
+    
     rhs prev_rhs;
     while(fgets(lineBuf, sizeof(lineBuf), fp)!=NULL ){
         char *str;
+        rhs *firstRHS = NULL;
+        rhs *prev_rhs = NULL;
         str=strtok(lineBuf, " \n");
         for(int i=0;str!=NULL; i++){
             if(i==0){
-                //printf("%s\n", str);
-                //this is the lhs
-                G[rule_no].lhs_id=  get_id(str, 0);
-                G[rule_no].firstRHS=NULL;
+                //lhs
+                G[rule_no].lhs_id = get_id(str, 0);
+                G[rule_no].firstRHS = NULL;   
             }
             else {
-                //printf("%s\n", str);
-                //this is the rhs 
-                if(G[rule_no].firstRHS==NULL){
-                    temp_rhs.isTerminal=isTerm(str);
-                    printf("value of t is %d \n", temp_rhs.isTerminal);
-                    temp_rhs.rhs_id= get_id(str, temp_rhs.isTerminal);
-                    temp_rhs.nextRHS= NULL;
-                    G[rule_no].firstRHS=&(temp_rhs);
-                    prev_rhs=temp_rhs;
+                if(prev_rhs==NULL){
+                    //first rule of rhs 
+                    rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
+                    new_rhs->isTerminal = isTerm(str);
+                    new_rhs->rhs_id = get_id(str, new_rhs->isTerminal);
+                    new_rhs->nextRHS = NULL;
+                    firstRHS = new_rhs;
+                    prev_rhs = new_rhs;
                 }
                 else{
-                    //not the first rhs rule
-                    temp_rhs.isTerminal=isTerm(str);
-                    temp_rhs.rhs_id= get_id(str, temp_rhs.isTerminal);
-                    temp_rhs.nextRHS= NULL;
-                    prev_rhs.nextRHS= &temp_rhs;
-                    prev_rhs=temp_rhs;
+                    //other rules of rhs
+                    rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
+                    new_rhs->isTerminal = isTerm(str);
+                    new_rhs->rhs_id = get_id(str, new_rhs->isTerminal);
+                    new_rhs->nextRHS = NULL;
+                    prev_rhs->nextRHS = new_rhs;
+                    prev_rhs = new_rhs;
                 }
+                
             }
             str=strtok(NULL, " \n");
         }
-
-        printf("\n");
+        G[rule_no].firstRHS=firstRHS;
+        rule_no++;
     }
+
 
 }
 int main(){
+    //lhs G1[NUM_OF_RULES];
+    //G1= generateGrammar();
     generateGrammar();
+    for(int i=0;i<7;i++){
+        printf("LHS_ID %d ", G[i].lhs_id);
+        rhs *temp=G[i].firstRHS;
+        while(temp!=NULL){
+            printf("RHS_ID %d ", temp->rhs_id);
+            temp=temp->nextRHS;
+        }
+        printf("\n");
+        
+    }
     return 0;
 }
 
