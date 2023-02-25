@@ -1,6 +1,5 @@
 #include "keywordTable.h"
 
-
 //implementing a polynomial rolling hash
 int hash(const char *lexeme){
     long long prime = PRIME;
@@ -43,6 +42,7 @@ void insert(const char *lexeme, token_key token, ktElement keywordTable[]){
     printf("Inserted %s at INDEX : %d\n", lexeme ,index);
 }
 
+
 token_key getTokenFromKT(char *lexeme, ktElement keywordTable[]){
     int i = 0;
     int hashValue = hash(lexeme);
@@ -55,10 +55,10 @@ token_key getTokenFromKT(char *lexeme, ktElement keywordTable[]){
         index  = (hashValue + (i*i))%KTSIZE;
     }
     return -1;
-    
-
 }
-void printKeywordTable(ktElement keywordTable[],int ktSize){
+
+
+void printKeywordTable(ktElement keywordTable[], int ktSize){
     for(int i = 0 ; i < ktSize ; i++){
         printf("%d: ",i);
         printf("Lexeme : %s\n", keywordTable[i].lexeme);

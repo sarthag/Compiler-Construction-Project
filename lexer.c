@@ -732,7 +732,7 @@ void populate_keyword_table(){
 
 
 // char* get(char *lexeme, ktElement keywordTable[]);
-token_key getTokenFromKT(char* lexeme){
+token_key getTokenFromKT(char* lexeme, ktElement keywordTable[]){
     int key = get(lexeme, keyword_table);
     if(key == -1){
         return ID; 

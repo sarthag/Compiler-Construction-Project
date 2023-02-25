@@ -13,6 +13,4 @@ char *getLexeme();
 token getNextToken(FILE* code);
 void removeComments(char *testcaseFile, char *cleanFile);
 
- 
 void populate_keyword_table(); 
-token_key getTokenFromKT(char* lexeme);
