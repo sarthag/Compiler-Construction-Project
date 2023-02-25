@@ -66,7 +66,9 @@ void retract(int num_char){
 
 }
 
-token getNextToken()
+token getNextToken() {
+    
+}
 
 // int insert(char *lexeme, int token, ktElement keywordTable[]);
 void populate_keyword_table(){
