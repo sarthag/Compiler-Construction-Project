@@ -9,7 +9,7 @@
 
 #include "lexer.h"
 
-twinBuffers buffers;
+twinBuffer buffers;
 line_no = 1; 
 
 FILE* readFile(char *filename){
@@ -18,7 +18,7 @@ FILE* readFile(char *filename){
 }
 
 FILE* getStream(FILE *code){
-    
+
 }
 
 void retract(int num_char){
@@ -43,7 +43,7 @@ void populate_keyword_table(){
     insert("module", MODULE, keyword_table);
     insert("of", OF, keyword_table);
     insert("OR", OR, keyword_table);
-    insert("parameters", PARMETERS, keyword_table);
+    insert("parameters", PARAMETERS, keyword_table);
     insert("print", PRINT, keyword_table);
     insert("program", PROGRAM, keyword_table);
     insert("real", REAL, keyword_table);
@@ -71,4 +71,6 @@ token_key search_keyword_table(char* lexeme){
 }
 
 
-void init_lexer()
+void init_lexer(){
+    
+}
