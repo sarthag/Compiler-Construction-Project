@@ -179,7 +179,7 @@ token getNextToken(FILE *code) {
 
             else if(c == '\\'){
                 state = 12;
-            } // done 
+            } // make error state 
 
             else if(c == '*'){
                 state = 15;
@@ -187,15 +187,15 @@ token getNextToken(FILE *code) {
 
             else if(c == ':'){
                 state = 19;
-            } // not done 
+            } // done
 
             else if(c == '>'){
                 state = 21;
-            } // figure out retraction 
+            } // done
 
             else if(c == '<'){
                 state = 25;
-            } // figure out retraction 
+            } // done
 
             else if(c == '!'){
                 state = 29;
@@ -292,13 +292,55 @@ token getNextToken(FILE *code) {
             state = 1;
             break;
 
+        case 15:
+            if(c == '*') {
+                state = 16;
+            }
+            else {
+                retract(1);
+                t.tid = MUL;
+                t.lexeme = getLexeme(); 
+                t.line_no = line_no; 
+                state = 1; 
+            }
+        
+        case 16:
+            if(c == '*') {
+                state = 17;
+            }
+            else if(c == EOF) {
+                // Error state -1 (comment mark not closed)
+            }
+            else {
+                state = 16;
+            }
+        
+        case 17:
+            if(c == '*') {
+                state = 18;
+            }
+            else {
+                state = 16;
+            }
+        
+        case 18:
+            t.tid = COMMENTMARK;
+            t.lexeme = getLexeme(); 
+            t.line_no = line_no; 
+            state = 1; 
+
         case 19:
             if(c == '='){
                 state = 20; 
             }
 
             else{
-                // retract and tokenize 
+                retract(1);
+                t.tid = COLON;
+                t.lexeme = getLexeme(); 
+                t.line_no = line_no; 
+                state = 1; 
+                break;
             }
             break; 
 
@@ -317,6 +359,11 @@ token getNextToken(FILE *code) {
                 state = 23;
             }
             else{
+                retract(1);
+                t.tid = GT;
+                t.lexeme = getLexeme(); 
+                t.line_no = line_no; 
+                state = 1; 
                 //retract and tokenize;
             }
             break;
@@ -333,6 +380,11 @@ token getNextToken(FILE *code) {
                 state = 24;
             }
             else{
+                retract(1);
+                t.tid = ENDDEF;
+                t.lexeme = getLexeme(); 
+                t.line_no = line_no; 
+                state = 1; 
                 //retract and tokenize
             }
             break;
@@ -352,6 +404,11 @@ token getNextToken(FILE *code) {
                 state = 26;
             }
             else{
+                retract(1);
+                t.tid = LT;
+                t.lexeme = getLexeme(); 
+                t.line_no = line_no; 
+                state = 1; 
                 //retract and tokenize;
             }
             break;
@@ -361,7 +418,11 @@ token getNextToken(FILE *code) {
                 state = 27;
             }
             else{
-                //retract and tokenize
+                retract(1);
+                t.tid = DEF;
+                t.lexeme = getLexeme(); 
+                t.line_no = line_no; 
+                state = 1; 
             }
             break;
 
