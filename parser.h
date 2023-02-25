@@ -1,3 +1,4 @@
+
 void generateGrammar(); 
 //read fake txt file
 //first symbol to lhs and rest to rhs
@@ -6,3 +7,5 @@ void generateGrammar();
 void computeFirstandFollow();
 
 void createParseTable();
+
+bool isTerm(char* str);

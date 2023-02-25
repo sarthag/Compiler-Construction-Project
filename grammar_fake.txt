@@ -1,7 +1,7 @@
-S A B C
-A b 
-A a 
-A epsilon 
-B b 
-B epsilon
-C c 
+start module otherModules moduleDef
+module NUM 
+module ID 
+module epsilon 
+otherModules ID
+otherModules epsilon
+moduleDef COLON 

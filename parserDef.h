@@ -6,31 +6,33 @@
 #define NUM_OF_TERMINALS 3
 #define NUM_OF_NONTERMINALS 5
 
-
+/*
 typedef enum {
-    S, A, B, C, epsilon
+    start, module, otherModules, moduleDef, epsilon
 } non_term;
 
 typedef enum {
-    a,b,c
+    ID,NUM,COLON
 } term;
 
 typedef union {
     term t;
     non_term nt;
 }symb;
+*/
+typedef struct rhs_struct{
+    int rhs_id;
+    bool isTerminal;
+    struct rhs_struct *nextRHS;
+} rhs;
 
-
-typedef struct lhs{
-    non_term lhs_v;
-    struct rhs *firstRHS;
+typedef struct {
+    int lhs_id;
+    rhs* firstRHS;
 } lhs; 
 
-typedef struct rhs{
-    symb rhs_v;
-    bool isTerm;
-    struct rhs *nextRHS;
-} rhs;
+
+
 
 
 lhs G[NUM_OF_RULES];
