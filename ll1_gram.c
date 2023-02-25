@@ -49,7 +49,7 @@ bool isTerm(char* str){
 
 
 void generateGrammar(){
-    FILE *fp = fopen("grammar_fake.txt", "r");
+    FILE *fp = fopen("grammar_noepsilon.txt", "r");
     if(fp ==NULL){
         printf("Error in opening the file ");
     }
@@ -97,6 +97,7 @@ void generateGrammar(){
 
 
 }
+/*
 int main(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
@@ -113,4 +114,5 @@ int main(){
     }
     return 0;
 }
+*/
 
