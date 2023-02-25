@@ -183,7 +183,7 @@ token getNextToken(FILE *code) {
 
             else if(c == '*'){
                 state = 15;
-            } // not done
+            } // done
 
             else if(c == ':'){
                 state = 19;
