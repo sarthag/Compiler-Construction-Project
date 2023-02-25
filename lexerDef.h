@@ -42,5 +42,7 @@ bool eof;
 bool started;
 int line_no;
 int numChar;
+int state;
+int trap;
 
 #endif
