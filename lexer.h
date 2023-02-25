@@ -1,5 +1,4 @@
 //Contains function prototype declarations of functions in lexer.c
-
 #include "lexerDef.h";
 
 FILE * readFile(char *filename);
