@@ -1,8 +1,9 @@
-#include "keywordTableDef.h";
+#include "keywordTableDef.h"
 
-int hash(char *lexeme, int size);
+int hash(const char *lexeme);
 
 void initializeKeywordTable(ktElement keywordTable[], int size);
-int insert(char *lexeme, int token, ktElement keywordTable[]);
-bool isPresent(ktElement keywordTable[], char *lexeme ,int lexemeSize);
-char* get(char *lexeme, ktElement keywordTable[]);
+void insert(const char *lexeme, token_key token, ktElement keywordTable[]);
+bool isPresent(ktElement keywordTable[], char *lexeme);
+token_key getTokenFromKT(char *lexeme, ktElement keywordTable[]);
+void printKeywordTable(ktElement keywordTable[],int ktSize);

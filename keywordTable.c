@@ -1,7 +1,8 @@
 #include "keywordTable.h"
 
+
 //implementing a polynomial rolling hash
-int hash(char *lexeme){
+int hash(const char *lexeme){
     long long prime = PRIME;
     long long hashVal = 0;
     long long primePower = 1;
@@ -15,30 +16,39 @@ int hash(char *lexeme){
     return hashVal;
 }
 
-void initializeKeyWordTable(ktElement keywordTable[], int size){
+void initializeKeywordTable(ktElement keywordTable[], int size){
     for(int i = 0; i < size; i++){
+        // keywordTable[i].lexeme = "qwerty";
         keywordTable[i].occupied = false;
     }
 }
 
 //open addressing for collisions
-void insert(char *lexeme, int token, ktElement keywordTable[]){
+void insert(const char *lexeme, token_key token, ktElement keywordTable[]){
     int i = 0;
     int hashValue = hash(lexeme);
     int index = hashValue % KTSIZE;
-    while (keywordTable[index].occupied){
-        if(strcmp(lexeme, keywordTable[index].lexeme) == 0){
-            break;
-        }
+    printf("Inserted %s initially at INDEX : %d\n", lexeme ,index);
+    while (keywordTable[index].occupied ==true){
+        printf("\n%s lexeme, %s keywordTable[index].lexeme \n",lexeme,keywordTable[index].lexeme);
+        // if(strcmp(lexeme, keywordTable[index].lexeme) == 0){
+        
+        //     break;
+        // }
         i++;
         index  = (hashValue + (i*i))%KTSIZE;
     }
-    strcpy(keywordTable[index].lexeme,lexeme);
+    int lexemeSize = LEXEMESIZE;
+    // strncpy(keywordTable[index].lexeme, lexeme, lexemeSize-1);
+    // keywordTable[index].lexeme[lexemeSize -1] = '\0';
+    strcpy(keywordTable[index].lexeme, lexeme);
     keywordTable[index].token = token;
+    
     keywordTable[index].occupied = true;
+    printf("Inserted %s at INDEX : %d\n", lexeme ,index);
 }
 
-int get(char *lexeme, ktElement keywordTable[]){
+token_key getTokenFromKT(char *lexeme, ktElement keywordTable[]){
     int i = 0;
     int hashValue = hash(lexeme);
     int index = hashValue % KTSIZE;
@@ -53,3 +63,12 @@ int get(char *lexeme, ktElement keywordTable[]){
     
 
 }
+void printKeywordTable(ktElement keywordTable[],int ktSize){
+    for(int i = 0 ; i < ktSize ; i++){
+        printf("%d: ",i);
+        printf("Lexeme : %s\n", keywordTable[i].lexeme);
+        printf("token: %d\n", keywordTable[i].token);
+        printf("occupied : %s\n",keywordTable[i].occupied?"true":"false");
+    }
+}
+
