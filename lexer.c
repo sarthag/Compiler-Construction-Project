@@ -1,5 +1,5 @@
 /* Steps for building a lexer:
-1.Create a twin buffer.
+1. Create a twin buffer.
 2. Read the input file and store it in the twin buffer.
 3. Using the begin pointer and forward pointer and the switch case DFA find the lexeme.
 4. Create a keyword hashtable
@@ -9,12 +9,19 @@
 
 #include "lexer.h"
 
+twinBuffers buffers;
+line_no = 1; 
+
 FILE* readFile(char *filename){
     FILE *code = fopen(filename , "r");
     return code; 
 }
 
 FILE* getStream(FILE *code){
+    
+}
+
+void retract(int num_char){
 
 }
 
@@ -50,3 +57,18 @@ void populate_keyword_table(){
     insert("false", FALSE, keyword_table);
     insert("true", TRUE, keyword_table);
 }
+
+
+// char* get(char *lexeme, ktElement keywordTable[]);
+token_key search_keyword_table(char* lexeme){
+    int key = get(lexeme, keyword_table);
+    if(key == -1){
+        return ID; 
+    }
+    else{
+        return key;
+    }
+}
+
+
+void init_lexer()
