@@ -107,7 +107,7 @@ token getNextToken(FILE *code) {
             if(c >= '0' && c <= '9') {
                 state = 2;
             } // figure out
-            
+
             else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
                 state = 8;
             } // figure out
@@ -130,7 +130,7 @@ token getNextToken(FILE *code) {
 
             else if(c == '>'){
                 state = 21;
-            } // not done 
+            } // figure out retraction 
 
             else if(c == '<'){
                 state = 25;
@@ -138,11 +138,11 @@ token getNextToken(FILE *code) {
 
             else if(c == '!'){
                 state = 29;
-            } // not done 
+            } // make the new error
 
             else if(c == '='){
                 state = 31;
-            } // not done 
+            } // make new error
 
             else if(c == '-'){
                 state = 33;
@@ -231,6 +231,58 @@ token getNextToken(FILE *code) {
             state = 1;
             break;
 
+        case 19:
+            if(c == '='){
+                state = 20; 
+            }
+
+            else{
+                // retract and tokenize 
+            }
+            break; 
+
+        case 20:
+            t.tid = ASSIGNOP; 
+            t.lexeme = getLexeme(); 
+            t.line_no = line_no; 
+            state = 1; 
+            break; 
+
+        case 21:
+            if(c == '='){
+                state = 22;
+            }
+            else if(c == '>'){
+                state = 23;
+            }
+            else{
+                //retract and tokenize;
+            }
+            break;
+
+        case 22:
+            t.tid = GE;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1;
+            break;
+
+        case 23:
+            if(c == '>'){
+                state = 24;
+            }
+            else{
+                //retract and tokenize
+            }
+            break;
+
+        case 24:
+            t.tid = DRIVERENDDEF;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1;
+            break;
+
         case 25:
             if(c == '='){
                 state = 28;
@@ -248,9 +300,10 @@ token getNextToken(FILE *code) {
                 state = 27;
             }
             else{
-                //retract and tokenize at state 26
+                //retract and tokenize
             }
             break;
+
         case 27:
             t.tid = DRIVERDEF;
             t.lexeme = getLexeme();
@@ -264,11 +317,56 @@ token getNextToken(FILE *code) {
             t.line_no = line_no;
             state = 1;
             break;
+
+        case 29: 
+            if(c == '='){
+                state = 30;
+            }
+            else{ 
+                // make error stare 
+            }
+            break;
+        
+        case 30: 
+            t.tid = NE;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
+
+        case 31: 
+            if(c == '='){
+                state = 32;
+            }
+            else{ 
+                // make error stare 
+            }
+            break;
+        
+        case 32: 
+            t.tid = EQ;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
+
+        case 33: 
+            t.tid = MINUS;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1; 
+            break;
+
+        
+
+        
+
+         
+
+
         default:
             break;
         }
-
-
     }
 }
 
