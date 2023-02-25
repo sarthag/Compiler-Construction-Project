@@ -15,12 +15,15 @@ twinBuffer buffers;
 FILE* readFile(char *filename){
     FILE *code = fopen(filename , "r");
     if(code == NULL) {
-        printf('File Opening Error!\n');
+        printf("File Opening Error!\n");
         return NULL;
     }
-
+    //initializing buffers and token linked list 
     memset(buffers.buffer1, 0, BUFFERSIZE+1);
     memset(buffers.buffer1, 0, BUFFERSIZE+1);
+    tokenList.start = NULL;
+    tokenList.end = NULL;
+    tokenList.tokenCount = 0;
 
     eof = false;
     numChar = 0;
@@ -59,16 +62,35 @@ char getNextChar(FILE* code) {
     char current = *forward;
     code = getStream(code);
     numChar++;
+    forward++; // need to figure out buffer edge cases
     return current;
 }
+token* addTokenToList(){
+    token* tk = (token*)malloc(sizeof(token));
+    if(tokenList.start == NULL){
+        tokenList.start = tk;
+    }
+    else{
+        tokenList.end -> next = tk;
 
+    }
+    return tokenList.end = tk;
+    
+
+}
+void resetLexeme(){
+    begin = forward;
+    numChar = 0;
+}
 void retract(int num_char){
 
 }
 
-char* tokenize() {
-    // char *t;
+char *getLexeme(){
+
 }
+
+
 
 token getNextToken(FILE *code) {
     state = 1;
@@ -81,27 +103,106 @@ token getNextToken(FILE *code) {
         switch (state)
         {
         case 1:
+            t = *addTokenToList();
             if(c >= '0' && c <= '9') {
                 state = 2;
             }
             else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
                 state = 8;
             }
+            else if(c == ' '){
+                state = 11;
+            }
+            else if(c == '\\'){
+                state = 12;
+            }
+            else if(c == '<'){
+                state = 25;
+            }
             break;
+
         case 2:
             if(c >= '0' && c <= '9') {
                 state = 2;
             }
             // TBD
             break;
-        case 8:
+
+        case 8: //final state
             if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
                 state = 8;
             }
             else if(c == ' ') {
                 char* lexeme = tokenize();
+                resetLexeme();
                 state = 1; 
             }
+            //TBD
+            break;
+
+        case 11: //final state
+            if(c == ' '){
+                state = 11;
+            }
+            else{
+                state = 1;
+            }
+            break;
+
+        case 12:
+            if(c == 't'){
+                state = 13;
+            }
+            else if(c == 'n'){
+                state = 14;
+            }
+            else{
+                //error2 case need to figure what state reps it
+            }
+            break;
+
+        case 13: //final state
+            state = 1;
+            break;
+
+        case 14: // final state
+            line_no++;
+            state = 1;
+            break;
+
+        case 25:
+            if(c == '='){
+                state = 28;
+            }
+            else if(c == '<'){
+                state = 26;
+            }
+            else{
+                //retract and tokenize;
+            }
+            break;
+
+        case 26:
+            if(c == '<'){
+                state = 27;
+            }
+            else{
+                //retract and tokenize at state 26
+            }
+            break;
+        case 27:
+            t.tid = DRIVERDEF;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1;
+            break;
+
+        case 28:
+            t.tid = LE;
+            t.lexeme = getLexeme();
+            t.line_no = line_no;
+            state = 1;
+            break;
         default:
             break;
         }

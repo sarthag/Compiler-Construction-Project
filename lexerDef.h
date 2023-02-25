@@ -23,6 +23,14 @@ token_key token_list[] = {
     MINUS, NE, BO, BC, MUL, COMMENTMARK, COMMA, RANGEOP, DIV, COLON, ASSIGNOP, SEMICOL, SQBO, SQBC, PLUS, LT, DEF, DRIVERDEF, LE, EQ, GT, GE, ENDDEF, DRIVERENDDEF, NUM, RNUM, ID, AND, ARRAY, BOOLEAN, BREAK, CASE, DECLARE, DEFAULT, DRIVER, END, FOR, GET_VALUE, IN, INPUT, INTEGER, MODULE, OF, OR, PARAMETERS, PRINT, PROGRAM, REAL, RETURNS, START, SWITCH, TAKES, USE, WHILE, WITH, FALSE, TRUE
 };
 
+//Linked List to Store Tokens
+typedef struct tokenLL{
+    token* start;
+    token* end;
+    int tokenCount;
+
+}tokenLL;
+
 
 typedef struct token{
     token_key tid; 
@@ -35,6 +43,9 @@ typedef struct token{
     struct token *next; // Makes the struct a linked list
 } token;
 
+//end of TOKEN LL
+
+
 ktElement keyword_table[KTSIZE];
 
 char *begin, *forward;
@@ -44,5 +55,5 @@ int line_no;
 int numChar;
 int state;
 int trap;
-
+tokenLL tokenList;
 #endif
