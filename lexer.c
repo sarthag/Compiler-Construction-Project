@@ -8,61 +8,44 @@
 7. Create a linked list for tokens. Store the tokens in a form of a linked list*/
 
 #include "lexer.h"
+#include "keywordTable.h"
 
 twinBuffer buffers;
-line_no = 1; 
-numChar = 0;
 
 FILE* readFile(char *filename){
     FILE *code = fopen(filename , "r");
-    return code; 
-}
-
-FILE* getStream(FILE *code){
     if(code == NULL) {
         printf('File Opening Error!\n');
         return NULL;
     }
 
-    if (!started) {
-        memset(buffers.buffer1, 0, BUFFERSIZE+1);
-        memset(buffers.buffer1, 0, BUFFERSIZE+1);
+    memset(buffers.buffer1, 0, BUFFERSIZE+1);
+    memset(buffers.buffer1, 0, BUFFERSIZE+1);
 
-        eof = false;
-        read1 = false;
-        read2 = false;
-        started = false;
+    eof = false;
+    numChar = 0;
+    line_no = 1;
 
-        lexeme = NULL;
-        forward = NULL;
+    int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
+    buffers.buffer1[buf_size1] = '\0';
+    begin = buffers.buffer1;    
+    forward = buffers.buffer1;
+    started = true;
+    
+    return code;
+}
 
-        int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
-        buffers.buffer1[buf_size1] = '\0';
-        lexeme = buffers.buffer1;    
-        forward = buffers.buffer1;
-        started = true;
-        read1 = true;
-        read2 = false;
-    }
-
-    else if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
-        if (!read2) {
-            int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
-            buffers.buffer2[buf_size2] = '\0';
-        }
+FILE* getStream(FILE *code){
+    if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
+        int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
+        buffers.buffer2[buf_size2] = '\0';
         forward = buffers.buffer2;
-        read2 = true;
-        read1 = false;
     }
 
-    else if (forward == buffers.buffer2 + BUFFERSIZE - 1) {
-        if (!read1) {
-            int buf_size2 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
-            buffers.buffer1[buf_size2] = '\0';
-        }
+    else if (forward == buffers.buffer2 + BUFFERSIZE - 1) {\
+        int buf_size2 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
+        buffers.buffer1[buf_size2] = '\0';
         forward = buffers.buffer1;
-        read1 = true;
-        read2 = false;
     }
 
     else {
@@ -74,19 +57,17 @@ FILE* getStream(FILE *code){
 
 char getNextChar(FILE* code) {
     char current = *forward;
-    if (!started) {
-        numChar++;
-        forward++;
-    }
-    else {
-        code = getStream(code);
-        numChar++;
-    }
+    code = getStream(code);
+    numChar++;
     return current;
 }
 
 void retract(int num_char){
 
+}
+
+token getNextToken() {
+    
 }
 
 // int insert(char *lexeme, int token, ktElement keywordTable[]);
@@ -124,7 +105,7 @@ void populate_keyword_table(){
 
 
 // char* get(char *lexeme, ktElement keywordTable[]);
-token_key search_keyword_table(char* lexeme){
+token_key getTokenFromKT(char* lexeme){
     int key = get(lexeme, keyword_table);
     if(key == -1){
         return ID; 
@@ -132,9 +113,4 @@ token_key search_keyword_table(char* lexeme){
     else{
         return key;
     }
-}
-
-
-void init_lexer(){
-    
 }
