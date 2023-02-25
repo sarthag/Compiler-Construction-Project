@@ -37,8 +37,7 @@ typedef struct token{
 
 ktElement keyword_table[KTSIZE];
 
-char *lexeme, *forward;
-bool read1, read2;
+char *begin, *forward;
 bool eof;
 bool started;
 int line_no;
