@@ -30,10 +30,6 @@ void insert(const char *lexeme, token_key token, ktElement keywordTable[]){
     int index = hashValue % KTSIZE;
     printf("Inserted %s initially at INDEX : %d\n", lexeme ,index);
     while (keywordTable[index].occupied ==true){
-        // if(strcmp(lexeme, keywordTable[index].lexeme) == 0){
-        
-        //     break;
-        // }
         i++;
         index  = (hashValue + (i*i))%KTSIZE;
     }

@@ -43,5 +43,6 @@ int main(){
     printf("LEXEME: %s , TOKEN: %d\n","for",getTokenFromKT("for",keywordTable));
     printf("LEXEME: %s , TOKEN: %d\n","while",getTokenFromKT("while",keywordTable));
     printf("LEXEME: %s , TOKEN: %d\n","switch",getTokenFromKT("switch",keywordTable));
+    printf("LEXEME: %s , TOKEN: %d\n","nigga",getTokenFromKT("nigga",keywordTable));
     
 }
