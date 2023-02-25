@@ -66,7 +66,48 @@ void retract(int num_char){
 
 }
 
-token getNextToken();
+char* tokenize() {
+    // char *t;
+}
+
+token getNextToken(FILE *code) {
+    state = 1;
+    trap = -1;
+    token t;
+    char c;
+
+    while (state >= 1) {
+        c = getNextChar(code);
+        switch (state)
+        {
+        case 1:
+            if(c >= '0' && c <= '9') {
+                state = 2;
+            }
+            else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
+                state = 8;
+            }
+            break;
+        case 2:
+            if(c >= '0' && c <= '9') {
+                state = 2;
+            }
+            // TBD
+            break;
+        case 8:
+            if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
+                state = 8;
+            }
+            else if(c == ' ') {
+                char* lexeme = tokenize();
+                state = 1; 
+            }
+        default:
+            break;
+        }
+
+    }
+}
 
 // int insert(char *lexeme, int token, ktElement keywordTable[]);
 void populate_keyword_table(){
