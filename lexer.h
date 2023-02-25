@@ -3,8 +3,8 @@
 #include "lexerDef.h";
 
 FILE * readFile();
-FILE* getFirstStream(FILE *code);
 FILE *getStream(FILE *fp);
+char getNextChar(FILE *fp);
 void getNextToken();
 void removeComments(char *testcaseFile, char *cleanFile);
 

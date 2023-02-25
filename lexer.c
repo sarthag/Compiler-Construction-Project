@@ -11,36 +11,78 @@
 
 twinBuffer buffers;
 line_no = 1; 
+numChar = 0;
 
 FILE* readFile(char *filename){
     FILE *code = fopen(filename , "r");
     return code; 
 }
 
-FILE* getFirstStream(FILE *code){
+FILE* getStream(FILE *code){
     if(code == NULL) {
         printf('File Opening Error!\n');
         return NULL;
     }
 
-    memset(buffers.buffer1, 0, BUFFERSIZE+1);
-    memset(buffers.buffer1, 0, BUFFERSIZE+1);
+    if (!started) {
+        memset(buffers.buffer1, 0, BUFFERSIZE+1);
+        memset(buffers.buffer1, 0, BUFFERSIZE+1);
 
-    eof = false;
-    read1 = false;
-    read2 = false;
-    started = false;
+        eof = false;
+        read1 = false;
+        read2 = false;
+        started = false;
 
-    lexeme = NULL;
-    forward = NULL;
+        lexeme = NULL;
+        forward = NULL;
 
-    int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
-    buffers.buffer1[buf_size1] = '\0';
-    lexeme = buffers.buffer1;    
-    forward = buffers.buffer1;
-    started = true;
-    read1 = true;
+        int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
+        buffers.buffer1[buf_size1] = '\0';
+        lexeme = buffers.buffer1;    
+        forward = buffers.buffer1;
+        started = true;
+        read1 = true;
+        read2 = false;
+    }
 
+    else if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
+        if (!read2) {
+            int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
+            buffers.buffer2[buf_size2] = '\0';
+        }
+        forward = buffers.buffer2;
+        read2 = true;
+        read1 = false;
+    }
+
+    else if (forward == buffers.buffer2 + BUFFERSIZE - 1) {
+        if (!read1) {
+            int buf_size2 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
+            buffers.buffer1[buf_size2] = '\0';
+        }
+        forward = buffers.buffer1;
+        read1 = true;
+        read2 = false;
+    }
+
+    else {
+        forward++;
+    }
+
+    return code;
+}
+
+char getNextChar(FILE* code) {
+    char current = *forward;
+    if (!started) {
+        numChar++;
+        forward++;
+    }
+    else {
+        code = getStream(code);
+        numChar++;
+    }
+    return current;
 }
 
 void retract(int num_char){

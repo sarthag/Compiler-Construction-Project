@@ -42,5 +42,6 @@ bool read1, read2;
 bool eof;
 bool started;
 int line_no;
+int numChar;
 
 #endif
