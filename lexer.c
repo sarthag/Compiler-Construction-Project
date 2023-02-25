@@ -187,39 +187,39 @@ token getNextToken(FILE *code) {
 
             else if(c == '-'){
                 state = 33;
-            } // not done 
+            } //  done 
 
             else if(c == '+'){
                 state = 34;
-            } // not done 
+            } // done 
 
             else if(c == ','){
                 state = 35; 
-            } // not done 
+            } // done 
 
             else if(c == ';'){
                 state = 36;
-            } // not done 
+            } // done 
 
             else if(c == '/'){
                 state = 37; 
-            } // not done 
+            } // done 
 
             else if(c == '('){
                 state = 38;
-            } // not done 
+            } // done 
 
             else if(c == ')'){
                 state = 39; 
-            } // not done
+            } // done
 
             else if(c == '['){
                 state = 40;
-            } // not done 
+            } // done 
 
             else if(c == ']'){
                 state = 41; 
-            } // not done 
+            } // done 
 
             break;
 
