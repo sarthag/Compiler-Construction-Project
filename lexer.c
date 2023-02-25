@@ -17,7 +17,29 @@ FILE* readFile(char *filename){
     return code; 
 }
 
-FILE* getStream(FILE *code){
+FILE* getFirstStream(FILE *code){
+    if(code == NULL) {
+        printf('File Opening Error!\n');
+        return NULL;
+    }
+
+    memset(buffers.buffer1, 0, BUFFERSIZE+1);
+    memset(buffers.buffer1, 0, BUFFERSIZE+1);
+
+    eof = false;
+    read1 = false;
+    read2 = false;
+    started = false;
+
+    lexeme = NULL;
+    forward = NULL;
+
+    int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
+    buffers.buffer1[buf_size1] = '\0';
+    lexeme = buffers.buffer1;    
+    forward = buffers.buffer1;
+    started = true;
+    read1 = true;
 
 }
 

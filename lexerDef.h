@@ -6,7 +6,7 @@
 #include <string.h>
 #include "keywordTable.h"
 
-#define BUFFERSIZE 65535
+#define BUFFERSIZE 1023
 
 typedef struct twinBuffer{
     char buffer1[BUFFERSIZE+1];
@@ -36,5 +36,11 @@ typedef struct token{
 } token;
 
 ktElement keyword_table[KTSIZE];
+
+char *lexeme, *forward;
+bool read1, read2;
+bool eof;
+bool started;
+int line_no;
 
 #endif
