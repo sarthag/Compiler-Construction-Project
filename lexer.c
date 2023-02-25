@@ -78,12 +78,32 @@ token* addTokenToList(){
     
 
 }
+
 void resetLexeme(){
     begin = forward;
     numChar = 0;
 }
-void retract(int num_char){
 
+void retract(int n) {
+    if(forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE) {
+        if(forward - buffers.buffer1 < n) {
+            n -= forward - buffers.buffer1;
+            forward = buffers.buffer2 + BUFFERSIZE - n;
+        }
+        else {
+            forward -= n;
+        }
+    }
+    else if(forward >= buffers.buffer2 && forward <= buffers.buffer2 + BUFFERSIZE) {
+        if(forward - buffers.buffer2 < n) {
+            n -= forward - buffers.buffer2;
+            forward = buffers.buffer1 + BUFFERSIZE - n;
+        }
+        else {
+            forward -= n;
+        }
+    }
+    numChar -= n;
 }
 
 char *getLexeme() {
