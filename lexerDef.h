@@ -54,6 +54,6 @@ bool started;
 int line_no;
 int numChar;
 int state;
-int trap;
+int err;
 tokenLL tokenList;
 #endif

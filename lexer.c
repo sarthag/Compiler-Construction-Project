@@ -38,6 +38,7 @@ FILE* readFile(char *filename){
     return code;
 }
 
+
 FILE* getStream(FILE *code){
     if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
         int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
@@ -58,6 +59,7 @@ FILE* getStream(FILE *code){
     return code;
 }
 
+
 char getNextChar(FILE* code) {
     char current = *forward;
     code = getStream(code);
@@ -65,6 +67,8 @@ char getNextChar(FILE* code) {
     forward++; // need to figure out buffer edge cases
     return current;
 }
+
+
 token* addTokenToList(){
     token* tk = (token*)malloc(sizeof(token));
     if(tokenList.start == NULL){
@@ -72,17 +76,17 @@ token* addTokenToList(){
     }
     else{
         tokenList.end -> next = tk;
-
     }
-    return tokenList.end = tk;
-    
 
+    return tokenList.end = tk;
 }
+
 
 void resetLexeme(){
     begin = forward;
     numChar = 0;
 }
+
 
 void retract(int n) {
     if(forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE) {
@@ -90,15 +94,18 @@ void retract(int n) {
             n -= forward - buffers.buffer1;
             forward = buffers.buffer2 + BUFFERSIZE - n;
         }
+
         else {
             forward -= n;
         }
     }
+
     else if(forward >= buffers.buffer2 && forward <= buffers.buffer2 + BUFFERSIZE) {
         if(forward - buffers.buffer2 < n) {
             n -= forward - buffers.buffer2;
             forward = buffers.buffer1 + BUFFERSIZE - n;
         }
+
         else {
             forward -= n;
         }
@@ -122,6 +129,7 @@ char *getLexeme() {
             curr++;
         }
     }
+
     else if(case_1 && case_4) {
         while(curr < buffers.buffer1 + BUFFERSIZE) {
             lex[c] = *curr;
@@ -135,6 +143,7 @@ char *getLexeme() {
             curr++;
         }
     }
+
     else {
         while(curr < buffers.buffer2 + BUFFERSIZE) {
             lex[c] = *curr;
@@ -148,17 +157,17 @@ char *getLexeme() {
             curr++;
         }
     }
+
     return lex;
 }
-
 
 
 token getNextToken(FILE *code) {
     state = 1;
     err = 0;
-    trap = -1;
     token t;
     char c;
+    
 
     while (state >= 1) {
         c = getNextChar(code);
@@ -184,7 +193,7 @@ token getNextToken(FILE *code) {
 
             else if(c == '\\'){
                 state = 12;
-            } // make error state 
+            } // done 
 
             else if(c == '*'){
                 state = 15;
@@ -204,11 +213,11 @@ token getNextToken(FILE *code) {
 
             else if(c == '!'){
                 state = 29;
-            } // make the new error
+            } // done
 
             else if(c == '='){
                 state = 31;
-            } // make new error
+            } // done
 
             else if(c == '-'){
                 state = 33;
@@ -277,6 +286,7 @@ token getNextToken(FILE *code) {
             }
             else {
                 err = -3;
+                state = 0; 
                 // Error state -3 (Invalid character after num .)
                 // Shreyas check
             }
@@ -318,6 +328,8 @@ token getNextToken(FILE *code) {
                 state = 7;
             }
             else {
+                err = -3;
+                state = 0;
                 // Error state -3 (Invalid character after e+/-)
             }
             break;
@@ -343,7 +355,7 @@ token getNextToken(FILE *code) {
                 resetLexeme();
                 state = 1; 
             }
-            //TBD
+            //shreyas make
             break;
 
         case 9:
@@ -351,6 +363,8 @@ token getNextToken(FILE *code) {
                 state = 10;
             }
             else {
+                err = -3; 
+                state = 0; 
                 // Error state -3 (Invalid character after .)
             }
             break;
@@ -379,7 +393,9 @@ token getNextToken(FILE *code) {
                 state = 14;
             }
             else{
-                //error state -2 (\ with random character)
+                err = -2; 
+                state = 0;
+                //error state -2 (\ with invalid character)
             }
             break;
 
@@ -410,6 +426,8 @@ token getNextToken(FILE *code) {
                 state = 17;
             }
             else if(c == EOF) {
+                err = -1; 
+                state = 0;
                 // Error state -1 (comment mark not closed)
             }
             else if(c == '\\') {
@@ -558,6 +576,8 @@ token getNextToken(FILE *code) {
                 state = 30;
             }
             else{ 
+                err = -3;
+                state = 0;
                 // Error state -3 (invalid character after !)
             }
             break;
@@ -574,6 +594,8 @@ token getNextToken(FILE *code) {
                 state = 32;
             }
             else{ 
+                err = -3;
+                state = 0;
                 // Error state -3 (Invalid character after =)
             }
             break;
@@ -649,19 +671,25 @@ token getNextToken(FILE *code) {
             break;
 
         default:
+            err = -3; 
+            state = 0; 
             break;
         }
     }
+
+
     if(err < 0) {
         state = -1;
         switch (err)
         {
         case -1:
-            /* code */
+            printf("ERROR at line %d: comment mark not closed\n", line_no);
             break;
         case -2:
+            printf("ERROR at line %d: invaild escape sequence\n", line_no);
             break;
         case -3:
+            printf("ERROR at line %d: invalid character sequence]n", line_no);
             break;
         default:
             break;
