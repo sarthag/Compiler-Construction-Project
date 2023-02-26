@@ -2,7 +2,7 @@
 
 int main(){
     FILE* code;
-    code = readFile("testcode.txt");
+    code = readFile("testcode");
     token t = getNextToken(code);
-    printf("%d", t.tid);
+    printf("Token ID: %d\n", t.tid);
 }
