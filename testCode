@@ -10,13 +10,14 @@ start
     print(m);
 end
 
-
 <<module mod1>>
 takes input [a: integer, b: integer];
 returns [x: integer, abc: real];
 start
     declare c: real;
-    c:=10.4;
+    declare i, j: integer;
+    i..j;
+    c:=10.4e-6;
     x:=a+b-10;
     abc:=b/5+c;
 end
