@@ -183,7 +183,7 @@ token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
 
 
 token getNextToken(FILE *code) {
-    // printf("Inside getNextToken\n");
+    printf("Inside getNextToken\n");
     state = 1;
     err = 0;
     token t;
@@ -463,6 +463,7 @@ token getNextToken(FILE *code) {
         case 16:
             if(c == '*') {
                 state = 17;
+
             }
             else if(c == EOF) {
                 err = -1; 
@@ -475,12 +476,6 @@ token getNextToken(FILE *code) {
             else {
                 state = 16;
             }
-        
-        case 42:
-            if(c == 'n') {
-                line_no++;
-            }
-            state = 16;
             break;
 
         case 17:
@@ -744,6 +739,14 @@ token getNextToken(FILE *code) {
             resetLexeme();
             state = 1; 
             break;
+
+        case 42:
+            if(c == 'n') {
+                line_no++;
+            }
+            state = 16;
+            break;
+
 
         default:
             err = -3; 
