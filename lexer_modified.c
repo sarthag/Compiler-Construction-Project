@@ -191,7 +191,7 @@ token getNextToken(FILE *code) {
 
             else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
                 state = 8;
-            } // shreyas has figured it out
+            } // shrayes has figured it out
 
             else if(c == '.') {
                 state = 9;
@@ -274,7 +274,7 @@ token getNextToken(FILE *code) {
             else if(c == '.') {
                 state = 3;
             }
-            else { // should be else if(c == ' ');
+            else {
                 retract(1);
                 t.tid = NUM;
                 t.num = atoi(getLexeme());
@@ -301,8 +301,6 @@ token getNextToken(FILE *code) {
                 err = -3;
                 state = 0; 
                 // Error state -3 (Invalid character after num .)
-                // Shreyas check
-                //this is fine
             }
             break;
 
