@@ -3,14 +3,9 @@
 //array of LHS grammar G 
 
 #define NUM_OF_RULES 7
-<<<<<<< HEAD
 #define NUM_OF_TERMINALS 4
 #define NUM_OF_NONTERMINALS 4
-=======
-#define NUM_OF_TERMINALS 3
-#define NUM_OF_NONTERMINALS 4
 #define PT_COLS 4
->>>>>>> fcb8a47125630f669606567b1212ad0d2bef69ce
 
 typedef struct rhs_struct{
     int rhs_id;
