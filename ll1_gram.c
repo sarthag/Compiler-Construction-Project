@@ -8,7 +8,7 @@
 #define NO_NON_TERMINALS 4
 #define NO_TERMINALS 3
 char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
-char *terminals[]={"NUM", "ID", "COLON"};
+char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
 
 int get_id(char *str, int t){
     //printf("call to get id ");
@@ -49,7 +49,7 @@ bool isTerm(char* str){
 
 
 void generateGrammar(){
-    FILE *fp = fopen("grammar_noepsilon.txt", "r");
+    FILE *fp = fopen("grammar_fake.txt", "r");
     if(fp ==NULL){
         printf("Error in opening the file ");
     }

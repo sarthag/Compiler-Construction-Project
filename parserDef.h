@@ -3,8 +3,8 @@
 //array of LHS grammar G 
 
 #define NUM_OF_RULES 7
-#define NUM_OF_TERMINALS 3
-#define NUM_OF_NONTERMINALS 5
+#define NUM_OF_TERMINALS 4
+#define NUM_OF_NONTERMINALS 4
 
 /*
 typedef enum {
@@ -32,7 +32,8 @@ typedef struct {
 } lhs; 
 
 
-
+bool First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+bool firstDone[NUM_OF_NONTERMINALS];
 
 
 lhs G[NUM_OF_RULES];
