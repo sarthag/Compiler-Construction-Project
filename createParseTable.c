@@ -17,17 +17,17 @@ void populate_parse_table(){
     }
     for(int i=0;i<NUM_OF_RULES;i++){
         bool *first_set= first[G[i].lhs_id];
-        for(int j=0; j<NUM_OF_TERMINALS;j++){
+        for(int j=0; j<NUM_OF_TERMINALS-1;j++){
             if(first_set[j]==1){
-                parse_table[G[i].lhs_id][j]=i;
+                parse_table[G[i].lhs_id][j]=i+1;
             }
         } 
-        if(first_set[NUM_OF_TERMINALS]==1){
+        if(first_set[NUM_OF_TERMINALS-1]==1){
             //if the first set contains epsilon
             bool* follow_set= follow[G[i].lhs_id];
-            for(int k=0;k<NUM_OF_TERMINALS+1;k++){
+            for(int k=0;k<NUM_OF_TERMINALS;k++){
                 if(follow_set[k]==1){
-                    parse_table[G[i].lhs_id][k]=i;
+                    parse_table[G[i].lhs_id][k]=i+1;
                 }
             }
         }
