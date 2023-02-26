@@ -12,6 +12,7 @@
 twinBuffer buffers;
 
 FILE* readFile(char *filename){
+    printf("Inside readFile\n");
     FILE *code = fopen(filename , "r");
     if(code == NULL) {
         printf("File Opening Error!\n");
@@ -33,12 +34,16 @@ FILE* readFile(char *filename){
     begin = buffers.buffer1;    
     forward = buffers.buffer1;
     started = true;
+    printf("Buffer 1: %s\n", buffers.buffer1);
+    printf("Buffer 2: %s\n", buffers.buffer2);
     
     return code;
 }
 
 
 FILE* getStream(FILE *code){
+    printf("Inside getStream\n");
+
     if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
         int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
         buffers.buffer2[buf_size2] = '\0';
@@ -60,6 +65,7 @@ FILE* getStream(FILE *code){
 
 
 char getNextChar(FILE* code) {
+    printf("Inside getNextChar\n");
     char current = *forward;
     code = getStream(code);
     numChar++;
@@ -69,6 +75,7 @@ char getNextChar(FILE* code) {
 
 
 token* addTokenToList(){
+    printf("Inside addTokenToList\n");
     token* tk = (token*)malloc(sizeof(token));
     if(tokenList.start == NULL){
         tokenList.start = tk;
@@ -82,12 +89,14 @@ token* addTokenToList(){
 
 
 void resetLexeme(){
+    printf("Inside resetLexeme\n");
     begin = forward;
     numChar = 0;
 }
 
 
 void retract(int n) {
+    printf("Inside retract\n");
     if(forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE) {
         if(forward - buffers.buffer1 < n) {
             n -= forward - buffers.buffer1;
@@ -113,6 +122,7 @@ void retract(int n) {
 }
 
 char *getLexeme() {
+    printf("Inside getLexeme\n");
     char *lex = (char *) malloc((numChar + 1) * sizeof(char));
     int c = 0;
     char *curr = begin;
@@ -157,6 +167,8 @@ char *getLexeme() {
         }
     }
 
+    printf("Lexeme: %s\n", lex);
+
     return lex;
 }
 
@@ -180,6 +192,7 @@ token getNextToken(FILE *code) {
     
 
     while (state >= 1) {
+        printf("State: %d\n", state);
         c = getNextChar(code);
         switch (state)
         {
