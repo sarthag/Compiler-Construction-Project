@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+
 #define PRIME 31 
 #define KTSIZE 97
 #define MOD 1e9+7
@@ -23,5 +24,5 @@ typedef struct ktElement{
     bool occupied;
 }ktElement;
 
-ktElement keywordTable[KTSIZE];
+// ktElement keywordTable[KTSIZE];
 

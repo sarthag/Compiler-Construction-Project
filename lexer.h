@@ -12,5 +12,5 @@ char *getLexeme();
 
 token getNextToken(FILE* code);
 void removeComments(char *testcaseFile, char *cleanFile);
-
+token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]);
 void populate_keyword_table(); 

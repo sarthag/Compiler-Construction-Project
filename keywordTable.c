@@ -17,7 +17,6 @@ int hash(const char *lexeme){
 
 void initializeKeywordTable(ktElement keywordTable[], int size){
     for(int i = 0; i < size; i++){
-        // keywordTable[i].lexeme = "qwerty";
         keywordTable[i].occupied = false;
     }
 }
