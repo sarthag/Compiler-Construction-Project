@@ -7,11 +7,7 @@
 #define MAX_LINE_LENGTH 50
 
 char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
-<<<<<<< HEAD
 char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
-=======
-char *terminals[]={"NUM", "ID","COLON"};
->>>>>>> fcb8a47125630f669606567b1212ad0d2bef69ce
 
 int get_id(char *str, int t){
     //printf("call to get id ");

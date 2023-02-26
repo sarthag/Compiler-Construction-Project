@@ -12,6 +12,7 @@
 twinBuffer buffers;
 
 FILE* readFile(char *filename){
+    // printf("Inside readFile\n");
     FILE *code = fopen(filename , "r");
     if(code == NULL) {
         printf("File Opening Error!\n");
@@ -29,16 +30,21 @@ FILE* readFile(char *filename){
     line_no = 1;
 
     int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
+    printf("buf_size1: %d\n", buf_size1);
     buffers.buffer1[buf_size1] = '\0';
     begin = buffers.buffer1;    
     forward = buffers.buffer1;
     started = true;
+    printf("Buffer 1: %s\n", buffers.buffer1);
+    printf("Buffer 2: %s\n", buffers.buffer2);
     
     return code;
 }
 
 
 FILE* getStream(FILE *code){
+    // printf("Inside getStream\n");
+
     if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
         int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
         buffers.buffer2[buf_size2] = '\0';
@@ -60,15 +66,16 @@ FILE* getStream(FILE *code){
 
 
 char getNextChar(FILE* code) {
+    // printf("Inside getNextChar\n");
     char current = *forward;
     code = getStream(code);
     numChar++;
-    forward++; // need to figure out buffer edge cases
     return current;
 }
 
 
 token* addTokenToList(){
+    // printf("Inside addTokenToList\n");
     token* tk = (token*)malloc(sizeof(token));
     if(tokenList.start == NULL){
         tokenList.start = tk;
@@ -82,12 +89,14 @@ token* addTokenToList(){
 
 
 void resetLexeme(){
+    // printf("Inside resetLexeme\n");
     begin = forward;
     numChar = 0;
 }
 
 
 void retract(int n) {
+    // printf("Inside retract\n");
     if(forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE) {
         if(forward - buffers.buffer1 < n) {
             n -= forward - buffers.buffer1;
@@ -113,6 +122,7 @@ void retract(int n) {
 }
 
 char *getLexeme() {
+    // printf("Inside getLexeme\n");
     char *lex = (char *) malloc((numChar + 1) * sizeof(char));
     int c = 0;
     char *curr = begin;
@@ -157,6 +167,8 @@ char *getLexeme() {
         }
     }
 
+    printf("Lexeme: %s\n", lex);
+
     return lex;
 }
 
@@ -173,14 +185,16 @@ token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
 
 
 token getNextToken(FILE *code) {
+    // printf("Inside getNextToken\n");
     state = 1;
     err = 0;
     token t;
-    char c;
-    
+    char c;    
 
-    while (state >= 1) {
+    while (state >= 1 && c != '\0') {
+        printf("State: %d\n", state);
         c = getNextChar(code);
+        printf("Char: %c\n", c);
         switch (state)
         {
         case 1:
@@ -275,13 +289,13 @@ token getNextToken(FILE *code) {
                 state = 3;
             }
             else { // should be else if(c == ' ');
+                retract(1);
                 t.tid = NUM;
                 t.num = atoi(getLexeme());
                 t.line_no = line_no; 
                 resetLexeme();
                 state = 1; 
-            }//this is wrong
-            //else case should be an error to account for 23a
+            }
             // Shreyas check
             break;
 
@@ -364,22 +378,22 @@ token getNextToken(FILE *code) {
             break;
 
         case 8: //final state
-            if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
+            if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || (c >= '0' && c <= '9')) {
                 state = 8;
             }
-            else if(c == ' ') {
+            else{
+                retract(1);
                 char* lexeme = getLexeme();
-                token_key tkn = tokenizeIDorKeyword(lexeme,keyword_table);
+                token_key tkn = tokenizeIDorKeyword(lexeme, keyword_table);
                 t.tid = tkn;
                 t.lexeme = lexeme;
                 t.line_no = line_no;
                 resetLexeme();
-                retract(1);
                 state = 1; 
             }
-            //shreyas has finished making it
+            //shrayes has finished making it
             break;
-            //semicolon case has to be discussed
+        
         case 9:
             if(c == '.') {
                 state = 10;
@@ -738,6 +752,7 @@ token getNextToken(FILE *code) {
         }
     }
 }
+
 
 // int insert(char *lexeme, int token, ktElement keywordTable[]);
 void populate_keyword_table(){
