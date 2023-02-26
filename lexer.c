@@ -8,7 +8,6 @@
 7. Create a linked list for tokens. Store the tokens in a form of a linked list*/
 
 #include "lexer.h"
-#include "keywordTable.h"
 
 twinBuffer buffers;
 
@@ -161,6 +160,17 @@ char *getLexeme() {
     return lex;
 }
 
+token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
+    token_key key = getTokenFromKT(lexeme, keyword_table);
+    if(key == -1){
+        return ID; 
+    }
+    else{
+        return key;
+    }
+}
+
+
 
 token getNextToken(FILE *code) {
     state = 1;
@@ -181,7 +191,7 @@ token getNextToken(FILE *code) {
 
             else if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
                 state = 8;
-            } // shreyas figure out
+            } // shreyas has figured it out
 
             else if(c == '.') {
                 state = 9;
@@ -264,13 +274,14 @@ token getNextToken(FILE *code) {
             else if(c == '.') {
                 state = 3;
             }
-            else {
+            else { // should be else if(c == ' ');
                 t.tid = NUM;
                 t.num = atoi(getLexeme());
                 t.line_no = line_no; 
                 resetLexeme();
                 state = 1; 
-            }
+            }//this is wrong
+            //else case should be an error to account for 23a
             // Shreyas check
             break;
 
@@ -291,6 +302,7 @@ token getNextToken(FILE *code) {
                 state = 0; 
                 // Error state -3 (Invalid character after num .)
                 // Shreyas check
+                //this is fine
             }
             break;
 
@@ -356,13 +368,18 @@ token getNextToken(FILE *code) {
                 state = 8;
             }
             else if(c == ' ') {
-                char* lexeme = tokenize();
+                char* lexeme = getLexeme();
+                token_key tkn = tokenizeIDorKeyword(lexeme,keyword_table);
+                t.tid = tkn;
+                t.lexeme = lexeme;
+                t.line_no = line_no;
                 resetLexeme();
+                retract(1);
                 state = 1; 
             }
-            //shreyas make
+            //shreyas has finished making it
             break;
-
+            //semicolon case has to be discussed
         case 9:
             if(c == '.') {
                 state = 10;
@@ -756,13 +773,3 @@ void populate_keyword_table(){
 }
 
 
-// char* get(char *lexeme, ktElement keywordTable[]);
-token_key getTokenFromKT(char* lexeme, ktElement keywordTable[]){
-    int key = get(lexeme, keyword_table);
-    if(key == -1){
-        return ID; 
-    }
-    else{
-        return key;
-    }
-}
