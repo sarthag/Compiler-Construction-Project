@@ -12,7 +12,7 @@
 twinBuffer buffers;
 
 FILE* readFile(char *filename){
-    printf("Inside readFile\n");
+    // printf("Inside readFile\n");
     FILE *code = fopen(filename , "r");
     if(code == NULL) {
         printf("File Opening Error!\n");
@@ -30,6 +30,7 @@ FILE* readFile(char *filename){
     line_no = 1;
 
     int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
+    printf("buf_size1: %d\n", buf_size1);
     buffers.buffer1[buf_size1] = '\0';
     begin = buffers.buffer1;    
     forward = buffers.buffer1;
@@ -42,7 +43,7 @@ FILE* readFile(char *filename){
 
 
 FILE* getStream(FILE *code){
-    printf("Inside getStream\n");
+    // printf("Inside getStream\n");
 
     if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
         int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
@@ -65,17 +66,16 @@ FILE* getStream(FILE *code){
 
 
 char getNextChar(FILE* code) {
-    printf("Inside getNextChar\n");
+    // printf("Inside getNextChar\n");
     char current = *forward;
     code = getStream(code);
     numChar++;
-    forward++; // need to figure out buffer edge cases
     return current;
 }
 
 
 token* addTokenToList(){
-    printf("Inside addTokenToList\n");
+    // printf("Inside addTokenToList\n");
     token* tk = (token*)malloc(sizeof(token));
     if(tokenList.start == NULL){
         tokenList.start = tk;
@@ -89,14 +89,14 @@ token* addTokenToList(){
 
 
 void resetLexeme(){
-    printf("Inside resetLexeme\n");
+    // printf("Inside resetLexeme\n");
     begin = forward;
     numChar = 0;
 }
 
 
 void retract(int n) {
-    printf("Inside retract\n");
+    // printf("Inside retract\n");
     if(forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE) {
         if(forward - buffers.buffer1 < n) {
             n -= forward - buffers.buffer1;
@@ -122,7 +122,7 @@ void retract(int n) {
 }
 
 char *getLexeme() {
-    printf("Inside getLexeme\n");
+    // printf("Inside getLexeme\n");
     char *lex = (char *) malloc((numChar + 1) * sizeof(char));
     int c = 0;
     char *curr = begin;
@@ -166,8 +166,8 @@ char *getLexeme() {
             curr++;
         }
     }
-
-    printf("Lexeme: %s\n", lex);
+    lex[c] = '\0';
+    printf("Lexeme: |%s|\t numChar: %d\n", lex, numChar);
 
     return lex;
 }
@@ -175,25 +175,24 @@ char *getLexeme() {
 token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
     token_key key = getTokenFromKT(lexeme, keyword_table);
     if(key == -1){
-        return ID; 
+        return ID;
     }
-    else{
-        return key;
-    }
+    return key;
 }
 
 
 
 token getNextToken(FILE *code) {
+    // printf("Inside getNextToken\n");
     state = 1;
     err = 0;
     token t;
-    char c;
-    
+    char c;    
 
-    while (state >= 1) {
-        printf("State: %d\n", state);
+    while (state >= 1 && c != '\0') {
+        // printf("State: %d\t", state);
         c = getNextChar(code);
+        // printf("Char: |%c|\n", c);
         switch (state)
         {
         case 1:
@@ -214,9 +213,13 @@ token getNextToken(FILE *code) {
                 state = 11;
             } // done 
 
-            else if(c == '\\'){
+            else if(c == '\n'){
                 state = 12;
             } // done 
+
+            else if(c == '\t'){
+                state = 13;
+            } // done
 
             else if(c == '*'){
                 state = 15;
@@ -288,13 +291,13 @@ token getNextToken(FILE *code) {
                 state = 3;
             }
             else { // should be else if(c == ' ');
+                retract(1);
                 t.tid = NUM;
                 t.num = atoi(getLexeme());
                 t.line_no = line_no; 
                 resetLexeme();
                 state = 1; 
-            }//this is wrong
-            //else case should be an error to account for 23a
+            }
             // Shreyas check
             break;
 
@@ -327,6 +330,7 @@ token getNextToken(FILE *code) {
                 state = 5;
             }
             else {
+                retract(1);
                 t.tid = RNUM;
                 t.rnum = atof(getLexeme());
                 t.line_no = line_no; 
@@ -368,6 +372,7 @@ token getNextToken(FILE *code) {
                 state = 7;
             }
             else {
+                retract(1);
                 t.tid = RNUM;
                 t.rnum = atof(getLexeme());
                 t.line_no = line_no; 
@@ -377,22 +382,24 @@ token getNextToken(FILE *code) {
             break;
 
         case 8: //final state
-            if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
+            if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || (c >= '0' && c <= '9')) {
                 state = 8;
             }
-            else if(c == ' ') {
+            else{
+                // printf("%c\t|%c|\n", *forward, c);
+                retract(1);
+                // printf("|%c|\t|%c|\n", *forward, c);
                 char* lexeme = getLexeme();
-                token_key tkn = tokenizeIDorKeyword(lexeme,keyword_table);
+                token_key tkn = tokenizeIDorKeyword(lexeme, keyword_table);
                 t.tid = tkn;
                 t.lexeme = lexeme;
                 t.line_no = line_no;
                 resetLexeme();
-                retract(1);
                 state = 1; 
             }
-            //shreyas has finished making it
+            //shrayes has finished making it
             break;
-            //semicolon case has to be discussed
+        
         case 9:
             if(c == '.') {
                 state = 10;
@@ -405,6 +412,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 10:
+            retract(1);
             t.tid = RANGEOP;
             t.lexeme = getLexeme(); 
             t.line_no = line_no; 
@@ -417,32 +425,26 @@ token getNextToken(FILE *code) {
                 state = 11;
             }
             else{
+                retract(1);
+                resetLexeme();
                 state = 1;
             }
             break;
 
         case 12:
-            if(c == 't'){
-                state = 13;
-            }
-            else if(c == 'n'){
-                state = 14;
-            }
-            else{
-                err = -2; 
-                state = 0;
-                //error state -2 (\ with invalid character)
-            }
-            break;
-
-        case 13: //final state
-            state = 1;
-            break;
-
-        case 14: // final state
+            retract(1);
+            resetLexeme();
             line_no++;
             state = 1;
             break;
+
+        case 13: //final state
+            retract(1);
+            resetLexeme();
+            state = 1;
+            break;
+        // case 14:
+        //     break;
 
         case 15:
             if(c == '*') {
@@ -491,6 +493,7 @@ token getNextToken(FILE *code) {
             break;
         
         case 18:
+            retract(1);
             t.tid = COMMENTMARK;
             t.lexeme = getLexeme(); 
             t.line_no = line_no; 
@@ -515,6 +518,7 @@ token getNextToken(FILE *code) {
             break; 
 
         case 20:
+            retract(1);
             t.tid = ASSIGNOP; 
             t.lexeme = getLexeme(); 
             t.line_no = line_no;
@@ -541,6 +545,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 22:
+            retract(1);
             t.tid = GE;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -563,6 +568,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 24:
+            retract(1);
             t.tid = DRIVERENDDEF;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -602,13 +608,16 @@ token getNextToken(FILE *code) {
             break;
 
         case 27:
+            retract(1);
             t.tid = DRIVERDEF;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1;
             break;
 
         case 28:
+            retract(1);
             t.tid = LE;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -627,6 +636,7 @@ token getNextToken(FILE *code) {
             break;
         
         case 30: 
+            retract(1);
             t.tid = NE;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -646,6 +656,7 @@ token getNextToken(FILE *code) {
             break;
         
         case 32: 
+            retract(1);
             t.tid = EQ;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -654,6 +665,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 33: 
+            retract(1);
             t.tid = MINUS;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -662,6 +674,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 34: 
+            retract(1);
             t.tid = PLUS;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -670,6 +683,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 35: 
+            retract(1);
             t.tid = COMMA;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -678,6 +692,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 36: 
+            retract(1);
             t.tid = SEMICOL;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -686,6 +701,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 37: 
+            retract(1);
             t.tid = DIV;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -694,6 +710,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 38: 
+            retract(1);
             t.tid = BO;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -702,6 +719,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 39: 
+            retract(1);
             t.tid = BC;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -710,6 +728,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 40: 
+            retract(1);
             t.tid = SQBO;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -718,6 +737,7 @@ token getNextToken(FILE *code) {
             break;
 
         case 41: 
+            retract(1);
             t.tid = SQBC;
             t.lexeme = getLexeme();
             t.line_no = line_no;
@@ -752,8 +772,10 @@ token getNextToken(FILE *code) {
     }
 }
 
+
 // int insert(char *lexeme, int token, ktElement keywordTable[]);
 void populate_keyword_table(){
+    initializeKeywordTable(keyword_table, KTSIZE);
     insert("AND", AND, keyword_table);
     insert("array", ARRAY, keyword_table);
     insert("boolean", BOOLEAN, keyword_table);
@@ -761,6 +783,7 @@ void populate_keyword_table(){
     insert("case", CASE, keyword_table);
     insert("declare", DECLARE, keyword_table);
     insert("default", DEFAULT, keyword_table);
+    insert("driver", DRIVER, keyword_table);
     insert("end", END, keyword_table);
     insert("for", FOR, keyword_table);
     insert("get_value", GET_VALUE, keyword_table);
