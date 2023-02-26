@@ -3,8 +3,36 @@
 //array of LHS grammar G 
 
 #define NUM_OF_RULES 7
+<<<<<<< HEAD
+#define NUM_OF_TERMINALS 4
+#define NUM_OF_NONTERMINALS 4
+=======
 #define NUM_OF_TERMINALS 3
-#define NUM_OF_NONTERMINALS 5
+#define NUM_OF_NONTERMINALS 4
+#define PT_COLS 4
+>>>>>>> fcb8a47125630f669606567b1212ad0d2bef69ce
+
+typedef struct rhs_struct{
+    int rhs_id;
+    bool isTerminal;
+    struct rhs_struct* nextRHS;
+} rhs;
+
+typedef struct {
+    int lhs_id;
+    rhs* firstRHS;
+} lhs; 
+
+
+bool First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+bool firstDone[NUM_OF_NONTERMINALS];
+
+
+lhs G[NUM_OF_RULES];
+int parse_table[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1];
+//array of follow and first
+
+//array of parsing table
 
 /*
 typedef enum {
@@ -20,23 +48,3 @@ typedef union {
     non_term nt;
 }symb;
 */
-typedef struct rhs_struct{
-    int rhs_id;
-    bool isTerminal;
-    struct rhs_struct* nextRHS;
-} rhs;
-
-typedef struct {
-    int lhs_id;
-    rhs* firstRHS;
-} lhs; 
-
-
-
-
-
-lhs G[NUM_OF_RULES];
-
-//array of follow and first
-
-//array of parsing table

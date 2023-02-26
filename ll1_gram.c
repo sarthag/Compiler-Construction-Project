@@ -5,16 +5,24 @@
 #include <string.h>
 
 #define MAX_LINE_LENGTH 50
-#define NO_NON_TERMINALS 4
-#define NO_TERMINALS 3
+
 char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
-char *terminals[]={"NUM", "ID", "COLON"};
+<<<<<<< HEAD
+char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
+=======
+char *terminals[]={"NUM", "ID","COLON"};
+>>>>>>> fcb8a47125630f669606567b1212ad0d2bef69ce
 
 int get_id(char *str, int t){
     //printf("call to get id ");
     //t= 0 for non terminal and 1 and terminal
+    //the id for epsilong is -1
+    //id returned is -2 if it isn't detected 
+    if(strcmp(str, "epsilon")==0){
+        return -1;
+    }
     if(t==0){
-        for(int i=0;i< NO_NON_TERMINALS; i++ ){
+        for(int i=0;i< NUM_OF_NONTERMINALS; i++ ){
             if(strcmp(non_terminals[i], str)==0){
                 //printf("strcmp value %d ", strcmp(non_terminals[i], str));
                 //printf("%s \n", non_terminals[i]);
@@ -24,7 +32,7 @@ int get_id(char *str, int t){
         }
     }
     else {
-        for(int i=0;i< NO_TERMINALS; i++ ){
+        for(int i=0;i< NUM_OF_TERMINALS; i++ ){
         if(strcmp(terminals[i], str)==0){
             return i;
         }
@@ -32,7 +40,7 @@ int get_id(char *str, int t){
     }
     }
     printf("not detected \n");
-    return -1;
+    return -2;
     
 }
 bool isTerm(char* str){
@@ -49,7 +57,7 @@ bool isTerm(char* str){
 
 
 void generateGrammar(){
-    FILE *fp = fopen("grammar_noepsilon.txt", "r");
+    FILE *fp = fopen("grammar_fake.txt", "r");
     if(fp ==NULL){
         printf("Error in opening the file ");
     }
@@ -102,7 +110,7 @@ int main(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
     generateGrammar();
-    for(int i=0;i<7;i++){
+    for(int i=0;i<NUM_OF_RULES;i++){
         printf("LHS_ID %d ", G[i].lhs_id);
         rhs *temp=G[i].firstRHS;
         while(temp!=NULL){
