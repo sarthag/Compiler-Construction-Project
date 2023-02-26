@@ -37,11 +37,7 @@ void populate_parse_table(){
 int main(){
     generateGrammar();
     populate_parse_table();
-    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
-        for(int j=0;j<PT_COLS;j++){
-            printf("%d ", parse_table[i][j]);
-        }
-        printf("\n");
-    }
+
+    parse_code();
     return 0;
 }
