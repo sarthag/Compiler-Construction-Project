@@ -1,7 +1,7 @@
 start module otherModules moduleDef
 module NUM 
 module ID 
-module epsilon 
+module EPSILON
 otherModules ID
-otherModules epsilon
+otherModules EPSILON
 moduleDef COLON 
