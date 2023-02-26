@@ -13,14 +13,6 @@ typedef struct twinBuffer{
     char buffer2[BUFFERSIZE+1];
 }twinBuffer;
 
-//Linked List to Store Tokens
-typedef struct tokenLL{
-    token* start;
-    token* end;
-    int tokenCount;
-
-}tokenLL;
-
 
 typedef struct token{
     token_key tid; 
@@ -32,6 +24,14 @@ typedef struct token{
     int line_no; 
     struct token *next; // Makes the struct a linked list
 } token;
+
+//Linked List to Store Tokens
+typedef struct tokenLL{
+    token* start;
+    token* end;
+    int tokenCount;
+
+}tokenLL;
 
 //end of TOKEN LL
 

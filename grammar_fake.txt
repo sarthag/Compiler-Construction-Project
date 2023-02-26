@@ -1,7 +1,11 @@
 start module otherModules moduleDef
 module NUM 
 module ID 
+<<<<<<< HEAD
 module EPSILON 
+=======
+module EPSILON
+>>>>>>> fcb8a47125630f669606567b1212ad0d2bef69ce
 otherModules ID
 otherModules EPSILON
 moduleDef COLON 
