@@ -5,7 +5,7 @@
 #define NUM_OF_RULES 7
 #define NUM_OF_TERMINALS 4
 #define NUM_OF_NONTERMINALS 4
-#define PT_COLS 4
+#define PT_COLSgit 4
 
 typedef struct rhs_struct{
     int rhs_id;
