@@ -268,6 +268,7 @@ token getNextToken(FILE *code) {
                 t.tid = NUM;
                 t.num = atoi(getLexeme());
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
             }
             // Shreyas check
@@ -282,6 +283,7 @@ token getNextToken(FILE *code) {
                 t.tid = NUM;
                 t.num = atoi(getLexeme());
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
             }
             else {
@@ -303,6 +305,7 @@ token getNextToken(FILE *code) {
                 t.tid = RNUM;
                 t.rnum = atof(getLexeme());
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
             }
             break;
@@ -319,6 +322,7 @@ token getNextToken(FILE *code) {
                 t.tid = RNUM;
                 t.rnum = atof(getLexeme());
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
             }
             break;
@@ -342,6 +346,7 @@ token getNextToken(FILE *code) {
                 t.tid = RNUM;
                 t.rnum = atof(getLexeme());
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
             }
             break;
@@ -373,6 +378,7 @@ token getNextToken(FILE *code) {
             t.tid = RANGEOP;
             t.lexeme = getLexeme(); 
             t.line_no = line_no; 
+            resetLexeme();
             state = 1; 
             break;
 
@@ -417,6 +423,7 @@ token getNextToken(FILE *code) {
                 t.tid = MUL;
                 t.lexeme = getLexeme(); 
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
             }
             break;
@@ -457,6 +464,7 @@ token getNextToken(FILE *code) {
             t.tid = COMMENTMARK;
             t.lexeme = getLexeme(); 
             t.line_no = line_no; 
+            resetLexeme();
             state = 1; 
             break;
 
@@ -470,6 +478,7 @@ token getNextToken(FILE *code) {
                 t.tid = COLON;
                 t.lexeme = getLexeme(); 
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
                 break;
             }
@@ -478,7 +487,8 @@ token getNextToken(FILE *code) {
         case 20:
             t.tid = ASSIGNOP; 
             t.lexeme = getLexeme(); 
-            t.line_no = line_no; 
+            t.line_no = line_no;
+            resetLexeme(); 
             state = 1; 
             break; 
 
@@ -494,6 +504,7 @@ token getNextToken(FILE *code) {
                 t.tid = GT;
                 t.lexeme = getLexeme(); 
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
                 //retract and tokenize;
             }
@@ -515,6 +526,7 @@ token getNextToken(FILE *code) {
                 t.tid = ENDDEF;
                 t.lexeme = getLexeme(); 
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
                 //retract and tokenize
             }
@@ -539,6 +551,7 @@ token getNextToken(FILE *code) {
                 t.tid = LT;
                 t.lexeme = getLexeme(); 
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
                 //retract and tokenize;
             }
@@ -553,6 +566,7 @@ token getNextToken(FILE *code) {
                 t.tid = DEF;
                 t.lexeme = getLexeme(); 
                 t.line_no = line_no; 
+                resetLexeme();
                 state = 1; 
             }
             break;
@@ -586,6 +600,7 @@ token getNextToken(FILE *code) {
             t.tid = NE;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -604,6 +619,7 @@ token getNextToken(FILE *code) {
             t.tid = EQ;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -611,6 +627,7 @@ token getNextToken(FILE *code) {
             t.tid = MINUS;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -618,6 +635,7 @@ token getNextToken(FILE *code) {
             t.tid = PLUS;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -625,6 +643,7 @@ token getNextToken(FILE *code) {
             t.tid = COMMA;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -632,6 +651,7 @@ token getNextToken(FILE *code) {
             t.tid = SEMICOL;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -639,6 +659,7 @@ token getNextToken(FILE *code) {
             t.tid = DIV;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -646,6 +667,7 @@ token getNextToken(FILE *code) {
             t.tid = BO;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -653,6 +675,7 @@ token getNextToken(FILE *code) {
             t.tid = BC;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -660,6 +683,7 @@ token getNextToken(FILE *code) {
             t.tid = SQBO;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
@@ -667,6 +691,7 @@ token getNextToken(FILE *code) {
             t.tid = SQBC;
             t.lexeme = getLexeme();
             t.line_no = line_no;
+            resetLexeme();
             state = 1; 
             break;
 
