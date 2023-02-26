@@ -39,6 +39,8 @@ int get_id(char *str, int t){
     return -2;
     
 }
+
+
 bool isTerm(char* str){
     if(str[0] >= 65 && str[0]<= 90){
         return 1;
@@ -50,8 +52,6 @@ bool isTerm(char* str){
 }
 
 
-
-
 void generateGrammar(){
     FILE *fp = fopen("grammar_fake.txt", "r");
     if(fp ==NULL){
@@ -60,63 +60,63 @@ void generateGrammar(){
     char lineBuf[MAX_LINE_LENGTH];
     int rule_no = 0;
     
-    rhs prev_rhs;
     while(fgets(lineBuf, sizeof(lineBuf), fp)!=NULL ){
         char *str;
         rhs *firstRHS = NULL;
         rhs *prev_rhs = NULL;
+
         str=strtok(lineBuf, " \n");
-        for(int i=0;str!=NULL; i++){
+        for(int i = 0; str != NULL; i++){
             if(i==0){
                 //lhs
                 G[rule_no].lhs_id = get_id(str, 0);
                 G[rule_no].firstRHS = NULL;   
             }
             else {
+                rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
+                new_rhs->isTerminal = isTerm(str);
+                new_rhs->rhs_id = get_id(str, new_rhs->isTerminal);
+                new_rhs->nextRHS = NULL;
+                
                 if(prev_rhs==NULL){
                     //first rule of rhs 
-                    rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
-                    new_rhs->isTerminal = isTerm(str);
-                    new_rhs->rhs_id = get_id(str, new_rhs->isTerminal);
-                    new_rhs->nextRHS = NULL;
                     firstRHS = new_rhs;
-                    prev_rhs = new_rhs;
                 }
                 else{
                     //other rules of rhs
-                    rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
-                    new_rhs->isTerminal = isTerm(str);
-                    new_rhs->rhs_id = get_id(str, new_rhs->isTerminal);
-                    new_rhs->nextRHS = NULL;
                     prev_rhs->nextRHS = new_rhs;
-                    prev_rhs = new_rhs;
                 }
+                
+                new_rhs->prevRHS = prev_rhs;
+                prev_rhs = new_rhs;
                 
             }
             str=strtok(NULL, " \n");
         }
-        G[rule_no].firstRHS=firstRHS;
+        G[rule_no].firstRHS = firstRHS;
+        G[rule_no].lastRHS = prev_rhs;
         rule_no++;
     }
 
 
 }
-/*
+
 int main(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
     generateGrammar();
     for(int i=0;i<NUM_OF_RULES;i++){
         printf("LHS_ID %d ", G[i].lhs_id);
-        rhs *temp=G[i].firstRHS;
-        while(temp!=NULL){
+        // printf("Tail: %d", G[i].lastRHS->rhs_id);
+        rhs *temp = G[i].lastRHS;
+        while(temp != NULL){
             printf("RHS_ID %d ", temp->rhs_id);
-            temp=temp->nextRHS;
+            temp=temp->prevRHS;
         }
         printf("\n");
         
     }
     return 0;
 }
-*/
+
 
