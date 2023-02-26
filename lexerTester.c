@@ -4,8 +4,19 @@ void printtokenLL(tokenLL tkll){
     printf("Token Count : %d\n",tkll.tokenCount);
     token* tk = tkll.start;
     while(tk !=NULL){
-        printf("|TokenID: %d ; Token Lexeme: ; Token LineNo : %d | -> ",tk->tid,tk -> line_no);
-        tk = tk -> next;
+        switch(tk -> tid){
+            case(RNUM):
+                printf("|TokenID: %d ; Token RNUM:%f ; Token LineNo : %d |\n",tk->tid,tk -> rnum , tk -> line_no);
+                break;
+            case(NUM):
+                printf("|TokenID: %d ; Token NUM:%d ; Token LineNo : %d |\n",tk->tid,tk -> num , tk -> line_no);
+                break;
+            default:
+                printf("|TokenID: %d ; Token Lexeme:%s ; Token LineNo : %d |\n",tk->tid,tk -> lexeme , tk -> line_no);
+                break;
+
+        }
+        tk = tk ->next;
     }
     printf("NULL\n");
 }
@@ -16,7 +27,7 @@ int main(){
     FILE* code;
     code = readFile("testcode");
     token t = getNextToken(code);
-    printf("Token ID: %d\n", t.tid);
+    printf("Lexeme Count: %d\n", lexemeCount);
     printtokenLL(tokenList);
 
 }
