@@ -8,7 +8,6 @@
 7. Create a linked list for tokens. Store the tokens in a form of a linked list*/
 
 #include "lexer.h"
-#include "keywordTable.h"
 
 twinBuffer buffers;
 
@@ -161,7 +160,6 @@ char *getLexeme() {
     return lex;
 }
 
-// char* getTokenFromKT(char *lexeme, ktElement keywordTable[]);
 token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
     token_key key = getTokenFromKT(lexeme, keyword_table);
     if(key == -1){
@@ -370,10 +368,10 @@ token getNextToken(FILE *code) {
                 state = 8;
             }
             else if(c == ' ') {
-                // char* lexeme = tokenize();
+                char* lexeme = getLexeme();
                 token_key tkn = tokenizeIDorKeyword(lexeme,keyword_table);
                 t.tid = tkn;
-                t.lexeme = getLexeme();
+                t.lexeme = lexeme;
                 t.line_no = line_no;
                 resetLexeme();
                 retract(1);

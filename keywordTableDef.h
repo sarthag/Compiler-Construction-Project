@@ -1,3 +1,6 @@
+#ifndef KEYWORDTABLDEF_H
+#define KEYWORDTABLEDEF_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,3 +29,4 @@ typedef struct ktElement{
 
 // ktElement keywordTable[KTSIZE];
 
+#endif
