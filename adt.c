@@ -87,6 +87,7 @@ void insert_child(tree_node *parent, tree_node *child) {
 
 
 void set_sibling(tree_node *node, tree_node *sibling) {
+    sibling->parent = node->parent;
     if (node->right_sibling == NULL) {
         node->right_sibling = sibling;
     }
@@ -138,20 +139,19 @@ void print_parse_tree(parse_tree *tree) {
 
 
 int main(){
-    stack *s = (stack*)malloc(sizeof(struct Stack));
-    initStack(s);
-
+    parse_tree *pt = create_parse_tree();
     non_terminal *nt = (non_terminal*)malloc(sizeof(struct nonTerminal));
     nt->nid = 0;
+    tree_node* st = create_node(NON_TERMINAL, nt);
+    pt->root = st; 
     token *t = (token*)malloc(sizeof(struct token));
     t->tid = 69;
+    tree_node* t1 = create_node(TERMINAL, t);
+    insert_child(pt->root, t1);
 
+    printf("Rootid: %d", pt->root->left_child->element.t.tid);
 
-    push(s, NON_TERMINAL, nt);
-    push(s, TERMINAL, t);
-    printf("Size: %d, Topid: %d", s->size, s->top->element.t.tid);
-
-    stack_node* t1 = (stack_node*)malloc(sizeof(struct stack_node));
-    t1 = pop(s);
-    printf("Size: %d, popid: %d", s->size, t1->element.t.tid);
+    // stack_node* t1 = (stack_node*)malloc(sizeof(struct stack_node));
+    // t1 = pop(s);
+    // printf("Size: %d, popid: %d", s->size, t1->element.t.tid);
 }

@@ -39,8 +39,8 @@ typedef struct nonTerminal{
 
 
 typedef enum {
-    TERMINAL,
-    NON_TERMINAL
+    NON_TERMINAL,
+    TERMINAL
 } node_type;
 
 
