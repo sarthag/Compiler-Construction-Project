@@ -1,5 +1,5 @@
 #include "parser.h"
-
+#include "adt.h"
 
 //populate fake values of first and follow
 bool first[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{1,1,0,1}, {1,1,0,1}, {0,1,0,1}, {0,0,1,0}};
@@ -31,7 +31,14 @@ void populate_parse_table(){
     }
 }
 
+void InitializeParser(){
+    parserStack = (stack*) malloc(sizeof(stack));
+    initStack(parserStack);
+    push(parserStack, TERMINAL, $);
+    push(parserStack, NON_TERMINAL,start);
+    parseTree = create_parse_tree();
 
+}
 void parse_code(){
     
 }
