@@ -38,6 +38,7 @@ bool Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS] = {0};
 lhs G[NUM_OF_RULES];
 int parse_table[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1];
 //array of follow and first
-
+stack* parserStack;
+parse_tree* parseTree;
 
 #endif
