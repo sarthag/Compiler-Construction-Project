@@ -15,6 +15,7 @@ void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
             
             findFirst(G[i], First, firstDone);
             for(int i = 0; i < NUM_OF_TERMINALS; i++){
+                if (First[temp->rhs_id][i] == 1)
                 First[target.lhs_id][i] = First[temp->rhs_id][i];
                 firstDone[target.lhs_id] = 1;
             }
@@ -35,6 +36,7 @@ void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
             findFirst(G[i], First, firstDone);
         }
         for(int i = 0; i < NUM_OF_TERMINALS; i++){
+            if(First[temp->rhs_id][i] == 1)
             First[target.lhs_id][i] = First[temp->rhs_id][i];
             firstDone[target.lhs_id] = 1;
         }
@@ -66,7 +68,7 @@ void findFollow(lhs start, rhs *target, rhs *temp, bool Follow[][NUM_OF_TERMINAL
     rhs *temp2 = temp->nextRHS;
     if(temp2 == NULL){
         for(int i =0; i < NUM_OF_TERMINALS; i++){
-            
+            if (Follow[start.lhs_id][i] == 1)
             Follow[target->rhs_id][i] = Follow[start.lhs_id][i];
         }
         return; 
