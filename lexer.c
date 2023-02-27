@@ -24,7 +24,7 @@ FILE* readFile(char *filename){
     tokenList.start = NULL;
     tokenList.end = NULL;
     tokenList.tokenCount = 0;
-
+    lexemeCount = 0;
     eof = false;
     numChar = 0;
     line_no = 1;
@@ -83,7 +83,7 @@ token* addTokenToList(){
     else{
         tokenList.end -> next = tk;
     }
-
+    tokenList.tokenCount++;
     return tokenList.end = tk;
 }
 
@@ -167,6 +167,7 @@ char *getLexeme() {
         }
     }
     lex[c] = '\0';
+    lexemeCount++;
     printf("Lexeme: |%s|\t numChar: %d\n", lex, numChar);
 
     return lex;
@@ -186,7 +187,7 @@ token getNextToken(FILE *code) {
     printf("Inside getNextToken\n");
     state = 1;
     err = 0;
-    token t;
+    token* t;
     char c;    
 
     while (state >= 1 && c != '\0') {
@@ -196,7 +197,7 @@ token getNextToken(FILE *code) {
         switch (state)
         {
         case 1:
-            t = *addTokenToList();
+            // t = addTokenToList();
             if(c >= '0' && c <= '9') {
                 state = 2;
             } // shreyas check
@@ -292,9 +293,10 @@ token getNextToken(FILE *code) {
             }
             else { // should be else if(c == ' ');
                 retract(1);
-                t.tid = NUM;
-                t.num = atoi(getLexeme());
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = NUM;
+                t -> num = atoi(getLexeme());
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
             }
@@ -307,9 +309,10 @@ token getNextToken(FILE *code) {
             }
             else if (c == '.') {
                 retract(2);
-                t.tid = NUM;
-                t.num = atoi(getLexeme());
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = NUM;
+                t -> num = atoi(getLexeme());
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
             }
@@ -331,9 +334,10 @@ token getNextToken(FILE *code) {
             }
             else {
                 retract(1);
-                t.tid = RNUM;
-                t.rnum = atof(getLexeme());
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = RNUM;
+                t -> rnum = atof(getLexeme());
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
             }
@@ -348,9 +352,10 @@ token getNextToken(FILE *code) {
             }
             else {
                 retract(1);
-                t.tid = RNUM;
-                t.rnum = atof(getLexeme());
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = RNUM;
+                t -> rnum = atof(getLexeme());
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
             }
@@ -373,9 +378,10 @@ token getNextToken(FILE *code) {
             }
             else {
                 retract(1);
-                t.tid = RNUM;
-                t.rnum = atof(getLexeme());
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = RNUM;
+                t -> rnum = atof(getLexeme());
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
             }
@@ -391,9 +397,10 @@ token getNextToken(FILE *code) {
                 // printf("|%c|\t|%c|\n", *forward, c);
                 char* lexeme = getLexeme();
                 token_key tkn = tokenizeIDorKeyword(lexeme, keyword_table);
-                t.tid = tkn;
-                t.lexeme = lexeme;
-                t.line_no = line_no;
+                t = addTokenToList();
+                t -> tid = tkn;
+                t -> lexeme = lexeme;
+                t -> line_no = line_no;
                 resetLexeme();
                 state = 1; 
             }
@@ -413,9 +420,10 @@ token getNextToken(FILE *code) {
 
         case 10:
             retract(1);
-            t.tid = RANGEOP;
-            t.lexeme = getLexeme(); 
-            t.line_no = line_no; 
+            t = addTokenToList();
+            t -> tid = RANGEOP;
+            t -> lexeme = getLexeme(); 
+            t -> line_no = line_no; 
             resetLexeme();
             state = 1; 
             break;
@@ -452,9 +460,10 @@ token getNextToken(FILE *code) {
             }
             else {
                 retract(1);
-                t.tid = MUL;
-                t.lexeme = getLexeme(); 
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = MUL;
+                t -> lexeme = getLexeme(); 
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
             }
@@ -489,9 +498,10 @@ token getNextToken(FILE *code) {
         
         case 18:
             retract(1);
-            t.tid = COMMENTMARK;
-            t.lexeme = getLexeme(); 
-            t.line_no = line_no; 
+            t = addTokenToList();
+            t -> tid = COMMENTMARK;
+            t -> lexeme = getLexeme(); 
+            t -> line_no = line_no; 
             resetLexeme();
             state = 1; 
             break;
@@ -503,9 +513,10 @@ token getNextToken(FILE *code) {
 
             else{
                 retract(1);
-                t.tid = COLON;
-                t.lexeme = getLexeme(); 
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = COLON;
+                t -> lexeme = getLexeme(); 
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
                 break;
@@ -514,9 +525,10 @@ token getNextToken(FILE *code) {
 
         case 20:
             retract(1);
-            t.tid = ASSIGNOP; 
-            t.lexeme = getLexeme(); 
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = ASSIGNOP; 
+            t -> lexeme = getLexeme(); 
+            t -> line_no = line_no;
             resetLexeme(); 
             state = 1; 
             break; 
@@ -530,9 +542,10 @@ token getNextToken(FILE *code) {
             }
             else{
                 retract(1);
-                t.tid = GT;
-                t.lexeme = getLexeme(); 
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = GT;
+                t -> lexeme = getLexeme(); 
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
                 //retract and tokenize;
@@ -541,9 +554,10 @@ token getNextToken(FILE *code) {
 
         case 22:
             retract(1);
-            t.tid = GE;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = GE;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             state = 1;
             break;
 
@@ -553,9 +567,10 @@ token getNextToken(FILE *code) {
             }
             else{
                 retract(1);
-                t.tid = ENDDEF;
-                t.lexeme = getLexeme(); 
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = ENDDEF;
+                t -> lexeme = getLexeme(); 
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
                 //retract and tokenize
@@ -564,9 +579,10 @@ token getNextToken(FILE *code) {
 
         case 24:
             retract(1);
-            t.tid = DRIVERENDDEF;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = DRIVERENDDEF;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             state = 1;
             break;
 
@@ -579,9 +595,10 @@ token getNextToken(FILE *code) {
             }
             else{
                 retract(1);
-                t.tid = LT;
-                t.lexeme = getLexeme(); 
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = LT;
+                t -> lexeme = getLexeme(); 
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
                 //retract and tokenize;
@@ -594,9 +611,10 @@ token getNextToken(FILE *code) {
             }
             else{
                 retract(1);
-                t.tid = DEF;
-                t.lexeme = getLexeme(); 
-                t.line_no = line_no; 
+                t = addTokenToList();
+                t -> tid = DEF;
+                t -> lexeme = getLexeme(); 
+                t -> line_no = line_no; 
                 resetLexeme();
                 state = 1; 
             }
@@ -604,18 +622,20 @@ token getNextToken(FILE *code) {
 
         case 27:
             retract(1);
-            t.tid = DRIVERDEF;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = DRIVERDEF;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1;
             break;
 
         case 28:
             retract(1);
-            t.tid = LE;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = LE;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             state = 1;
             break;
 
@@ -632,9 +652,10 @@ token getNextToken(FILE *code) {
         
         case 30: 
             retract(1);
-            t.tid = NE;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = NE;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
@@ -652,90 +673,100 @@ token getNextToken(FILE *code) {
         
         case 32: 
             retract(1);
-            t.tid = EQ;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = EQ;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 33: 
             retract(1);
-            t.tid = MINUS;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = MINUS;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 34: 
             retract(1);
-            t.tid = PLUS;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = PLUS;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 35: 
             retract(1);
-            t.tid = COMMA;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = COMMA;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 36: 
             retract(1);
-            t.tid = SEMICOL;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = SEMICOL;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 37: 
             retract(1);
-            t.tid = DIV;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = DIV;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 38: 
             retract(1);
-            t.tid = BO;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = BO;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 39: 
             retract(1);
-            t.tid = BC;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = BC;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 40: 
             retract(1);
-            t.tid = SQBO;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = SQBO;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;
 
         case 41: 
             retract(1);
-            t.tid = SQBC;
-            t.lexeme = getLexeme();
-            t.line_no = line_no;
+            t = addTokenToList();
+            t -> tid = SQBC;
+            t -> lexeme = getLexeme();
+            t -> line_no = line_no;
             resetLexeme();
             state = 1; 
             break;

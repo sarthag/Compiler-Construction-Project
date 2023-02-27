@@ -46,4 +46,5 @@ int numChar;
 int state;
 int err;
 tokenLL tokenList;
+int lexemeCount;
 #endif
