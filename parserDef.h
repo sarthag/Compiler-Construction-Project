@@ -32,7 +32,7 @@ bool firstDone[NUM_OF_NONTERMINALS];
 
 
 bool Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS] = {0};
-Follow[0][NUM_OF_TERMINALS - 1] = 1;
+
 
 
 lhs G[NUM_OF_RULES];

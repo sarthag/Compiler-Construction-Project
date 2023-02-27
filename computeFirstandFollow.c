@@ -94,6 +94,9 @@ void computeFirstandFollow (){
             printf("%d", First[j][i]);
         }
     }
+
+    Follow[0][NUM_OF_TERMINALS - 1] = 1;
+
     for(int j = 0; j < NUM_OF_RULES; j++){
         rhs * target = G[j].firstRHS;
         while (target != NULL)
