@@ -498,10 +498,10 @@ token getNextToken(FILE *code) {
         
         case 18:
             retract(1);
-            t = addTokenToList();
-            t -> tid = COMMENTMARK;
-            t -> lexeme = getLexeme(); 
-            t -> line_no = line_no; 
+            // t = addTokenToList();
+            // t -> tid = COMMENTMARK;
+            // t -> lexeme = getLexeme(); 
+            // t -> line_no = line_no; 
             resetLexeme();
             state = 1; 
             break;

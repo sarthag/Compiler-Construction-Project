@@ -6,13 +6,13 @@ void printtokenLL(tokenLL tkll){
     while(tk !=NULL){
         switch(tk -> tid){
             case(RNUM):
-                printf("|TokenID: %d ; Token RNUM:%f ; Token LineNo : %d |\n",tk->tid,tk -> rnum , tk -> line_no);
+                printf("|ID: %02d | RNUM: |%f| \t LineNo: %d |\n",tk->tid,tk -> rnum , tk -> line_no);
                 break;
             case(NUM):
-                printf("|TokenID: %d ; Token NUM:%d ; Token LineNo : %d |\n",tk->tid,tk -> num , tk -> line_no);
+                printf("|ID: %02d | NUM: |%d| \t LineNo: %d |\n",tk->tid,tk -> num , tk -> line_no);
                 break;
             default:
-                printf("|TokenID: %d ; Token Lexeme:%s ; Token LineNo : %d |\n",tk->tid,tk -> lexeme , tk -> line_no);
+                printf("|ID: %02d | Lexeme: |%s| \t LineNo: %d |\n",tk->tid,tk -> lexeme , tk -> line_no);
                 break;
 
         }
@@ -25,7 +25,7 @@ int main(){
     populate_keyword_table(keyword_table, KTSIZE);
     printKeywordTable(keyword_table, KTSIZE);
     FILE* code;
-    code = readFile("C://Shreyas//BITS_PILANI//3-2//Compiler_Construction//Compiler-Construction-Project//test_cases (stage_1)//t6(with_syntax_errors).txt");
+    code = readFile("C://Users//Shaz//Compiler-Construction-Project//test_cases (stage_1)//t5.txt");
     token t = getNextToken(code);
     printf("Lexeme Count: %d\n", lexemeCount);
     printtokenLL(tokenList);
