@@ -5,8 +5,8 @@
 
 //Stack
 void initStack(stack* s);
-stack_node* create_stack_node(node_type type, void* element);
-void push(stack* s, node_type type, void* element);
+stack_node* create_stack_node(node_type type, void* element, tree_node* treeLocation);
+void push(stack* s, node_type type, void* element, tree_node* treeLocation);
 stack_node* pop(stack* s);
 
 

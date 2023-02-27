@@ -51,6 +51,7 @@ typedef struct stack_node {
         token t;
     } element;
     struct stack_node *next;
+    struct tree_node *treeLocation;
 } stack_node;
 
 

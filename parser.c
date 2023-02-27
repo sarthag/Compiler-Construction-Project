@@ -34,9 +34,10 @@ void populate_parse_table(){
 void InitializeParser(){
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
-    push(parserStack, TERMINAL, $);
-    push(parserStack, NON_TERMINAL,start);
+    push(parserStack, TERMINAL, $, NULL);
+    push(parserStack, NON_TERMINAL, start, parseTree->root);
     parseTree = create_parse_tree();
+    parseTree->root = create_node(NON_TERMINAL, start);
     L = NULL;
 }
 
@@ -54,7 +55,7 @@ void parse_code(){
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
             if (x->element.t.tid == L->tid){
-                pop(parserStack);           //make node in parse tree, copy token information
+                pop(parserStack);           
                 L = getNextTk(tokenList, L);
             }
             else{
@@ -63,14 +64,18 @@ void parse_code(){
         }
         else if (x->type == NON_TERMINAL){
             if (parse_table[x->element.nt.nid][L->tid] != 0){
-                pop(parserStack);
+                stack_node* parent = pop(parserStack);
                 rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
                 while (toPush->prevRHS != NULL)
-                {
-                    push(parserStack, toPush->isTerminal, toPush->rhs_id);
+                {   
+                    tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
+                    insert_child(x->treeLocation, temp);
+                    push(parserStack, toPush->isTerminal, toPush->rhs_id, &temp);
                     toPush = toPush->prevRHS;
                 }
-                push(parserStack, toPush->isTerminal, toPush->rhs_id);
+                tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
+                insert_child(x->treeLocation, temp);
+                push(parserStack, toPush->isTerminal, toPush->rhs_id, x->treeLocation);
             }
             else{
                 printf("Non terminal doesnt exist");

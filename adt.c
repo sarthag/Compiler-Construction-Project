@@ -7,7 +7,7 @@ void initStack(stack* s) {
 }
 
 
-stack_node* create_stack_node(node_type type, void* element) {
+stack_node* create_stack_node(node_type type, void* element, tree_node* treeLocation) {
     stack_node* new_node = (stack_node*) malloc(sizeof(stack_node));
     new_node->type = type;
     if (type == TERMINAL) {
@@ -17,13 +17,14 @@ stack_node* create_stack_node(node_type type, void* element) {
     else {
         new_node->element.nt = *(non_terminal*)element;
     }
+    new_node->treeLocation = treeLocation;
     new_node->next = NULL;
     return new_node;
 }
 
 
-void push(stack* s, node_type type, void* element) {
-    stack_node* new_node = create_stack_node(type, element);
+void push(stack* s, node_type type, void* element, tree_node* treeLocation) {
+    stack_node* new_node = create_stack_node(type, element, treeLocation);
     new_node->next = s->top;
     s->top = new_node;
     s->size++;
