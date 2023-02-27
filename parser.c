@@ -37,10 +37,56 @@ void InitializeParser(){
     push(parserStack, TERMINAL, $);
     push(parserStack, NON_TERMINAL,start);
     parseTree = create_parse_tree();
-
+    L = NULL;
 }
+
+
+token * getNextTk(tokenLL tokenList, token * current){
+    if (current == NULL){
+        return tokenList.start;
+    }
+    return current->next;
+}
+
 void parse_code(){
-    
+    L = getNextTk(tokenList, L);
+    while(L != NULL){
+        stack_node* x = parserStack->top;
+        if (x->type == TERMINAL){
+            if (x->element.t.tid == L->tid){
+                pop(parserStack);           //make node in parse tree, copy token information
+                L = getNextTk(tokenList, L);
+            }
+            else{
+                printf("Terminal Mismatch"); //implement syncronisation set
+            }
+        }
+        else if (x->type == NON_TERMINAL){
+            if (parse_table[x->element.nt.nid][L->tid] != 0){
+                pop(parserStack);
+                rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
+                while (toPush->prevRHS != NULL)
+                {
+                    push(parserStack, toPush->isTerminal, toPush->rhs_id);
+                    toPush = toPush->prevRHS;
+                }
+                push(parserStack, toPush->isTerminal, toPush->rhs_id);
+            }
+            else{
+                printf("Non terminal doesnt exist");
+            }
+        }
+        else if (x == NULL){
+            printf("Stack empty");
+        }
+        else{
+            continue;
+        }
+
+    }
+    if(parserStack->top != NULL){
+        printf("stack not empty");
+    }
 }
 
 
