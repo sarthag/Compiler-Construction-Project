@@ -4,7 +4,7 @@
 #include "adtDef.h"
 
 //Stack
-void initStack(struct Stack* stack);
+void initStack(stack* s);
 stack_node* create_stack_node(node_type type, void* element);
 void push(stack* s, node_type type, void* element);
 void* pop(stack* s);

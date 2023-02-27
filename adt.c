@@ -1,7 +1,7 @@
 #include "adt.h"
 
 
-void initStack(struct Stack* s) {
+void initStack(stack* s) {
     s->top = NULL;
     s->size = 0; 
 }
@@ -148,5 +148,5 @@ void print_parse_tree(parse_tree *tree) {
 
 
 int main(){
-
+    
 }
