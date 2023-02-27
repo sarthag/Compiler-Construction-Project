@@ -1,3 +1,8 @@
+#ifndef PARSER_H
+#define PARSER_H 
+
+#include "parserDef.h"
+
 
 void generateGrammar(); 
 //read fake txt file
@@ -9,3 +14,5 @@ void computeFirstandFollow();
 void createParseTable();
 
 bool isTerm(char* str);
+
+#endif

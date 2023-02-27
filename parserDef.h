@@ -1,4 +1,9 @@
+#ifndef PARSERDEF_H
+#define PARSER_H
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 //array of LHS grammar G 
 
@@ -29,19 +34,10 @@ lhs G[NUM_OF_RULES];
 int parse_table[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1];
 //array of follow and first
 
-//array of parsing table
-
-/*
 typedef enum {
-    start, module, otherModules, moduleDef, epsilon
-} non_term;
+    
+} nt_key;
 
-typedef enum {
-    ID,NUM,COLON
-} term;
 
-typedef union {
-    term t;
-    non_term nt;
-}symb;
-*/
+nt_key nt_list[] = {};
+#endif
