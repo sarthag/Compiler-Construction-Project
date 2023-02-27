@@ -3,7 +3,7 @@
 void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
-        if(temp->rhs_id == 3){          // assuming EPSILON id = 3
+        if(temp->rhs_id == NUM_OF_TERMINALS - 1){          // assuming EPSILON id = 3
             rhs* temp2 = temp->nextRHS;
             if(temp2 != NULL){           
             int i = 0;
@@ -78,7 +78,7 @@ void findFollow(lhs start, rhs *target, rhs *temp, bool Follow[][NUM_OF_TERMINAL
 }
 
 
-int main(){
+void computeFirstandFollow (){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
     generateGrammar();
@@ -94,10 +94,6 @@ int main(){
             printf("%d", First[j][i]);
         }
     }
-
-    bool Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS] = {0};
-    Follow[0][NUM_OF_TERMINALS - 1] = 1;
-
     for(int j = 0; j < NUM_OF_RULES; j++){
         rhs * target = G[j].firstRHS;
         while (target != NULL)
