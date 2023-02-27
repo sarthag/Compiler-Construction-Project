@@ -20,16 +20,16 @@ char* token_list[] = {
 };
 
 typedef enum {
-    NUM, ID, COLON, EPSILON
+    NUM1, ID1, COLON1, EPSILON1
 }tkls;
 
 char* terms[] = {"NUM", "ID", "COLON", "EPSILON"};
 
 typedef enum {
-    start, module, module, moduleDef
+    start, module, otherModules, moduleDef
 }ntls;
 
-char* nts[] = {"start", "module", "module", "moduleDef"};
+char* nts[] = {"start", "module", "otherModules", "moduleDef"};
 
 
 
@@ -39,8 +39,8 @@ typedef struct nonTerminal{
 
 
 typedef enum {
-    TERMINAL,
-    NON_TERMINAL
+    NON_TERMINAL,
+    TERMINAL
 } node_type;
 
 
