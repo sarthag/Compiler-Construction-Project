@@ -19,6 +19,20 @@ char* token_list[] = {
     "MINUS", "NE", "BO", "BC", "MUL", "COMMENTMARK", "COMMA", "RANGEOP", "DIV", "COLON", "ASSIGNOP", "SEMICOL", "SQBO", "SQBC", "PLUS", "LT", "DEF", "DRIVERDEF", "LE", "EQ", "GT", "GE", "ENDDEF", "DRIVERENDDEF", "NUM", "RNUM", "ID", "AND", "ARRAY", "BOOLEAN", "BREAK", "CASE", "DECLARE", "DEFAULT", "DRIVER", "END", "FOR", "GET_VALUE", "IN", "INPUT", "INTEGER", "MODULE", "OF", "OR", "PARAMETERS", "PRINT", "PROGRAM", "REAL", "RETURNS", "START", "SWITCH", "TAKES", "USE", "WHILE", "WITH", "FALSE", "TRUE"
 };
 
+typedef enum {
+    NUM, ID, COLON, EPSILON
+}tkls;
+
+char* terms[] = {"NUM", "ID", "COLON", "EPSILON"};
+
+typedef enum {
+    start, module, module, moduleDef
+}ntls;
+
+char* nts[] = {"start", "module", "module", "moduleDef"};
+
+
+
 typedef struct nonTerminal{
     nt_key nid;
 } non_terminal; 

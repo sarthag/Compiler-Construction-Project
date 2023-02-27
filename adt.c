@@ -1,9 +1,9 @@
 #include "adt.h"
 
 
-void initStack(struct Stack* stack) {
-    stack->top = NULL;
-    stack->size = 0; 
+void initStack(struct Stack* s) {
+    s->top = NULL;
+    s->size = 0; 
 }
 
 
@@ -130,9 +130,9 @@ void inorder_traversal(tree_node *node) {
         return;
     }
     if (node->type == NON_TERMINAL) {
-        printf("%s", nt_list[node->element.nt.nid]);
+        printf("%s", nt_list[node->element.nt.nid]); // change this back
     } else {
-        printf("%s", token_list[node->element.t.tid]);
+        printf("%s", token_list[node->element.t.tid]); // change this back
     }
     node->is_visited = 1;
     inorder_traversal(node->left_child);
