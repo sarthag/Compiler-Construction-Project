@@ -121,9 +121,9 @@ void inorder_traversal(tree_node *node) {
         return;
     }
     if (node->type == NON_TERMINAL) {
-        printf("%s", nts[node->element.nt.nid]); // change this back
+        printf("%s ", nts[node->element.nt.nid]); // change this back
     } else {
-        printf("%s", terms[node->element.t.tid]); // change this back
+        printf("%s ", terms[node->element.t.tid]); // change this back
     }
     node->is_visited = 1;
     inorder_traversal(node->left_child);
@@ -138,20 +138,30 @@ void print_parse_tree(parse_tree *tree) {
 
 
 
-int main(){
-    parse_tree *pt = create_parse_tree();
-    non_terminal *nt = (non_terminal*)malloc(sizeof(struct nonTerminal));
-    nt->nid = 0;
-    tree_node* st = create_node(NON_TERMINAL, nt);
-    pt->root = st; 
-    token *t = (token*)malloc(sizeof(struct token));
-    t->tid = 69;
-    tree_node* t1 = create_node(TERMINAL, t);
-    insert_child(pt->root, t1);
+// int main(){
+//     parse_tree *pt = create_parse_tree();
+//     non_terminal *nt = (non_terminal*)malloc(sizeof(struct nonTerminal));
+//     nt->nid = 0;
+//     tree_node* st = create_node(NON_TERMINAL, nt);
+//     pt->root = st; 
+//     token *t = (token*)malloc(sizeof(struct token));
+//     t->tid = 1;
+//     tree_node* t1 = create_node(TERMINAL, t);
+//     insert_child(pt->root, t1);
+//     token *tt = (token*)malloc(sizeof(struct token));
+//     tt->tid = 2;
+//     tree_node* t2 = create_node(TERMINAL, tt);
+//     token *ttt = (token*)malloc(sizeof(struct token));
+//     ttt->tid = 3;
+//     tree_node* t3 = create_node(TERMINAL, ttt);
+//     insert_child(pt->root->left_child, t3);
+//     insert_child(pt->root, t2);
 
-    printf("Rootid: %d", pt->root->left_child->element.t.tid);
+//     // printf("child1id: %d\n", pt->root->left_child->element.t.tid);
+//     // printf("child2id: %d\n", pt->root->left_child->right_sibling->element.t.tid);
+//     print_parse_tree(pt);
 
-    // stack_node* t1 = (stack_node*)malloc(sizeof(struct stack_node));
-    // t1 = pop(s);
-    // printf("Size: %d, popid: %d", s->size, t1->element.t.tid);
-}
+//     // stack_node* t1 = (stack_node*)malloc(sizeof(struct stack_node));
+//     // t1 = pop(s);
+//     // printf("Size: %d, popid: %d", s->size, t1->element.t.tid);
+// }
