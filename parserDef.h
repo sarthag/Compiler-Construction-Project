@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "adt.h"   /// Check this 
 //array of LHS grammar G 
 
 #define NUM_OF_RULES 7
@@ -34,10 +35,5 @@ lhs G[NUM_OF_RULES];
 int parse_table[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1];
 //array of follow and first
 
-typedef enum {
-    
-} nt_key;
 
-
-nt_key nt_list[] = {};
 #endif
