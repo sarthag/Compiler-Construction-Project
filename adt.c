@@ -30,28 +30,18 @@ void push(stack* s, node_type type, void* element) {
 }
 
 
-void* pop(stack* s) {
+stack_node* pop(stack* s) {
     if (s->size == 0) {
         return NULL;
     }
 
     stack_node* top_node = s->top;
-    void* top_element;
-    if (top_node->type == TERMINAL) {
-        top_element = (void*) malloc(sizeof(token));
-        *(token*)top_element = top_node->element.t;
-    } 
-    
-    else {
-        top_element = (void*) malloc(sizeof(non_terminal));
-        *(non_terminal*)top_element = top_node->element.nt;
-    }
-
+    stack_node* temp = top_node;
     s->top = s->top->next;
     free(top_node);
     s->size--;
 
-    return top_element;
+    return temp;
 }
 
 
@@ -130,9 +120,9 @@ void inorder_traversal(tree_node *node) {
         return;
     }
     if (node->type == NON_TERMINAL) {
-        printf("%s", nt_list[node->element.nt.nid]); // change this back
+        printf("%s", nts[node->element.nt.nid]); // change this back
     } else {
-        printf("%s", token_list[node->element.t.tid]); // change this back
+        printf("%s", terms[node->element.t.tid]); // change this back
     }
     node->is_visited = 1;
     inorder_traversal(node->left_child);
@@ -148,5 +138,20 @@ void print_parse_tree(parse_tree *tree) {
 
 
 int main(){
-    
+    stack *s = (stack*)malloc(sizeof(struct Stack));
+    initStack(s);
+
+    non_terminal *nt = (non_terminal*)malloc(sizeof(struct nonTerminal));
+    nt->nid = 0;
+    token *t = (token*)malloc(sizeof(struct token));
+    t->tid = 69;
+
+
+    push(s, NON_TERMINAL, nt);
+    push(s, TERMINAL, t);
+    printf("Size: %d, Topid: %d", s->size, s->top->element.t.tid);
+
+    stack_node* t1 = (stack_node*)malloc(sizeof(struct stack_node));
+    t1 = pop(s);
+    printf("Size: %d, popid: %d", s->size, t1->element.t.tid);
 }
