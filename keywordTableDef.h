@@ -1,4 +1,4 @@
-#ifndef KEYWORDTABLDEF_H
+#ifndef KEYWORDTABLEDEF_H
 #define KEYWORDTABLEDEF_H
 
 #include <stdio.h>
