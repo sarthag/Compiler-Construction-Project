@@ -30,13 +30,13 @@ FILE* readFile(char *filename){
     line_no = 1;
 
     int buf_size1 = fread(buffers.buffer1, sizeof(char), BUFFERSIZE, code);
-    printf("buf_size1: %d\n", buf_size1);
+    // printf("buf_size1: %d\n", buf_size1);
     buffers.buffer1[buf_size1] = '\0';
     begin = buffers.buffer1;    
     forward = buffers.buffer1;
     started = true;
-    printf("Buffer 1: %s\n", buffers.buffer1);
-    printf("Buffer 2: %s\n", buffers.buffer2);
+    // printf("Buffer 1: %s\n", buffers.buffer1);
+    // printf("Buffer 2: %s\n", buffers.buffer2);
     
     return code;
 }
@@ -58,11 +58,11 @@ FILE* getStream(FILE *code){
     // printf("Inside getStream\n");
 
     if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
-        printf("End of Buffer 1\n");
+        // printf("End of Buffer 1\n");
         int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
         buffers.buffer2[buf_size2] = '\0';
         forward = buffers.buffer2;
-        printf("Buffer 2: %s\n", buffers.buffer2);
+        // printf("Buffer 2: %s\n", buffers.buffer2);
     }
 
     else if (forward == buffers.buffer2 + BUFFERSIZE - 1) {\
@@ -146,7 +146,7 @@ char *getLexeme() {
     bool case_4 = forward >= buffers.buffer2 && forward <= buffers.buffer2 + BUFFERSIZE;
 
     if((case_1 && case_2) || (case_3 && case_4)) {
-        printf("Same buffer!\n");
+        // printf("Same buffer!\n");
         while(curr < forward) {
             lex[c] = *curr;
             c++;
@@ -155,7 +155,7 @@ char *getLexeme() {
     }
 
     else if(case_1 && case_4) {
-        printf("Begin on buffer 1 | Forward on buffer 2\n");
+        // printf("Begin on buffer 1 | Forward on buffer 2\n");
         while(curr < buffers.buffer1 + BUFFERSIZE) {
             lex[c] = *curr;
             c++;
@@ -170,7 +170,7 @@ char *getLexeme() {
     }
 
     else {
-        printf("Begin on buffer 2 | Forward on buffer 1\n");
+        // printf("Begin on buffer 2 | Forward on buffer 1\n");
         while(curr < buffers.buffer2 + BUFFERSIZE) {
             lex[c] = *curr;
             c++;
@@ -185,7 +185,7 @@ char *getLexeme() {
     }
     lex[c] = '\0';
     lexemeCount++;
-    printf("Lexeme: |%s|\t numChar: %d\n", lex, numChar);
+    // printf("Lexeme: |%s|\t numChar: %d\n", lex, numChar);
 
     return lex;
 }
@@ -201,18 +201,18 @@ token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
 
 
 token getNextToken(FILE *code) {
-    printf("Inside getNextToken\n");
+    // printf("Inside getNextToken\n");
     state = 1;
-    err = 0;
+    // err = 0;
     token* t;
     char c;    
 
     while (state >= 1 && c != '\0') {
         c = getNextChar(code);
-        printf("State: %d\t", state);
-        printf("Char: |%c|\t", c);
-        printf("Begin: |%c|\t", *begin);
-        printf("Forward: |%c|\n", *forward);
+        // printf("State: %d\t", state);
+        // printf("Char: |%c|\t", c);
+        // printf("Begin: |%c|\t", *begin);
+        // printf("Forward: |%c|\n", *forward);
         switch (state)
         {
         case 1:
@@ -336,8 +336,15 @@ token getNextToken(FILE *code) {
                 state = 1; 
             }
             else {
-                err = -3;
-                state = 0; 
+                // err = -3;
+                state = 1; 
+                retract(2);
+                t = addTokenToList();
+                t -> tid = NUM;
+                t -> num = atoi(getLexeme());
+                t -> line_no = line_no; 
+                resetLexeme();
+                printf("Line %d: Invalid character after NUM. string\n", line_no);
                 // Error state -3 (Invalid character after num .)
                 // Shreyas check
                 //this is fine
@@ -385,8 +392,15 @@ token getNextToken(FILE *code) {
                 state = 7;
             }
             else {
-                err = -3;
-                state = 0;
+                // err = -3;
+                retract(3);
+                t = addTokenToList();
+                t -> tid = RNUM;
+                t -> rnum = atof(getLexeme());
+                t -> line_no = line_no; 
+                resetLexeme();
+                state = 1;
+                printf("Error at Line %d: Invalid character after NUMe+/- string\n", line_no);
                 // Error state -3 (Invalid character after e+/-)
             }
             break;
@@ -431,8 +445,11 @@ token getNextToken(FILE *code) {
                 state = 10;
             }
             else {
-                err = -3; 
-                state = 0; 
+                // err = -3; 
+                retract(1);
+                state = 1; 
+                resetLexeme();
+                printf("Error at Line %d: Invalid character after . \n", line_no);
                 // Error state -3 (Invalid character after .)
             }
             break;
@@ -494,8 +511,10 @@ token getNextToken(FILE *code) {
 
             }
             else if(c == EOF) {
-                err = -1; 
-                state = 0;
+                // err = -1; 
+                state = 1;
+                // resetLexeme();
+                printf("Error at Line %d: Comment Mark not closed.\n", line_no);
                 // Error state -1 (comment mark not closed)
             }
             else if(c == '\\') {
@@ -577,6 +596,7 @@ token getNextToken(FILE *code) {
             t -> tid = GE;
             t -> lexeme = getLexeme();
             t -> line_no = line_no;
+            resetLexeme();
             state = 1;
             break;
 
@@ -655,6 +675,7 @@ token getNextToken(FILE *code) {
             t -> tid = LE;
             t -> lexeme = getLexeme();
             t -> line_no = line_no;
+            resetLexeme();
             state = 1;
             break;
 
@@ -663,8 +684,11 @@ token getNextToken(FILE *code) {
                 state = 30;
             }
             else{ 
-                err = -3;
-                state = 0;
+                // err = -3;
+                state = 1;
+                retract(1);
+                resetLexeme();
+                printf("Error at Line %d: Invalid character after !\n", line_no);
                 // Error state -3 (invalid character after !)
             }
             break;
@@ -684,8 +708,11 @@ token getNextToken(FILE *code) {
                 state = 32;
             }
             else{ 
-                err = -3;
-                state = 0;
+                // err = -3;
+                state = 1;
+                retract(1);
+                resetLexeme();
+                printf("Error at Line %d: Invalid character after =\n", line_no);
                 // Error state -3 (Invalid character after =)
             }
             break;
@@ -800,28 +827,33 @@ token getNextToken(FILE *code) {
 
         default:
             err = -3; 
-            state = 0; 
+            retract(1);
+            resetLexeme();
+            state = 1;
+            printf("Error at Line %d: CARTHOK ERROR FOUND!!\n", line_no); 
             break;
         }
-    }
 
-
-    if(err < 0) {
-        state = -1;
-        switch (err)
-        {
-        case -1:
-            printf("ERROR at line %d: comment mark not closed\n", line_no);
-            break;
-        case -2:
-            printf("ERROR at line %d: invaild escape sequence\n", line_no);
-            break;
-        case -3:
-            printf("ERROR at line %d: invalid character sequence]n", line_no);
-            break;
-        default:
-            break;
-        }
+        // if(err < 0) {
+        //     state = 1;
+        //     // retract(1);
+        //     // resetLexeme();
+        //     switch (err)
+        //     {
+        //         case -1:
+        //             printf("ERROR at line %d: comment mark not closed\n", line_no);
+        //             break;
+        //         case -2:
+        //             printf("ERROR at line %d: invaild escape sequence\n", line_no);
+        //             break;
+        //         case -3:
+        //             printf("ERROR at line %d: invalid character sequence\n", line_no);
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     // err = 0;
+        // }
     }
 }
 
