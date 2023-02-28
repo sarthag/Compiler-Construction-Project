@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "lexer.h"
-#include "grammarHash.h"
+#include "tHash.h"
 
 typedef enum {
     first
