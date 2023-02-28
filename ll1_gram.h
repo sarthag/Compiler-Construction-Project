@@ -1,7 +1,6 @@
 #ifndef LL1_GRAM_H
 #define LL1_GRAM_H
 
-
 #include "parser.h"
 
 #define MAX_LINE_LENGTH 50

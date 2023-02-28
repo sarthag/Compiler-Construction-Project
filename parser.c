@@ -2,8 +2,10 @@
 #include "adt.h"
 
 //populate fake values of first and follow
+/*
 bool first[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{1,1,0,1}, {1,1,0,1}, {0,1,0,1}, {0,0,1,0}};
 bool follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{0,0,0,1}, {0,1,1,0}, {0,0,1,0}, {0,0,0,1}};
+*/
 
 void populate_parse_table(){
     //populate the table with -1 
@@ -13,7 +15,9 @@ void populate_parse_table(){
         }
     }
     for(int i=0;i<NUM_OF_RULES;i++){
-        bool *first_set= first[G[i].lhs_id];
+        bool first_set[NUM_OF_TERMINALS] = {0}; 
+        for(int j = 0; j < NUM_OF_TERMINALS; j++)
+            first_set[j] = First[G[i].lhs_id][j];
         for(int j=0; j<NUM_OF_TERMINALS-1;j++){
             if(first_set[j]==1){
                 parse_table[G[i].lhs_id][j]=i+1;
@@ -21,7 +25,7 @@ void populate_parse_table(){
         } 
         if(first_set[NUM_OF_TERMINALS-1]==1){
             //if the first set contains epsilon
-            bool* follow_set= follow[G[i].lhs_id];
+            bool* follow_set= Follow[G[i].lhs_id];
             for(int k=0;k<NUM_OF_TERMINALS;k++){
                 if(follow_set[k]==1){
                     parse_table[G[i].lhs_id][k]=i+1;
@@ -70,7 +74,7 @@ void parse_code(){
                 {   
                     tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
                     insert_child(x->treeLocation, temp);
-                    push(parserStack, toPush->isTerminal, toPush->rhs_id, &temp);
+                    push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
                     toPush = toPush->prevRHS;
                 }
                 tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
@@ -96,7 +100,7 @@ void parse_code(){
 
 
 int main(){
-    generateGrammar();
+    computeFirstandFollow();
     populate_parse_table();
 
     parse_code();

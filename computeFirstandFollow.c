@@ -1,6 +1,6 @@
-#include "ll1_gram.h"
+#include "computeFirstandFollow.h"
 
-void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
+void findFirst(lhs target){
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
         if(temp->rhs_id == NUM_OF_TERMINALS - 1){          // assuming EPSILON id = 3
@@ -13,7 +13,7 @@ void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
                 }
             }
             
-            findFirst(G[i], First, firstDone);
+            findFirst(G[i]);
             for(int i = 0; i < NUM_OF_TERMINALS; i++){
                 if (First[temp->rhs_id][i] == 1)
                 First[target.lhs_id][i] = First[temp->rhs_id][i];
@@ -33,7 +33,7 @@ void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
                 }
             }
             
-            findFirst(G[i], First, firstDone);
+            findFirst(G[i]);
         }
         for(int i = 0; i < NUM_OF_TERMINALS; i++){
             if(First[temp->rhs_id][i] == 1)
@@ -43,7 +43,7 @@ void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
     }
 }
 
-void findFollow(lhs start, rhs *target, rhs *temp, bool Follow[][NUM_OF_TERMINALS]){
+void findFollow(lhs start, rhs *target, rhs *temp){
     if (target->isTerminal == 1){
         return;
     }
@@ -73,18 +73,18 @@ void findFollow(lhs start, rhs *target, rhs *temp, bool Follow[][NUM_OF_TERMINAL
         }
         return; 
     }
-    findFollow(start, target, temp2, Follow);
+    findFollow(start, target, temp2);
 
 }
 
 
-void computeFirstandFollow (){
+void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
     generateGrammar();
 
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
-        findFirst(G[j], First, firstDone);
+        findFirst(G[j]);
     }
 
     for (int j = 0; j < 4; j++){
@@ -102,7 +102,7 @@ void computeFirstandFollow (){
         while (target != NULL)
         {
             rhs * temp = target->nextRHS;
-            findFollow(G[j], target, temp, Follow); 
+            findFollow(G[j], target, temp); 
             target = temp;
         }       
     }
@@ -114,15 +114,26 @@ void computeFirstandFollow (){
             printf("%d", Follow[j][i]);
         }      
     }
-
-    return 0;
 }
+
+void syncronization_set(){
+    computeFirstandFollow();
+    token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
+
+    for(int i=0; i<=NUM_OF_NONTERMINALS; i++){
+        for(int j=0; j<=NUM_OF_TERMINALS; j++){
+            sync_set[i][j] = (j == semicol) || (j == bc) || (j == sqbc) || First[i][j] || Follow[i][j];
+        }
+    }
+}
+
+
 /*
 int main(){
     bool First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
     bool firstDone[NO_NON_TERMINALS];
     for (int j = 0; j < 5; j++){
-        findFirst(G[j], First, firstDone);
+        findFirst(G[j]);
     }
     for(int i = 0; i < NO_TERMINALS; i++){
         printf("%d ", First[0][i]);

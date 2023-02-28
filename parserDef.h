@@ -1,5 +1,5 @@
 #ifndef PARSERDEF_H
-#define PARSER_H
+#define PARSERDEF_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,6 +33,7 @@ bool firstDone[NUM_OF_NONTERMINALS];
 
 bool Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS] = {0};
 
+bool sync_set[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 
 
 lhs G[NUM_OF_RULES];
