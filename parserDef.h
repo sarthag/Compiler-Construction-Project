@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "adt.h"   /// Check this 
+#include "computeFirstandFollow.h"
 //array of LHS grammar G 
 
 #define PT_COLS 4
