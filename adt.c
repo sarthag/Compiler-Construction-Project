@@ -17,7 +17,7 @@ void * makeElement(node_type type, int id){
         element->tid = id;
         return element;
     }
-    return -1;
+    return NULL;
 }
 
 
