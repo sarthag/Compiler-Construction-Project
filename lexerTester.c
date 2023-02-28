@@ -25,9 +25,9 @@ int main(){
     populate_keyword_table(keyword_table, KTSIZE);
     // printKeywordTable(keyword_table, KTSIZE);
     FILE* code;
-    code = readFile("C://Users//Shaz//Compiler-Construction-Project//test_cases (stage_1)//t5.txt");
+    code = readFile("C://Users//Shaz//Compiler-Construction-Project//test_cases (stage_1)//t6(with_syntax_errors).txt");
     token t = getNextToken(code);
-    printf("Lexeme Count: %d\n", lexemeCount);
-    printtokenLL(tokenList);
+    // printf("Lexeme Count: %d\n", lexemeCount);
+    // printtokenLL(tokenList);
 
 }
