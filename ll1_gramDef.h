@@ -1,6 +1,10 @@
 #ifndef LL1_GRAMDEF_H
 #define LL1_GRAMDEF_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
 typedef struct rhs_struct{
     int rhs_id;
     bool isTerminal;

@@ -95,22 +95,22 @@ void generateGrammar(){
 
 }
 
-int main(){
-    //lhs G1[NUM_OF_RULES];
-    //G1= generateGrammar();
-    generateGrammar();
-    for(int i=0;i<NUM_OF_RULES;i++){
-        printf("LHS_ID %d ", G[i].lhs_id);
-        // printf("Tail: %d", G[i].lastRHS->rhs_id);
-        rhs *temp = G[i].lastRHS;
-        while(temp != NULL){
-            printf("RHS_ID %d ", temp->rhs_id);
-            temp=temp->prevRHS;
-        }
-        printf("\n");
+// int main(){
+//     //lhs G1[NUM_OF_RULES];
+//     //G1= generateGrammar();
+//     generateGrammar();
+//     for(int i=0;i<NUM_OF_RULES;i++){
+//         printf("LHS_ID %d ", G[i].lhs_id);
+//         // printf("Tail: %d", G[i].lastRHS->rhs_id);
+//         rhs *temp = G[i].lastRHS;
+//         while(temp != NULL){
+//             printf("RHS_ID %d ", temp->rhs_id);
+//             temp=temp->prevRHS;
+//         }
+//         printf("\n");
         
-    }
-    return 0;
-}
+//     }
+//     return 0;
+// }
 
 
