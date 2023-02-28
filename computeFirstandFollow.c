@@ -1,4 +1,4 @@
-#include "ll1_gram.c"
+#include "ll1_gram.h"
 
 void findFirst(lhs target, bool First[][NUM_OF_TERMINALS], bool firstDone[]){
     rhs *temp = target.firstRHS;
