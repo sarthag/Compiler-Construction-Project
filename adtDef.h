@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "lexer.h"
+#include "ntHashTable.h"
 
 typedef enum {
     first
