@@ -1,9 +1,17 @@
-runParserCode: createParseTable.o ll1_gram.o
-	gcc -o runParserCode ll1_gram.o createParseTable.o
-	./runParserCode
-createParseTable.o: createParseTable.c parser.h parserDef.h
-	gcc -c createParseTable.c
-ll1_gram.o: ll1_gram.c parser.h parserDef.h
+run: parser.o computeFirstandFollow.c adt.o ll1_gram.o lexer.o keywordTable.o
+	gcc -o exe parser.o computeFirstandFollow.o adt.o ll1_gram.o lexer.o keywordTable.o
+	./exe 
+parser.o: parser.c 
+	gcc -c parser.c
+computeFirstandFollow.o: computeFirstandFollow.c 
+	gcc -c computeFirstandFollow.c
+adt.o: adt.c
+	gcc -c adt.c
+ll1_gram.o: ll1_gram.c 
 	gcc -c ll1_gram.c
-clean: 
-	rm -f *.o runParserCode 
+lexer.o: lexer.c 
+	gcc -c lexer.c
+keywordTable.o: keywordTable.c 
+	gcc -c keywordTable.c
+clean:
+	rm -f *.o runParserCode
