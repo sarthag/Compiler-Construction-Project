@@ -100,7 +100,7 @@ void parse_code(){
 
 
 int main(){
-    generateGrammar();
+    computeFirstandFollow();
     populate_parse_table();
 
     parse_code();

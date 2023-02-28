@@ -114,8 +114,6 @@ void computeFirstandFollow(){
             printf("%d", Follow[j][i]);
         }      
     }
-
-    return 0;
 }
 
 void syncronization_set(){
