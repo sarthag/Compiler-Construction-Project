@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "parserDef.h"
-#include "parser.h"
-#include <string.h>
-
-#define MAX_LINE_LENGTH 50
+#include "ll1_gram.h"
 
 char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
 char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
