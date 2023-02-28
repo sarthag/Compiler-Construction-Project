@@ -41,14 +41,25 @@ FILE* readFile(char *filename){
     return code;
 }
 
+void pointerBuffers() {
+    bool case_1 = begin >= buffers.buffer1 && begin <= buffers.buffer1 + BUFFERSIZE;
+    bool case_2 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
+    bool case_3 = begin >= buffers.buffer2 && begin <= buffers.buffer2 + BUFFERSIZE;
+    bool case_4 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
+
+    // if()
+
+}
 
 FILE* getStream(FILE *code){
     // printf("Inside getStream\n");
 
     if (forward == buffers.buffer1 + BUFFERSIZE - 1) {
+        printf("End of Buffer 1\n");
         int buf_size2 = fread(buffers.buffer2, sizeof(char), BUFFERSIZE, code);
         buffers.buffer2[buf_size2] = '\0';
         forward = buffers.buffer2;
+        printf("Buffer 2: %s\n", buffers.buffer2);
     }
 
     else if (forward == buffers.buffer2 + BUFFERSIZE - 1) {\
@@ -132,6 +143,7 @@ char *getLexeme() {
     bool case_4 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
 
     if((case_1 && case_2) || (case_3 && case_4)) {
+        printf("Same buffer!\n");
         while(curr < forward) {
             lex[c] = *curr;
             c++;
@@ -140,6 +152,7 @@ char *getLexeme() {
     }
 
     else if(case_1 && case_4) {
+        printf("Begin on buffer 1 | Forward on buffer 2\n");
         while(curr < buffers.buffer1 + BUFFERSIZE) {
             lex[c] = *curr;
             c++;
@@ -154,6 +167,7 @@ char *getLexeme() {
     }
 
     else {
+        printf("Begin on buffer 2 | Forward on buffer 1\n");
         while(curr < buffers.buffer2 + BUFFERSIZE) {
             lex[c] = *curr;
             c++;
@@ -191,9 +205,11 @@ token getNextToken(FILE *code) {
     char c;    
 
     while (state >= 1 && c != '\0') {
-        // printf("State: %d\t", state);
         c = getNextChar(code);
-        // printf("Char: |%c|\n", c);
+        printf("State: %d\t", state);
+        printf("Char: |%c|\t", c);
+        printf("Begin: |%c|\t", *begin);
+        printf("Forward: |%c|\n", *forward);
         switch (state)
         {
         case 1:
