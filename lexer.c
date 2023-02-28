@@ -41,15 +41,18 @@ FILE* readFile(char *filename){
     return code;
 }
 
-void pointerBuffers() {
-    bool case_1 = begin >= buffers.buffer1 && begin <= buffers.buffer1 + BUFFERSIZE;
-    bool case_2 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
-    bool case_3 = begin >= buffers.buffer2 && begin <= buffers.buffer2 + BUFFERSIZE;
-    bool case_4 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
+// void pointerBuffers() {
+//     bool case_1 = begin >= buffers.buffer1 && begin <= buffers.buffer1 + BUFFERSIZE;
+//     bool case_2 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
+//     bool case_3 = begin >= buffers.buffer2 && begin <= buffers.buffer2 + BUFFERSIZE;
+//     bool case_4 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
 
-    // if()
+//     // if((case_1 && case_4) || (case_2 && case_3)) {
+//     //     printf("Same Buffer!\n");
+//     // }
+//     // else if(case)
 
-}
+// }
 
 FILE* getStream(FILE *code){
     // printf("Inside getStream\n");
@@ -140,7 +143,7 @@ char *getLexeme() {
     bool case_1 = begin >= buffers.buffer1 && begin <= buffers.buffer1 + BUFFERSIZE;
     bool case_2 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
     bool case_3 = begin >= buffers.buffer2 && begin <= buffers.buffer2 + BUFFERSIZE;
-    bool case_4 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
+    bool case_4 = forward >= buffers.buffer2 && forward <= buffers.buffer2 + BUFFERSIZE;
 
     if((case_1 && case_2) || (case_3 && case_4)) {
         printf("Same buffer!\n");
