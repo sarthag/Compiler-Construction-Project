@@ -6,6 +6,21 @@ void initStack(stack* s) {
     s->size = 0; 
 }
 
+void * makeElement(node_type type, int id){
+    if (type == NON_TERMINAL){
+        non_terminal * element = (non_terminal *)malloc(sizeof(non_terminal));
+        element->nid = id;
+        return element;
+    }
+    else if (type == TERMINAL){
+        token * element = (token *)malloc(sizeof(token));
+        element->tid = id;
+        return element;
+    }
+    return -1;
+}
+
+
 
 stack_node* create_stack_node(node_type type, void* element, tree_node* treeLocation) {
     stack_node* new_node = (stack_node*) malloc(sizeof(stack_node));
@@ -23,7 +38,8 @@ stack_node* create_stack_node(node_type type, void* element, tree_node* treeLoca
 }
 
 
-void push(stack* s, node_type type, void* element, tree_node* treeLocation) {
+void push(stack* s, node_type type, int id, tree_node* treeLocation) {
+    void * element = makeElement(type, id);
     stack_node* new_node = create_stack_node(type, element, treeLocation);
     new_node->next = s->top;
     s->top = new_node;
@@ -54,7 +70,8 @@ parse_tree *create_parse_tree() {
     return tree;
 }
 
-tree_node *create_node(node_type type, void *element) {
+tree_node *create_node(node_type type, int id) {
+    void * element = makeElement(type, id);
     tree_node *new_node = (tree_node*) malloc(sizeof(tree_node));
     new_node->type = type;
     if (type == TERMINAL) {

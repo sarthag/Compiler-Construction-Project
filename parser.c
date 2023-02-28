@@ -74,7 +74,7 @@ void parse_code(){
                 {   
                     tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
                     insert_child(x->treeLocation, temp);
-                    push(parserStack, toPush->isTerminal, toPush->rhs_id, &temp);
+                    push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
                     toPush = toPush->prevRHS;
                 }
                 tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
