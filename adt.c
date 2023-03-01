@@ -134,25 +134,7 @@ void delete_node(tree_node *node) {
     free(node);
 }
 
-void inorder_traversal(tree_node *node) {
-    if (node == NULL) {
-        return;
-    }
-    if (node->type == NON_TERMINAL) {
-        printf("%s ", nt_list[node->element.nt.nid]); // change this back
-    } else {
-        printf("%s ", token_list[node->element.t.tid]); // change this back
-    }
-    node->is_visited = 1;
-    inorder_traversal(node->left_child);
-    inorder_traversal(node->right_sibling);
-}
 
-
-void print_parse_tree(parse_tree *tree) {
-    inorder_traversal(tree->root);
-    printf("\n");
-}
 
 
 

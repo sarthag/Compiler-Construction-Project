@@ -122,6 +122,21 @@ void synchronization_set(){
     }
 }
 
+void inorder_traversal(tree_node *node, FILE* fp) {
+    if (node == NULL) {
+        return;
+    }
+    if (node->type == NON_TERMINAL) {
+        fprintf(fp, "%s ", nt_list[node->element.nt.nid]); // change this back
+    } 
+    else {
+        fprintf(fp, "%s ", token_list[node->element.t.tid]); // change this back
+    }
+    node->is_visited = 1;
+    inorder_traversal(node->left_child, fp);
+    inorder_traversal(node->right_sibling, fp);
+}
+
 
 int main(){
     computeFirstandFollow();

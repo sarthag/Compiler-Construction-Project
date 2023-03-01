@@ -17,7 +17,7 @@ void insert_child(tree_node *parent, tree_node *child);
 void set_sibling(tree_node *node, tree_node *sibling);
 void set_parent(tree_node *node, tree_node *parent);
 void delete_node(tree_node *node);
-void inorder_traversal(tree_node *node);
+void inorder_traversal(tree_node *node, FILE * fp);
 
 
 
