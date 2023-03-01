@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "lexer.h"
+#include "parser.h"
 
 void printtokenLL(tokenLL tkll){
     printf("Token Count : %d\n",tkll.tokenCount);
@@ -44,6 +45,10 @@ int main(){
         case 3:   //prints all lexical and syntatic errors, prints parse tree
             FILE* code = readFile(filename);
             getNextToken(code);
+            InitializeParser();
+            parse_code();
+            print_parse_tree(parseTree->root);
+            
             break;
         case 4:         //prints total time taken
 
