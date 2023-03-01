@@ -1,0 +1,434 @@
+{
+    "program": [
+        "$"
+    ],
+    "moduleDeclarations": [
+        "DEF",
+        "DRIVERDEF"
+    ],
+    "moduleDeclaration": [
+        "DECLARE",
+        "DEF",
+        "DRIVERDEF"
+    ],
+    "otherModules": [
+        "DRIVERDEF",
+        "$"
+    ],
+    "module": [
+        "DEF",
+        "DRIVERDEF",
+        "$"
+    ],
+    "ret": [
+        "START"
+    ],
+    "driverModule": [
+        "DEF",
+        "$"
+    ],
+    "moduleDef": [
+        "DEF",
+        "DRIVERDEF",
+        "$"
+    ],
+    "input_plist1": [
+        "SQBC"
+    ],
+    "input_plist2": [
+        "SQBC"
+    ],
+    "output_plist1": [
+        "SQBC"
+    ],
+    "output_plist2": [
+        "SQBC"
+    ],
+    "dataType": [
+        "COMMA",
+        "SQBC",
+        "SEMICOL"
+    ],
+    "range_arrays": [
+        "SQBC"
+    ],
+    "type": [
+        "COMMA",
+        "SQBC",
+        "SEMICOL"
+    ],
+    "statements": [
+        "END",
+        "BREAK"
+    ],
+    "statement": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID",
+        "END",
+        "BREAK"
+    ],
+    "ioStmt": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID",
+        "END",
+        "BREAK"
+    ],
+    "boolConstt": [
+        "BC",
+        "SEMICOL",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS",
+        "MUL",
+        "DIV",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "SQBC"
+    ],
+    "id_num_rnum": [
+        "BC"
+    ],
+    "array_element_for_print": [
+        "BC"
+    ],
+    "var_print": [
+        "BC"
+    ],
+    "p1": [
+        "BC"
+    ],
+    "simpleStmt": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID",
+        "END",
+        "BREAK"
+    ],
+    "assignmentStmt": [
+        "SQBO",
+        "USE"
+    ],
+    "whichStmt": [
+        "SQBO",
+        "USE"
+    ],
+    "valueIDStmt": [
+        "SQBO",
+        "USE"
+    ],
+    "valueARRStmt": [
+        "SQBO",
+        "USE"
+    ],
+    "index_arr": [
+        "RANGEOP",
+        "SQBC"
+    ],
+    "new_index": [
+        "SQBC",
+        "RANGEOP"
+    ],
+    "sign": [
+        "NUM",
+        "ID",
+        "BO"
+    ],
+    "moduleReuseStmt": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID",
+        "END",
+        "BREAK"
+    ],
+    "actualParaList": [
+        "SEMICOL"
+    ],
+    "n7": [
+        "SEMICOL"
+    ],
+    "optional": [
+        "USE"
+    ],
+    "idList1": [
+        "SQBC",
+        "COLON"
+    ],
+    "idList2": [
+        "SQBC",
+        "COLON"
+    ],
+    "expression": [
+        "SEMICOL"
+    ],
+    "u": [
+        "SEMICOL"
+    ],
+    "new_NT": [
+        "SEMICOL"
+    ],
+    "var_id_num": [
+        "SEMICOL"
+    ],
+    "unary_op": [
+        "BO",
+        "ID",
+        "NUM",
+        "RNUM"
+    ],
+    "arithmeticOrBooleanExpr": [
+        "PLUS",
+        "MINUS",
+        "BC"
+    ],
+    "n1": [
+        "PLUS",
+        "MINUS",
+        "BC"
+    ],
+    "anyTerm": [
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS",
+        "BC"
+    ],
+    "n2": [
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS",
+        "BC"
+    ],
+    "arithmeticExpr": [
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS"
+    ],
+    "n3": [
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS"
+    ],
+    "term": [
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS"
+    ],
+    "n4": [
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS"
+    ],
+    "factor": [
+        "MUL",
+        "DIV",
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS"
+    ],
+    "n5": [
+        "MUL",
+        "DIV",
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS"
+    ],
+    "arrExpr": [
+        "BC",
+        "SQBC"
+    ],
+    "arr_N4": [
+        "BC",
+        "SQBC"
+    ],
+    "arrTerm": [
+        "PLUS",
+        "MINUS",
+        "BC",
+        "SQBC"
+    ],
+    "arr_N5": [
+        "PLUS",
+        "MINUS",
+        "BC",
+        "SQBC"
+    ],
+    "arrFactor": [
+        "MUL",
+        "DIV",
+        "PLUS",
+        "MINUS",
+        "BC",
+        "SQBC"
+    ],
+    "element_index_with_expressions": [
+        "SQBC"
+    ],
+    "n6": [
+        "SQBC"
+    ],
+    "op1": [
+        "BO",
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE",
+        "ID"
+    ],
+    "op2": [
+        "BO",
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE",
+        "ID"
+    ],
+    "logicalOp": [
+        "TRUE",
+        "FALSE",
+        "BO",
+        "NUM",
+        "RNUM",
+        "ID"
+    ],
+    "relationalOp": [
+        "BO",
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE",
+        "ID"
+    ],
+    "declareStmt": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID",
+        "END",
+        "BREAK"
+    ],
+    "conditionalStmt": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID",
+        "END",
+        "BREAK"
+    ],
+    "caseStmt1": [
+        "DEFAULT",
+        "END"
+    ],
+    "caseStmt2": [
+        "DEFAULT",
+        "END"
+    ],
+    "value": [
+        "COLON"
+    ],
+    "default1": [
+        "END"
+    ],
+    "iterativeStmt": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID",
+        "END",
+        "BREAK"
+    ],
+    "range_for_loop": [
+        "BC"
+    ],
+    "index_for_loop": [
+        "RANGEOP",
+        "BC"
+    ],
+    "new_index_for_loop": [
+        "RANGEOP",
+        "BC"
+    ],
+    "sign_for_loop": [
+        "NUM"
+    ]
+}
