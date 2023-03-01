@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "lexer.h"
-#include "grammarHash.h"
+#include "ntHashTable.h"
 
 typedef enum {
     first
@@ -14,10 +14,6 @@ typedef enum {
 char* nt_list[] = {
     "first"
 };
-
-typedef enum {
-    MINUS, NE, BO, BC, MUL, COMMENTMARK, COMMA, RANGEOP, DIV, COLON, ASSIGNOP, SEMICOL, SQBO, SQBC, PLUS, LT, DEF, DRIVERDEF, LE, EQ, GT, GE, ENDDEF, DRIVERENDDEF, NUM, RNUM, ID, AND, ARRAY, BOOLEAN, BREAK, CASE, DECLARE, DEFAULT, DRIVER, END, FOR, GET_VALUE, IN, INPUT, INTEGER, MODULE, OF, OR, PARAMETERS, PRINT, PROGRAM, REAL, RETURNS, START, SWITCH, TAKES, USE, WHILE, WITH, FALSE, TRUE, $, EPSILON
-} terminals_key;
 
 
 char* token_list[] = {
