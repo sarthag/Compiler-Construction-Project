@@ -137,10 +137,9 @@ void inorder_traversal(tree_node *node, FILE* fp) {
     inorder_traversal(node->right_sibling, fp);
 }
 
-FILE* print_parse_tree(tree_node *node){
+void print_parse_tree(tree_node *node){
     FILE *fp = fopen("parse_tree.txt", "w");
     inorder_traversal(node, fp);
-    return fp;
 }
 
 /*
