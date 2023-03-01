@@ -35,7 +35,7 @@ int main(){
             break;
         case 2:
                  // prints lexer results
-            printtokenLL()
+            printtokenLL(tokenList);
             break;
         case 3:   //prints all lexical and syntatic errors, prints parse tree
             break;

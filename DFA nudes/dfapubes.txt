@@ -1,3 +1,0 @@
-Create a new error for state 29 and 31 as invalid token -- tell to vandana
-new state for newline within comment - email and ask
-Create a case for \ character. (DFA is wrong \n and \t are single characters so only one Step)
