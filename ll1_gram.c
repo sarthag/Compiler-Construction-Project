@@ -136,7 +136,7 @@ void populate_grammar(){
     insertTerminal("WITH", WITH, terminalHash);
     insertTerminal("EPSILON", EPSILON, terminalHash);
     //POPULATING NON TERMINALS TABLE 
-    
+    insertNonTerminal("actualParaList", actualParaList, nonTerminalHash);
     insertNonTerminal("anyTerm", anyTerm, nonTerminalHash);
     insertNonTerminal("arithmeticExpr", arithmeticExpr, nonTerminalHash);
     insertNonTerminal("arithmeticOrBooleanExpr", arithmeticOrBooleanExpr, nonTerminalHash);
@@ -179,9 +179,9 @@ void populate_grammar(){
     insertNonTerminal("n4", n4, nonTerminalHash);
     insertNonTerminal("n5", n5, nonTerminalHash);
     insertNonTerminal("n6", n6, nonTerminalHash);
+    insertNonTerminal("n7", n7, nonTerminalHash);
     insertNonTerminal("new_NT", new_NT, nonTerminalHash);
     insertNonTerminal("new_index", new_index, nonTerminalHash);
-    insertNonTerminal("new_indexSQBC", new_indexSQBC, nonTerminalHash);
     insertNonTerminal("new_index_for_loop", new_index_for_loop, nonTerminalHash);
     insertNonTerminal("op1", op1, nonTerminalHash);
     insertNonTerminal("op2", op2, nonTerminalHash);
@@ -190,7 +190,6 @@ void populate_grammar(){
     insertNonTerminal("output_plist1", output_plist1, nonTerminalHash);
     insertNonTerminal("output_plist2", output_plist2, nonTerminalHash);
     insertNonTerminal("p1", p1, nonTerminalHash);
-    insertNonTerminal("print", print, nonTerminalHash);
     insertNonTerminal("program", program, nonTerminalHash);
     insertNonTerminal("range_arrays", range_arrays, nonTerminalHash);
     insertNonTerminal("range_for_loop", range_for_loop, nonTerminalHash);
@@ -238,6 +237,13 @@ void populate_parse_table(){
                 }
             }
         }
+    }
+
+    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
+        for(int j=0;j<NUM_OF_TERMINALS;j++){
+            printf("%d ", parse_table[i][j]);
+        }
+        printf("\n");
     }
 }
 
@@ -329,17 +335,22 @@ void findFollow(lhs start, rhs *target, rhs *temp){
 void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
+    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
+        firstDone[i]=0;
+    }
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
         //printf("printing rule no %d ", j);
         findFirst(G[j]);
     }
 
     for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-        printf("\n%d\n%d\n", j, firstDone[j]);
-
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
-            printf("%d", First[j][i]);
+        if(firstDone[j]!=1){
+            printf("\n%d\n%d\n", j, firstDone[j]);
         }
+
+        // for(int i = 0; i < NUM_OF_TERMINALS; i++){
+        //     printf("%d", First[j][i]);
+        // }
     }
 
     Follow[0][NUM_OF_TERMINALS - 1] = 1;
@@ -354,13 +365,13 @@ void computeFirstandFollow(){
         }       
     }
 
-    for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-        printf("\n");
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
+    // for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
+    //     printf("\n");
+    //     for(int i = 0; i < NUM_OF_TERMINALS; i++){
             
-            printf("%d", Follow[j][i]);
-        }      
-    }
+    //         printf("%d", Follow[j][i]);
+    //     }      
+    // }
 }
 
 int main(){
@@ -379,10 +390,10 @@ int main(){
             temp=temp->nextRHS;
         }
     }
-    printf("before first and follow");
+    //printf("before first and follow");
     computeFirstandFollow();
-    printf("computed first and follow");
-    //populate_parse_table();*/
+    //printf("computed first and follow");
+    populate_parse_table();
     return 0;
 }
 
