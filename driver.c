@@ -35,6 +35,8 @@ int main(){
         t = clock();
         switch (s)
         {
+        case 0:
+            exit(0);
         case 1:     //prints comment free code
             /* code */
             removeComments(filename);
