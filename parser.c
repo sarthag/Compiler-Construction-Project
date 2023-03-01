@@ -35,21 +35,30 @@ bool follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{0,0,0,1}, {0,1,1,0}, {0
 //     }
 // }
 
-void InitializeParser(){
+void synchronization_set(){
+    // computeFirstandFollow();
+    token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
 
+    for(int i=0; i<=NUM_OF_NONTERMINALS; i++){
+        for(int j=0; j<=NUM_OF_TERMINALS; j++){
+            sync_set[i][j] = (j == semicol) || (j == bc) || (j == sqbc) || First[i][j] || Follow[i][j];
+        }
+    }
+}
+
+void InitializeParser(){
+    populate_grammar();
+    generateGrammar();
+    computeFirstandFollow();
+    synchronization_set();
+    populate_parse_table();
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
-    printf("Parser Init11");
-    push(parserStack, TERMINAL, $, NULL);
-    printf("Parser Init12");
-    push(parserStack, NON_TERMINAL, program, parseTree->root);
-    printf("Parser Init13");
     parseTree = create_parse_tree();
-    printf("Parser Init14");
+    push(parserStack, TERMINAL, $, NULL);
+    push(parserStack, NON_TERMINAL, program, parseTree->root);
     parseTree->root = create_node(NON_TERMINAL, program);
-    printf("Parser Init15");
     L = NULL;
-    printf("Parser Init");
 }
 
 
@@ -76,8 +85,10 @@ void parse_code(){
     L = getNextTk(tokenList, L);
     // stack_node* s;
     while(L != NULL){
+        printf("Inside While\n");
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
+            printf("x terminal\n");
             if (x->element.t.tid == L->tid){
                 pop(parserStack);
                 L = getNextTk(tokenList, L);                
@@ -89,24 +100,31 @@ void parse_code(){
             
         }
         else if (x->type == NON_TERMINAL){
+            printf("x non terminal\n");
             if (parse_table[x->element.nt.nid][L->tid] != -1){
                 pop(parserStack);
+                printf("popped\n");
+                // printf("%d %d %d\n", x->element.nt.nid, L->tid, G[parse_table[x->element.nt.nid][L->tid]].lastRHS->rhs_id);
                 rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
                 while (toPush->prevRHS != NULL)
                 {   
+                    printf("inside while\n");
                     tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
                     insert_child(x->treeLocation, temp);
                     push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
                     toPush = toPush->prevRHS;
                 }
+                printf("while over\n");
                 tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
                 insert_child(x->treeLocation, temp);
                 push(parserStack, toPush->isTerminal, toPush->rhs_id, x->treeLocation);
+                printf("If over\n");
             }
             else{
                 printf("ERROR : Non terminal doesnt exist");
                 parser_retract(x ->element.nt,L);
             }
+            printf("x non terminal over\n");
         }
         else if (x == NULL){
             printf("Stack empty");
@@ -120,16 +138,7 @@ void parse_code(){
         printf("stack not empty");
     }
 }
-void synchronization_set(){
-    // computeFirstandFollow();
-    token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
 
-    for(int i=0; i<=NUM_OF_NONTERMINALS; i++){
-        for(int j=0; j<=NUM_OF_TERMINALS; j++){
-            sync_set[i][j] = (j == semicol) || (j == bc) || (j == sqbc) || First[i][j] || Follow[i][j];
-        }
-    }
-}
 
 void inorder_traversal(tree_node *node, FILE* fp) {
     if (node == NULL) {
