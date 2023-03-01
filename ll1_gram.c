@@ -98,28 +98,24 @@ void populate_grammar(){
     insertTerminal("FOR", FOR, terminalHash);
     insertTerminal("GE", GE, terminalHash);
     insertTerminal("GET_VALUE", GET_VALUE, terminalHash);
-    insertTerminal("GT", GET_VALUE, terminalHash);
-    insertTerminal("ID", GET_VALUE, terminalHash);
-    insertTerminal("IN", GET_VALUE, terminalHash);
-    insertTerminal("INPUT", GET_VALUE, terminalHash);
-    insertTerminal("INTEGER", GET_VALUE, terminalHash);
-    insertTerminal("LE", GET_VALUE, terminalHash);
-    insertTerminal("LT", GET_VALUE, terminalHash);
-    insertTerminal("MINUS", GET_VALUE, terminalHash);
-    insertTerminal("MODULE", GET_VALUE, terminalHash);
-    insertTerminal("MUL", GET_VALUE, terminalHash);
-    insertTerminal("NE", GET_VALUE, terminalHash);
-    insertTerminal("NUM", GET_VALUE, terminalHash);
-    insertTerminal("OF", GET_VALUE, terminalHash);
-    insertTerminal("OR", GET_VALUE, terminalHash);
-    insertTerminal("PARAMETERS", GET_VALUE, terminalHash);
-    insertTerminal("PLUS", GET_VALUE, terminalHash);
-    insertTerminal("PRINT", GET_VALUE, terminalHash);
-    insertTerminal("PROGRAM", GET_VALUE, terminalHash);
-    insertTerminal("NUM", GET_VALUE, terminalHash);
-    insertTerminal("NUM", GET_VALUE, terminalHash);
-    insertTerminal("NUM", GET_VALUE, terminalHash);
-    insertTerminal("NUM", GET_VALUE, terminalHash);
+    insertTerminal("GT", GT, terminalHash);
+    insertTerminal("ID", ID, terminalHash);
+    insertTerminal("IN", IN, terminalHash);
+    insertTerminal("INPUT", INPUT, terminalHash);
+    insertTerminal("INTEGER", INTEGER, terminalHash);
+    insertTerminal("LE", LE, terminalHash);
+    insertTerminal("LT", LT, terminalHash);
+    insertTerminal("MINUS", MINUS, terminalHash);
+    insertTerminal("MODULE", MODULE, terminalHash);
+    insertTerminal("MUL", MUL, terminalHash);
+    insertTerminal("NE", NE, terminalHash);
+    insertTerminal("NUM", NUM, terminalHash);
+    insertTerminal("OF", OF, terminalHash);
+    insertTerminal("OR", OR, terminalHash);
+    insertTerminal("PARAMETERS", PARAMETERS, terminalHash);
+    insertTerminal("PLUS", PLUS, terminalHash);
+    insertTerminal("PRINT", PRINT, terminalHash);
+    insertTerminal("PROGRAM", PROGRAM, terminalHash);
     insertTerminal("RANGEOP", RANGEOP, terminalHash);
     insertTerminal("REAL", REAL, terminalHash);
     insertTerminal("RETURNS", RETURNS, terminalHash);
@@ -249,8 +245,11 @@ void populate_parse_table(){
     int ctr = 0;
     for(int i=0;i<NUM_OF_NONTERMINALS;i++){
         for(int j=0;j<NUM_OF_TERMINALS;j++){
-            if(parse_table[i][j] == 1){
+            if(parse_table[i][j] == 4){
                 printf("%d ",parse_table[i][j]);
+            }
+            else{
+                printf(" ");
             }
             
             
@@ -263,10 +262,11 @@ void populate_parse_table(){
 void findFirst(lhs target){
     // printf("entering first %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
-    // printf("TEMP asfaf: %d\n",temp ->rhs_id);
+    // printf("TEMP asfaf: %d  Type: %d\n",temp ->rhs_id, temp ->isTerminal);
     rhs* temp2;
     // printf("TEMP RHS ID :%d \n",temp->rhs_id);
     if (temp->isTerminal == 1){
+        printf("LHS ID: %d ,RHS ID : %d",target.lhs_id, temp->rhs_id);
         // if(temp->rhs_id == NUM_OF_TERMINALS - 1){          
         //     temp2 = temp->nextRHS;
         //     if(temp2 != NULL){           
@@ -289,7 +289,7 @@ void findFirst(lhs target){
         //     }
         // }
         First[target.lhs_id][temp->rhs_id] = 1;
-        // printf("Index: %d",temp -> rhs_id);
+        // printf("Index: %d\n",temp -> rhs_id);
         firstDone[target.lhs_id] = 1;
     }
     else{
@@ -315,15 +315,15 @@ void findFirst(lhs target){
         // }
         temp = temp->nextRHS;
         while (temp != NULL && First[temp->rhs_id][NUM_OF_TERMINALS-1] == 1){
-            printf("Inside while loop\n");
-            printf("temp ->rhs id :%d\n",target.firstRHS-> rhs_id);
+            // printf("Inside while loop\n");
+            // printf("temp ->rhs id :%d\n",target.firstRHS-> rhs_id);
              
-            printf("TEMP IS TERMINAL: %d ",temp ->isTerminal);
-            printf("temp ->rhs id :%d\n",target.firstRHS->nextRHS -> rhs_id);
+            // printf("TEMP IS TERMINAL: %d ",temp ->isTerminal);
+            // printf("temp ->rhs id :%d\n",target.firstRHS->nextRHS -> rhs_id);
             if(temp != NULL){
                 // printf("next rhs %d \n", temp->rhs_id);
                 if (firstDone[temp->rhs_id] == 0){
-                    printf("Inside while loop first done\n");
+                    // printf("Inside while loop first done\n");
                     int i = 0;
                     for(i; i < NUM_OF_RULES; i++){
                         if(G[i].lhs_id == temp->rhs_id){
@@ -342,6 +342,7 @@ void findFirst(lhs target){
             temp = temp->nextRHS;
             }
             else{
+                First[target.lhs_id][NUM_OF_TERMINALS-1] = 1;
                 break;
             }
         }
@@ -398,13 +399,13 @@ void computeFirstandFollow(){
     }
 
     for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-        if(firstDone[j]!=1){
-            printf("\n%d\n%d\n", j, firstDone[j]);
-        }
+        
+            printf("\nLine No: %d\n%d\n", j, firstDone[j]);
+        
 
-        // for(int i = 0; i < NUM_OF_TERMINALS; i++){
-        //     printf("%d", First[j][i]);
-        // }
+        for(int i = 0; i < NUM_OF_TERMINALS; i++){
+            printf("%d", First[j][i]);
+        }
     }
 
     Follow[program][NUM_OF_TERMINALS - 1] = 1;
@@ -430,9 +431,9 @@ void computeFirstandFollow(){
             //     sum+= Follow[j][i];
             //     printf("%d ", Follow[j][i]);
             // }
-            if(j == arr_N4 && First[j][i] == 1){
-                 printf("%d ", i);
-            }
+            // if(j == arr_N4 && First[j][i] == 1){
+            //      printf("%d ", i);
+            // }
             // if(j == arr_N4 && First[arr_N4][i] == 1){
             //     printf("%d ",i);
             // }
@@ -447,32 +448,23 @@ void computeFirstandFollow(){
     }
 }
 
+void printGrammar(){
+    for(int i = 0; i < NUM_OF_RULES; i++){
+        rhs * temp = G[i].firstRHS;
+        printf("Line no: %d :- ",i+1);
+        printf("%d ", G[i].lhs_id);
+        while(temp != NULL){
+            printf("%d ",temp->rhs_id);
+            temp = temp -> nextRHS;
+        }
+        printf("\n");
+    }
+}
+
 int main(){
     populate_grammar();
-    //printTTable(terminalHash, TSIZE);
-    //printNTTable(nonTerminalHash,NTSIZE);
-    //printf("hash value for moduleDeclaration: %d \n ", getTokenFromNTTable("moduleDeclaration",nonTerminalHash));
-    generateGrammar(); 
-    for(int i=0;i<NUM_OF_RULES;i++){
-        rhs* temp;
-        temp=G[i].firstRHS;
-        while(temp!=NULL){
-            if(temp->rhs_id==-1){
-                printf("line no %d token no %d ", i+1, temp->rhs_id);
-            }
-            temp=temp->nextRHS;
-        }
-    }
-    // printf("%d \n",G[100].firstRHS->rhs_id);
-    findFirst(G[100]);
-    findFirst(G[101]);
-
-    // for(int i = 0; i < NUM_OF_TERMINALS; i++){
-    //     printf("%d", First[7][i]);
-    // }
-    //printf("before first and follow");
+    generateGrammar();
     computeFirstandFollow();
-    //printf("computed first and follow");
     populate_parse_table();
 
     return 0;
