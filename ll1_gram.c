@@ -47,7 +47,7 @@ bool isTerm(char* str){
 
 
 void generateGrammar(){
-    FILE *fp = fopen("grammar_fake.txt", "r");
+    FILE *fp = fopen("grammar.txt", "r");
     if(fp ==NULL){
         printf("Error in opening the file ");
     }
@@ -239,22 +239,10 @@ void populate_grammar(){
     insertNonTerminal("valueARRStmt", valueARRStmt, nonTerminalHash);
     insertNonTerminal("whichStmt", whichStmt, nonTerminalHash);
 }
-// int main(){
-//     //lhs G1[NUM_OF_RULES];
-//     //G1= generateGrammar();
-//     generateGrammar();
-//     for(int i=0;i<NUM_OF_RULES;i++){
-//         printf("LHS_ID %d ", G[i].lhs_id);
-//         // printf("Tail: %d", G[i].lastRHS->rhs_id);
-//         rhs *temp = G[i].lastRHS;
-//         while(temp != NULL){
-//             printf("RHS_ID %d ", temp->rhs_id);
-//             temp=temp->prevRHS;
-//         }
-//         printf("\n");
-        
-//     }
-//     return 0;
-// }
+int main(){
+    generateGrammar();
+    printf("%d ", G[NUM_OF_RULES-1].lhs_id);
+    return 0;
+}
 
 
