@@ -352,22 +352,23 @@ void computeFirstandFollow(){
         }      
     }
 }
-int main(){
-    populate_grammar();
-    //printTTable(terminalHash, TSIZE);
-    //printNTTable(nonTerminalHash,NTSIZE);
-    //printf("hash value for moduleDeclaration: %d \n ", getTokenFromNTTable("moduleDeclaration",nonTerminalHash));
-    generateGrammar(); 
-    printf("generated grammar");
-    for(int i=0;i<NUM_OF_RULES;i++){
 
-        printf("\n for rule number %d printing id of first rhs %d ", i, G[i].firstRHS->rhs_id);
-    }
-    //computeFirstandFollow();
-    printf("computed first and follow");
-    //populate_parse_table();*/
-    return 0;
-}
+// int main(){
+//     populate_grammar();
+//     //printTTable(terminalHash, TSIZE);
+//     //printNTTable(nonTerminalHash,NTSIZE);
+//     //printf("hash value for moduleDeclaration: %d \n ", getTokenFromNTTable("moduleDeclaration",nonTerminalHash));
+//     generateGrammar(); 
+//     printf("generated grammar");
+//     for(int i=0;i<NUM_OF_RULES;i++){
+
+//         printf("\n for rule number %d printing id of last rhs %d ", i, G[i].lastRHS->rhs_id);
+//     }
+//     //computeFirstandFollow();
+//     printf("computed first and follow");
+//     //populate_parse_table();*/
+//     return 0;
+// }
 
 
 
