@@ -57,7 +57,7 @@ sign MINUS
 sign EPSILON
 moduleReuseStmt optional USE MODULE ID WITH PARAMETERS idList1 SEMICOL
 optional SQBO idList1 SQBC ASSIGNOP
-optional ESPILON
+optional EPSILON
 idList1 ID idList2
 idList2 COMMA ID idList2
 idList2 EPSILON
@@ -85,8 +85,8 @@ factor NUM
 factor RNUM
 factor boolConstt
 factor ID n5
-N5 SQBO element_index_with_expressions SQBC 
-N5 EPSILON
+n5 SQBO element_index_with_expressions SQBC 
+n5 EPSILON
 arrExpr arrTerm arr_N4
 arr_N4 op1 arrTerm arr_N4
 arr_N4 EPSILON
@@ -103,7 +103,7 @@ n6 BO arrExpr BC
 op1 PLUS
 op1 MINUS
 op2 MUL
-op2 DIVIDE 
+op2 DIV 
 logicalOp AND
 logicalOp OR
 relationalOp LT

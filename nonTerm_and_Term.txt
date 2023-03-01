@@ -1,3 +1,8 @@
+present in terminals but not tokens:
+ ['ASSIGNOP', 'BC', 'BO', 'COLON', 'COMMA', 'DEF', 'DIVIDE', 'DRIVERDEF', 'DRIVERENDDEF', 'ENDDEF', 'EPSILON', 'EQ', 'ESPILON', 'GE', 'GT', 'ID', 'LE', 'LT', 'MINUS', 'MUL', 'NE', 'NUM', 'PLUS', 'RANGEOP', 'RNUM', 'SEMICOL', 'SQBC', 'SQBO']
+
+
+
 anyTerm
 arithmeticExpr
 arithmeticOrBooleanExpr
