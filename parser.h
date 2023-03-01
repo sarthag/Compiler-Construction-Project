@@ -11,7 +11,7 @@
 
 void populate_parse_table();
 void InitializeParser();
-void parser_retract(nt_key nonterm);
+void parser_retract(non_terminal nonterm, token* current);
 void parse_code();
 
 #endif

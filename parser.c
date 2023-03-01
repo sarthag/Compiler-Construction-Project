@@ -50,12 +50,16 @@ token * getNextTk(tokenLL tokenList, token * current){
     if (current == NULL){
         return tokenList.start;
     }
-    return current->next;
+    return (current -> next == NULL) ?NULL :current->next;
 }
 
-void parser_retract(nt_key nonterm) {
-    while(parserStack->top->type == NON_TERMINAL || !sync_set[nonterm][parserStack->top->element.t.tid]){
-        stack_node *sn = pop(parserStack);
+void parser_retract(non_terminal nonterm, token* current) {
+    while(!sync_set[nonterm.nid][current ->tid]){
+        // stack_node *sn = pop(parserStack);
+        if(parse_table[nonterm.nid][EPSILON]){
+            return;
+        }
+        L = getNextTk(tokenList, L);
     }
 }
 
@@ -65,15 +69,17 @@ void parse_code(){
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
             if (x->element.t.tid == L->tid){
-                pop(parserStack);           
-                L = getNextTk(tokenList, L);
+                pop(parserStack);
+                L = getNextTk(tokenList, L);                
             }
             else{
-                printf("Terminal Mismatch"); //implement syncronisation set
+                pop(x);
+                printf("ERROR : Terminal Mismatch"); 
             }
+            
         }
         else if (x->type == NON_TERMINAL){
-            if (parse_table[x->element.nt.nid][L->tid] != 0){
+            if (parse_table[x->element.nt.nid][L->tid] != -1){
                 stack_node* parent = pop(parserStack);
                 rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
                 while (toPush->prevRHS != NULL)
@@ -88,7 +94,8 @@ void parse_code(){
                 push(parserStack, toPush->isTerminal, toPush->rhs_id, x->treeLocation);
             }
             else{
-                printf("Non terminal doesnt exist");
+                printf("ERROR : Non terminal doesnt exist");
+                parser_retract(x ->element.nt,L);
             }
         }
         else if (x == NULL){
