@@ -131,7 +131,7 @@ caseStmt2 EPSILON
 value NUM
 value TRUE
 value FALSE
-default1 default1 COLON statements BREAK SEMICOL 
+default1 DEFAULT COLON statements BREAK SEMICOL 
 default1 EPSILON
 iterativeStmt FOR BO ID IN range_for_loop BC START statements END
 iterativeStmt WHILE BO arithmeticOrBooleanExpr BC START statements END

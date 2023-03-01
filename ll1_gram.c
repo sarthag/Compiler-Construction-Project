@@ -238,6 +238,13 @@ void populate_parse_table(){
             }
         }
     }
+
+    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
+        for(int j=0;j<NUM_OF_TERMINALS;j++){
+            printf("%d ", parse_table[i][j]);
+        }
+        printf("\n");
+    }
 }
 
 
@@ -328,17 +335,22 @@ void findFollow(lhs start, rhs *target, rhs *temp){
 void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
+    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
+        firstDone[i]=0;
+    }
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
         //printf("printing rule no %d ", j);
         findFirst(G[j]);
     }
 
     for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-        printf("\n%d\n%d\n", j, firstDone[j]);
-
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
-            printf("%d", First[j][i]);
+        if(firstDone[j]!=1){
+            printf("\n%d\n%d\n", j, firstDone[j]);
         }
+
+        // for(int i = 0; i < NUM_OF_TERMINALS; i++){
+        //     printf("%d", First[j][i]);
+        // }
     }
 
     Follow[0][NUM_OF_TERMINALS - 1] = 1;
@@ -353,13 +365,13 @@ void computeFirstandFollow(){
         }       
     }
 
-    for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-        printf("\n");
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
+    // for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
+    //     printf("\n");
+    //     for(int i = 0; i < NUM_OF_TERMINALS; i++){
             
-            printf("%d", Follow[j][i]);
-        }      
-    }
+    //         printf("%d", Follow[j][i]);
+    //     }      
+    // }
 }
 
 int main(){
@@ -378,10 +390,10 @@ int main(){
             temp=temp->nextRHS;
         }
     }
-    printf("before first and follow");
+    //printf("before first and follow");
     computeFirstandFollow();
-    printf("computed first and follow");
-    //populate_parse_table();*/
+    //printf("computed first and follow");
+    populate_parse_table();
     return 0;
 }
 
