@@ -83,7 +83,6 @@ anyTerm arithmeticExpr n2
 anyTerm boolConstt 
 n2 relationalOp arithmeticExpr 
 n2 EPSILON
-arithmeticExpr arithmeticExpr op1 term
 arithmeticExpr term n3
 n3 op1 term n3
 n3 EPSILON
