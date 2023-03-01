@@ -245,8 +245,11 @@ void populate_parse_table(){
     int ctr = 0;
     for(int i=0;i<NUM_OF_NONTERMINALS;i++){
         for(int j=0;j<NUM_OF_TERMINALS;j++){
-            if(parse_table[i][j] == 1){
+            if(parse_table[i][j] == 4){
                 printf("%d ",parse_table[i][j]);
+            }
+            else{
+                printf(" ");
             }
             
             
@@ -461,42 +464,7 @@ void printGrammar(){
 int main(){
     populate_grammar();
     generateGrammar();
-    printf("PRINTING GRAMMAR\n");
-    // printGrammar(); 
-    for(int i=0;i<NUM_OF_RULES;i++){
-        rhs* temp;
-        temp=G[i].firstRHS;
-        while(temp!=NULL){
-            if(temp->rhs_id==-1){
-                // printf("line no %d token no %d ", i+1, temp->rhs_id);
-            }
-            temp=temp->nextRHS;
-        }
-    }
-    // printf("%d \n",G[100].firstRHS->rhs_id);
-    // rhs * temp = G[114].firstRHS;
-    //     printf("Line no: %d :- ",115);
-    //     printf("%d ", G[114].lhs_id);
-    //     while(temp != NULL){
-    //         printf("%d ",temp->rhs_id);
-    //         temp = temp -> nextRHS;
-    // }
-        // printf("\n");
-    // findFirst(G[114]);
-    // findFirst(G[113]);
-    // findFirst(G[101]);
-    // printf("HASH: %d \n",getTokenFromTTable("MINUS",terminalHash));
-    
-    // printf("before first and follow\n");
     computeFirstandFollow();
-    printf("\n 7,58: %d \n",First[7][58]);
-    for(int i = 0; i < NUM_OF_TERMINALS; i++){
-        
-        if(First[47][i] == 1){
-            printf("\nasdas: %d ", i);
-        }
-    }
-    //printf("computed first and follow");
     populate_parse_table();
 
     return 0;
