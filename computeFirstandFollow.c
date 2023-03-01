@@ -1,6 +1,7 @@
 #include "computeFirstandFollow.h"
 
 void findFirst(lhs target){
+    printf("here %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
         if(temp->rhs_id == NUM_OF_TERMINALS - 1){          // assuming EPSILON id = 3
@@ -81,12 +82,11 @@ void findFollow(lhs start, rhs *target, rhs *temp){
 void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
-    generateGrammar();
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
         findFirst(G[j]);
     }
 
-    for (int j = 0; j < 4; j++){
+    for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
         printf("\n%d\n%d\n", j, firstDone[j]);
 
         for(int i = 0; i < NUM_OF_TERMINALS; i++){
@@ -138,3 +138,10 @@ int main(){
     }
 }
 */
+
+int main(){
+    populate_grammar();
+    generateGrammar();
+    computeFirstandFollow();
+    return 0;
+}

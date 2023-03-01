@@ -237,6 +237,8 @@ void populate_parse_table(){
         }
     }
 }
+
+/*
 void findFirst(lhs target){
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
@@ -352,7 +354,7 @@ void computeFirstandFollow(){
         }      
     }
 }
-
+*/
 // int main(){
 //     populate_grammar();
 //     //printTTable(terminalHash, TSIZE);
