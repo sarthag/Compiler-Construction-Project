@@ -78,8 +78,44 @@ FILE* getStream(FILE *code){
     return code;
 }
 
-void removeComments() {
-    ;
+void removeComments(char *filename) {
+    FILE *fp1, *fp2;
+    char ch, buffer[1000];
+    int i, j, flag;
+
+    fp1 = fopen(filename, "r");
+    fp2 = fopen("temp.txt", "w");
+
+    if (fp1 == NULL || fp2 == NULL) {
+        printf("Error opening file\n");
+        return;
+    }
+
+    while ((fgets(buffer, 1000, fp1)) != NULL) {
+        flag = 0;
+        for (i = 0, j = 0; buffer[i] != '\0'; i++) {
+            if (buffer[i] == '*' && buffer[i+1] == '*') {
+                flag = 1;
+                i += 2;
+            }
+            if (!flag) {
+                buffer[j++] = buffer[i];
+                printf("%c", buffer[i]);
+            }
+            if (buffer[i] == '*' && buffer[i+1] == '*') {
+                flag = 0;
+                i += 2;
+            }
+        }
+        buffer[j] = '\0';
+        fputs(buffer, fp2);
+    }
+
+    // fclose(fp1);
+    fclose(fp2);
+
+    // remove(filename);
+    // rename("temp.txt", filename);
 }
 
 char getNextChar(FILE* code) {
@@ -203,7 +239,7 @@ token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
 
 
 
-token getNextToken(FILE *code) {
+void getNextToken(FILE *code) {
     // printf("Inside getNextToken\n");
     state = 1;
     // err = 0;

@@ -12,8 +12,8 @@ void resetLexeme();
 void retract(int n);
 char *getLexeme(); 
 
-token getNextToken(FILE* code);
-void removeComments(char *testcaseFile, char *cleanFile);
+void getNextToken(FILE* code);
+void removeComments(char *filename);
 token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]);
 void populate_keyword_table(); 
 
