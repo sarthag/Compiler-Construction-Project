@@ -83,10 +83,11 @@ void insertTerminal(const char *tText, token_key terminal, tElement tTable[]){
         i++;
         index  = (hashValue + (i*i))%TSIZE;
     }
-    int ntTextSize = NTTEXTSIZE;
+    int tTextSize = TTEXTSIZE;
     // strncpy(keywordTable[index].lexeme, lexeme, lexemeSize-1);
     // keywordTable[index].lexeme[lexemeSize -1] = '\0';
     strcpy(tTable[index].tText, tText);
+    tTable[index].tText[tTextSize-1] = '\0';
     tTable[index].terminal = terminal;
     
     tTable[index].occupied = true;
