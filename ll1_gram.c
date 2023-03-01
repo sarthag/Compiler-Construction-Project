@@ -41,6 +41,9 @@ void generateGrammar(){
                 else{
                     new_rhs->rhs_id = getTokenFromTTable(str, terminalHash);
                 }
+                if(new_rhs->rhs_id==-1){
+                    printf("||%s||", str);
+                }
                 new_rhs->nextRHS = NULL;
                 
                 if(prev_rhs==NULL){
@@ -369,15 +372,14 @@ int main(){
         temp=G[i].firstRHS;
         while(temp!=NULL){
             if(temp->rhs_id==-1){
-                printf("line no %d ", i+1);
+                printf("line no %d token no %d ", i+1, temp->rhs_id);
             }
             temp=temp->nextRHS;
         }
-        printf("\n");
     }
-    //printf("before first and follow");
-    //computeFirstandFollow();
-    //printf("computed first and follow");
+    printf("before first and follow");
+    computeFirstandFollow();
+    printf("computed first and follow");
     //populate_parse_table();*/
     return 0;
 }
