@@ -1,1 +1,364 @@
-{"program":["EPSILON","DECLARE"],"moduleDeclarations":["EPSILON","DECLARE"],"moduleDeclaration":["DECLARE"],"otherModules":["EPSILON","DEF"],"module":["DEF"],"ret":["RETURNS","EPSILON"],"driverModule":["DRIVERDEF"],"moduleDef":["START"],"input_plist1":["ID"],"input_plist2":["COMMA","EPSILON"],"output_plist1":["ID"],"output_plist2":["COMMA","EPSILON"],"dataType":["ARRAY"],"range_arrays":["PLUS","MINUS","EPSILON"],"type":["INTEGER","REAL","BOOLEAN"],"statements":["EPSILON","GET_VALUE","PRINT","DECLARE","SWITCH","FOR","WHILE","ID"],"statement":["GET_VALUE","PRINT","DECLARE","SWITCH","FOR","WHILE","ID"],"ioStmt":["GET_VALUE","PRINT"],"boolConstt":["TRUE","FALSE"],"id_num_rnum":["ID","NUM","RNUM"],"array_element_for_print":["ID"],"var_print":["ID","NUM","RNUM","TRUE","FALSE"],"p1":["SQBO","EPSILON"],"simpleStmt":["ID"],"assignmentStmt":["ID"],"whichStmt":["ASSIGNOP","SQBO"],"valueIDStmt":["ASSIGNOP"],"valueARRStmt":["SQBO"],"index_arr":["PLUS","MINUS","EPSILON"],"new_index":["NUM","ID"],"sign":["PLUS","MINUS","EPSILON"],"moduleReuseStmt":["SQBO","EPSILON"],"actualParaList":["NUM","RNUM","TRUE","FALSE","ID"],"n7":["SQBO","EPSILON"],"optional":["SQBO","EPSILON"],"idList1":["ID"],"idList2":["COMMA","EPSILON"],"expression":["TRUE","FALSE","BO","NUM","RNUM","ID"],"u":["PLUS","MINUS"],"new_NT":["BO","ID","NUM","RNUM"],"var_id_num":["ID","NUM","RNUM"],"unary_op":["PLUS","MINUS"],"arithmeticOrBooleanExpr":["TRUE","FALSE","BO","NUM","RNUM","ID"],"n1":["EPSILON","AND","OR"],"anyTerm":["TRUE","FALSE","BO","NUM","RNUM","ID"],"n2":["EPSILON","LT","LE","GT","GE","EQ","NE"],"arithmeticExpr":["BO","NUM","RNUM","TRUE","FALSE","ID"],"n3":["EPSILON","PLUS","MINUS"],"term":["BO","NUM","RNUM","TRUE","FALSE","ID"],"n4":["EPSILON","MUL","DIV"],"factor":["BO","NUM","RNUM","TRUE","FALSE","ID"],"n5":["SQBO","EPSILON"],"arrExpr":["ID","NUM","TRUE","FALSE","BO"],"arr_N4":["EPSILON","PLUS","MINUS"],"arrTerm":["ID","NUM","TRUE","FALSE","BO"],"arr_N5":["EPSILON","MUL","DIV"],"arrFactor":["ID","NUM","TRUE","FALSE","BO"],"element_index_with_expressions":["PLUS","MINUS","EPSILON","ID","NUM","TRUE","FALSE","BO"],"n6":["NUM","ID","BO"],"op1":["PLUS","MINUS"],"op2":["MUL","DIV"],"logicalOp":["AND","OR"],"relationalOp":["LT","LE","GT","GE","EQ","NE"],"declareStmt":["DECLARE"],"conditionalStmt":["SWITCH"],"caseStmt1":["CASE"],"caseStmt2":["CASE","EPSILON"],"value":["NUM","TRUE","FALSE"],"default1":["DEFAULT","EPSILON"],"iterativeStmt":["FOR","WHILE"],"range_for_loop":["PLUS","MINUS","EPSILON"],"index_for_loop":["PLUS","MINUS","EPSILON"],"new_index_for_loop":["NUM"],"sign_for_loop":["PLUS","MINUS","EPSILON"]}
+{
+    "program": [
+        "EPSILON",
+        "DECLARE"
+    ],
+    "moduleDeclarations": [
+        "EPSILON",
+        "DECLARE"
+    ],
+    "moduleDeclaration": [
+        "DECLARE"
+    ],
+    "otherModules": [
+        "EPSILON",
+        "DEF"
+    ],
+    "module": [
+        "DEF"
+    ],
+    "ret": [
+        "RETURNS",
+        "EPSILON"
+    ],
+    "driverModule": [
+        "DRIVERDEF"
+    ],
+    "moduleDef": [
+        "START"
+    ],
+    "input_plist1": [
+        "ID"
+    ],
+    "input_plist2": [
+        "COMMA",
+        "EPSILON"
+    ],
+    "output_plist1": [
+        "ID"
+    ],
+    "output_plist2": [
+        "COMMA",
+        "EPSILON"
+    ],
+    "dataType": [
+        "ARRAY"
+    ],
+    "range_arrays": [
+        "PLUS",
+        "MINUS",
+        "EPSILON"
+    ],
+    "type": [
+        "INTEGER",
+        "REAL",
+        "BOOLEAN"
+    ],
+    "statements": [
+        "EPSILON",
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID"
+    ],
+    "statement": [
+        "GET_VALUE",
+        "PRINT",
+        "DECLARE",
+        "SWITCH",
+        "FOR",
+        "WHILE",
+        "ID"
+    ],
+    "ioStmt": [
+        "GET_VALUE",
+        "PRINT"
+    ],
+    "boolConstt": [
+        "TRUE",
+        "FALSE"
+    ],
+    "id_num_rnum": [
+        "ID",
+        "NUM",
+        "RNUM"
+    ],
+    "array_element_for_print": [
+        "ID"
+    ],
+    "var_print": [
+        "ID",
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE"
+    ],
+    "p1": [
+        "SQBO",
+        "EPSILON"
+    ],
+    "simpleStmt": [
+        "ID"
+    ],
+    "assignmentStmt": [
+        "ID"
+    ],
+    "whichStmt": [
+        "ASSIGNOP",
+        "SQBO"
+    ],
+    "valueIDStmt": [
+        "ASSIGNOP"
+    ],
+    "valueARRStmt": [
+        "SQBO"
+    ],
+    "index_arr": [
+        "PLUS",
+        "MINUS",
+        "EPSILON"
+    ],
+    "new_index": [
+        "NUM",
+        "ID"
+    ],
+    "sign": [
+        "PLUS",
+        "MINUS",
+        "EPSILON"
+    ],
+    "moduleReuseStmt": [
+        "SQBO",
+        "EPSILON"
+    ],
+    "actualParaList": [
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE",
+        "ID"
+    ],
+    "n7": [
+        "SQBO",
+        "EPSILON"
+    ],
+    "optional": [
+        "SQBO",
+        "EPSILON"
+    ],
+    "idList1": [
+        "ID"
+    ],
+    "idList2": [
+        "COMMA",
+        "EPSILON"
+    ],
+    "expression": [
+        "TRUE",
+        "FALSE",
+        "BO",
+        "NUM",
+        "RNUM",
+        "ID"
+    ],
+    "u": [
+        "PLUS",
+        "MINUS"
+    ],
+    "new_NT": [
+        "BO",
+        "ID",
+        "NUM",
+        "RNUM"
+    ],
+    "var_id_num": [
+        "ID",
+        "NUM",
+        "RNUM"
+    ],
+    "unary_op": [
+        "PLUS",
+        "MINUS"
+    ],
+    "arithmeticOrBooleanExpr": [
+        "TRUE",
+        "FALSE",
+        "BO",
+        "NUM",
+        "RNUM",
+        "ID"
+    ],
+    "n1": [
+        "EPSILON",
+        "AND",
+        "OR"
+    ],
+    "anyTerm": [
+        "TRUE",
+        "FALSE",
+        "BO",
+        "NUM",
+        "RNUM",
+        "ID"
+    ],
+    "n2": [
+        "EPSILON",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE"
+    ],
+    "arithmeticExpr": [
+        "BO",
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE",
+        "ID"
+    ],
+    "n3": [
+        "EPSILON",
+        "PLUS",
+        "MINUS"
+    ],
+    "term": [
+        "BO",
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE",
+        "ID"
+    ],
+    "n4": [
+        "EPSILON",
+        "MUL",
+        "DIV"
+    ],
+    "factor": [
+        "BO",
+        "NUM",
+        "RNUM",
+        "TRUE",
+        "FALSE",
+        "ID"
+    ],
+    "n5": [
+        "SQBO",
+        "EPSILON"
+    ],
+    "arrExpr": [
+        "ID",
+        "NUM",
+        "TRUE",
+        "FALSE",
+        "BO"
+    ],
+    "arr_N4": [
+        "EPSILON",
+        "PLUS",
+        "MINUS"
+    ],
+    "arrTerm": [
+        "ID",
+        "NUM",
+        "TRUE",
+        "FALSE",
+        "BO"
+    ],
+    "arr_N5": [
+        "EPSILON",
+        "MUL",
+        "DIV"
+    ],
+    "arrFactor": [
+        "ID",
+        "NUM",
+        "TRUE",
+        "FALSE",
+        "BO"
+    ],
+    "element_index_with_expressions": [
+        "PLUS",
+        "MINUS",
+        "EPSILON",
+        "ID",
+        "NUM",
+        "TRUE",
+        "FALSE",
+        "BO"
+    ],
+    "n6": [
+        "NUM",
+        "ID",
+        "BO"
+    ],
+    "op1": [
+        "PLUS",
+        "MINUS"
+    ],
+    "op2": [
+        "MUL",
+        "DIV"
+    ],
+    "logicalOp": [
+        "AND",
+        "OR"
+    ],
+    "relationalOp": [
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE"
+    ],
+    "declareStmt": [
+        "DECLARE"
+    ],
+    "conditionalStmt": [
+        "SWITCH"
+    ],
+    "caseStmt1": [
+        "CASE"
+    ],
+    "caseStmt2": [
+        "CASE",
+        "EPSILON"
+    ],
+    "value": [
+        "NUM",
+        "TRUE",
+        "FALSE"
+    ],
+    "default1": [
+        "DEFAULT",
+        "EPSILON"
+    ],
+    "iterativeStmt": [
+        "FOR",
+        "WHILE"
+    ],
+    "range_for_loop": [
+        "PLUS",
+        "MINUS",
+        "EPSILON"
+    ],
+    "index_for_loop": [
+        "PLUS",
+        "MINUS",
+        "EPSILON"
+    ],
+    "new_index_for_loop": [
+        "NUM"
+    ],
+    "sign_for_loop": [
+        "PLUS",
+        "MINUS",
+        "EPSILON"
+    ]
+}

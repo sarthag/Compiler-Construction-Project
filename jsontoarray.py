@@ -8,7 +8,7 @@ followSet = []
 with open('firstSets.json', 'r') as f:
     firstSet = json.load(f)
 
-with open('followSet.json', 'r') as f:
+with open('followSets.json', 'r') as f:
     followSet = json.load(f)
 
 class Terminals(IntEnum):
@@ -147,14 +147,41 @@ class NonTerminals(IntEnum):
     valueARRStmt = 72
     whichStmt = 73
 
-firstArr = np.zeros((74, 59))
+firstArr = np.zeros((74, 59), dtype=np.int32)
+followArr = np.zeros((74, 59), dtype=np.int32)
+
 
 for nt in firstSet.keys():
     for t in firstSet[nt]:
         # print(NonTerminals[nt], Terminals[t])
         firstArr[NonTerminals[nt].value][Terminals[t].value] = 1
 
-for nt in follow
+for nt in followSet.keys():
+    for t in followSet[nt]:
+        followArr[NonTerminals[nt].value][Terminals[t].value] = 1
+
+
+
+print(firstArr.tolist())
+print(followArr.tolist())
+
+import pickle
+
+with open('firstArr.txt', 'w') as f:
+    for row in firstArr.tolist():
+        line = ','.join([str(x) for x in row])
+        f.write(line + '\n')
+
+with open('followArr.txt', 'w') as f:
+    for row in followArr.tolist():
+        line = ','.join([str(x) for x in row])
+        f.write(line + '\n')
+
+# with open('firstArr.pkl', 'wb') as f:
+#     pickle.dump(firstArr.tolist(), f)
+
+# with open('followArr.pkl', 'wb') as f:
+#     pickle.dump(followArr.tolist(), f)
 
 # print(Terminals['TAKES'].value)
 
