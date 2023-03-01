@@ -25,7 +25,7 @@ int main(){
     populate_keyword_table(keyword_table, KTSIZE);
     // printKeywordTable(keyword_table, KTSIZE);
     FILE* code;
-    removeComments("test_cases (stage_1)/t1.txt");
+    // removeComments("test_cases (stage_1)/t2.txt");
     code = readFile("testcode");
     getNextToken(code);
     printf("Lexeme Count: %d\n", lexemeCount);
