@@ -136,7 +136,7 @@ void populate_grammar(){
     insertTerminal("WITH", WITH, terminalHash);
     insertTerminal("EPSILON", EPSILON, terminalHash);
     //POPULATING NON TERMINALS TABLE 
-    
+    insertNonTerminal("actualParaList", actualParaList, nonTerminalHash);
     insertNonTerminal("anyTerm", anyTerm, nonTerminalHash);
     insertNonTerminal("arithmeticExpr", arithmeticExpr, nonTerminalHash);
     insertNonTerminal("arithmeticOrBooleanExpr", arithmeticOrBooleanExpr, nonTerminalHash);
@@ -179,9 +179,9 @@ void populate_grammar(){
     insertNonTerminal("n4", n4, nonTerminalHash);
     insertNonTerminal("n5", n5, nonTerminalHash);
     insertNonTerminal("n6", n6, nonTerminalHash);
+    insertNonTerminal("n7", n7, nonTerminalHash);
     insertNonTerminal("new_NT", new_NT, nonTerminalHash);
     insertNonTerminal("new_index", new_index, nonTerminalHash);
-    insertNonTerminal("new_indexSQBC", new_indexSQBC, nonTerminalHash);
     insertNonTerminal("new_index_for_loop", new_index_for_loop, nonTerminalHash);
     insertNonTerminal("op1", op1, nonTerminalHash);
     insertNonTerminal("op2", op2, nonTerminalHash);
@@ -190,7 +190,6 @@ void populate_grammar(){
     insertNonTerminal("output_plist1", output_plist1, nonTerminalHash);
     insertNonTerminal("output_plist2", output_plist2, nonTerminalHash);
     insertNonTerminal("p1", p1, nonTerminalHash);
-    insertNonTerminal("print", print, nonTerminalHash);
     insertNonTerminal("program", program, nonTerminalHash);
     insertNonTerminal("range_arrays", range_arrays, nonTerminalHash);
     insertNonTerminal("range_for_loop", range_for_loop, nonTerminalHash);
