@@ -117,7 +117,6 @@ void computeFirstandFollow(){
 }
 
 void syncronization_set(){
-    computeFirstandFollow();
     token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
 
     for(int i=0; i<=NUM_OF_NONTERMINALS; i++){

@@ -53,6 +53,12 @@ token * getNextTk(tokenLL tokenList, token * current){
     return current->next;
 }
 
+void parser_retract(nt_key nonterm) {
+    while(parserStack->top->type == NON_TERMINAL || !sync_set[nonterm][parserStack->top->element.t.tid]){
+        stack_node *sn = pop(parserStack);
+    }
+}
+
 void parse_code(){
     L = getNextTk(tokenList, L);
     while(L != NULL){
@@ -101,6 +107,7 @@ void parse_code(){
 
 int main(){
     computeFirstandFollow();
+    syncronization_set();
     populate_parse_table();
 
     parse_code();
