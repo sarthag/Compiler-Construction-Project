@@ -215,7 +215,7 @@ void populate_grammar(){
 void populate_parse_table(){
     //populate the table with -1 
     for(int i=0;i<NUM_OF_NONTERMINALS;i++){
-        for(int j=0;j<PT_COLS;j++){
+        for(int j=0;j< NUM_OF_TERMINALS;j++){
             parse_table[i][j]=-1;
         }
     }
@@ -239,70 +239,100 @@ void populate_parse_table(){
 
         if(First[G[i].lhs_id][NUM_OF_TERMINALS-1]==1){
             //if the first set contains epsilon
-            for(int k=0;k<NUM_OF_TERMINALS;k++){
+            for(int k=0;k<NUM_OF_TERMINALS-1;k++){
                 if(Follow[G[i].lhs_id][k]==1){
                     parse_table[G[i].lhs_id][k] = i;
                 }
             }
         }
     }
-
+    int ctr = 0;
     for(int i=0;i<NUM_OF_NONTERMINALS;i++){
         for(int j=0;j<NUM_OF_TERMINALS;j++){
-            printf("%d ", parse_table[i][j]);
+            if(parse_table[i][j] == 1){
+                printf("%d ",parse_table[i][j]);
+            }
+            
+            
         }
-        printf("\n");
+        // printf("\n");
     }
 }
 
 
 void findFirst(lhs target){
-    //printf("entering first %d\n", target.lhs_id);
+    // printf("entering first %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     rhs* temp2;
+    // printf("TEMP RHS ID :%d \n",temp->rhs_id);
     if (temp->isTerminal == 1){
-        if(temp->rhs_id == NUM_OF_TERMINALS - 1){          
-            temp2 = temp->nextRHS;
-            if(temp2 != NULL){           
-            int i = 0;
-            for(i; i < NUM_OF_RULES; i++){
-                if(temp2 == NULL){
-                    printf("FAIL");
-                }
-                if(G[i].lhs_id == temp2->rhs_id){
-                    break;
-                }
-            }
+        // if(temp->rhs_id == NUM_OF_TERMINALS - 1){          
+        //     temp2 = temp->nextRHS;
+        //     if(temp2 != NULL){           
+        //     int i = 0;
+        //     for(i; i < NUM_OF_RULES; i++){
+        //         if(temp2 == NULL){
+        //             printf("FAIL");
+        //         }
+        //         if(G[i].lhs_id == temp2->rhs_id){
+        //             break;
+        //         }
+        //     }
             
-            findFirst(G[i]);
-            for(int i = 0; i < NUM_OF_TERMINALS; i++){
-                if (First[temp->rhs_id][i] == 1)
-                First[target.lhs_id][i] = First[temp->rhs_id][i];
-                firstDone[target.lhs_id] = 1;
-            }
-            }
-        }
+        //     findFirst(G[i]);
+        //     for(int i = 0; i < NUM_OF_TERMINALS; i++){
+        //         if (First[temp->rhs_id][i] == 1)
+        //         First[target.lhs_id][i] = First[temp->rhs_id][i];
+        //         firstDone[target.lhs_id] = 1;
+        //     }
+        //     }
+        // }
         First[target.lhs_id][temp->rhs_id] = 1;
         firstDone[target.lhs_id] = 1;
     }
     else{
-        //printf("insiding repeated first and lhs id %d ", target.lhs_id);
+        printf("inside repeated first and lhs is %d \n", target.lhs_id);
         if (firstDone[temp->rhs_id] == 0){
             int i = 0;
             for(i; i < NUM_OF_RULES; i++){
                 if(G[i].lhs_id == temp->rhs_id){
-                    break;
+                    findFirst(G[i]);
+                    // break;
                 }
             }
             
-            findFirst(G[i]);
         }
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
-            if(First[temp->rhs_id][i] == 1)
-            First[target.lhs_id][i] = First[temp->rhs_id][i];
-            firstDone[target.lhs_id] = 1;
+        for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
+            if(First[temp->rhs_id][i] == 1){
+                First[target.lhs_id][i] = First[temp->rhs_id][i];
+            }
+        }
+        
+        while (First[temp->rhs_id][NUM_OF_TERMINALS-1] == 1){
+            temp = temp->nextRHS; 
+            if(temp != NULL){
+                printf("next rhs %d \n", temp->rhs_id);
+            if (firstDone[temp->rhs_id] == 0){
+            int i = 0;
+            for(i; i < NUM_OF_RULES; i++){
+                if(G[i].lhs_id == temp->rhs_id){
+                    findFirst(G[i]);
+                    // break;
+                }
+            }
+            
+            }
+            for(int i = 0; i < NUM_OF_TERMINALS; i++){
+                if(First[temp->rhs_id][i] == 1){
+                    First[target.lhs_id][i] = First[temp->rhs_id][i];
+                }
+            }
+            
+        }
         }
     }
+    firstDone[target.lhs_id] = 1;
+    // printf("First of arr_n4: %d",Fi)
 }
 
 void findFollow(lhs start, rhs *target, rhs *temp){
@@ -310,6 +340,7 @@ void findFollow(lhs start, rhs *target, rhs *temp){
         return;
     }
     if(temp == NULL){
+        // printf("Target RHS ID :%d \n",target ->rhs_id);
         for(int i =0; i < NUM_OF_TERMINALS; i++){
             Follow[target->rhs_id][i] = Follow[start.lhs_id][i];
         }
@@ -361,7 +392,7 @@ void computeFirstandFollow(){
         // }
     }
 
-    Follow[0][NUM_OF_TERMINALS - 1] = 1;
+    Follow[program][NUM_OF_TERMINALS - 1] = 1;
 
     for(int j = 0; j < NUM_OF_RULES; j++){
         rhs * target = G[j].firstRHS;
@@ -373,13 +404,29 @@ void computeFirstandFollow(){
         }       
     }
 
-    // for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-    //     printf("\n");
-    //     for(int i = 0; i < NUM_OF_TERMINALS; i++){
+    for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
+        int sum = 0;
+        
+        for(int i = 0; i < NUM_OF_TERMINALS; i++){
             
-    //         printf("%d", Follow[j][i]);
-    //     }      
-    // }
+            // printf("%d", Follow[j][i]);
+            // if(j == arr_N5){
+            //     sum+= Follow[j][i];
+            //     printf("%d ", Follow[j][i]);
+            // }
+            // if(j == arr_N4){
+            //     printf("%d\n", Follow[j][i]);
+            // }
+            if(j == arr_N4 && First[arr_N4][i] == 1){
+                printf("%d ",i);
+            }
+            
+            
+        }  
+        if (sum == 0){
+            // printf("\n Row No: %d \n",j);
+        }    
+    }
 }
 
 int main(){
@@ -398,10 +445,13 @@ int main(){
             temp=temp->nextRHS;
         }
     }
+    findFirst(G[101]);
+    findFirst(G[102]);
     //printf("before first and follow");
-    computeFirstandFollow();
+    // computeFirstandFollow();
     //printf("computed first and follow");
     populate_parse_table();
+
     return 0;
 }
 
