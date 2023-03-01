@@ -1,40 +1,6 @@
 #include "ll1_gram.h"
 #include "grammarHash.h"
 
-//char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
-//char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
-/*
-int get_id(char *str, int t){
-    //printf("call to get id ");
-    //t= 0 for non terminal and 1 and terminal
-    //the id for epsilong is -1
-    //id returned is -2 if it isn't detected 
-    if(strcmp(str, "epsilon")==0){
-        return -1;
-    }
-    if(t==0){
-        for(int i=0;i< NUM_OF_NONTERMINALS; i++ ){
-            if(strcmp(non_terminals[i], str)==0){
-                //printf("strcmp value %d ", strcmp(non_terminals[i], str));
-                //printf("%s \n", non_terminals[i]);
-                return i;
-            }
-        //printf("%s non_terminal : Symbol doesn't exist %s \n", str, non_terminals[i]);
-        }
-    }
-    else {
-        for(int i=0;i< NUM_OF_TERMINALS; i++ ){
-        if(strcmp(terminals[i], str)==0){
-            return i;
-        }
-        //printf("%s terminal : Symbol doesn't exist %s \n", str, terminals[i]);
-    }
-    }
-    printf("not detected \n");
-    return -2;
-    
-}
-*/ 
 bool isTerm(char* str){
     if(str[0] >= 65 && str[0]<= 90){
         return 1;
@@ -64,6 +30,7 @@ void generateGrammar(){
             if(i==0){
                 //lhs non_terminal
                 G[rule_no].lhs_id = getTokenFromNTTable(str, nonTerminalHash);
+                //printf("%d ", G[rule_no].lhs_id);
                 G[rule_no].firstRHS = NULL;   
             }
             else {
@@ -239,10 +206,49 @@ void populate_grammar(){
     insertNonTerminal("valueARRStmt", valueARRStmt, nonTerminalHash);
     insertNonTerminal("whichStmt", whichStmt, nonTerminalHash);
 }
+/*
 int main(){
+    populate_grammar();
     generateGrammar();
-    printf("%d ", G[NUM_OF_RULES-1].lhs_id);
+    printf("\n printing id of last lhs %d ", G[NUM_OF_RULES-1].lhs_id);
     return 0;
 }
+*/
+
+
+//char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
+//char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
+/*
+int get_id(char *str, int t){
+    //printf("call to get id ");
+    //t= 0 for non terminal and 1 and terminal
+    //the id for epsilong is -1
+    //id returned is -2 if it isn't detected 
+    if(strcmp(str, "epsilon")==0){
+        return -1;
+    }
+    if(t==0){
+        for(int i=0;i< NUM_OF_NONTERMINALS; i++ ){
+            if(strcmp(non_terminals[i], str)==0){
+                //printf("strcmp value %d ", strcmp(non_terminals[i], str));
+                //printf("%s \n", non_terminals[i]);
+                return i;
+            }
+        //printf("%s non_terminal : Symbol doesn't exist %s \n", str, non_terminals[i]);
+        }
+    }
+    else {
+        for(int i=0;i< NUM_OF_TERMINALS; i++ ){
+        if(strcmp(terminals[i], str)==0){
+            return i;
+        }
+        //printf("%s terminal : Symbol doesn't exist %s \n", str, terminals[i]);
+    }
+    }
+    printf("not detected \n");
+    return -2;
+    
+}
+*/ 
 
 

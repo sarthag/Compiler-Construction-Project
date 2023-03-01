@@ -27,7 +27,7 @@ void insertNonTerminal(const char *ntText, nt_key nonTerminal, ntElement ntTable
     int i = 0;
     int hashValue = hashGrammar(ntText);
     int index = hashValue % NTSIZE;
-    printf("Inserted %s initially at INDEX : %d\n", ntText ,index);
+    //printf("Inserted %s initially at INDEX : %d\n", ntText ,index);
     while (ntTable[index].occupied ==true){
         i++;
         index  = (hashValue + (i*i))%NTSIZE;
@@ -39,7 +39,7 @@ void insertNonTerminal(const char *ntText, nt_key nonTerminal, ntElement ntTable
     ntTable[index].nonTerminal = nonTerminal;
     
     ntTable[index].occupied = true;
-    printf("Inserted %s at INDEX : %d\n", ntText ,index);
+    //printf("Inserted %s at INDEX : %d\n", ntText ,index);
 }
 
 
@@ -78,7 +78,7 @@ void insertTerminal(const char *tText, t_key terminal, tElement tTable[]){
     int i = 0;
     int hashValue = hashGrammar(tText);
     int index = hashValue % TSIZE;
-    printf("Inserted %s initially at INDEX : %d\n", tText ,index);
+    //printf("Inserted %s initially at INDEX : %d\n", tText ,index);
     while (tTable[index].occupied ==true){
         i++;
         index  = (hashValue + (i*i))%TSIZE;
@@ -90,7 +90,7 @@ void insertTerminal(const char *tText, t_key terminal, tElement tTable[]){
     tTable[index].terminal = terminal;
     
     tTable[index].occupied = true;
-    printf("Inserted %s at INDEX : %d\n", tText ,index);
+    //printf("Inserted %s at INDEX : %d\n", tText ,index);
 }
 
 
