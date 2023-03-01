@@ -34,14 +34,14 @@ boolConstt FALSE
 id_num_rnum ID
 id_num_rnum NUM 
 id_num_rnum RNUM
-array_element_for_print ID SQBO new_index SQBC
+array_element_for_print ID SQBO index_arr SQBC
 var_print id_num_rnum
 var_print boolConstt
-var print array_element_for_print
+var_print array_element_for_print
 var_print ID p1
 var_print NUM
 var_print RNUM
-p1 SQBO new_indexSQBC
+p1 SQBO new_index SQBC
 p1 EPSILON 
 simpleStmt assignmentStmt moduleReuseStmt
 assignmentStmt ID whichStmt
@@ -55,7 +55,13 @@ new_index ID
 sign PLUS
 sign MINUS
 sign EPSILON
-moduleReuseStmt optional USE MODULE ID WITH PARAMETERS idList1 SEMICOL
+moduleReuseStmt optional USE MODULE ID WITH PARAMETERS actualParaList SEMICOL
+actualParaList NUM
+actualParaList RNUM
+actualParaList boolConstt
+actualParaList ID n7
+n7 SQBO element_index_with_expressions SQBC
+n7 EPSILON
 optional SQBO idList1 SQBC ASSIGNOP
 optional EPSILON
 idList1 ID idList2
@@ -63,15 +69,19 @@ idList2 COMMA ID idList2
 idList2 EPSILON
 expression arithmeticOrBooleanExpr u
 u unary_op new_NT
-new_NT BO arithmeticExpr BC var_id_num
+new_NT BO arithmeticExpr BC 
+new_NT var_id_num
+var_id_num ID
+var_id_num NUM
+var_id_num RNUM
 unary_op PLUS
 unary_op MINUS
 arithmeticOrBooleanExpr anyTerm n1
 n1 logicalOp anyTerm n1
 n1 EPSILON 
 anyTerm arithmeticExpr n2
-anyTerm boolConstt n2
-n2 relationalOp arithmeticExpr n2
+anyTerm boolConstt 
+n2 relationalOp arithmeticExpr 
 n2 EPSILON
 arithmeticExpr arithmeticExpr op1 term
 arithmeticExpr term n3
@@ -80,7 +90,7 @@ n3 EPSILON
 term factor n4
 n4 op2 factor n4 
 n4 EPSILON
-factor BO arithmeticExpr BC 
+factor BO arithmeticOrBooleanExpr BC 
 factor NUM
 factor RNUM
 factor boolConstt
@@ -93,7 +103,8 @@ arr_N4 EPSILON
 arrTerm arrFactor arr_N5
 arr_N5 op2 arrFactor arr_N5
 arr_N5 EPSILON
-arrFactor id_num_rnum
+arrFactor ID
+arrFactor NUM
 arrFactor boolConstt
 arrFactor BO arrExpr BC
 element_index_with_expressions sign n6
@@ -124,6 +135,7 @@ default1 default1 COLON statements BREAK SEMICOL
 default1 EPSILON
 iterativeStmt FOR BO ID IN range_for_loop BC START statements END
 iterativeStmt WHILE BO arithmeticOrBooleanExpr BC START statements END
+range_for_loop index_for_loop RANGEOP index_for_loop
 index_for_loop sign_for_loop new_index_for_loop
 new_index_for_loop NUM
 sign_for_loop PLUS 

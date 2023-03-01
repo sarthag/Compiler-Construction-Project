@@ -206,7 +206,7 @@ void populate_grammar(){
     insertNonTerminal("u", u, nonTerminalHash);
     insertNonTerminal("unary_op", unary_op, nonTerminalHash);
     insertNonTerminal("value", value, nonTerminalHash);
-    insertNonTerminal("var", var, nonTerminalHash);
+    //insertNonTerminal("var", var, nonTerminalHash);
     insertNonTerminal("var_id_num", var_id_num, nonTerminalHash);
     insertNonTerminal("var_print", var_print, nonTerminalHash);
     insertNonTerminal("valueIDStmt", valueIDStmt, nonTerminalHash);
@@ -243,7 +243,7 @@ void populate_parse_table(){
 
 
 void findFirst(lhs target){
-    printf("entering first %d\n", target.lhs_id);
+    //printf("entering first %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     rhs* temp2;
     if (temp->isTerminal == 1){
@@ -253,7 +253,7 @@ void findFirst(lhs target){
             int i = 0;
             for(i; i < NUM_OF_RULES; i++){
                 if(temp2 == NULL){
-                    printf("FAILLLLLLLL");
+                    printf("FAIL");
                 }
                 if(G[i].lhs_id == temp2->rhs_id){
                     break;
@@ -272,6 +272,7 @@ void findFirst(lhs target){
         firstDone[target.lhs_id] = 1;
     }
     else{
+        //printf("insiding repeated first and lhs id %d ", target.lhs_id);
         if (firstDone[temp->rhs_id] == 0){
             int i = 0;
             for(i; i < NUM_OF_RULES; i++){
@@ -329,6 +330,7 @@ void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
+        //printf("printing rule no %d ", j);
         findFirst(G[j]);
     }
 
