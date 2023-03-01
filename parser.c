@@ -39,17 +39,11 @@ void InitializeParser(){
 
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
-    printf("Parser Init11");
-    push(parserStack, TERMINAL, $, NULL);
-    printf("Parser Init12");
-    push(parserStack, NON_TERMINAL, program, parseTree->root);
-    printf("Parser Init13");
     parseTree = create_parse_tree();
-    printf("Parser Init14");
+    push(parserStack, TERMINAL, $, NULL);
+    push(parserStack, NON_TERMINAL, program, parseTree->root);
     parseTree->root = create_node(NON_TERMINAL, program);
-    printf("Parser Init15");
     L = NULL;
-    printf("Parser Init");
 }
 
 
