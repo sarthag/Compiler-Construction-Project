@@ -2,7 +2,6 @@
 #define GRAMMARHASH_H
 
 #include "grammarHashDef.h"
-
 int hashGrammar(const char *element);
 
 //for Non Terminal Hashing
@@ -13,8 +12,8 @@ void printNTTable(ntElement ntTable[], int ntSize);
 
 //for Terminal hashing
 void initializeTTable(tElement tTable[], int size);
-void insertTerminal(const char *tText, t_key terminal, tElement tTable[]);
-t_key getTokenFromTTable(char *tText, tElement tTable[]);
+void insertTerminal(const char *tText, token_key terminal, tElement tTable[]);
+token_key getTokenFromTTable(char *tText, tElement tTable[]);
 void printTTable(tElement tTable[], int tSize);
 
 

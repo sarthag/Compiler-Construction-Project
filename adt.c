@@ -139,9 +139,9 @@ void inorder_traversal(tree_node *node) {
         return;
     }
     if (node->type == NON_TERMINAL) {
-        printf("%s ", nts[node->element.nt.nid]); // change this back
+        printf("%s ", nt_list[node->element.nt.nid]); // change this back
     } else {
-        printf("%s ", terms[node->element.t.tid]); // change this back
+        printf("%s ", token_list[node->element.t.tid]); // change this back
     }
     node->is_visited = 1;
     inorder_traversal(node->left_child);

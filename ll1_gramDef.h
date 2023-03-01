@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "grammarHash.h"
 typedef struct rhs_struct{
     int rhs_id;
     bool isTerminal;

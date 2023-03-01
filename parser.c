@@ -39,9 +39,9 @@ void InitializeParser(){
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
     push(parserStack, TERMINAL, $, NULL);
-    push(parserStack, NON_TERMINAL, start, parseTree->root);
+    push(parserStack, NON_TERMINAL, program, parseTree->root);
     parseTree = create_parse_tree();
-    parseTree->root = create_node(NON_TERMINAL, start);
+    parseTree->root = create_node(NON_TERMINAL, program);
     L = NULL;
 }
 

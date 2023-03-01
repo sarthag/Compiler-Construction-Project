@@ -1,5 +1,5 @@
 #include "ll1_gram.h"
-#include "grammarHash.h"
+
 
 //char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
 //char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};

@@ -74,7 +74,7 @@ void initializeTTable(tElement tTable[], int size){
     }
 }
 
-void insertTerminal(const char *tText, t_key terminal, tElement tTable[]){
+void insertTerminal(const char *tText, token_key terminal, tElement tTable[]){
     int i = 0;
     int hashValue = hashGrammar(tText);
     int index = hashValue % TSIZE;
@@ -94,7 +94,7 @@ void insertTerminal(const char *tText, t_key terminal, tElement tTable[]){
 }
 
 
-t_key getTokenFromTTable(char *tText, tElement tTable[]){
+token_key getTokenFromTTable(char *tText, tElement tTable[]){
     int i = 0;
     int hashValue = hashGrammar(tText);
     int index = hashValue % TSIZE;
