@@ -90,11 +90,11 @@ void removeComments(char *filename) {
         printf("Error opening file\n");
         return;
     }
-
-    while ((fgets(buffer, 1000, fp1)) != NULL) {
-        flag = 0;
+    flag = 0;
+    while ((fgets(buffer, 999, fp1)) != NULL) {
         for (i = 0, j = 0; buffer[i] != '\0'; i++) {
-            if (buffer[i] == '*' && buffer[i+1] == '*') {
+            // printf("Flag: %d | i: %d | j: %d | buffer[i]: |%c| | buffer[j]: |%c| \n", flag, i, j, buffer[i], buffer[j]);
+            if (buffer[i] == '*' && buffer[i+1] == '*' && flag == 0) {
                 flag = 1;
                 i += 2;
             }
@@ -102,7 +102,7 @@ void removeComments(char *filename) {
                 buffer[j++] = buffer[i];
                 printf("%c", buffer[i]);
             }
-            if (buffer[i] == '*' && buffer[i+1] == '*') {
+            if (buffer[i] == '*' && buffer[i+1] == '*' && flag == 1) {
                 flag = 0;
                 i += 2;
             }
@@ -339,7 +339,10 @@ void getNextToken(FILE *code) {
             else if(c == ']'){
                 state = 41; 
             } // done 
-
+            else {
+                printf("Error at Line %d: Character %c not recognized\n", line_no, c);
+                resetLexeme();
+            }
             break;
 
         case 2:

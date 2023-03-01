@@ -243,7 +243,7 @@ void populate_parse_table(){
 
 
 void findFirst(lhs target){
-    printf("entering first %d\n", target.lhs_id);
+    //printf("entering first %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     rhs* temp2;
     if (temp->isTerminal == 1){
@@ -272,7 +272,7 @@ void findFirst(lhs target){
         firstDone[target.lhs_id] = 1;
     }
     else{
-        printf("insiding repeated first and lhs id %d ", target.lhs_id);
+        //printf("insiding repeated first and lhs id %d ", target.lhs_id);
         if (firstDone[temp->rhs_id] == 0){
             int i = 0;
             for(i; i < NUM_OF_RULES; i++){
@@ -330,6 +330,7 @@ void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
+        //printf("printing rule no %d ", j);
         findFirst(G[j]);
     }
 
