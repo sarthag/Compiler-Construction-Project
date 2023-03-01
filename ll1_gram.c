@@ -1,9 +1,9 @@
 #include "ll1_gram.h"
 #include "grammarHash.h"
 
-char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
-char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
-
+//char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
+//char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
+/*
 int get_id(char *str, int t){
     //printf("call to get id ");
     //t= 0 for non terminal and 1 and terminal
@@ -34,8 +34,7 @@ int get_id(char *str, int t){
     return -2;
     
 }
-
-
+*/ 
 bool isTerm(char* str){
     if(str[0] >= 65 && str[0]<= 90){
         return 1;
@@ -63,14 +62,14 @@ void generateGrammar(){
         str=strtok(lineBuf, " \n");
         for(int i = 0; str != NULL; i++){
             if(i==0){
-                //lhs
-                G[rule_no].lhs_id = get_id(str, 0);
+                //lhs non_terminal
+                G[rule_no].lhs_id = getTokenFromNTTable(str, nonTerminalHash);
                 G[rule_no].firstRHS = NULL;   
             }
             else {
                 rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
                 new_rhs->isTerminal = isTerm(str);
-                new_rhs->rhs_id = get_id(str, new_rhs->isTerminal);
+                new_rhs->rhs_id = getTokenFromTTable(str, terminalHash);
                 new_rhs->nextRHS = NULL;
                 
                 if(prev_rhs==NULL){
@@ -98,7 +97,7 @@ void generateGrammar(){
 
 
 
-void populate_keyword_table(){
+void populate_grammar(){
     initializeTTable(terminalHash, TSIZE);
     initializeNTTable(nonTerminalHash, NTSIZE);
     insertTerminal("AND", AND, terminalHash);
@@ -163,7 +162,7 @@ void populate_keyword_table(){
     insertTerminal("WITH", WITH, terminalHash);
     insertTerminal("EPSILON", EPSILON, terminalHash);
     //POPULATING NON TERMINALS TABLE 
-    /*
+    
     insertNonTerminal("anyTerm", anyTerm, nonTerminalHash);
     insertNonTerminal("arithmeticExpr", arithmeticExpr, nonTerminalHash);
     insertNonTerminal("arithmeticOrBooleanExpr", arithmeticOrBooleanExpr, nonTerminalHash);
@@ -171,9 +170,74 @@ void populate_keyword_table(){
     insertNonTerminal("arrFactor", arrFactor, nonTerminalHash);
     insertNonTerminal("arrTerm", arrTerm, nonTerminalHash);
     insertNonTerminal("arr_N4", arr_N4, nonTerminalHash);
-
-    'anyTerm', 'arithmeticExpr', 'arithmeticOrBooleanExpr', 'arrExpr', 'arrFactor', 'arrTerm', 'arr_N4', 'arr_N5', 'array_element_for_print', 'assignmentStmt', 'boolConstt', 'caseStmt1', 'caseStmt2', 'conditionalStmt', 'dataType', 'declareStmt', 'default', 'driverModule', 'element_index_with_expressions', 'epsilon', 'expression', 'factor', 'idList1', 'idList2', 'id_num_rnum', 'index_arr', 'index_for_loop', 'input_plist1', 'input_plist2', 'ioStmt', 'iterativeStmt', 'logicalOp', 'lvalueARRStmt', 'module', 'moduleDeclaration', 'moduleDeclarations', 'moduleDef', 'moduleReuseStmt', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'new_NT', 'new_index', 'new_indexSQBC', 'new_index_for_loop', 'op1', 'op2', 'optional', 'otherModules', 'ouput_plist2', 'output_plist1', 'output_plist2', 'p1', 'print', 'program', 'range_arrays', 'range_for_loop', 'relationalOp', 'ret', 'sign', 'sign_for_loop', 'simpleStmt', 'statement', 'statements', 'term', 'type', 'u', 'unary_op', 'value', 'var', 'var_id_num', 'var_print', 'whichStmt'
-    */
+    insertNonTerminal("arr_N5", arr_N5, nonTerminalHash);
+    insertNonTerminal("array_element_for_print", array_element_for_print, nonTerminalHash);
+    insertNonTerminal("assignmentStmt", assignmentStmt, nonTerminalHash);
+    insertNonTerminal("boolConstt", boolConstt, nonTerminalHash);
+    insertNonTerminal("caseStmt1", caseStmt1, nonTerminalHash);
+    insertNonTerminal("caseStmt2", caseStmt2, nonTerminalHash);
+    insertNonTerminal("conditionalStmt", conditionalStmt, nonTerminalHash);
+    insertNonTerminal("dataType", dataType, nonTerminalHash);
+    insertNonTerminal("declareStmt", declareStmt, nonTerminalHash);
+    insertNonTerminal("default1", default1, nonTerminalHash);
+    insertNonTerminal("driverModule", driverModule, nonTerminalHash);
+    insertNonTerminal("element_index_with_expressions", element_index_with_expressions, nonTerminalHash);
+    insertNonTerminal("expression", expression, nonTerminalHash);
+    insertNonTerminal("factor", factor, nonTerminalHash);
+    insertNonTerminal("idList1", idList1, nonTerminalHash);
+    insertNonTerminal("idList2", idList2, nonTerminalHash);
+    insertNonTerminal("id_num_rnum", id_num_rnum, nonTerminalHash);
+    insertNonTerminal("index_arr", index_arr, nonTerminalHash);
+    insertNonTerminal("index_for_loop", index_for_loop, nonTerminalHash);
+    insertNonTerminal("input_plist1", input_plist1, nonTerminalHash);
+    insertNonTerminal("input_plist2", input_plist2, nonTerminalHash);
+    insertNonTerminal("ioStmt", ioStmt, nonTerminalHash);
+    insertNonTerminal("iterativeStmt", iterativeStmt, nonTerminalHash);
+    insertNonTerminal("logicalOp", logicalOp, nonTerminalHash);
+    insertNonTerminal("module", module, nonTerminalHash);
+    insertNonTerminal("moduleDeclaration", moduleDeclaration, nonTerminalHash);
+    insertNonTerminal("moduleDeclarations", moduleDeclarations, nonTerminalHash);
+    insertNonTerminal("moduleDef", moduleDef, nonTerminalHash);
+    insertNonTerminal("moduleReuseStmt", moduleReuseStmt, nonTerminalHash);
+    insertNonTerminal("n1", n1, nonTerminalHash);
+    insertNonTerminal("n2", n2, nonTerminalHash);
+    insertNonTerminal("n3", n3, nonTerminalHash);
+    insertNonTerminal("n4", n4, nonTerminalHash);
+    insertNonTerminal("n5", n5, nonTerminalHash);
+    insertNonTerminal("n6", n6, nonTerminalHash);
+    insertNonTerminal("new_NT", new_NT, nonTerminalHash);
+    insertNonTerminal("new_index", new_index, nonTerminalHash);
+    insertNonTerminal("new_indexSQBC", new_indexSQBC, nonTerminalHash);
+    insertNonTerminal("new_index_for_loop", new_index_for_loop, nonTerminalHash);
+    insertNonTerminal("op1", op1, nonTerminalHash);
+    insertNonTerminal("op2", op2, nonTerminalHash);
+    insertNonTerminal("optional", optional, nonTerminalHash);
+    insertNonTerminal("otherModules", otherModules, nonTerminalHash);
+    insertNonTerminal("output_plist1", output_plist1, nonTerminalHash);
+    insertNonTerminal("output_plist2", output_plist2, nonTerminalHash);
+    insertNonTerminal("p1", p1, nonTerminalHash);
+    insertNonTerminal("print", print, nonTerminalHash);
+    insertNonTerminal("program", program, nonTerminalHash);
+    insertNonTerminal("range_arrays", range_arrays, nonTerminalHash);
+    insertNonTerminal("range_for_loop", range_for_loop, nonTerminalHash);
+    insertNonTerminal("relationalOp", relationalOp, nonTerminalHash);
+    insertNonTerminal("ret", ret, nonTerminalHash);
+    insertNonTerminal("sign", sign, nonTerminalHash);
+    insertNonTerminal("sign_for_loop", sign_for_loop, nonTerminalHash);
+    insertNonTerminal("simpleStmt", simpleStmt, nonTerminalHash);
+    insertNonTerminal("statement", statement, nonTerminalHash);
+    insertNonTerminal("statements", statements, nonTerminalHash);
+    insertNonTerminal("term", term, nonTerminalHash);
+    insertNonTerminal("type", type, nonTerminalHash);
+    insertNonTerminal("u", u, nonTerminalHash);
+    insertNonTerminal("unary_op", unary_op, nonTerminalHash);
+    insertNonTerminal("value", value, nonTerminalHash);
+    insertNonTerminal("var", var, nonTerminalHash);
+    insertNonTerminal("var_id_num", var_id_num, nonTerminalHash);
+    insertNonTerminal("var_print", var_print, nonTerminalHash);
+    insertNonTerminal("valueIDStmt", valueIDStmt, nonTerminalHash);
+    insertNonTerminal("valueARRStmt", valueARRStmt, nonTerminalHash);
+    insertNonTerminal("whichStmt", whichStmt, nonTerminalHash);
 }
 // int main(){
 //     //lhs G1[NUM_OF_RULES];

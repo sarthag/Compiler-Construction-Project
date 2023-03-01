@@ -15,7 +15,7 @@
 #define TTEXTSIZE 30
 //for non terminal hash table
 typedef enum {
-    STARTCODE
+    anyTerm, arithmeticExpr, arithmeticOrBooleanExpr, arrExpr, arrFactor, arrTerm, arr_N4, arr_N5, array_element_for_print, assignmentStmt, boolConstt, caseStmt1, caseStmt2, conditionalStmt, dataType, declareStmt, default1, driverModule, element_index_with_expressions, expression, factor, idList1, idList2, id_num_rnum, index_arr, index_for_loop, input_plist1, input_plist2, ioStmt, iterativeStmt, logicalOp, module, moduleDeclaration, moduleDeclarations, moduleDef, moduleReuseStmt, n1, n2, n3, n4, n5, n6 ,new_NT,new_index, new_indexSQBC, new_index_for_loop, op1, op2, optional, otherModules, output_plist1, output_plist2, p1, print, program, range_arrays, range_for_loop, relationalOp, ret, sign, sign_for_loop, simpleStmt, statement, statements, term, type, u, unary_op, value, var, var_id_num, var_print, valueIDStmt, valueARRStmt, whichStmt
 }nt_key;
 
 typedef struct ntElement{
