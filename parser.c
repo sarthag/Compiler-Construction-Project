@@ -103,11 +103,21 @@ void parse_code(){
         printf("stack not empty");
     }
 }
+void synchronization_set(){
+    // computeFirstandFollow();
+    token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
+
+    for(int i=0; i<=NUM_OF_NONTERMINALS; i++){
+        for(int j=0; j<=NUM_OF_TERMINALS; j++){
+            sync_set[i][j] = (j == semicol) || (j == bc) || (j == sqbc) || First[i][j] || Follow[i][j];
+        }
+    }
+}
 
 
 int main(){
     computeFirstandFollow();
-    syncronization_set();
+    synchronization_set();
     populate_parse_table();
 
     parse_code();

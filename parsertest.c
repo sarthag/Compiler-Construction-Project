@@ -517,7 +517,7 @@ void computeFirstandFollow(){
     }
 }
 
-void syncronization_set(){
+void synchronization_set(){
     computeFirstandFollow();
     token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
 
