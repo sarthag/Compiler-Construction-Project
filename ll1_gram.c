@@ -238,15 +238,20 @@ void populate_parse_table(){
     }
 }
 
-/*
+
 void findFirst(lhs target){
+    printf("entering first %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
+    rhs* temp2;
     if (temp->isTerminal == 1){
-        if(temp->rhs_id == NUM_OF_TERMINALS - 1){          // assuming EPSILON id = 3
-            rhs* temp2 = temp->nextRHS;
+        if(temp->rhs_id == NUM_OF_TERMINALS - 1){          
+            temp2 = temp->nextRHS;
             if(temp2 != NULL){           
             int i = 0;
             for(i; i < NUM_OF_RULES; i++){
+                if(temp2 == NULL){
+                    printf("FAILLLLLLLL");
+                }
                 if(G[i].lhs_id == temp2->rhs_id){
                     break;
                 }
@@ -320,13 +325,11 @@ void findFollow(lhs start, rhs *target, rhs *temp){
 void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
-    generateGrammar();
-
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
         findFirst(G[j]);
     }
 
-    for (int j = 0; j < 4; j++){
+    for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
         printf("\n%d\n%d\n", j, firstDone[j]);
 
         for(int i = 0; i < NUM_OF_TERMINALS; i++){
@@ -354,23 +357,30 @@ void computeFirstandFollow(){
         }      
     }
 }
-*/
-// int main(){
-//     populate_grammar();
-//     //printTTable(terminalHash, TSIZE);
-//     //printNTTable(nonTerminalHash,NTSIZE);
-//     //printf("hash value for moduleDeclaration: %d \n ", getTokenFromNTTable("moduleDeclaration",nonTerminalHash));
-//     generateGrammar(); 
-//     printf("generated grammar");
-//     for(int i=0;i<NUM_OF_RULES;i++){
 
-//         printf("\n for rule number %d printing id of last rhs %d ", i, G[i].lastRHS->rhs_id);
-//     }
-//     //computeFirstandFollow();
-//     printf("computed first and follow");
-//     //populate_parse_table();*/
-//     return 0;
-// }
+int main(){
+    populate_grammar();
+    //printTTable(terminalHash, TSIZE);
+    //printNTTable(nonTerminalHash,NTSIZE);
+    //printf("hash value for moduleDeclaration: %d \n ", getTokenFromNTTable("moduleDeclaration",nonTerminalHash));
+    generateGrammar(); 
+    for(int i=0;i<NUM_OF_RULES;i++){
+        rhs* temp;
+        temp=G[i].firstRHS;
+        while(temp!=NULL){
+            if(temp->rhs_id==-1){
+                printf("line no %d ", i+1);
+            }
+            temp=temp->nextRHS;
+        }
+        printf("\n");
+    }
+    //printf("before first and follow");
+    //computeFirstandFollow();
+    //printf("computed first and follow");
+    //populate_parse_table();*/
+    return 0;
+}
 
 
 

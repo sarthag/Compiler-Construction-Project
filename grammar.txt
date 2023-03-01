@@ -115,8 +115,8 @@ relationalOp NE
 declareStmt DECLARE idList1 COLON dataType SEMICOL
 conditionalStmt SWITCH BO ID BC START caseStmt1 default1 END
 caseStmt1 CASE value COLON statements BREAK SEMICOL caseStmt2
-caseStmt2 CASE value COLON statements BREAK SEMICOL caseStmt2
-caseStmt2 EPSILON	
+caseStmt2 CASE value COLON statements BREAK SEMICOL caseStmt2	
+caseStmt2 EPSILON
 value NUM
 value TRUE
 value FALSE
