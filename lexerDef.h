@@ -6,7 +6,7 @@
 #include <string.h>
 #include "keywordTable.h"
 
-#define BUFFERSIZE 1023
+#define BUFFERSIZE 1048575
 
 typedef struct twinBuffer{
     char buffer1[BUFFERSIZE+1];

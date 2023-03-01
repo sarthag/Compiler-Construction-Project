@@ -78,6 +78,9 @@ FILE* getStream(FILE *code){
     return code;
 }
 
+void removeComments() {
+    ;
+}
 
 char getNextChar(FILE* code) {
     // printf("Inside getNextChar\n");
