@@ -65,6 +65,7 @@ void parser_retract(non_terminal nonterm, token* current) {
 
 void parse_code(){
     L = getNextTk(tokenList, L);
+    // stack_node* s;
     while(L != NULL){
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
@@ -73,14 +74,14 @@ void parse_code(){
                 L = getNextTk(tokenList, L);                
             }
             else{
-                pop(x);
+                pop(parserStack);
                 printf("ERROR : Terminal Mismatch"); 
-            }
+          }
             
         }
         else if (x->type == NON_TERMINAL){
             if (parse_table[x->element.nt.nid][L->tid] != -1){
-                stack_node* parent = pop(parserStack);
+                pop(parserStack);
                 rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
                 while (toPush->prevRHS != NULL)
                 {   

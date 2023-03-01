@@ -11,7 +11,7 @@
 
 bool First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 bool firstDone[NUM_OF_NONTERMINALS];
-bool Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS] = {0};
+bool Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 bool sync_set[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 
 void findFirst(lhs target);
