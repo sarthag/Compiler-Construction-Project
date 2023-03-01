@@ -150,6 +150,7 @@ class NonTerminals(IntEnum):
 firstArr = np.zeros((74, 59), dtype=np.int32)
 followArr = np.zeros((74, 59), dtype=np.int32)
 
+print(firstSet['program'])
 
 for nt in firstSet.keys():
     for t in firstSet[nt]:
@@ -160,10 +161,11 @@ for nt in followSet.keys():
     for t in followSet[nt]:
         followArr[NonTerminals[nt].value][Terminals[t].value] = 1
 
+print(NonTerminals.program.value)
+print(firstArr[NonTerminals.program.value])
 
-
-print(firstArr.tolist())
-print(followArr.tolist())
+print(firstArr)
+print(followArr)
 
 import pickle
 
