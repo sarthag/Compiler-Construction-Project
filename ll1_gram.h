@@ -4,7 +4,7 @@
 #define LL1_GRAM_H
 #include "ll1_gramDef.h"
 
-#define MAX_LINE_LENGTH 50
+#define MAX_LINE_LENGTH 200
 #define NUM_OF_RULES 131
 #define NUM_OF_TERMINALS 61
 #define NUM_OF_NONTERMINALS 76

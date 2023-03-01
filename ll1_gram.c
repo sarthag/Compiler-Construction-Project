@@ -22,11 +22,12 @@ void generateGrammar(){
         char *str;
         rhs *firstRHS = NULL;
         rhs *prev_rhs = NULL;
-
         str=strtok(lineBuf, " \n");
         for(int i = 0; str != NULL; i++){
+            //printf("Line %s \n", str);
             if(i==0){
                 //lhs non_terminal
+                //printf("getting from table for str %s %d \n ",str, getTokenFromNTTable(str, nonTerminalHash));
                 G[rule_no].lhs_id = getTokenFromNTTable(str, nonTerminalHash);
                 //printf("%d ", G[rule_no].lhs_id);
                 G[rule_no].firstRHS = NULL;   
@@ -55,7 +56,7 @@ void generateGrammar(){
                 prev_rhs = new_rhs;
                 
             }
-            str=strtok(NULL, " \n");
+            str=strtok(NULL, "\n");
         }
         G[rule_no].firstRHS = firstRHS;
         G[rule_no].lastRHS = prev_rhs;
@@ -359,7 +360,7 @@ int main(){
     generateGrammar(); 
     printf("generated grammar");
     for(int i=0;i<NUM_OF_RULES;i++){
-        printf("\n for rule number %d printing id of first rhs %d ", i, G[i].lhs_id);
+        printf("\n for rule number %d printing id of first rhs %d ", i, G[i].firstRHS->rhs_id);
     }
     //computeFirstandFollow();
     printf("computed first and follow");
