@@ -39,7 +39,6 @@ stack_node* create_stack_node(node_type type, void* element, tree_node* treeLoca
 
 
 void push(stack* s, node_type type, int id, tree_node* treeLocation) {
-    printf("inside push %d", id);
     void * element = makeElement(type, id);
     stack_node* new_node = create_stack_node(type, element, treeLocation);
     new_node->next = s->top;

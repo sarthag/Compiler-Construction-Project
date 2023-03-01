@@ -1,9 +1,10 @@
-// #include "computeFirstandFollow.h"
+// // #include "computeFirstandFollow.h"
 
 // void findFirst(lhs target){
 //     printf("here %d\n", target.lhs_id);
 //     rhs *temp = target.firstRHS;
 //     if (temp->isTerminal == 1){
+//         if(temp->rhs_id == NUM_OF_TERMINALS - 1){          // assuming EPSILON id = 3
 //         if(temp->rhs_id == NUM_OF_TERMINALS - 1){      
 //             rhs* temp2 = temp->nextRHS;
 //             if(temp2 != NULL){           
