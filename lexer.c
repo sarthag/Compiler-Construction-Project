@@ -140,6 +140,29 @@ token* addTokenToList(){
     return tokenList.end = tk;
 }
 
+// void deleteToken(tokenLL tkList, token* deleteToken){
+//     token* current = tkList.start;
+//     token* prev = tkList.end;
+//     while(current != NULL && prev != NULL){
+        
+//     }
+
+
+// }
+
+void clearTokenList() {
+    token* head = tokenList.start;
+    while(tokenList.tokenCount!= 0) {
+        tokenList.start = head -> next;
+        tokenList.tokenCount--;
+        free(head);
+        head = tokenList.start;
+
+    }
+    tokenList.start = NULL;
+    tokenList.end = NULL;
+
+}
 
 void resetLexeme(){
     // printf("Inside resetLexeme\n");
@@ -241,6 +264,7 @@ token_key tokenizeIDorKeyword(char* lexeme, ktElement keywordTable[]){
 
 void getNextToken(FILE *code) {
     // printf("Inside getNextToken\n");
+    clearTokenList();
     state = 1;
     // err = 0;
     token* t;

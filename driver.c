@@ -25,6 +25,7 @@ void printtokenLL(tokenLL tkll){
 int main(){
     printf("First and Follow Set Automated\n Both Lexical and Syntax analysis modules implemented\n");
     int s;
+    char* filename = "testcode";
     scanf("%d", &s);
     while (s != 0)
     {
@@ -32,14 +33,18 @@ int main(){
         {
         case 1:     //prints comment free code
             /* code */
+            removeComments(filename);
             break;
         case 2:
                  // prints lexer results
+            FILE* code = readFile(filename);
+            getNextToken(code);
             printtokenLL(tokenList);
             break;
         case 3:   //prints all lexical and syntatic errors, prints parse tree
+            FILE* code = readFile(filename);
+            getNextToken(code);
             break;
-        
         case 4:         //prints total time taken
 
             break;
