@@ -26,12 +26,21 @@ void printtokenLL(tokenLL tkll){
 
 int main(){
     printf("First and Follow Set Automated\n Both Lexical and Syntax analysis modules implemented\n");
+    printf("0. EXIT\n");
+    printf("1. Code without comments\n");
+    printf("2. Results if lexical analysis\n");
+    printf("3. Results of compilation\n");
+    printf("4. Time analysis\n");
     int s;
     char* filename = "testcode";
-    scanf("%d", &s);
-    while (s != 0)
-    {
-        clock_t t;
+    FILE* prog; 
+    clock_t start_time, end_time, t;
+    double total_CPU_time, total_CPU_time_in_seconds;
+    
+    while (s != 0){
+        printf("\n");
+        printf("Enter option: ");
+        scanf("%d", &s);
         t = clock();
         switch (s)
         {
@@ -43,23 +52,21 @@ int main(){
             break;
         case 2:
                  // prints lexer results
-            FILE* code = readFile(filename);
-            getNextToken(code);
+            prog = readFile(filename);
+            getNextToken(prog);
             printtokenLL(tokenList);
             break;
         case 3:   //prints all lexical and syntatic errors, prints parse tree
-            FILE* code = readFile(filename);
-            getNextToken(code);
+            prog = readFile(filename);
+            getNextToken(prog);
             InitializeParser();
             parse_code();
             print_parse_tree(parseTree->root);
             break;
         case 4:         //prints total time taken
-            clock_t start_time, end_time;
-            double total_CPU_time, total_CPU_time_in_seconds;
             start_time = clock();
-            FILE* code = readFile(filename);
-            getNextToken(code);
+            prog = readFile(filename);
+            getNextToken(prog);
             InitializeParser();
             parse_code();
             end_time = clock();
