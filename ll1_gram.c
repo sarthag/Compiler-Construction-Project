@@ -220,20 +220,28 @@ void populate_parse_table(){
         }
     }
     for(int i=0;i<NUM_OF_RULES;i++){
-        bool first_set[NUM_OF_TERMINALS] = {0}; 
-        for(int j = 0; j < NUM_OF_TERMINALS; j++)
-            first_set[j] = First[G[i].lhs_id][j];
-        for(int j=0; j<NUM_OF_TERMINALS-1;j++){
-            if(first_set[j]==1){
-                parse_table[G[i].lhs_id][j]=i+1;
+        //bool first_set[NUM_OF_TERMINALS] = {0}; 
+        // for(int j = 0; j < NUM_OF_TERMINALS; j++)
+        //     first_set[j] = First[G[i].lhs_id][j];
+        // for(int k=0; k<NUM_OF_NONTERMINALS; k++ ){
+        //     for(int j=0; j < NUM_OF_TERMINALS-2;j++){
+        //         if(First[k][j]==1){
+        //         parse_table[G[i].lhs_id][j]=i+1;
+        //         }
+        //     }
+        // } 
+
+        for(int j = 0; j < NUM_OF_TERMINALS-2; j++){
+            if (First[G[i].lhs_id][j] == 1){
+                parse_table[G[i].lhs_id][j] = i;
             }
-        } 
-        if(first_set[NUM_OF_TERMINALS-1]==1){
+        }
+
+        if(First[G[i].lhs_id][NUM_OF_TERMINALS-1]==1){
             //if the first set contains epsilon
-            bool* follow_set= Follow[G[i].lhs_id];
             for(int k=0;k<NUM_OF_TERMINALS;k++){
-                if(follow_set[k]==1){
-                    parse_table[G[i].lhs_id][k]=i+1;
+                if(Follow[G[i].lhs_id][k]==1){
+                    parse_table[G[i].lhs_id][k] = i;
                 }
             }
         }
