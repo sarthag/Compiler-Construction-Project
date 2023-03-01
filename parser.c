@@ -137,8 +137,13 @@ void inorder_traversal(tree_node *node, FILE* fp) {
     inorder_traversal(node->right_sibling, fp);
 }
 
+FILE* print_parse_tree(tree_node *node){
+    FILE *fp = fopen("parse_tree.txt", "w");
+    inorder_traversal(node, fp);
+    return fp;
+}
 
-
+/*
 int main(){
     computeFirstandFollow();
     synchronization_set();
@@ -147,3 +152,16 @@ int main(){
     parse_code();
     return 0;
 }
+*/
+
+/*
+int main(){
+    parseTree = create_parse_tree();
+    parseTree->root = create_node(NON_TERMINAL, program);
+    tree_node * temp = create_node(TERMINAL, 2);
+    insert_child(parseTree->root, temp);
+    temp = create_node(TERMINAL, 4);
+    insert_child(parseTree->root, temp);
+    FILE * treeOut = print_parse_tree(parseTree->root);
+}
+*/
