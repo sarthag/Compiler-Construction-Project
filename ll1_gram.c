@@ -24,7 +24,6 @@ void generateGrammar(){
         rhs *prev_rhs = NULL;
         str=strtok(lineBuf, " \n");
         for(int i = 0; str != NULL; i++){
-            //printf("Line %s \n", str);
             if(i==0){
                 //lhs non_terminal
                 //printf("getting from table for str %s %d \n ",str, getTokenFromNTTable(str, nonTerminalHash));
@@ -33,6 +32,7 @@ void generateGrammar(){
                 G[rule_no].firstRHS = NULL;   
             }
             else {
+                //printf("Line %s \n", str);
                 rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
                 new_rhs->isTerminal = isTerm(str);
                 if(new_rhs->isTerminal==0){
@@ -56,7 +56,7 @@ void generateGrammar(){
                 prev_rhs = new_rhs;
                 
             }
-            str=strtok(NULL, "\n");
+            str=strtok(NULL, " \n");
         }
         G[rule_no].firstRHS = firstRHS;
         G[rule_no].lastRHS = prev_rhs;
@@ -352,21 +352,23 @@ void computeFirstandFollow(){
         }      
     }
 }
-int main(){
-    populate_grammar();
-    //printTTable(terminalHash, TSIZE);
-    //printNTTable(nonTerminalHash,NTSIZE);
-    //printf("hash value for moduleDeclaration: %d \n ", getTokenFromNTTable("moduleDeclaration",nonTerminalHash));
-    generateGrammar(); 
-    printf("generated grammar");
-    for(int i=0;i<NUM_OF_RULES;i++){
-        printf("\n for rule number %d printing id of first rhs %d ", i, G[i].firstRHS->rhs_id);
-    }
-    //computeFirstandFollow();
-    printf("computed first and follow");
-    //populate_parse_table();*/
-    return 0;
-}
+
+// int main(){
+//     populate_grammar();
+//     //printTTable(terminalHash, TSIZE);
+//     //printNTTable(nonTerminalHash,NTSIZE);
+//     //printf("hash value for moduleDeclaration: %d \n ", getTokenFromNTTable("moduleDeclaration",nonTerminalHash));
+//     generateGrammar(); 
+//     printf("generated grammar");
+//     for(int i=0;i<NUM_OF_RULES;i++){
+
+//         printf("\n for rule number %d printing id of last rhs %d ", i, G[i].lastRHS->rhs_id);
+//     }
+//     //computeFirstandFollow();
+//     printf("computed first and follow");
+//     //populate_parse_table();*/
+//     return 0;
+// }
 
 
 
