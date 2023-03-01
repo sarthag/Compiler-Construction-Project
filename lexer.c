@@ -377,7 +377,7 @@ token getNextToken(FILE *code) {
                 state = 7;
             }
             else {
-                retract(1);
+                retract(2);
                 t = addTokenToList();
                 t -> tid = RNUM;
                 t -> rnum = atof(getLexeme());

@@ -6,7 +6,7 @@ int main(){
     
     initializeNTTable(nonTerminalHash,NTSIZE);
     printf("Non Terminal HashTable initialized\n");
-    insertNonTerminal("STARTCODE",STARTCODE,nonTerminalHash);
+    // insertNonTerminal("STARTCODE",STARTCODE,nonTerminalHash);
     printNTTable(nonTerminalHash,NTSIZE);
     printf("Done");
     printf("------TESTING GET---------\n");

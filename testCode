@@ -4,10 +4,20 @@ start
     declare v, w, r :integer;
     get_value(v);
     w:=5;
-    declare m:real;
-    [r,m] := use module mod1 with parameters v, w;
+    declare m:real;9.9elephant;
+    [r,m] := use module mod1 9.9elephant with parameters v, w;
     print(r);
     print(m);
+    9.9elephant
+    9.9eelephant
+    9.9e$x#
+    9.9opy
+    9.9e10
+    9.9Elephant
+    9.9Eelephant;
+    9.9E$x_9.9opy
+    9.9E10;
+
 end
 
 <<module mod1>>
@@ -21,3 +31,4 @@ start
     x:=a+b-10;
     abc:=b/5+c;
 end
+ 
