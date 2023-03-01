@@ -11,13 +11,13 @@
 //     first
 // } nt_key;
 
-char* nt_list[] = {
+static char* nt_list[] = {
     "anyTerm", "arithmeticExpr", "arithmeticOrBooleanExpr", "arrExpr", "arrFactor", "arrTerm", "arr_N4", "arr_N5", "array_element_for_print", "assignmentStmt", "boolConstt", "caseStmt1", "caseStmt2", "conditionalStmt", "dataType", "declareStmt", "default1", "driverModule", "element_index_with_expressions", "expression", "factor", "idList1", "idList2", "id_num_rnum", "index_arr", "index_for_loop", "input_plist1", "input_plist2", "ioStmt", "iterativeStmt", "logicalOp", "module", "moduleDeclaration", "moduleDeclarations", "moduleDef", "moduleReuseStmt", "n1", "n2", "n3", "n4", "n5", "n6", "new_NT", "new_index", "new_indexSQBC", "new_index_for_loop", "op1", "op2", "optional", "otherModules", "output_plist1", "output_plist2", "p1", "print", "program", "range_arrays", "range_for_loop", "relationalOp", "ret", "sign", "sign_for_loop", "simpleStmt", "statement", "statements", "term", "type", "u", "unary_op", "value", "var", "var_id_num", "var_print", "valueIDStmt", "valueARRStmt", "whichStmt"
 
 };
 
 
-char* token_list[] = {
+static char* token_list[] = {
     "MINUS", "NE", "BO", "BC", "MUL", "COMMENTMARK", "COMMA", "RANGEOP", "DIV", "COLON", "ASSIGNOP", "SEMICOL", "SQBO", "SQBC", "PLUS", "LT", "DEF", "DRIVERDEF", "LE", "EQ", "GT", "GE", "ENDDEF", "DRIVERENDDEF", "NUM", "RNUM", "ID", "AND", "ARRAY", "BOOLEAN", "BREAK", "CASE", "DECLARE", "DEFAULT", "DRIVER", "END", "FOR", "GET_VALUE", "IN", "INPUT", "INTEGER", "MODULE", "OF", "OR", "PARAMETERS", "PRINT", "PROGRAM", "REAL", "RETURNS", "START", "SWITCH", "TAKES", "USE", "WHILE", "WITH", "FALSE", "TRUE", "$", "EPSILON"
 };
 
