@@ -7,42 +7,49 @@ bool first[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{1,1,0,1}, {1,1,0,1}, {0,
 bool follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{0,0,0,1}, {0,1,1,0}, {0,0,1,0}, {0,0,0,1}};
 */
 
-void populate_parse_table(){
-    //populate the table with -1 
-    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
-        for(int j=0;j<PT_COLS;j++){
-            parse_table[i][j]=-1;
-        }
-    }
-    for(int i=0;i<NUM_OF_RULES;i++){
-        bool first_set[NUM_OF_TERMINALS] = {0}; 
-        for(int j = 0; j < NUM_OF_TERMINALS; j++)
-            first_set[j] = First[G[i].lhs_id][j];
-        for(int j=0; j<NUM_OF_TERMINALS-1;j++){
-            if(first_set[j]==1){
-                parse_table[G[i].lhs_id][j]=i+1;
-            }
-        } 
-        if(first_set[NUM_OF_TERMINALS-1]==1){
-            //if the first set contains epsilon
-            bool* follow_set= Follow[G[i].lhs_id];
-            for(int k=0;k<NUM_OF_TERMINALS;k++){
-                if(follow_set[k]==1){
-                    parse_table[G[i].lhs_id][k]=i+1;
-                }
-            }
-        }
-    }
-}
+// void populate_parse_table(){
+//     //populate the table with -1 
+//     for(int i=0;i<NUM_OF_NONTERMINALS;i++){
+//         for(int j=0;j<PT_COLS;j++){
+//             parse_table[i][j]=-1;
+//         }
+//     }
+//     for(int i=0;i<NUM_OF_RULES;i++){
+//         bool first_set[NUM_OF_TERMINALS] = {0}; 
+//         for(int j = 0; j < NUM_OF_TERMINALS; j++)
+//             first_set[j] = First[G[i].lhs_id][j];
+//         for(int j=0; j<NUM_OF_TERMINALS-1;j++){
+//             if(first_set[j]==1){
+//                 parse_table[G[i].lhs_id][j]=i+1;
+//             }
+//         } 
+//         if(first_set[NUM_OF_TERMINALS-1]==1){
+//             //if the first set contains epsilon
+//             bool* follow_set= Follow[G[i].lhs_id];
+//             for(int k=0;k<NUM_OF_TERMINALS;k++){
+//                 if(follow_set[k]==1){
+//                     parse_table[G[i].lhs_id][k]=i+1;
+//                 }
+//             }
+//         }
+//     }
+// }
 
 void InitializeParser(){
+
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
+    printf("Parser Init11");
     push(parserStack, TERMINAL, $, NULL);
+    printf("Parser Init12");
     push(parserStack, NON_TERMINAL, program, parseTree->root);
+    printf("Parser Init13");
     parseTree = create_parse_tree();
+    printf("Parser Init14");
     parseTree->root = create_node(NON_TERMINAL, program);
+    printf("Parser Init15");
     L = NULL;
+    printf("Parser Init");
 }
 
 
@@ -52,6 +59,7 @@ token * getNextTk(tokenLL tokenList, token * current){
     }
     return (current -> next == NULL) ?NULL :current->next;
 }
+
 
 void parser_retract(non_terminal nonterm, token* current) {
     while(!sync_set[nonterm.nid][current ->tid]){
@@ -64,6 +72,7 @@ void parser_retract(non_terminal nonterm, token* current) {
 }
 
 void parse_code(){
+    printf("Inside Parser");
     L = getNextTk(tokenList, L);
     // stack_node* s;
     while(L != NULL){
