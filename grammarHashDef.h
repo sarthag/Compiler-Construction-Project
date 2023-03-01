@@ -29,11 +29,11 @@ typedef struct ntElement{
 // for terminal hash table
 typedef enum{
     MINUS, NE, BO, BC, MUL, COMMENTMARK, COMMA, RANGEOP, DIV, COLON, ASSIGNOP, SEMICOL, SQBO, SQBC, PLUS, LT, DEF, DRIVERDEF, LE, EQ, GT, GE, ENDDEF, DRIVERENDDEF, NUM, RNUM, ID, AND, ARRAY, BOOLEAN, BREAK, CASE, DECLARE, DEFAULT, DRIVER, END, FOR, GET_VALUE, IN, INPUT, INTEGER, MODULE, OF, OR, PARAMETERS, PRINT, PROGRAM, REAL, RETURNS, START, SWITCH, TAKES, USE, WHILE, WITH, FALSE, TRUE, $,EPSILON
-}token_key;
+}t_key;
 
 typedef struct tElement{
     char tText[TTEXTSIZE];
-    token_key  terminal;
+    t_key  terminal;
     bool occupied;
 }tElement;
 
