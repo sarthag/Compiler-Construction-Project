@@ -39,9 +39,9 @@ void InitializeParser(){
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
     push(parserStack, TERMINAL, $, NULL);
-    push(parserStack, NON_TERMINAL, start, parseTree->root);
+    push(parserStack, NON_TERMINAL, program, parseTree->root);
     parseTree = create_parse_tree();
-    parseTree->root = create_node(NON_TERMINAL, start);
+    parseTree->root = create_node(NON_TERMINAL, program);
     L = NULL;
 }
 
@@ -65,6 +65,7 @@ void parser_retract(non_terminal nonterm, token* current) {
 
 void parse_code(){
     L = getNextTk(tokenList, L);
+    // stack_node* s;
     while(L != NULL){
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
@@ -73,14 +74,14 @@ void parse_code(){
                 L = getNextTk(tokenList, L);                
             }
             else{
-                pop(x);
+                pop(parserStack);
                 printf("ERROR : Terminal Mismatch"); 
-            }
+          }
             
         }
         else if (x->type == NON_TERMINAL){
             if (parse_table[x->element.nt.nid][L->tid] != -1){
-                stack_node* parent = pop(parserStack);
+                pop(parserStack);
                 rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
                 while (toPush->prevRHS != NULL)
                 {   

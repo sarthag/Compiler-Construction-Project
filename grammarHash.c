@@ -74,7 +74,7 @@ void initializeTTable(tElement tTable[], int size){
     }
 }
 
-void insertTerminal(const char *tText, t_key terminal, tElement tTable[]){
+void insertTerminal(const char *tText, token_key terminal, tElement tTable[]){
     int i = 0;
     int hashValue = hashGrammar(tText);
     int index = hashValue % TSIZE;
@@ -83,10 +83,11 @@ void insertTerminal(const char *tText, t_key terminal, tElement tTable[]){
         i++;
         index  = (hashValue + (i*i))%TSIZE;
     }
-    int ntTextSize = NTTEXTSIZE;
+    int tTextSize = TTEXTSIZE;
     // strncpy(keywordTable[index].lexeme, lexeme, lexemeSize-1);
     // keywordTable[index].lexeme[lexemeSize -1] = '\0';
     strcpy(tTable[index].tText, tText);
+    tTable[index].tText[tTextSize-1] = '\0';
     tTable[index].terminal = terminal;
     
     tTable[index].occupied = true;
@@ -94,7 +95,7 @@ void insertTerminal(const char *tText, t_key terminal, tElement tTable[]){
 }
 
 
-t_key getTokenFromTTable(char *tText, tElement tTable[]){
+token_key getTokenFromTTable(char *tText, tElement tTable[]){
     int i = 0;
     int hashValue = hashGrammar(tText);
     int index = hashValue % TSIZE;

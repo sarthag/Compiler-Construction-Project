@@ -82,7 +82,6 @@ void computeFirstandFollow(){
     //lhs G1[NUM_OF_RULES];
     //G1= generateGrammar();
     generateGrammar();
-
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
         findFirst(G[j]);
     }
