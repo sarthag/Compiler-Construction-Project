@@ -6,14 +6,13 @@ int Follow[74][59];
 #define ROWS 74
 #define COLS 59
 
-int main()
-{
-    FILE *f = fopen("firstArr.txt", "r");
+int main() {
+    FILE *g = fopen("firstArr.txt", "r");
     
     // read each line of the file and store its contents in the array
     for (int i = 0; i < ROWS; i++) {
         char line[256];
-        fgets(line, sizeof(line), f);
+        fgets(line, sizeof(line), g);
         
         // split the line into an array of integers
         char *token;
@@ -27,42 +26,48 @@ int main()
     }
     
     // print the contents of the array
+    printf("   ");
+    for (int i = 0; i < COLS; i++) {
+        printf("%02d ", i);
+    }
+    printf("\n");
     for (int i = 0; i < ROWS; i++) {
+        printf("%02d ", i);
         for (int j = 0; j < COLS; j++) {
-            printf("%d ", First[i][j]);
+            printf(" %d ", First[i][j]);
         }
         printf("\n");
     }
     
     // close the file
-    fclose(f);
+    fclose(g);
 
-    FILE *f = fopen("followArr.txt", "r");
+    // FILE *h = fopen("followArr.txt", "r");
     
-    // read each line of the file and store its contents in the array
-    for (int i = 0; i < ROWS; i++) {
-        char line[256];
-        fgets(line, sizeof(line), f);
+    // // read each line of the file and store its contents in the array
+    // for (int i = 0; i < ROWS; i++) {
+    //     char line[256];
+    //     fgets(line, sizeof(line), h);
         
-        // split the line into an array of integers
-        char *token;
-        int j = 0;
-        token = strtok(line, ",");
-        while (token != NULL) {
-            Follow[i][j] = atoi(token);
-            j++;
-            token = strtok(NULL, ",");
-        }
-    }
+    //     // split the line into an array of integers
+    //     char *token;
+    //     int j = 0;
+    //     token = strtok(line, ",");
+    //     while (token != NULL) {
+    //         Follow[i][j] = atoi(token);
+    //         j++;
+    //         token = strtok(NULL, ",");
+    //     }
+    // }
     
-    // print the contents of the array
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            printf("%d ", Follow[i][j]);
-        }
-        printf("\n");
-    }
+    // // print the contents of the array
+    // for (int i = 0; i < ROWS; i++) {
+    //     for (int j = 0; j < COLS; j++) {
+    //         printf("%d ", Follow[i][j]);
+    //     }
+    //     printf("\n");
+    // }
     
-    // close the file
-    fclose(f);
+    // // close the file
+    // fclose(h);
 }
