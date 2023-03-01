@@ -3,31 +3,34 @@
         "DOLLAR"
     ],
     "moduleDeclarations": [
-        "EPSILON",
-        "DEF"
+        "DEF",
+        "DRIVERDEF"
     ],
     "moduleDeclaration": [
-        "EPSILON",
-        "DECLARE"
+        "DECLARE",
+        "DEF",
+        "DRIVERDEF"
     ],
     "otherModules": [
         "DRIVERDEF",
         "DOLLAR"
     ],
     "module": [
-        "EPSILON",
-        "DEF"
+        "DEF",
+        "DRIVERDEF",
+        "DOLLAR"
     ],
     "ret": [
         "START"
     ],
     "driverModule": [
-        "EPSILON",
-        "DEF"
+        "DEF",
+        "DOLLAR"
     ],
     "moduleDef": [
-        "EPSILON",
-        "DEF"
+        "DEF",
+        "DRIVERDEF",
+        "DOLLAR"
     ],
     "input_plist1": [
         "SQBC"
@@ -43,7 +46,7 @@
     ],
     "dataType": [
         "COMMA",
-        "EPSILON",
+        "SQBC",
         "SEMICOL"
     ],
     "range_arrays": [
@@ -51,7 +54,7 @@
     ],
     "type": [
         "COMMA",
-        "EPSILON",
+        "SQBC",
         "SEMICOL"
     ],
     "statements": [
@@ -59,33 +62,43 @@
         "BREAK"
     ],
     "statement": [
-        "EPSILON",
         "GET_VALUE",
         "PRINT",
         "DECLARE",
         "SWITCH",
         "FOR",
         "WHILE",
-        "ID"
+        "ID",
+        "END",
+        "BREAK"
     ],
     "ioStmt": [
-        "EPSILON",
         "GET_VALUE",
         "PRINT",
         "DECLARE",
         "SWITCH",
         "FOR",
         "WHILE",
-        "ID"
+        "ID",
+        "END",
+        "BREAK"
     ],
     "boolConstt": [
         "BC",
         "SEMICOL",
-        "EPSILON",
         "AND",
         "OR",
+        "PLUS",
+        "MINUS",
         "MUL",
-        "DIV"
+        "DIV",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "SQBC"
     ],
     "id_num_rnum": [
         "BC"
@@ -100,30 +113,31 @@
         "BC"
     ],
     "simpleStmt": [
-        "EPSILON",
         "GET_VALUE",
         "PRINT",
         "DECLARE",
         "SWITCH",
         "FOR",
         "WHILE",
-        "ID"
+        "ID",
+        "END",
+        "BREAK"
     ],
     "assignmentStmt": [
         "SQBO",
-        "EPSILON"
+        "USE"
     ],
     "whichStmt": [
         "SQBO",
-        "EPSILON"
+        "USE"
     ],
     "valueIDStmt": [
         "SQBO",
-        "EPSILON"
+        "USE"
     ],
     "valueARRStmt": [
         "SQBO",
-        "EPSILON"
+        "USE"
     ],
     "index_arr": [
         "RANGEOP",
@@ -139,14 +153,15 @@
         "BO"
     ],
     "moduleReuseStmt": [
-        "EPSILON",
         "GET_VALUE",
         "PRINT",
         "DECLARE",
         "SWITCH",
         "FOR",
         "WHILE",
-        "ID"
+        "ID",
+        "END",
+        "BREAK"
     ],
     "actualParaList": [
         "SEMICOL"
@@ -194,18 +209,21 @@
         "BC"
     ],
     "anyTerm": [
-        "EPSILON",
         "AND",
-        "OR"
+        "OR",
+        "PLUS",
+        "MINUS",
+        "BC"
     ],
     "n2": [
-        "EPSILON",
         "AND",
-        "OR"
+        "OR",
+        "PLUS",
+        "MINUS",
+        "BC"
     ],
     "arithmeticExpr": [
         "BC",
-        "EPSILON",
         "LT",
         "LE",
         "GT",
@@ -213,11 +231,27 @@
         "EQ",
         "NE",
         "AND",
-        "OR"
+        "OR",
+        "PLUS",
+        "MINUS"
     ],
     "n3": [
         "BC",
-        "EPSILON",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR",
+        "PLUS",
+        "MINUS"
+    ],
+    "term": [
+        "PLUS",
+        "MINUS",
+        "BC",
         "LT",
         "LE",
         "GT",
@@ -227,25 +261,48 @@
         "AND",
         "OR"
     ],
-    "term": [
-        "EPSILON",
-        "PLUS",
-        "MINUS"
-    ],
     "n4": [
-        "EPSILON",
         "PLUS",
-        "MINUS"
+        "MINUS",
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR"
     ],
     "factor": [
-        "EPSILON",
         "MUL",
-        "DIV"
+        "DIV",
+        "PLUS",
+        "MINUS",
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR"
     ],
     "n5": [
-        "EPSILON",
         "MUL",
-        "DIV"
+        "DIV",
+        "PLUS",
+        "MINUS",
+        "BC",
+        "LT",
+        "LE",
+        "GT",
+        "GE",
+        "EQ",
+        "NE",
+        "AND",
+        "OR"
     ],
     "arrExpr": [
         "BC",
@@ -256,19 +313,24 @@
         "SQBC"
     ],
     "arrTerm": [
-        "EPSILON",
         "PLUS",
-        "MINUS"
+        "MINUS",
+        "BC",
+        "SQBC"
     ],
     "arr_N5": [
-        "EPSILON",
         "PLUS",
-        "MINUS"
+        "MINUS",
+        "BC",
+        "SQBC"
     ],
     "arrFactor": [
-        "EPSILON",
         "MUL",
-        "DIV"
+        "DIV",
+        "PLUS",
+        "MINUS",
+        "BC",
+        "SQBC"
     ],
     "element_index_with_expressions": [
         "SQBC"
@@ -309,32 +371,34 @@
         "ID"
     ],
     "declareStmt": [
-        "EPSILON",
         "GET_VALUE",
         "PRINT",
         "DECLARE",
         "SWITCH",
         "FOR",
         "WHILE",
-        "ID"
+        "ID",
+        "END",
+        "BREAK"
     ],
     "conditionalStmt": [
-        "EPSILON",
         "GET_VALUE",
         "PRINT",
         "DECLARE",
         "SWITCH",
         "FOR",
         "WHILE",
-        "ID"
+        "ID",
+        "END",
+        "BREAK"
     ],
     "caseStmt1": [
         "DEFAULT",
-        "EPSILON"
+        "END"
     ],
     "caseStmt2": [
         "DEFAULT",
-        "EPSILON"
+        "END"
     ],
     "value": [
         "COLON"
@@ -343,14 +407,15 @@
         "END"
     ],
     "iterativeStmt": [
-        "EPSILON",
         "GET_VALUE",
         "PRINT",
         "DECLARE",
         "SWITCH",
         "FOR",
         "WHILE",
-        "ID"
+        "ID",
+        "END",
+        "BREAK"
     ],
     "range_for_loop": [
         "BC"

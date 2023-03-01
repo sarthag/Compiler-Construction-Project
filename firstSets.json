@@ -1,7 +1,8 @@
 {
     "program": [
-        "EPSILON",
-        "DECLARE"
+        "DRIVERDEF",
+        "DECLARE",
+        "DEF"
     ],
     "moduleDeclarations": [
         "EPSILON",
@@ -47,7 +48,8 @@
     "range_arrays": [
         "PLUS",
         "MINUS",
-        "EPSILON"
+        "NUM",
+        "ID"
     ],
     "type": [
         "INTEGER",
@@ -119,7 +121,8 @@
     "index_arr": [
         "PLUS",
         "MINUS",
-        "EPSILON"
+        "NUM",
+        "ID"
     ],
     "new_index": [
         "NUM",
@@ -132,7 +135,7 @@
     ],
     "moduleReuseStmt": [
         "SQBO",
-        "EPSILON"
+        "USE"
     ],
     "actualParaList": [
         "NUM",
@@ -285,12 +288,11 @@
     "element_index_with_expressions": [
         "PLUS",
         "MINUS",
-        "EPSILON",
-        "ID",
         "NUM",
+        "ID",
+        "BO",
         "TRUE",
-        "FALSE",
-        "BO"
+        "FALSE"
     ],
     "n6": [
         "NUM",
@@ -346,12 +348,12 @@
     "range_for_loop": [
         "PLUS",
         "MINUS",
-        "EPSILON"
+        "NUM"
     ],
     "index_for_loop": [
         "PLUS",
         "MINUS",
-        "EPSILON"
+        "NUM"
     ],
     "new_index_for_loop": [
         "NUM"
