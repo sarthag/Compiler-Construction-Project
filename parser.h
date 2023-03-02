@@ -13,6 +13,7 @@ void synchronization_set();
 void populate_parse_table();
 void InitializeParser();
 void parser_retract(non_terminal nonterm, token* current);
+void print_parse_tree(tree_node *node);
 void parse_code();
 
 #endif
