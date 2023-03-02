@@ -141,7 +141,6 @@ void populate_grammar(){
     insertNonTerminal("arrTerm", arrTerm, nonTerminalHash);
     insertNonTerminal("arr_N4", arr_N4, nonTerminalHash);
     insertNonTerminal("arr_N5", arr_N5, nonTerminalHash);
-    insertNonTerminal("array_element_for_print", array_element_for_print, nonTerminalHash);
     insertNonTerminal("assignmentStmt", assignmentStmt, nonTerminalHash);
     insertNonTerminal("boolConstt", boolConstt, nonTerminalHash);
     insertNonTerminal("caseStmt1", caseStmt1, nonTerminalHash);
