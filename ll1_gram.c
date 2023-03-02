@@ -208,6 +208,7 @@ void populate_grammar(){
     insertNonTerminal("valueARRStmt", valueARRStmt, nonTerminalHash);
     insertNonTerminal("whichStmt", whichStmt, nonTerminalHash);
 }
+
 void populate_parse_table(){
     //populate the table with -1 
     for(int i=0;i<NUM_OF_NONTERMINALS;i++){
@@ -216,25 +217,30 @@ void populate_parse_table(){
         }
     }
     for(int i=0;i<NUM_OF_RULES;i++){
-        //bool first_set[NUM_OF_TERMINALS] = {0}; 
-        // for(int j = 0; j < NUM_OF_TERMINALS; j++)
-        //     first_set[j] = First[G[i].lhs_id][j];
-        // for(int k=0; k<NUM_OF_NONTERMINALS; k++ ){
-        //     for(int j=0; j < NUM_OF_TERMINALS-2;j++){
-        //         if(First[k][j]==1){
-        //         parse_table[G[i].lhs_id][j]=i+1;
-        //         }
-        //     }
-        // } 
+        int eps= getTokenFromTTable("EPSILON", terminalHash);
         if(G[i].firstRHS->isTerminal==1){
-            parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id];
+            //if it's a TERMINAL
+            if(G[i].firstRHS->rhs_id!=eps){
+                printf("Rule is terminal without eps %d \n", i+1);
+                parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id]=i;
+            }
+            else{
+                printf("Rule is terminal with eps %d \n", i+1);
+                //epsilon - calculate follow
+                for(int k=0;k<NUM_OF_TERMINALS;k++){
+                    if(Follow[G[i].lhs_id][k]==1){
+                        parse_table[G[i].lhs_id][k] = i;
+                    }
+                }
+            }
+            
         }
         else{
             //is a nt
+            printf("Rule is non term %d \n", i+1);
             for(int j = 0; j < NUM_OF_TERMINALS-1; j++){
-                printf("first of non terminal %d ", First[G[i].firstRHS->rhs_id][j]);
+                //printf("first of non terminal %d ", First[G[i].firstRHS->rhs_id][j]);
                 if (First[G[i].firstRHS->rhs_id][j] == 1){
-                    printf("populating");
                     if(parse_table[G[i].lhs_id][j] != -1){
                         printf("Old: %d , New: %d\n",parse_table[G[i].lhs_id][j],i);
                     }
@@ -242,14 +248,14 @@ void populate_parse_table(){
                 }
             }
 
-            if(First[G[i].firstRHS->rhs_id][NUM_OF_TERMINALS-1]==1){
-                //if the first set contains epsilon
+            if(First[G[i].firstRHS->rhs_id][eps]==1){
+                //if the first set contains epsilon populate with follow
                 for(int k=0;k<NUM_OF_TERMINALS-1;k++){
-                    if(Follow[G[i].firstRHS->rhs_id][k]==1){
-                        printf("populating");
+                    if(Follow[G[i].lhs_id][k]==1){
+                        
                         if(parse_table[G[i].lhs_id][k] != -1){
-                        printf("Epsilon failing\tOld: %d , New: %d\n",parse_table[G[i].lhs_id][k],i);
-                    }
+                            printf("Epsilon in first \tOld: %d , New: %d\n",parse_table[G[i].lhs_id][k],i);
+                        }
                         parse_table[G[i].lhs_id][k] = i;
                     }
                 }
@@ -258,19 +264,19 @@ void populate_parse_table(){
         
     }
     int ctr = 0;
-    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
-        for(int j=0;j<NUM_OF_TERMINALS;j++){
-            if(parse_table[i][j] == 4){
-                printf("%d ",parse_table[i][j]);
-            }
-            else{
-                printf(" ");
-            }
+    // for(int i=0;i<NUM_OF_NONTERMINALS;i++){
+    //     for(int j=0;j<NUM_OF_TERMINALS;j++){
+    //         if(parse_table[i][j] == 4){
+    //             printf("%d ",parse_table[i][j]);
+    //         }
+    //         else{
+    //             printf(" ");
+    //         }
             
             
-        }
-        // printf("\n");
-    }
+    //     }
+    //     // printf("\n");
+    // }
 }
 
 
@@ -577,18 +583,18 @@ int main(){
     for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
         // printf("NTNO: %d \n", i);
         for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-            // if(parse_table[i][j]!=-1){
-                printf("%d ",parse_table[i][j]);
-            
+            if(arr[parse_table[i][j]]==0){
+                arr[parse_table[i][j]]=1;
+            }
         }
-        printf("\n");
     }
-    // printf("\n Sus numbers\n");
-    // for(int i = 0 ; i < NUM_OF_RULES ; i++){
-    //     if(arr[i] == 0){
-    //         printf("%d ", i);
-    //     }
-    // }
+    printf("\n Sus numbers\n");
+    for(int i = 0 ; i < NUM_OF_RULES ; i++){
+        if(arr[i] == 0){
+            printf("%d ", i);
+        }
+    }
+    
     return 0;
 }
 
