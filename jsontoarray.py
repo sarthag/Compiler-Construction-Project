@@ -147,8 +147,8 @@ class NonTerminals(IntEnum):
     whichStmt = 72
 
 
-firstArr = np.zeros((74, 59), dtype=np.int32)
-followArr = np.zeros((74, 59), dtype=np.int32)
+firstArr = np.zeros((73, 59), dtype=np.int32)
+followArr = np.zeros((73, 59), dtype=np.int32)
 
 print(firstSet['program'])
 
