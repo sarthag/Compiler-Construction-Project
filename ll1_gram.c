@@ -236,13 +236,14 @@ void populate_parse_table(){
         }
         else{
             //is a nt
-            printf("Rule is non term %d \n", i+1);
+            printf("Rule is non term %d\n", i+1);
             for(int j = 0; j < NUM_OF_TERMINALS-1; j++){
                 //printf("first of non terminal %d ", First[G[i].firstRHS->rhs_id][j]);
                 if (First[G[i].firstRHS->rhs_id][j] == 1){
-                    if(parse_table[G[i].lhs_id][j] != -1){
-                        printf("Old: %d , New: %d\n",parse_table[G[i].lhs_id][j]+1,i+1);
-                    }
+                    // if(parse_table[G[i].lhs_id][j] != -1){
+                    //     printf("First except epsilon Old: %d , New: %d\n",parse_table[G[i].lhs_id][j]+1,i+1);
+                    // }
+                    //printf("lhs id is %d ", G[i].lhs_id);
                     parse_table[G[i].lhs_id][j] = i;
                 }
             }
@@ -251,10 +252,9 @@ void populate_parse_table(){
                 //if the first set contains epsilon populate with follow
                 for(int k=0;k<NUM_OF_TERMINALS-1;k++){
                     if(Follow[G[i].lhs_id][k]==1){
-                        
-                        if(parse_table[G[i].lhs_id][k] != -1){
-                            printf("Epsilon in first \tOld: %d , New: %d\n",parse_table[G[i].lhs_id][k]+1,i+1);
-                        }
+                        // if(parse_table[G[i].lhs_id][k] != -1){
+                        //     printf("Epsilon in first \tOld: %d , New: %d\n",parse_table[G[i].lhs_id][k]+1,i+1);
+                        // }
                         parse_table[G[i].lhs_id][k] = i;
                     }
                 }
@@ -501,6 +501,10 @@ void loadFirstFollow() {
             token = strtok(NULL, ",");
         }
     }
+    printf("Printing for term \n ");
+    for(int i=0;i<NUM_OF_TERMINALS;i++){
+            printf("%d ", First[63][i]);
+    }
     
     // print the contents of the array
     // printf("First Array\n");
@@ -558,44 +562,40 @@ void printGrammar(){
     }
 }
 
-// int main(){
-//     populate_grammar();
-//     generateGrammar();
-//     loadFirstFollow();
-//     // computeFirstandFollow();
+int main(){
+    populate_grammar();
+    generateGrammar();
+    loadFirstFollow();
+    // computeFirstandFollow();
+    populate_parse_table();
+    //         printf("Arithematic\n");
+    // for(int i = 0; i < NUM_OF_TERMINALS; i++){
 
-//     // findFirst(G[85]);
-//     // findFirst(G[84]);
-//     // printf("here \n");
-//     populate_parse_table();
-//     //         printf("Arithematic\n");
-//     // for(int i = 0; i < NUM_OF_TERMINALS; i++){
-
-//     //     printf(" %d ", First[2][i]);
-//     // }
-//     //  printf("Anyterm\n");
-//     // for(int i = 0; i < NUM_OF_TERMINALS; i++){
+    //     printf(" %d ", First[2][i]);
+    // }
+    //  printf("Anyterm\n");
+    // for(int i = 0; i < NUM_OF_TERMINALS; i++){
        
-//     //     printf(" %d ", First[1][i]);
-//     // }
-//     bool arr[NUM_OF_RULES] = {0};
-//     for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-//         // printf("NTNO: %d \n", i);
-//         for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-//             if(arr[parse_table[i][j]]==0){
-//                 arr[parse_table[i][j]]=1;
-//             }
-//         }
-//     }
-//     printf("\n Sus numbers\n");
-//     for(int i = 0 ; i < NUM_OF_RULES ; i++){
-//         if(arr[i] == 0){
-//             printf("%d ", i);
-//         }
-//     }
-    
-//     return 0;
-// }
+    //     printf(" %d ", First[1][i]);
+    // }
+    bool arr[NUM_OF_RULES] = {0};
+    for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
+        // printf("NTNO: %d \n", i);
+        for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
+            if(arr[parse_table[i][j]]==0){
+                arr[parse_table[i][j]]=1;
+            }
+        }
+    }
+    printf("\n Sus numbers\n");
+    for(int i = 0 ; i < NUM_OF_RULES ; i++){
+        if(arr[i] == 0){
+            printf("%d ", i);
+        }
+    }
+    printf("\ndone with parse table");
+    return 0;
+}
 
 
 
