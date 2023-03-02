@@ -9,5 +9,7 @@ with open('grammar.txt', 'r') as f:
             'right': line.split()[1:]
             }
         prod_rules.append(tmp)
+
+print(len(prod_rules))
 with open('grammar.json', 'w') as f:
     json.dump(prod_rules, f)

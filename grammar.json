@@ -1,1020 +1,283 @@
 [
-    {
-        "left": "program",
-        "right": [
-            "moduleDeclarations",
-            "otherModules",
-            "driverModule",
-            "otherModules"
-        ]
-    },
-    {
-        "left": "moduleDeclarations",
-        "right": [
-            "moduleDeclaration",
-            "moduleDeclarations"
-        ]
-    },
-    {
-        "left": "moduleDeclarations",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "moduleDeclaration",
-        "right": [
-            "DECLARE",
-            "MODULE",
-            "ID",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "otherModules",
-        "right": [
-            "module",
-            "otherModules"
-        ]
-    },
-    {
-        "left": "otherModules",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "module",
-        "right": [
-            "DEF",
-            "MODULE",
-            "ID",
-            "ENDDEF",
-            "TAKES",
-            "INPUT",
-            "SQBO",
-            "input_plist1",
-            "SQBC",
-            "SEMICOL",
-            "ret",
-            "moduleDef"
-        ]
-    },
-    {
-        "left": "ret",
-        "right": [
-            "RETURNS",
-            "SQBO",
-            "output_plist1",
-            "SQBC",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "ret",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "driverModule",
-        "right": [
-            "DRIVERDEF",
-            "DRIVER",
-            "PROGRAM",
-            "DRIVERENDDEF",
-            "moduleDef"
-        ]
-    },
-    {
-        "left": "moduleDef",
-        "right": [
-            "START",
-            "statements",
-            "END"
-        ]
-    },
-    {
-        "left": "input_plist1",
-        "right": [
-            "ID",
-            "COLON",
-            "dataType",
-            "input_plist2"
-        ]
-    },
-    {
-        "left": "input_plist2",
-        "right": [
-            "COMMA",
-            "ID",
-            "COLON",
-            "dataType",
-            "input_plist2"
-        ]
-    },
-    {
-        "left": "input_plist2",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "output_plist1",
-        "right": [
-            "ID",
-            "COLON",
-            "type",
-            "output_plist2"
-        ]
-    },
-    {
-        "left": "output_plist2",
-        "right": [
-            "COMMA",
-            "ID",
-            "COLON",
-            "type",
-            "output_plist2"
-        ]
-    },
-    {
-        "left": "output_plist2",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "dataType",
-        "right": [
-            "ARRAY",
-            "SQBO",
-            "range_arrays",
-            "SQBC",
-            "OF",
-            "type"
-        ]
-    },
-    {
-        "left": "range_arrays",
-        "right": [
-            "index_arr",
-            "RANGEOP",
-            "index_arr"
-        ]
-    },
-    {
-        "left": "type",
-        "right": [
-            "INTEGER"
-        ]
-    },
-    {
-        "left": "type",
-        "right": [
-            "REAL"
-        ]
-    },
-    {
-        "left": "type",
-        "right": [
-            "BOOLEAN"
-        ]
-    },
-    {
-        "left": "statements",
-        "right": [
-            "statement",
-            "statements"
-        ]
-    },
-    {
-        "left": "statements",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "statement",
-        "right": [
-            "ioStmt"
-        ]
-    },
-    {
-        "left": "statement",
-        "right": [
-            "simpleStmt"
-        ]
-    },
-    {
-        "left": "statement",
-        "right": [
-            "declareStmt"
-        ]
-    },
-    {
-        "left": "statement",
-        "right": [
-            "conditionalStmt"
-        ]
-    },
-    {
-        "left": "statement",
-        "right": [
-            "iterativeStmt"
-        ]
-    },
-    {
-        "left": "ioStmt",
-        "right": [
-            "GET_VALUE",
-            "BO",
-            "ID",
-            "BC",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "ioStmt",
-        "right": [
-            "PRINT",
-            "BO",
-            "var_print",
-            "BC",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "boolConstt",
-        "right": [
-            "TRUE"
-        ]
-    },
-    {
-        "left": "boolConstt",
-        "right": [
-            "FALSE"
-        ]
-    },
-    {
-        "left": "id_num_rnum",
-        "right": [
-            "ID"
-        ]
-    },
-    {
-        "left": "id_num_rnum",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "id_num_rnum",
-        "right": [
-            "RNUM"
-        ]
-    },
-    {
-        "left": "array_element_for_print",
-        "right": [
-            "ID",
-            "SQBO",
-            "index_arr",
-            "SQBC"
-        ]
-    },
-    {
-        "left": "var_print",
-        "right": [
-            "id_num_rnum"
-        ]
-    },
-    {
-        "left": "var_print",
-        "right": [
-            "boolConstt"
-        ]
-    },
-    {
-        "left": "var_print",
-        "right": [
-            "array_element_for_print"
-        ]
-    },
-    {
-        "left": "var_print",
-        "right": [
-            "ID",
-            "p1"
-        ]
-    },
-    {
-        "left": "var_print",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "var_print",
-        "right": [
-            "RNUM"
-        ]
-    },
-    {
-        "left": "p1",
-        "right": [
-            "SQBO",
-            "new_index",
-            "SQBC"
-        ]
-    },
-    {
-        "left": "p1",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "simpleStmt",
-        "right": [
-            "assignmentStmt",
-            "moduleReuseStmt"
-        ]
-    },
-    {
-        "left": "assignmentStmt",
-        "right": [
-            "ID",
-            "whichStmt"
-        ]
-    },
-    {
-        "left": "whichStmt",
-        "right": [
-            "valueIDStmt"
-        ]
-    },
-    {
-        "left": "whichStmt",
-        "right": [
-            "valueARRStmt"
-        ]
-    },
-    {
-        "left": "valueIDStmt",
-        "right": [
-            "ASSIGNOP",
-            "expression",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "valueARRStmt",
-        "right": [
-            "SQBO",
-            "element_index_with_expressions",
-            "SQBC",
-            "ASSIGNOP",
-            "expression",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "index_arr",
-        "right": [
-            "sign",
-            "new_index"
-        ]
-    },
-    {
-        "left": "new_index",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "new_index",
-        "right": [
-            "ID"
-        ]
-    },
-    {
-        "left": "sign",
-        "right": [
-            "PLUS"
-        ]
-    },
-    {
-        "left": "sign",
-        "right": [
-            "MINUS"
-        ]
-    },
-    {
-        "left": "sign",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "moduleReuseStmt",
-        "right": [
-            "optional",
-            "USE",
-            "MODULE",
-            "ID",
-            "WITH",
-            "PARAMETERS",
-            "actualParaList",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "actualParaList",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "actualParaList",
-        "right": [
-            "RNUM"
-        ]
-    },
-    {
-        "left": "actualParaList",
-        "right": [
-            "boolConstt"
-        ]
-    },
-    {
-        "left": "actualParaList",
-        "right": [
-            "ID",
-            "n7"
-        ]
-    },
-    {
-        "left": "n7",
-        "right": [
-            "SQBO",
-            "element_index_with_expressions",
-            "SQBC"
-        ]
-    },
-    {
-        "left": "n7",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "optional",
-        "right": [
-            "SQBO",
-            "idList1",
-            "SQBC",
-            "ASSIGNOP"
-        ]
-    },
-    {
-        "left": "optional",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "idList1",
-        "right": [
-            "ID",
-            "idList2"
-        ]
-    },
-    {
-        "left": "idList2",
-        "right": [
-            "COMMA",
-            "ID",
-            "idList2"
-        ]
-    },
-    {
-        "left": "idList2",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "expression",
-        "right": [
-            "arithmeticOrBooleanExpr",
-            "u"
-        ]
-    },
-    {
-        "left": "u",
-        "right": [
-            "unary_op",
-            "new_NT"
-        ]
-    },
-    {
-        "left": "new_NT",
-        "right": [
-            "BO",
-            "arithmeticExpr",
-            "BC"
-        ]
-    },
-    {
-        "left": "new_NT",
-        "right": [
-            "var_id_num"
-        ]
-    },
-    {
-        "left": "var_id_num",
-        "right": [
-            "ID"
-        ]
-    },
-    {
-        "left": "var_id_num",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "var_id_num",
-        "right": [
-            "RNUM"
-        ]
-    },
-    {
-        "left": "unary_op",
-        "right": [
-            "PLUS"
-        ]
-    },
-    {
-        "left": "unary_op",
-        "right": [
-            "MINUS"
-        ]
-    },
-    {
-        "left": "arithmeticOrBooleanExpr",
-        "right": [
-            "anyTerm",
-            "n1"
-        ]
-    },
-    {
-        "left": "n1",
-        "right": [
-            "logicalOp",
-            "anyTerm",
-            "n1"
-        ]
-    },
-    {
-        "left": "n1",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "anyTerm",
-        "right": [
-            "arithmeticExpr",
-            "n2"
-        ]
-    },
-    {
-        "left": "anyTerm",
-        "right": [
-            "boolConstt"
-        ]
-    },
-    {
-        "left": "n2",
-        "right": [
-            "relationalOp",
-            "arithmeticExpr"
-        ]
-    },
-    {
-        "left": "n2",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "arithmeticExpr",
-        "right": [
-            "term",
-            "n3"
-        ]
-    },
-    {
-        "left": "n3",
-        "right": [
-            "op1",
-            "term",
-            "n3"
-        ]
-    },
-    {
-        "left": "n3",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "term",
-        "right": [
-            "factor",
-            "n4"
-        ]
-    },
-    {
-        "left": "n4",
-        "right": [
-            "op2",
-            "factor",
-            "n4"
-        ]
-    },
-    {
-        "left": "n4",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "factor",
-        "right": [
-            "BO",
-            "arithmeticOrBooleanExpr",
-            "BC"
-        ]
-    },
-    {
-        "left": "factor",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "factor",
-        "right": [
-            "RNUM"
-        ]
-    },
-    {
-        "left": "factor",
-        "right": [
-            "boolConstt"
-        ]
-    },
-    {
-        "left": "factor",
-        "right": [
-            "ID",
-            "n5"
-        ]
-    },
-    {
-        "left": "n5",
-        "right": [
-            "SQBO",
-            "element_index_with_expressions",
-            "SQBC"
-        ]
-    },
-    {
-        "left": "n5",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "arrExpr",
-        "right": [
-            "arrTerm",
-            "arr_N4"
-        ]
-    },
-    {
-        "left": "arr_N4",
-        "right": [
-            "op1",
-            "arrTerm",
-            "arr_N4"
-        ]
-    },
-    {
-        "left": "arr_N4",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "arrTerm",
-        "right": [
-            "arrFactor",
-            "arr_N5"
-        ]
-    },
-    {
-        "left": "arr_N5",
-        "right": [
-            "op2",
-            "arrFactor",
-            "arr_N5"
-        ]
-    },
-    {
-        "left": "arr_N5",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "arrFactor",
-        "right": [
-            "ID"
-        ]
-    },
-    {
-        "left": "arrFactor",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "arrFactor",
-        "right": [
-            "boolConstt"
-        ]
-    },
-    {
-        "left": "arrFactor",
-        "right": [
-            "BO",
-            "arrExpr",
-            "BC"
-        ]
-    },
-    {
-        "left": "element_index_with_expressions",
-        "right": [
-            "sign",
-            "n6"
-        ]
-    },
-    {
-        "left": "element_index_with_expressions",
-        "right": [
-            "arrExpr"
-        ]
-    },
-    {
-        "left": "n6",
-        "right": [
-            "new_index"
-        ]
-    },
-    {
-        "left": "n6",
-        "right": [
-            "BO",
-            "arrExpr",
-            "BC"
-        ]
-    },
-    {
-        "left": "op1",
-        "right": [
-            "PLUS"
-        ]
-    },
-    {
-        "left": "op1",
-        "right": [
-            "MINUS"
-        ]
-    },
-    {
-        "left": "op2",
-        "right": [
-            "MUL"
-        ]
-    },
-    {
-        "left": "op2",
-        "right": [
-            "DIV"
-        ]
-    },
-    {
-        "left": "logicalOp",
-        "right": [
-            "AND"
-        ]
-    },
-    {
-        "left": "logicalOp",
-        "right": [
-            "OR"
-        ]
-    },
-    {
-        "left": "relationalOp",
-        "right": [
-            "LT"
-        ]
-    },
-    {
-        "left": "relationalOp",
-        "right": [
-            "LE"
-        ]
-    },
-    {
-        "left": "relationalOp",
-        "right": [
-            "GT"
-        ]
-    },
-    {
-        "left": "relationalOp",
-        "right": [
-            "GE"
-        ]
-    },
-    {
-        "left": "relationalOp",
-        "right": [
-            "EQ"
-        ]
-    },
-    {
-        "left": "relationalOp",
-        "right": [
-            "NE"
-        ]
-    },
-    {
-        "left": "declareStmt",
-        "right": [
-            "DECLARE",
-            "idList1",
-            "COLON",
-            "dataType",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "conditionalStmt",
-        "right": [
-            "SWITCH",
-            "BO",
-            "ID",
-            "BC",
-            "START",
-            "caseStmt1",
-            "default1",
-            "END"
-        ]
-    },
-    {
-        "left": "caseStmt1",
-        "right": [
-            "CASE",
-            "value",
-            "COLON",
-            "statements",
-            "BREAK",
-            "SEMICOL",
-            "caseStmt2"
-        ]
-    },
-    {
-        "left": "caseStmt2",
-        "right": [
-            "CASE",
-            "value",
-            "COLON",
-            "statements",
-            "BREAK",
-            "SEMICOL",
-            "caseStmt2"
-        ]
-    },
-    {
-        "left": "caseStmt2",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "value",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "value",
-        "right": [
-            "TRUE"
-        ]
-    },
-    {
-        "left": "value",
-        "right": [
-            "FALSE"
-        ]
-    },
-    {
-        "left": "default1",
-        "right": [
-            "DEFAULT",
-            "COLON",
-            "statements",
-            "BREAK",
-            "SEMICOL"
-        ]
-    },
-    {
-        "left": "default1",
-        "right": [
-            null
-        ]
-    },
-    {
-        "left": "iterativeStmt",
-        "right": [
-            "FOR",
-            "BO",
-            "ID",
-            "IN",
-            "range_for_loop",
-            "BC",
-            "START",
-            "statements",
-            "END"
-        ]
-    },
-    {
-        "left": "iterativeStmt",
-        "right": [
-            "WHILE",
-            "BO",
-            "arithmeticOrBooleanExpr",
-            "BC",
-            "START",
-            "statements",
-            "END"
-        ]
-    },
-    {
-        "left": "range_for_loop",
-        "right": [
-            "index_for_loop",
-            "RANGEOP",
-            "index_for_loop"
-        ]
-    },
-    {
-        "left": "index_for_loop",
-        "right": [
-            "sign_for_loop",
-            "new_index_for_loop"
-        ]
-    },
-    {
-        "left": "new_index_for_loop",
-        "right": [
-            "NUM"
-        ]
-    },
-    {
-        "left": "sign_for_loop",
-        "right": [
-            "PLUS"
-        ]
-    },
-    {
-        "left": "sign_for_loop",
-        "right": [
-            "MINUS"
-        ]
-    },
-    {
-        "left": "sign_for_loop",
-        "right": [
-            null
-        ]
-    }
+  {
+    "left": "program",
+    "right": [
+      "moduleDeclarations",
+      "otherModules",
+      "driverModule",
+      "otherModules"
+    ]
+  },
+  {
+    "left": "moduleDeclarations",
+    "right": ["moduleDeclaration", "moduleDeclarations"]
+  },
+  { "left": "moduleDeclarations", "right": [null] },
+  {
+    "left": "moduleDeclaration",
+    "right": ["DECLARE", "MODULE", "ID", "SEMICOL"]
+  },
+  { "left": "otherModules", "right": ["module", "otherModules"] },
+  { "left": "otherModules", "right": [null] },
+  {
+    "left": "module",
+    "right": [
+      "DEF",
+      "MODULE",
+      "ID",
+      "ENDDEF",
+      "TAKES",
+      "INPUT",
+      "SQBO",
+      "input_plist1",
+      "SQBC",
+      "SEMICOL",
+      "ret",
+      "moduleDef"
+    ]
+  },
+  {
+    "left": "ret",
+    "right": ["RETURNS", "SQBO", "output_plist1", "SQBC", "SEMICOL"]
+  },
+  { "left": "ret", "right": [null] },
+  {
+    "left": "driverModule",
+    "right": ["DRIVERDEF", "DRIVER", "PROGRAM", "DRIVERENDDEF", "moduleDef"]
+  },
+  { "left": "moduleDef", "right": ["START", "statements", "END"] },
+  {
+    "left": "input_plist1",
+    "right": ["ID", "COLON", "dataType", "input_plist2"]
+  },
+  {
+    "left": "input_plist2",
+    "right": ["COMMA", "ID", "COLON", "dataType", "input_plist2"]
+  },
+  { "left": "input_plist2", "right": [null] },
+  {
+    "left": "output_plist1",
+    "right": ["ID", "COLON", "type", "output_plist2"]
+  },
+  {
+    "left": "output_plist2",
+    "right": ["COMMA", "ID", "COLON", "type", "output_plist2"]
+  },
+  { "left": "output_plist2", "right": [null] },
+  {
+    "left": "dataType",
+    "right": ["ARRAY", "SQBO", "range_arrays", "SQBC", "OF", "type"]
+  },
+  { "left": "range_arrays", "right": ["index_arr", "RANGEOP", "index_arr"] },
+  { "left": "type", "right": ["INTEGER"] },
+  { "left": "type", "right": ["REAL"] },
+  { "left": "type", "right": ["BOOLEAN"] },
+  { "left": "statements", "right": ["statement", "statements"] },
+  { "left": "statements", "right": [null] },
+  { "left": "statement", "right": ["ioStmt"] },
+  { "left": "statement", "right": ["simpleStmt"] },
+  { "left": "statement", "right": ["declareStmt"] },
+  { "left": "statement", "right": ["conditionalStmt"] },
+  { "left": "statement", "right": ["iterativeStmt"] },
+  { "left": "ioStmt", "right": ["GET_VALUE", "BO", "ID", "BC", "SEMICOL"] },
+  { "left": "ioStmt", "right": ["PRINT", "BO", "var_print", "BC", "SEMICOL"] },
+  { "left": "boolConstt", "right": ["TRUE"] },
+  { "left": "boolConstt", "right": ["FALSE"] },
+  { "left": "id_num_rnum", "right": ["ID"] },
+  { "left": "id_num_rnum", "right": ["NUM"] },
+  { "left": "id_num_rnum", "right": ["RNUM"] },
+  { "left": "var_print", "right": ["boolConstt"] },
+  { "left": "var_print", "right": ["ID", "p1"] },
+  { "left": "var_print", "right": ["NUM"] },
+  { "left": "var_print", "right": ["RNUM"] },
+  { "left": "p1", "right": ["SQBO", "new_index", "SQBC"] },
+  { "left": "p1", "right": [null] },
+  { "left": "simpleStmt", "right": ["assignmentStmt", "moduleReuseStmt"] },
+  { "left": "assignmentStmt", "right": ["ID", "whichStmt"] },
+  { "left": "whichStmt", "right": ["valueIDStmt"] },
+  { "left": "whichStmt", "right": ["valueARRStmt"] },
+  { "left": "valueIDStmt", "right": ["ASSIGNOP", "expression", "SEMICOL"] },
+  {
+    "left": "valueARRStmt",
+    "right": [
+      "SQBO",
+      "element_index_with_expressions",
+      "SQBC",
+      "ASSIGNOP",
+      "expression",
+      "SEMICOL"
+    ]
+  },
+  { "left": "index_arr", "right": ["sign", "new_index"] },
+  { "left": "new_index", "right": ["NUM"] },
+  { "left": "new_index", "right": ["ID"] },
+  { "left": "sign", "right": ["PLUS"] },
+  { "left": "sign", "right": ["MINUS"] },
+  { "left": "sign", "right": [null] },
+  {
+    "left": "moduleReuseStmt",
+    "right": [
+      "optional",
+      "USE",
+      "MODULE",
+      "ID",
+      "WITH",
+      "PARAMETERS",
+      "actualParaList",
+      "SEMICOL"
+    ]
+  },
+  { "left": "actualParaList", "right": ["NUM"] },
+  { "left": "actualParaList", "right": ["RNUM"] },
+  { "left": "actualParaList", "right": ["boolConstt"] },
+  { "left": "actualParaList", "right": ["ID", "n7"] },
+  { "left": "n7", "right": ["SQBO", "element_index_with_expressions", "SQBC"] },
+  { "left": "n7", "right": [null] },
+  { "left": "optional", "right": ["SQBO", "idList1", "SQBC", "ASSIGNOP"] },
+  { "left": "optional", "right": [null] },
+  { "left": "idList1", "right": ["ID", "idList2"] },
+  { "left": "idList2", "right": ["COMMA", "ID", "idList2"] },
+  { "left": "idList2", "right": [null] },
+  { "left": "expression", "right": ["arithmeticOrBooleanExpr", "u"] },
+  { "left": "u", "right": ["unary_op", "new_NT"] },
+  { "left": "new_NT", "right": ["BO", "arithmeticExpr", "BC"] },
+  { "left": "new_NT", "right": ["var_id_num"] },
+  { "left": "var_id_num", "right": ["ID"] },
+  { "left": "var_id_num", "right": ["NUM"] },
+  { "left": "var_id_num", "right": ["RNUM"] },
+  { "left": "unary_op", "right": ["PLUS"] },
+  { "left": "unary_op", "right": ["MINUS"] },
+  { "left": "arithmeticOrBooleanExpr", "right": ["anyTerm", "n1"] },
+  { "left": "n1", "right": ["logicalOp", "anyTerm", "n1"] },
+  { "left": "n1", "right": [null] },
+  { "left": "anyTerm", "right": ["arithmeticExpr", "n2"] },
+  { "left": "n2", "right": ["relationalOp", "arithmeticExpr"] },
+  { "left": "n2", "right": [null] },
+  { "left": "arithmeticExpr", "right": ["term", "n3"] },
+  { "left": "n3", "right": ["op1", "term", "n3"] },
+  { "left": "n3", "right": [null] },
+  { "left": "term", "right": ["factor", "n4"] },
+  { "left": "n4", "right": ["op2", "factor", "n4"] },
+  { "left": "n4", "right": [null] },
+  { "left": "factor", "right": ["BO", "arithmeticOrBooleanExpr", "BC"] },
+  { "left": "factor", "right": ["NUM"] },
+  { "left": "factor", "right": ["RNUM"] },
+  { "left": "factor", "right": ["boolConstt"] },
+  { "left": "factor", "right": ["ID", "n5"] },
+  { "left": "n5", "right": ["SQBO", "element_index_with_expressions", "SQBC"] },
+  { "left": "n5", "right": [null] },
+  { "left": "arrExpr", "right": ["arrTerm", "arr_N4"] },
+  { "left": "arr_N4", "right": ["op1", "arrTerm", "arr_N4"] },
+  { "left": "arr_N4", "right": [null] },
+  { "left": "arrTerm", "right": ["arrFactor", "arr_N5"] },
+  { "left": "arr_N5", "right": ["op2", "arrFactor", "arr_N5"] },
+  { "left": "arr_N5", "right": [null] },
+  { "left": "arrFactor", "right": ["ID"] },
+  { "left": "arrFactor", "right": ["NUM"] },
+  { "left": "arrFactor", "right": ["boolConstt"] },
+  { "left": "arrFactor", "right": ["BO", "arrExpr", "BC"] },
+  { "left": "element_index_with_expressions", "right": ["sign", "n6"] },
+  { "left": "element_index_with_expressions", "right": ["arrExpr"] },
+  { "left": "n6", "right": ["new_index"] },
+  { "left": "n6", "right": ["BO", "arrExpr", "BC"] },
+  { "left": "op1", "right": ["PLUS"] },
+  { "left": "op1", "right": ["MINUS"] },
+  { "left": "op2", "right": ["MUL"] },
+  { "left": "op2", "right": ["DIV"] },
+  { "left": "logicalOp", "right": ["AND"] },
+  { "left": "logicalOp", "right": ["OR"] },
+  { "left": "relationalOp", "right": ["LT"] },
+  { "left": "relationalOp", "right": ["LE"] },
+  { "left": "relationalOp", "right": ["GT"] },
+  { "left": "relationalOp", "right": ["GE"] },
+  { "left": "relationalOp", "right": ["EQ"] },
+  { "left": "relationalOp", "right": ["NE"] },
+  {
+    "left": "declareStmt",
+    "right": ["DECLARE", "idList1", "COLON", "dataType", "SEMICOL"]
+  },
+  {
+    "left": "conditionalStmt",
+    "right": [
+      "SWITCH",
+      "BO",
+      "ID",
+      "BC",
+      "START",
+      "caseStmt1",
+      "default1",
+      "END"
+    ]
+  },
+  {
+    "left": "caseStmt1",
+    "right": [
+      "CASE",
+      "value",
+      "COLON",
+      "statements",
+      "BREAK",
+      "SEMICOL",
+      "caseStmt2"
+    ]
+  },
+  {
+    "left": "caseStmt2",
+    "right": [
+      "CASE",
+      "value",
+      "COLON",
+      "statements",
+      "BREAK",
+      "SEMICOL",
+      "caseStmt2"
+    ]
+  },
+  { "left": "caseStmt2", "right": [null] },
+  { "left": "value", "right": ["NUM"] },
+  { "left": "value", "right": ["TRUE"] },
+  { "left": "value", "right": ["FALSE"] },
+  {
+    "left": "default1",
+    "right": ["DEFAULT", "COLON", "statements", "BREAK", "SEMICOL"]
+  },
+  { "left": "default1", "right": [null] },
+  {
+    "left": "iterativeStmt",
+    "right": [
+      "FOR",
+      "BO",
+      "ID",
+      "IN",
+      "range_for_loop",
+      "BC",
+      "START",
+      "statements",
+      "END"
+    ]
+  },
+  {
+    "left": "iterativeStmt",
+    "right": [
+      "WHILE",
+      "BO",
+      "arithmeticOrBooleanExpr",
+      "BC",
+      "START",
+      "statements",
+      "END"
+    ]
+  },
+  {
+    "left": "range_for_loop",
+    "right": ["index_for_loop", "RANGEOP", "index_for_loop"]
+  },
+  {
+    "left": "index_for_loop",
+    "right": ["sign_for_loop", "new_index_for_loop"]
+  },
+  { "left": "new_index_for_loop", "right": ["NUM"] },
+  { "left": "sign_for_loop", "right": ["PLUS"] },
+  { "left": "sign_for_loop", "right": ["MINUS"] },
+  { "left": "sign_for_loop", "right": [null] }
 ]
