@@ -251,10 +251,7 @@ void populate_parse_table(){
             if(First[G[i].firstRHS->rhs_id][eps]==1){
                 //if the first set contains epsilon populate with follow
                 for(int k=0;k<NUM_OF_TERMINALS-1;k++){
-                    if(Follow[G[i].lhs_id][k]==1){
-                        // if(parse_table[G[i].lhs_id][k] != -1){
-                        //     printf("Epsilon in first \tOld: %d , New: %d\n",parse_table[G[i].lhs_id][k]+1,i+1);
-                        // }
+                    if(Follow[G[i].lhs_id][k]==1 && parse_table[G[i].lhs_id][k]==-1){
                         parse_table[G[i].lhs_id][k] = i;
                     }
                 }
@@ -501,10 +498,7 @@ void loadFirstFollow() {
             token = strtok(NULL, ",");
         }
     }
-    printf("Printing for term \n ");
-    for(int i=0;i<NUM_OF_TERMINALS;i++){
-            printf("%d ", First[63][i]);
-    }
+
     
     // print the contents of the array
     // printf("First Array\n");
@@ -582,16 +576,22 @@ int main(){
     for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
         // printf("NTNO: %d \n", i);
         for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-            if(arr[parse_table[i][j]]==0){
-                arr[parse_table[i][j]]=1;
+            if(parse_table[i][j]!=-1){
+                if(arr[parse_table[i][j]]==0){
+                    arr[parse_table[i][j]]=1;
+                }
             }
         }
     }
     printf("\n Sus numbers\n");
     for(int i = 0 ; i < NUM_OF_RULES ; i++){
         if(arr[i] == 0){
-            printf("%d ", i);
+            printf("%d ", i+1);
         }
+    }
+    printf("parse table for rule \n");
+    for(int i=0;i<NUM_OF_TERMINALS;i++){
+        printf("%d ", parse_table[38][i]);
     }
     printf("\ndone with parse table");
     return 0;
