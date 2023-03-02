@@ -5,9 +5,9 @@
 #include "ll1_gramDef.h"
 
 #define MAX_LINE_LENGTH 200
-#define NUM_OF_RULES 142
+#define NUM_OF_RULES 139
 #define NUM_OF_TERMINALS 59
-#define NUM_OF_NONTERMINALS 74
+#define NUM_OF_NONTERMINALS 73
 
 
 lhs G[NUM_OF_RULES];
