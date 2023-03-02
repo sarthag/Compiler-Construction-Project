@@ -242,7 +242,7 @@ void populate_parse_table(){
                 //printf("first of non terminal %d ", First[G[i].firstRHS->rhs_id][j]);
                 if (First[G[i].firstRHS->rhs_id][j] == 1){
                     if(parse_table[G[i].lhs_id][j] != -1){
-                        printf("Old: %d , New: %d\n",parse_table[G[i].lhs_id][j],i);
+                        printf("Old: %d , New: %d\n",parse_table[G[i].lhs_id][j]+1,i+1);
                     }
                     parse_table[G[i].lhs_id][j] = i;
                 }
@@ -254,7 +254,7 @@ void populate_parse_table(){
                     if(Follow[G[i].lhs_id][k]==1){
                         
                         if(parse_table[G[i].lhs_id][k] != -1){
-                            printf("Epsilon in first \tOld: %d , New: %d\n",parse_table[G[i].lhs_id][k],i);
+                            printf("Epsilon in first \tOld: %d , New: %d\n",parse_table[G[i].lhs_id][k]+1,i+1);
                         }
                         parse_table[G[i].lhs_id][k] = i;
                     }
