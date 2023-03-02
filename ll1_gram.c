@@ -559,44 +559,44 @@ void printGrammar(){
     }
 }
 
-int main(){
-    populate_grammar();
-    generateGrammar();
-    loadFirstFollow();
-    // computeFirstandFollow();
+// int main(){
+//     populate_grammar();
+//     generateGrammar();
+//     loadFirstFollow();
+//     // computeFirstandFollow();
 
-    // findFirst(G[85]);
-    // findFirst(G[84]);
-    // printf("here \n");
-    populate_parse_table();
-    //         printf("Arithematic\n");
-    // for(int i = 0; i < NUM_OF_TERMINALS; i++){
+//     // findFirst(G[85]);
+//     // findFirst(G[84]);
+//     // printf("here \n");
+//     populate_parse_table();
+//     //         printf("Arithematic\n");
+//     // for(int i = 0; i < NUM_OF_TERMINALS; i++){
 
-    //     printf(" %d ", First[2][i]);
-    // }
-    //  printf("Anyterm\n");
-    // for(int i = 0; i < NUM_OF_TERMINALS; i++){
+//     //     printf(" %d ", First[2][i]);
+//     // }
+//     //  printf("Anyterm\n");
+//     // for(int i = 0; i < NUM_OF_TERMINALS; i++){
        
-    //     printf(" %d ", First[1][i]);
-    // }
-    bool arr[NUM_OF_RULES] = {0};
-    for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-        // printf("NTNO: %d \n", i);
-        for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-            if(arr[parse_table[i][j]]==0){
-                arr[parse_table[i][j]]=1;
-            }
-        }
-    }
-    printf("\n Sus numbers\n");
-    for(int i = 0 ; i < NUM_OF_RULES ; i++){
-        if(arr[i] == 0){
-            printf("%d ", i);
-        }
-    }
+//     //     printf(" %d ", First[1][i]);
+//     // }
+//     bool arr[NUM_OF_RULES] = {0};
+//     for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
+//         // printf("NTNO: %d \n", i);
+//         for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
+//             if(arr[parse_table[i][j]]==0){
+//                 arr[parse_table[i][j]]=1;
+//             }
+//         }
+//     }
+//     printf("\n Sus numbers\n");
+//     for(int i = 0 ; i < NUM_OF_RULES ; i++){
+//         if(arr[i] == 0){
+//             printf("%d ", i);
+//         }
+//     }
     
-    return 0;
-}
+//     return 0;
+// }
 
 
 
