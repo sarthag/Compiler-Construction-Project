@@ -1,1 +1,1 @@
-p1 optional default1 moduleDeclarations DRIVERENDDEF PROGRAM DRIVER DRIVERDEF optional moduleDeclaration moduleDeclaration module SEMICOL ID MODULE DECLARE 
+p1 optional optional logicalOp moduleDeclarations relationalOp SEMICOL SQBC index_for_loop input_plist1 conditionalStmt COLON ID SQBO INPUT TAKES ENDDEF ID MODULE DEF default1 moduleDeclarations DRIVERENDDEF PROGRAM DRIVER DRIVERDEF END statement START optional moduleDeclaration 

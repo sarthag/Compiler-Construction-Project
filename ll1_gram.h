@@ -11,5 +11,8 @@ bool isTerm(char* str);
 void generateGrammar();
 void populate_grammar();
 void loadFirstFollow();
+void findFirst(lhs target);
+void findFollow(lhs start, rhs *target, rhs *temp, int rule);
+void computeFirstandFollow();
 
 #endif

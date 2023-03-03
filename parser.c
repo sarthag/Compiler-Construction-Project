@@ -49,8 +49,8 @@ void synchronization_set(){
 void InitializeParser(){
     populate_grammar();
     generateGrammar();
-    // computeFirstandFollow();
-    loadFirstFollow();
+    computeFirstandFollow();
+    //loadFirstFollow();
     synchronization_set();
     populate_parse_table();
     parserStack = (stack*) malloc(sizeof(stack));
@@ -102,7 +102,7 @@ void parse_code(){
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
             printf("X ->terminalvalue: %d\n",x ->element.t.tid);
-            if(x->element.t.tid == $ && L -> next == NULL){
+            if((x->element.t.tid == $ || x == NULL)&& L -> next == NULL){
                 printf("Accept!\n");
             }
             else if(x->element.t.tid == $ && L -> next != NULL){
@@ -198,7 +198,7 @@ void parse_code(){
         //     break;
         // }
     }
-    if(parserStack->top != NULL || parserStack-> top->element.t.tid!=$){
+    if((parserStack->top != NULL || parserStack-> top->element.t.tid!=$) && L->next == NULL ){
         printf("ERROR: Linked List empty, stack not empty\n");
     }
 }
