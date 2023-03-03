@@ -26,7 +26,7 @@ bool sync_set[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 int First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 int Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 int firstDone[NUM_OF_NONTERMINALS];
-int flag[NUM_OF_RULES]
+int flag[NUM_OF_RULES];
 
 typedef struct rhs_struct{
     int rhs_id;
