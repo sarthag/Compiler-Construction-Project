@@ -49,7 +49,8 @@ void synchronization_set(){
 void InitializeParser(){
     populate_grammar();
     generateGrammar();
-    computeFirstandFollow();
+    // computeFirstandFollow();
+    loadFirstFollow();
     synchronization_set();
     populate_parse_table();
     parserStack = (stack*) malloc(sizeof(stack));

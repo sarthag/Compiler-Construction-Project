@@ -339,34 +339,34 @@ void printGrammar(){
     }
 }
 
-int main(){
-    populate_grammar();
-    generateGrammar();
-    loadFirstFollow();
-    // computeFirstandFollow();
-    populate_parse_table();
+// int main(){
+//     populate_grammar();
+//     generateGrammar();
+//     loadFirstFollow();
+//     // computeFirstandFollow();
+//     populate_parse_table();
 
-    //to check if parse table works 
-    // bool arr[NUM_OF_RULES] = {0};
-    // for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-    //     // printf("NTNO: %d \n", i);
-    //     for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-    //         if(parse_table[i][j]!=-1){
-    //             if(arr[parse_table[i][j]]==0){
-    //                 arr[parse_table[i][j]]=1;
-    //             }
-    //         }
-    //     }
-    // }
-    // printf("\n Sus numbers\n");
-    // for(int i = 0 ; i < NUM_OF_RULES ; i++){
-    //     if(arr[i] == 0){
-    //         printf("%d ", i+1);
-    //     }
-    // }
-    //printf("\ndone with parse table");
-    return 0;
-}
+//     //to check if parse table works 
+//     // bool arr[NUM_OF_RULES] = {0};
+//     // for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
+//     //     // printf("NTNO: %d \n", i);
+//     //     for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
+//     //         if(parse_table[i][j]!=-1){
+//     //             if(arr[parse_table[i][j]]==0){
+//     //                 arr[parse_table[i][j]]=1;
+//     //             }
+//     //         }
+//     //     }
+//     // }
+//     // printf("\n Sus numbers\n");
+//     // for(int i = 0 ; i < NUM_OF_RULES ; i++){
+//     //     if(arr[i] == 0){
+//     //         printf("%d ", i+1);
+//     //     }
+//     // }
+//     //printf("\ndone with parse table");
+//     return 0;
+// }
 
 
 
