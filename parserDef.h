@@ -13,7 +13,7 @@
 #define PARSERDEF_H
 
 #include "ll1_gram.h"   
-#include "adtDef.h"
+// #include "adtDef.h"
 //array of LHS grammar G 
 //array of follow and first
 stack* parserStack;

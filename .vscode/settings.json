@@ -2,7 +2,10 @@
     "files.associations": {
         "*.py": "python",
         "stdbool.h": "c",
-        "parser.h": "c"
+        "parser.h": "c",
+        "ll1_gram.h": "c",
+        "ll1_gramdef.h": "c",
+        "adt.h": "c"
     },
     "python.formatting.provider": "black"
 }

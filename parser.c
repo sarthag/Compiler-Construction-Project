@@ -128,7 +128,7 @@ void parse_code(){
 
                 while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON)
                 {   
-                    if(toPush->prevRHS== NULL)
+                    // if(toPush->prevRHS== NULL) {
                     //printf("x -> treeLocation is NULL before temp?: %d\n", x->treeLocation== NULL);
                     tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
                     temp=create_node(toPush ->isTerminal,toPush->rhs_id);
@@ -143,7 +143,8 @@ void parse_code(){
                     else {
                         temp->element.t.lexeme = L->lexeme;
                     }
-                    temp->element.t.tid = L->tid;                
+                    temp->element.t.tid = L->tid;      
+                    // }          
                     //// break;
                     //printf("x -> treeLocation is NULL after temp?: %d\n", x->treeLocation== NULL);
                     //tree_node* temp = NULL;
