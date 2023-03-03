@@ -50,9 +50,10 @@ void push(stack* s, node_type type, int id, tree_node* treeLocation) {
     void * element = makeElement(type, id);
     stack_node* new_node = create_stack_node(type, element, treeLocation);
     new_node->next = s->top;
+    // new_node -> treeLocation = treeLocation;
     s->top = new_node;
     s->size++;
-    printf("push exit\n");
+    // printf("push exit\n");
 }
 
 
@@ -70,6 +71,22 @@ stack_node* pop(stack* s) {
     return temp;
 }
 
+void printStack(stack* s){
+    printf("PRINTING STACK:\n");
+    stack_node* current = s ->top; 
+    while(current != NULL){
+        if(current -> type == NON_TERMINAL){
+            printf("NT: %d ->", current -> element.nt.nid);
+        }
+        else{
+            printf("T: %d  -> ", current -> element.t.tid);
+        }
+        current = current -> next;
+        
+    }
+    printf("NULL\n");
+
+}
 
 
 //Parse Tree

@@ -8,7 +8,7 @@ start
     [r,m] := use module mod1 9.9elephant with parameters v, w;
     print(r);
     print(m);
-    9.9elephant
+    **9.9elephant
     9.9eelephant
     9.9e$x#
     9.9opy
@@ -16,7 +16,7 @@ start
     9.9Elephant
     9.9Eelephant;
     9.9E$x_9.9opy
-    9.9E10;
+    9.9E10;**
 
 end
 

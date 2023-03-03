@@ -6,7 +6,7 @@
 void printtokenLL(tokenLL tkll){
     printf("Token Count : %d\n",tkll.tokenCount);
     token* tk = tkll.start;
-    while(tk !=NULL){
+    while(tk->next !=NULL){
         switch(tk -> tid){
             case(RNUM):
                 printf("|LineNo: %d | RNUM: |%f| \t ID: %02d |\n", tk -> line_no,tk -> rnum ,tk->tid);
@@ -32,15 +32,15 @@ int main(){
     printf("3. Results of compilation\n");
     printf("4. Time analysis\n");
     int s;
-    char* filename = "testcode";
+    char* filename = "newTest.txt";
     FILE* prog; 
     clock_t start_time, end_time, t;
     double total_CPU_time, total_CPU_time_in_seconds;
-    s = 3;
+    // s = 3;
     while (s != 0){
         printf("\n");
         printf("Enter option: ");
-        // scanf("%d", &s);
+        scanf("%d", &s);
         t = clock();
         switch (s)
         {
@@ -53,11 +53,13 @@ int main(){
         case 2:
                  // prints lexer results
             prog = readFile(filename);
+            populate_keyword_table();
             getNextToken(prog);
             printtokenLL(tokenList);
             break;
         case 3:   //prints all lexical and syntatic errors, prints parse tree
             prog = readFile(filename);
+            populate_keyword_table();
             getNextToken(prog);
             InitializeParser();
             parse_code();
@@ -66,6 +68,7 @@ int main(){
         case 4:         //prints total time taken
             start_time = clock();
             prog = readFile(filename);
+            populate_keyword_table();
             getNextToken(prog);
             InitializeParser();
             parse_code();
@@ -77,7 +80,7 @@ int main(){
         default:
             break;
         }
-        break;
+        
     }
     
 }
