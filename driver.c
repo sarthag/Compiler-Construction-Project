@@ -6,7 +6,7 @@
 void printtokenLL(tokenLL tkll){
     printf("Token Count : %d\n",tkll.tokenCount);
     token* tk = tkll.start;
-    while(tk->next !=NULL){
+    while(tk !=NULL){
         switch(tk -> tid){
             case(RNUM):
                 printf("|LineNo: %d | RNUM: |%f| \t ID: %02d |\n", tk -> line_no,tk -> rnum ,tk->tid);
