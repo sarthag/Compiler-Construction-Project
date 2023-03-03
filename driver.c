@@ -6,7 +6,7 @@
 void printtokenLL(tokenLL tkll){
     printf("Token Count : %d\n",tkll.tokenCount);
     token* tk = tkll.start;
-    while(tk !=NULL){
+    while(tk->next !=NULL){
         switch(tk -> tid){
             case(RNUM):
                 printf("|LineNo: %d | RNUM: |%f| \t ID: %02d |\n", tk -> line_no,tk -> rnum ,tk->tid);
@@ -32,7 +32,7 @@ int main(){
     printf("3. Results of compilation\n");
     printf("4. Time analysis\n");
     int s;
-    char* filename = "testcode";
+    char* filename = "newTest.txt";
     FILE* prog; 
     clock_t start_time, end_time, t;
     double total_CPU_time, total_CPU_time_in_seconds;

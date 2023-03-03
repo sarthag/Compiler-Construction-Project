@@ -45,7 +45,7 @@ void push(stack* s, node_type type, int id, tree_node* treeLocation) {
     // new_node -> treeLocation = treeLocation;
     s->top = new_node;
     s->size++;
-    printf("push exit\n");
+    // printf("push exit\n");
 }
 
 
