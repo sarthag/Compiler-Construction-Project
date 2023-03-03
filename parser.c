@@ -1,5 +1,15 @@
+// ------------------------------------------------
+// GROUP 06 
+
+// ANSHIKA GUPTA 2020A7PS0111P
+// NIVEDITHA KOVILAKATH 2020A7PS0067P
+// SHAZ 2020A7PS0025P
+// SARTHAK AGARWAL 2020A7PS0112P
+// SHREYAS SESHAM 2020A7PS1684P
+// ------------------------------------------------
+
+
 #include "parser.h"
-#include "adt.h"
 
 //populate fake values of first and follow
 /*

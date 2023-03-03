@@ -1,3 +1,13 @@
+// ------------------------------------------------
+// GROUP 06 
+
+// ANSHIKA GUPTA 2020A7PS0111P
+// NIVEDITHA KOVILAKATH 2020A7PS0067P
+// SHAZ 2020A7PS0025P
+// SARTHAK AGARWAL 2020A7PS0112P
+// SHREYAS SESHAM 2020A7PS1684P
+// ------------------------------------------------
+
 #ifndef LL1_GRAMDEF_H
 #define LL1_GRAMDEF_H
 
@@ -15,6 +25,9 @@
 bool sync_set[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 int First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 int Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+int firstDone[NUM_OF_NONTERMINALS];
+int flag[NUM_OF_RULES]
+
 typedef struct rhs_struct{
     int rhs_id;
     bool isTerminal;
