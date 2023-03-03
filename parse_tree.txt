@@ -1,1 +1,1 @@
-p1 optional default1 moduleDeclarations DRIVERENDDEF PROGRAM DRIVER DRIVERDEF optional EPSILON moduleDeclaration moduleDeclaration EPSILON module SEMICOL ID MODULE DECLARE 
+p1 optional default1 moduleDeclarations DRIVERENDDEF PROGRAM DRIVER DRIVERDEF optional moduleDeclaration moduleDeclaration module SEMICOL ID MODULE DECLARE 

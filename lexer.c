@@ -41,19 +41,6 @@ FILE* readFile(char *filename){
     return code;
 }
 
-// void pointerBuffers() {
-//     bool case_1 = begin >= buffers.buffer1 && begin <= buffers.buffer1 + BUFFERSIZE;
-//     bool case_2 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
-//     bool case_3 = begin >= buffers.buffer2 && begin <= buffers.buffer2 + BUFFERSIZE;
-//     bool case_4 = forward >= buffers.buffer1 && forward <= buffers.buffer1 + BUFFERSIZE;
-
-//     // if((case_1 && case_4) || (case_2 && case_3)) {
-//     //     printf("Same Buffer!\n");
-//     // }
-//     // else if(case)
-
-// }
-
 FILE* getStream(FILE *code){
     // printf("Inside getStream\n");
 
@@ -140,15 +127,7 @@ token* addTokenToList(){
     return tokenList.end = tk;
 }
 
-// void deleteToken(tokenLL tkList, token* deleteToken){
-//     token* current = tkList.start;
-//     token* prev = tkList.end;
-//     while(current != NULL && prev != NULL){
-        
-//     }
 
-
-// }
 
 void clearTokenList() {
     token* head = tokenList.start;
@@ -899,27 +878,6 @@ void getNextToken(FILE *code) {
             printf("Error at Line %d: CARTHOK ERROR FOUND!!\n", line_no); 
             break;
         }
-
-        // if(err < 0) {
-        //     state = 1;
-        //     // retract(1);
-        //     // resetLexeme();
-        //     switch (err)
-        //     {
-        //         case -1:
-        //             printf("ERROR at line %d: comment mark not closed\n", line_no);
-        //             break;
-        //         case -2:
-        //             printf("ERROR at line %d: invaild escape sequence\n", line_no);
-        //             break;
-        //         case -3:
-        //             printf("ERROR at line %d: invalid character sequence\n", line_no);
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        //     // err = 0;
-        // }
     }
 }
 

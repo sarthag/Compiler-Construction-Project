@@ -74,13 +74,19 @@ token * getNextTk(tokenLL tokenList, token * current){
 
 
 void parser_retract(non_terminal nonterm, token* current) {
+    printf("in retract\n");
     while(!sync_set[nonterm.nid][current ->tid]){
+        printf("in retract while\n");
         // stack_node *sn = pop(parserStack);
         if(parse_table[nonterm.nid][EPSILON]){
+            printf("epsilon rule gotta go popping\n ");
+            pop(parserStack);
+            printStack(parserStack);
             return;
         }
         L = getNextTk(tokenList, L);
     }
+    printf("retract done");
 }
 
 void parse_code(){
@@ -95,13 +101,20 @@ void parse_code(){
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
             printf("X ->terminalvalue: %d\n",x ->element.t.tid);
-            if (x->element.t.tid == L->tid){
+            if(x->element.t.tid == $ && L -> next == NULL){
+                printf("Accept!\n");
+            }
+            else if(x->element.t.tid == $ && L -> next != NULL){
+                printf("ERROR : Stack empty\n");
+                break;
+            }
+            else if (x->element.t.tid == L->tid){
                 pop(parserStack);
                 L = getNextTk(tokenList, L);                
             }
             else{
                 pop(parserStack);
-                printf("ERROR : Terminal Mismatch"); 
+                printf("ERROR : Terminal Mismatch L: %d\n", L->tid); 
           }
             
         }
@@ -120,7 +133,7 @@ void parse_code(){
                 printf("TO PUSH INTO STACK : %d, %d\n",toPush->isTerminal,toPush->rhs_id);
                 //printf("x -> treeLocation is NULL after rhs?: %d\n", x->treeLocation== NULL);
 
-                while (toPush->prevRHS!= NULL)
+                while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON)
                 {   
                     if(toPush->prevRHS== NULL)
                         printf("topush->next is NULL");
@@ -145,19 +158,24 @@ void parse_code(){
                     //break;
                 }   
                 printf("while over\n"); 
+                if(toPush->isTerminal ==1 && toPush -> rhs_id == EPSILON){
+                    printf("epsilon rule\n");
+                    continue;
+                } 
                 tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
-                temp = create_node(toPush->isTerminal, toPush->rhs_id);
-                insert_child(x->treeLocation, temp);
-                push(parserStack, toPush->isTerminal, toPush->rhs_id, x->treeLocation);
-                printStack(parserStack);
-                printf("If over\n");    
+                    temp = create_node(toPush->isTerminal, toPush->rhs_id);
+                    insert_child(x->treeLocation, temp);
+                    push(parserStack, toPush->isTerminal, toPush->rhs_id, x->treeLocation);
+                    printStack(parserStack);
+                    printf("If over\n");   
             }
             else{
                 printf("ERROR : Non terminal doesnt exist");
-                printf("PRINTING PARSE TABLE ROW FOR THE NON TERMINAL %d:\n",x->element.nt.nid);
-                for(int i = 0 ; i  < NUM_OF_TERMINALS ; i++){
-                    printf("%d ", parse_table[x->element.nt.nid][i]);
-                }
+                // printf("PRINTING PARSE TABLE ROW FOR THE NON TERMINAL %d:\n",x->element.nt.nid);
+                // for(int i = 0 ; i  < NUM_OF_TERMINALS ; i++){
+                //     printf("%d ", parse_table[x->element.nt.nid][i]);
+                // }
+
                 parser_retract(x ->element.nt,L);
                 // break;
             }
@@ -170,13 +188,13 @@ void parse_code(){
             continue;
         }
         // L = getNextTk(tokenList)
-        c=c+1;
-        if(c==20){
-            break;
-        }
+        // c=c+1;
+        // if(c==20){
+        //     break;
+        // }
     }
-    if(parserStack->top != NULL){
-        printf("stack not empty");
+    if(parserStack->top != NULL || parserStack-> top->element.t.tid!=$){
+        printf("ERROR:Linked List empty\n");
     }
 }
 
@@ -199,6 +217,7 @@ void inorder_traversal(tree_node *node, FILE* fp) {
 void print_parse_tree(tree_node *node){
     FILE *fp = fopen("parse_tree.txt", "w");
     inorder_traversal(node, fp);
+    fclose(fp);
 }
 
 /*
