@@ -136,7 +136,7 @@ void parse_code(){
                     if(L->tid == NUM) {
                         temp->element.t.num = L->num;                        
                     }
-                    else if(L->tid = RNUM) {
+                    else if(L->tid == RNUM) {
                         temp->element.t.rnum = L->rnum;
 
                     }
