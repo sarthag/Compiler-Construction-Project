@@ -32,7 +32,7 @@ int main(){
     printf("3. Results of compilation\n");
     printf("4. Time analysis\n");
     int s;
-    char* filename = "test_cases (stage_1)/t6(with_syntax_errors).txt";
+    char* filename = "t2";
     FILE* prog; 
     clock_t start_time, end_time, t;
     double total_CPU_time, total_CPU_time_in_seconds;

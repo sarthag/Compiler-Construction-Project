@@ -98,6 +98,7 @@ void parse_code(){
     while(L != NULL){
         printStack(parserStack);
         printf("Inside While\n");
+        printf("Token is %d\n", L->tid);
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
             printf("X ->terminalvalue: %d\n",x ->element.t.tid);
@@ -105,7 +106,7 @@ void parse_code(){
                 printf("Accept!\n");
             }
             else if(x->element.t.tid == $ && L -> next != NULL){
-                printf("ERROR : Stack empty\n");
+                printf("ERROR : Input remaining, Stack empty\n");
                 break;
             }
             else if (x->element.t.tid == L->tid){
@@ -170,7 +171,11 @@ void parse_code(){
                     printf("If over\n");   
             }
             else{
-                printf("ERROR : Non terminal doesnt exist");
+                printf("ERROR : Non terminal doesnt exist\n");
+                for(int i=0; i<NUM_OF_TERMINALS; i++){
+                    printf("%d ", parse_table[x->element.nt.nid][i]);
+                }
+                printf("\n");
                 // printf("PRINTING PARSE TABLE ROW FOR THE NON TERMINAL %d:\n",x->element.nt.nid);
                 // for(int i = 0 ; i  < NUM_OF_TERMINALS ; i++){
                 //     printf("%d ", parse_table[x->element.nt.nid][i]);
@@ -194,7 +199,7 @@ void parse_code(){
         // }
     }
     if(parserStack->top != NULL || parserStack-> top->element.t.tid!=$){
-        printf("ERROR:Linked List empty\n");
+        printf("ERROR: Linked List empty, stack not empty\n");
     }
 }
 
