@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "lexer.h"
 #include "grammarHash.h"
 
 // typedef enum {
