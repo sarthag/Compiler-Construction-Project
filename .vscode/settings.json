@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "*.py": "python",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "parser.h": "c"
     },
     "python.formatting.provider": "black"
 }

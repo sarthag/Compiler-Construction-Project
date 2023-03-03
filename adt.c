@@ -167,30 +167,32 @@ void inorder_traversal(tree_node *node, FILE* fp) {
         return;
     }
     if (node->type == NON_TERMINAL) {
-        printf("Non terminal\n");
+        printf("Non terminal\t");
         // non_terminal tok = node->element.nt;
-        printf("%d\n", node->parent->element.nt.nid);
+        // printf("%d\n", node->element.nt.nid);
         if(node->element.nt.nid == 53) {
-            printf("Here\n");
-            printf("----- | Root Node (No Parent) | no | %d |\n", node->element.nt.nid);
+            fprintf(fp, "----- | Root Node (No Parent) | no | %d |\n", node->element.nt.nid);
         }
-        printf("----- | %d | no | %d |\n", node->parent->element.nt.nid, node->element.nt.nid); // change this back
+        else {
+            fprintf(fp, "----- | %d | no | %d |\n", node->parent->element.nt.nid, node->element.nt.nid); // change this back
+        }
     } 
     else {
-        printf("Terminal\n");
+        printf("Terminal\t");
         token tok = node->element.t;
         if (tok.tid == NUM){
-            fprintf(fp, "%s %s %s %s %s %s\n", "-----",tok.line_no, tok.num, tok.tid, node->parent->element.nt.nid, "yes");
+            fprintf(fp, "| ----- | %d | %d | %d | %d | yes |\n", tok.line_no, tok.num, tok.tid, node->parent->element.nt.nid);
         }
         else if (tok.tid == RNUM){
-            fprintf(fp, "%s %s %s %s  %s\n", "-----", tok.line_no, tok.rnum, tok.tid, node->parent->element.nt.nid, "yes");
+            fprintf(fp, "| ---- | %d | %d | %d | %d | yes |\n", tok.line_no, tok.rnum, tok.tid, node->parent->element.nt.nid);
         }
         else{
-            fprintf(fp, "%s %s %s %s  %s\n", tok.lexeme, tok.line_no, tok.tid, node->parent->element.nt.nid, "yes"); // change this back
+            fprintf(fp, "| %s | %d | %d | %d | yes |\n", tok.lexeme, tok.line_no, tok.tid, node->parent->element.nt.nid); // change this back
         }
     }
-
+    // printf("Here\n");
     node->is_visited = 1;
+    // printf("Here\n");
     inorder_traversal(node->left_child, fp);
     inorder_traversal(node->right_sibling, fp);
 }

@@ -46,7 +46,6 @@ bool follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{0,0,0,1}, {0,1,1,0}, {0
 // }
 
 void synchronization_set(){
-    // computeFirstandFollow();
     token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
 
     for(int i=0; i<=NUM_OF_NONTERMINALS; i++){
@@ -70,7 +69,7 @@ void InitializeParser(){
     push(parserStack, TERMINAL, $, NULL);
     push(parserStack, NON_TERMINAL, program, parseTree->root);
     L = tokenList.start ;
-    printf("HEAD OF TOKEN LIST : %d", tokenList.start->tid);
+    // printf("HEAD OF TOKEN LIST : %d", tokenList.start->tid);
 }
 
 
@@ -78,40 +77,29 @@ token * getNextTk(tokenLL tokenList, token * current){
     if (current == NULL){
         return tokenList.start;
     }
-    printf("L = %d\n", current ->tid);
     return (current -> next == NULL) ?NULL :current->next;
 }
 
 
 void parser_retract(non_terminal nonterm, token* current) {
-    printf("in retract\n");
     while(!sync_set[nonterm.nid][current ->tid]){
-        printf("in retract while\n");
         // stack_node *sn = pop(parserStack);
         if(parse_table[nonterm.nid][EPSILON]){
-            printf("epsilon rule gotta go popping\n ");
             pop(parserStack);
             printStack(parserStack);
             return;
         }
         L = getNextTk(tokenList, L);
     }
-    printf("retract done");
 }
 
 void parse_code(){
-    printf("Inside Parser\n");
-    printf("HEAD OF TOKEN LIST : %d", tokenList.start->tid);
-    printf("L = %d\n", L ->tid);
     int c=0;
     // stack_node* s;
     while(L != NULL){
         printStack(parserStack);
-        printf("Inside While\n");
-        printf("Token is %d\n", L->tid);
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
-            printf("X ->terminalvalue: %d\n",x ->element.t.tid);
             if((x->element.t.tid == $ || x == NULL)&& L -> next == NULL){
                 printf("Accept!\n");
             }
@@ -130,28 +118,32 @@ void parse_code(){
             
         }
         else if (x->type == NON_TERMINAL){
-            printf("x non terminal\n");
-            printf("NON terminal: %d\n",x ->element.nt.nid);
-            printf("PARSE TABLE VALUE : %d\n",parse_table[x->element.nt.nid][L->tid]);
             if (parse_table[x->element.nt.nid][L->tid] != -1){
                 x = pop(parserStack);
                 //printf("x -> treeLocation is NULL after pop?: %d\n", x->treeLocation== NULL);
-                printf("PRINTING STACK AFTER POP:\n");
                 printStack(parserStack);
-                printf("popped\n");
                 // printf("%d %d %d\n", x->element.nt.nid, L->tid, G[parse_table[x->element.nt.nid][L->tid]].lastRHS->rhs_id);
                 rhs* toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
-                printf("TO PUSH INTO STACK : %d, %d\n",toPush->isTerminal,toPush->rhs_id);
                 //printf("x -> treeLocation is NULL after rhs?: %d\n", x->treeLocation== NULL);
 
                 while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON)
                 {   
                     if(toPush->prevRHS== NULL)
-                        printf("topush->next is NULL");
-                    printf("inside while\n");
                     //printf("x -> treeLocation is NULL before temp?: %d\n", x->treeLocation== NULL);
                     tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
                     temp=create_node(toPush ->isTerminal,toPush->rhs_id);
+                    temp->element.t.line_no = L->line_no;
+                    if(L->tid == NUM) {
+                        temp->element.t.num = L->num;                        
+                    }
+                    else if(L->tid = RNUM) {
+                        temp->element.t.rnum = L->rnum;
+
+                    }
+                    else {
+                        temp->element.t.lexeme = L->lexeme;
+                    }
+                    temp->element.t.tid = L->tid;                
                     //// break;
                     //printf("x -> treeLocation is NULL after temp?: %d\n", x->treeLocation== NULL);
                     //tree_node* temp = NULL;
@@ -168,9 +160,7 @@ void parse_code(){
                     toPush = toPush->prevRHS;
                     //break;
                 }   
-                printf("while over\n"); 
                 if(toPush->isTerminal ==1 && toPush -> rhs_id == EPSILON){
-                    printf("epsilon rule\n");
                     continue;
                 } 
                 tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
@@ -178,14 +168,11 @@ void parse_code(){
                     insert_child(x->treeLocation, temp);
                     push(parserStack, toPush->isTerminal, toPush->rhs_id, x->treeLocation);
                     printStack(parserStack);
-                    printf("If over\n");   
             }
             else{
                 printf("ERROR : Non terminal doesnt exist\n");
                 for(int i=0; i<NUM_OF_TERMINALS; i++){
-                    printf("%d ", parse_table[x->element.nt.nid][i]);
                 }
-                printf("\n");
                 // printf("PRINTING PARSE TABLE ROW FOR THE NON TERMINAL %d:\n",x->element.nt.nid);
                 // for(int i = 0 ; i  < NUM_OF_TERMINALS ; i++){
                 //     printf("%d ", parse_table[x->element.nt.nid][i]);
@@ -194,10 +181,8 @@ void parse_code(){
                 parser_retract(x ->element.nt,L);
                 // break;
             }
-            printf("x non terminal over\n");
         }
         else if (x == NULL){
-            printf("Stack empty");
         }
         else{
             continue;
@@ -221,26 +206,3 @@ void printParseTree(tree_node *node, char* parseTreeFile){
     inorder_traversal(node, fp);
     fclose(fp);
 }
-
-/*
-int main(){
-    computeFirstandFollow();
-    synchronization_set();
-    populate_parse_table();
-
-    parse_code();
-    return 0;
-}
-*/
-
-/*
-int main(){
-    parseTree = create_parse_tree();
-    parseTree->root = create_node(NON_TERMINAL, program);
-    tree_node * temp = create_node(TERMINAL, 2);
-    insert_child(parseTree->root, temp);
-    temp = create_node(TERMINAL, 4);
-    insert_child(parseTree->root, temp);
-    FILE * treeOut = print_parse_tree(parseTree->root);
-}
-*/
