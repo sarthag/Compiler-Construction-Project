@@ -160,6 +160,40 @@ void delete_node(tree_node *node) {
     free(node);
 }
 
+void inorder_traversal(tree_node *node, FILE* fp) {
+    // printf("Inside inorder_traversal");
+    if (node == NULL) {
+        printf("Null node\n");
+        return;
+    }
+    if (node->type == NON_TERMINAL) {
+        printf("Non terminal\n");
+        // non_terminal tok = node->element.nt;
+        printf("%d\n", node->parent->element.nt.nid);
+        if(node->element.nt.nid == 53) {
+            printf("Here\n");
+            printf("----- | Root Node (No Parent) | no | %d |\n", node->element.nt.nid);
+        }
+        printf("----- | %d | no | %d |\n", node->parent->element.nt.nid, node->element.nt.nid); // change this back
+    } 
+    else {
+        printf("Terminal\n");
+        token tok = node->element.t;
+        if (tok.tid == NUM){
+            fprintf(fp, "%s %s %s %s %s %s\n", "-----",tok.line_no, tok.num, tok.tid, node->parent->element.nt.nid, "yes");
+        }
+        else if (tok.tid == RNUM){
+            fprintf(fp, "%s %s %s %s  %s\n", "-----", tok.line_no, tok.rnum, tok.tid, node->parent->element.nt.nid, "yes");
+        }
+        else{
+            fprintf(fp, "%s %s %s %s  %s\n", tok.lexeme, tok.line_no, tok.tid, node->parent->element.nt.nid, "yes"); // change this back
+        }
+    }
+
+    node->is_visited = 1;
+    inorder_traversal(node->left_child, fp);
+    inorder_traversal(node->right_sibling, fp);
+}
 
 
 
