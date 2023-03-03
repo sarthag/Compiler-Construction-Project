@@ -70,6 +70,7 @@ int main(int argc, char* argv[]){
             getNextToken(prog);
             InitializeParser();
             parse_code();
+            printf("here\n");
             printParseTree(parseTree->root, parseTreeFile);
             break;
         case 4:         //prints total time taken
