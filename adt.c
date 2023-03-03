@@ -62,6 +62,22 @@ stack_node* pop(stack* s) {
     return temp;
 }
 
+void printStack(stack* s){
+    printf("PRINTING STACK:\n");
+    stack_node* current = s ->top; 
+    while(current != NULL){
+        if(current -> type == NON_TERMINAL){
+            printf("NT: %d ->", current -> element.nt.nid);
+        }
+        else{
+            printf("T: %d  -> ", current -> element.t.tid);
+        }
+        current = current -> next;
+        
+    }
+    printf("NULL\n");
+
+}
 
 
 //Parse Tree

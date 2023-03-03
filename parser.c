@@ -59,7 +59,8 @@ void InitializeParser(){
     push(parserStack, TERMINAL, $, NULL);
     push(parserStack, NON_TERMINAL, program, parseTree->root);
     parseTree->root = create_node(NON_TERMINAL, program);
-    L = NULL;
+    L = tokenList.start ;
+    printf("HEAD OF TOKEN LIST : %d", tokenList.start->tid);
 }
 
 
@@ -67,6 +68,7 @@ token * getNextTk(tokenLL tokenList, token * current){
     if (current == NULL){
         return tokenList.start;
     }
+    printf("L = %d\n", current ->tid);
     return (current -> next == NULL) ?NULL :current->next;
 }
 
@@ -82,10 +84,12 @@ void parser_retract(non_terminal nonterm, token* current) {
 }
 
 void parse_code(){
-    printf("Inside Parser");
-    L = getNextTk(tokenList, L);
+    printf("Inside Parser\n");
+    printf("HEAD OF TOKEN LIST : %d", tokenList.start->tid);
+    printf("L = %d\n", L ->tid);
     // stack_node* s;
     while(L != NULL){
+        printStack(parserStack);
         printf("Inside While\n");
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
@@ -102,17 +106,25 @@ void parse_code(){
         }
         else if (x->type == NON_TERMINAL){
             printf("x non terminal\n");
+            printf("NON terminal: %d\n",x ->element.nt.nid);
+            printf("PARSE TABLE VALUE : %d\n",parse_table[x->element.nt.nid][L->tid]);
             if (parse_table[x->element.nt.nid][L->tid] != -1){
                 pop(parserStack);
+                printf("PRINTING STACK AFTER POP:\n");
+                printStack(parserStack);
                 printf("popped\n");
                 // printf("%d %d %d\n", x->element.nt.nid, L->tid, G[parse_table[x->element.nt.nid][L->tid]].lastRHS->rhs_id);
                 rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
+                printf("TO PUSH INTO STACK : %d, %d\n",toPush->isTerminal,toPush->rhs_id);
+
                 while (toPush->prevRHS != NULL)
                 {   
                     printf("inside while\n");
-                    tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
-                    insert_child(x->treeLocation, temp);
+                    // tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
+                    // insert_child(x->treeLocation, temp);
+                    tree_node * temp = NULL;
                     push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
+                    printStack(parserStack);
                     toPush = toPush->prevRHS;
                 }
                 printf("while over\n");
@@ -123,7 +135,12 @@ void parse_code(){
             }
             else{
                 printf("ERROR : Non terminal doesnt exist");
+                printf("PRINTING PARSE TABLE ROW FOR THE NON TERMINAL %d:\n",x->element.nt.nid);
+                for(int i = 0 ; i  < NUM_OF_TERMINALS ; i++){
+                    printf("%d ", parse_table[x->element.nt.nid][i]);
+                }
                 parser_retract(x ->element.nt,L);
+                // break;
             }
             printf("x non terminal over\n");
         }
@@ -133,6 +150,7 @@ void parse_code(){
         else{
             continue;
         }
+        // L = getNextTk(tokenList)
 
     }
     if(parserStack->top != NULL){

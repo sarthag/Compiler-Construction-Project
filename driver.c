@@ -36,11 +36,11 @@ int main(){
     FILE* prog; 
     clock_t start_time, end_time, t;
     double total_CPU_time, total_CPU_time_in_seconds;
-    s = 3;
+    // s = 3;
     while (s != 0){
         printf("\n");
         printf("Enter option: ");
-        // scanf("%d", &s);
+        scanf("%d", &s);
         t = clock();
         switch (s)
         {
@@ -53,11 +53,13 @@ int main(){
         case 2:
                  // prints lexer results
             prog = readFile(filename);
+            populate_keyword_table();
             getNextToken(prog);
             printtokenLL(tokenList);
             break;
         case 3:   //prints all lexical and syntatic errors, prints parse tree
             prog = readFile(filename);
+            populate_keyword_table();
             getNextToken(prog);
             InitializeParser();
             parse_code();
@@ -66,6 +68,7 @@ int main(){
         case 4:         //prints total time taken
             start_time = clock();
             prog = readFile(filename);
+            populate_keyword_table();
             getNextToken(prog);
             InitializeParser();
             parse_code();
@@ -77,7 +80,7 @@ int main(){
         default:
             break;
         }
-        break;
+        
     }
     
 }
