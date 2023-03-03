@@ -10,5 +10,6 @@ int get_id(char *str, int t);
 bool isTerm(char* str);
 void generateGrammar();
 void populate_grammar();
+void loadFirstFollow();
 
 #endif
