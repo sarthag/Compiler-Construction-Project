@@ -9,14 +9,14 @@
 // bool Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS] = {0};
 
 int flag[NUM_OF_RULES];
-int f1[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
-bool f1Done[NUM_OF_NONTERMINALS];
-int f2[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+int First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+bool firstDone[NUM_OF_NONTERMINALS];
+int Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 bool f2Done[NUM_OF_NONTERMINALS];
 
-void findf1(lhs target);
-void findf2(lhs start, rhs *target, rhs *temp, int ruleNo);
-void computef1andf2();
+void findFirst(lhs target);
+void findFollow(lhs start, rhs *target, rhs *temp, int ruleNo);
+void computeFirstandFollow();
 void syncronization_set();
 
 #endif

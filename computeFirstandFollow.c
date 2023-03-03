@@ -1,49 +1,49 @@
 #include "computeFirstandFollow.h"
 
-void findf1(lhs target){
+void findFirst(lhs target){
     //printf("here %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
        
-        f1[target.lhs_id][temp->rhs_id] = 1;
-        f1Done[target.lhs_id] = 1;
+        First[target.lhs_id][temp->rhs_id] = 1;
+        firstDone[target.lhs_id] = 1;
     }
     else{
        // printf("nt %d\n", temp->rhs_id);
-        if (f1Done[temp->rhs_id] == 0){
+        if (firstDone[temp->rhs_id] == 0){
             //printf("here: required first not done\n");
             for(int i = 0; i < NUM_OF_RULES; i++){
                 if(G[i].lhs_id == temp->rhs_id){                    
-                    findf1(G[i]);;
+                    findFirst(G[i]);;
                 }
             }
         }
         for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
-            if(f1[temp->rhs_id][i] == 1){
-                f1[target.lhs_id][i] = f1[temp->rhs_id][i];
+            if(First[temp->rhs_id][i] == 1){
+                First[target.lhs_id][i] = First[temp->rhs_id][i];
             }
         }
         rhs * temp2 = temp->nextRHS;
-        //printf("epsilon: %d \n", f1[temp->rhs_id][NUM_OF_TERMINALS-1]);
-        while (f1[temp->rhs_id][NUM_OF_TERMINALS - 1] == 1){
+        //printf("epsilon: %d \n", First[temp->rhs_id][NUM_OF_TERMINALS-1]);
+        while (First[temp->rhs_id][NUM_OF_TERMINALS - 1] == 1){
             if(temp2 != NULL){
                 if(temp2->isTerminal == 1){
-                    f1[target.lhs_id][temp2->rhs_id] = 1;
+                    First[target.lhs_id][temp2->rhs_id] = 1;
                     break;
                 }
                 //printf("here: first nt has epsilon: %d\n", temp2->rhs_id);
-                if (f1Done[temp2->rhs_id] == 0){
+                if (firstDone[temp2->rhs_id] == 0){
                     for(int i = 0; i < NUM_OF_RULES; i++){
                         if(G[i].lhs_id == temp2->rhs_id){
-                            findf1(G[i]);;
+                            findFirst(G[i]);;
                         }
                     }
                 }
                 //printf("\nrule found\n\n");
                 for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
-                    if(f1[temp2->rhs_id][i] == 1){
+                    if(First[temp2->rhs_id][i] == 1){
                         //printf("here");
-                        f1[target.lhs_id][i] = 1;
+                        First[target.lhs_id][i] = 1;
                     }
                 }
                 temp = temp2;
@@ -51,75 +51,75 @@ void findf1(lhs target){
             }
             else{
                 //printf("\n\nadding epsilon \n\n");
-                f1[target.lhs_id][NUM_OF_TERMINALS-1] = 1;
+                First[target.lhs_id][NUM_OF_TERMINALS-1] = 1;
                 break;
             }
         }
-        f1Done[target.lhs_id] = 1;
+        firstDone[target.lhs_id] = 1;
     }
     //printf("rule ended: %d \n", target.lhs_id);
 }
 
 
-void findf2(lhs start, rhs *target, rhs *temp, int rule){
+void findFollow(lhs start, rhs *target, rhs *temp, int rule){
     if (target->isTerminal == 1){
         return;
     }
     if(temp == NULL){
         //printf("last rhs in rule %d\n", target->rhs_id);
         for(int i =0; i < NUM_OF_TERMINALS - 2; i++){
-            if(f2[start.lhs_id][i] == 1){
-                f2[target->rhs_id][i] = f2[start.lhs_id][i];
+            if(Follow[start.lhs_id][i] == 1){
+                Follow[target->rhs_id][i] = Follow[start.lhs_id][i];
             }
         }
         if (start.lhs_id == G[0].lhs_id || start.lhs_id == G[0].lastRHS->rhs_id || start.lhs_id == G[0].lastRHS->prevRHS->rhs_id){
-            f2[target->rhs_id][NUM_OF_TERMINALS - 2] = 1;
+            Follow[target->rhs_id][NUM_OF_TERMINALS - 2] = 1;
         }
         return; 
     }
     if (temp->isTerminal == 1){
         //printf("terminal is next\n");
-        f2[target->rhs_id][temp->rhs_id] = 1;
+        Follow[target->rhs_id][temp->rhs_id] = 1;
         return;
     }
     //printf("nt isnext \n");
     for(int i =0; i < NUM_OF_TERMINALS - 2; i++){
-        if (f1[temp->rhs_id][i] == 1){
-            f2[target->rhs_id][i] = f1[temp->rhs_id][i];
+        if (First[temp->rhs_id][i] == 1){
+            Follow[target->rhs_id][i] = First[temp->rhs_id][i];
         }
     }
-    if(f1[temp->rhs_id][NUM_OF_TERMINALS - 1] == 0){
+    if(First[temp->rhs_id][NUM_OF_TERMINALS - 1] == 0){
         return;
     }
     rhs *temp2 = temp->nextRHS;
     if(temp2 == NULL){
         for(int i =0; i < NUM_OF_TERMINALS - 2; i++){
-            if (f2[start.lhs_id][i] == 1){
-                f2[target->rhs_id][i] = f2[start.lhs_id][i];
+            if (Follow[start.lhs_id][i] == 1){
+                Follow[target->rhs_id][i] = Follow[start.lhs_id][i];
             }
             if (start.lhs_id == 53){
-                f2[target->rhs_id][NUM_OF_TERMINALS - 2] = 1;
+                Follow[target->rhs_id][NUM_OF_TERMINALS - 2] = 1;
             }
         }
         
         if (start.lhs_id == G[0].lhs_id || start.lhs_id == G[0].lastRHS->rhs_id || start.lhs_id == G[0].lastRHS->prevRHS->rhs_id){
-            f2[target->rhs_id][NUM_OF_TERMINALS - 2] = 1;
+            Follow[target->rhs_id][NUM_OF_TERMINALS - 2] = 1;
         }
         return; 
     }
-    findf2(start, target, temp2, rule);
+    findFollow(start, target, temp2, rule);
 
 }
 
 
 
-void computef1andf2(){
+void computeFirstandFollow(){
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
-        findf1(G[j]);
+        findFirst(G[j]);
     }
 
     
-    f2[53][NUM_OF_TERMINALS - 2] = 1;
+    Follow[53][NUM_OF_TERMINALS - 2] = 1;
 
     for(int j = 0; j < NUM_OF_RULES; j++){
         rhs * target = G[j].firstRHS;
@@ -127,7 +127,7 @@ void computef1andf2(){
         while (target != NULL)
         {
             rhs * temp = target->nextRHS;
-            findf2(G[j], target, temp, j); 
+            findFollow(G[j], target, temp, j); 
             target = temp;
         }       
     }
@@ -140,7 +140,7 @@ void computef1andf2(){
             {
                 rhs * temp = target->nextRHS;
                 //printf("rhs null? %d\n", temp == NULL);
-                findf2(G[j], target, temp, j); 
+                findFollow(G[j], target, temp, j); 
                 target = temp;
             } 
         }
@@ -401,7 +401,7 @@ int main(){
 //    printf("here \n");
     generateGrammar();
 //    printf("here \n");
-    computef1andf2();
+    computeFirstandFollow();
 //    printf("here \n");
     loadFirstFollow();
 //    printf("here \n");
@@ -410,7 +410,7 @@ int main(){
 
     for(int i = 0; i < NUM_OF_NONTERMINALS; i++){
         for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            if(First[i][j] != f1[i][j]){
+            if(First[i][j] != First[i][j]){
                 printf("Fucked first %d\n", i);
                 break;
             }
@@ -423,7 +423,7 @@ int main(){
 
     for(int i = 0; i < NUM_OF_NONTERMINALS; i++){
         for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            if(Follow[i][j] != f2[i][j]){
+            if(Follow[i][j] != Follow[i][j]){
                 printf("Fucked follow %d\n", i);
                 //count += 1;
                 break;
