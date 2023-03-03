@@ -27,6 +27,7 @@ int First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 int Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 int firstDone[NUM_OF_NONTERMINALS];
 int flag[NUM_OF_RULES];
+int parse_table[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 
 typedef struct rhs_struct{
     int rhs_id;

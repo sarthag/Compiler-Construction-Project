@@ -36,13 +36,10 @@ void generateGrammar(){
         for(int i = 0; str != NULL; i++){
             if(i==0){
                 //lhs non_terminal
-                //printf("getting from table for str %s %d \n ",str, getTokenFromNTTable(str, nonTerminalHash));
                 G[rule_no].lhs_id = getTokenFromNTTable(str, nonTerminalHash);
-                //printf("%d ", G[rule_no].lhs_id);
                 G[rule_no].firstRHS = NULL;   
             }
             else {
-                //printf("Line %s \n", str);
                 rhs *new_rhs = (rhs *)malloc(sizeof(rhs));
                 new_rhs->isTerminal = isTerm(str);
                 if(new_rhs->isTerminal==0){
@@ -354,11 +351,9 @@ void computeFirstandFollow(){
     for(int j =0; j < NUM_OF_RULES; j++){
         if(flag[j] == 0){
             rhs * target = G[j].firstRHS;
-            //printf("rule: %d\n", j);
             while (target != NULL)
             {
                 rhs * temp = target->nextRHS;
-                //printf("rhs null? %d\n", temp == NULL);
                 findFollow(G[j], target, temp, j); 
                 target = temp;
             } 
@@ -380,14 +375,10 @@ void populate_parse_table(){
         if(G[i].firstRHS->isTerminal==1){
             //if it's a TERMINAL
             if(G[i].firstRHS->rhs_id!=eps && parse_table[G[i].lhs_id][i]==-1){
-                //printf("Rule is terminal without eps %d \n", i+1);
                 parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id]=i;
             }
             else{
-                //printf("Rule is terminal with eps %d \n", i+1);
-                //epsilon - calculate follow
                 for(int k=0;k<NUM_OF_TERMINALS;k++){
-                    printf("reached eps: rule: %d\n", i+1);
                     parse_table[G[i].lhs_id][eps] = i;
                     if(Follow[G[i].lhs_id][k]==1 && parse_table[G[i].lhs_id][k]==-1){
                         parse_table[G[i].lhs_id][k] = i;
@@ -399,10 +390,8 @@ void populate_parse_table(){
         else{
             //is a nt
             for(int j = 0; j < NUM_OF_TERMINALS-1; j++){
-                //printf("first of non terminal %d ", First[G[i].firstRHS->rhs_id][j]);
                 if (First[G[i].firstRHS->rhs_id][j] == 1 && parse_table[G[i].lhs_id][j]==-1){
                     if(parse_table[G[i].lhs_id][j] == -1){
-                        //printf("First except epsilon Old: %d , New: %d\n",parse_table[G[i].lhs_id][j]+1,i+1);
                         parse_table[G[i].lhs_id][j] = i;
                     }
                     
@@ -457,16 +446,7 @@ void loadFirstFollow() {
         }
     }
 
-    
-    // print the contents of the array
-    // printf("First Array\n");
-    // for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-    //     for (int j = 0; j < NUM_OF_TERMINALS; j++) {
-    //         printf("%d ", First[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-    
+
     // close the file
     fclose(g);
 
@@ -487,15 +467,7 @@ void loadFirstFollow() {
             token = strtok(NULL, ",");
         }
     }
-    
-    // print the contents of the array
-    // printf("Follow Array:\n");
-    // for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-    //     for (int j = 0; j < NUM_OF_TERMINALS; j++) {
-    //         printf("%d ", Follow[i][j]);
-    //     }
-    //     printf("\n");
-    // }
+
     
     // close the file
     fclose(h);
