@@ -219,15 +219,15 @@ void populate_parse_table(){
         int eps= getTokenFromTTable("EPSILON", terminalHash);
         if(G[i].firstRHS->isTerminal==1){
             //if it's a TERMINAL
-            if(G[i].firstRHS->rhs_id!=eps){
-                printf("Rule is terminal without eps %d \n", i+1);
+            if(G[i].firstRHS->rhs_id!=eps && parse_table[G[i].lhs_id][i]==-1){
+                //printf("Rule is terminal without eps %d \n", i+1);
                 parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id]=i;
             }
             else{
-                printf("Rule is terminal with eps %d \n", i+1);
+                //printf("Rule is terminal with eps %d \n", i+1);
                 //epsilon - calculate follow
                 for(int k=0;k<NUM_OF_TERMINALS;k++){
-                    if(Follow[G[i].lhs_id][k]==1){
+                    if(Follow[G[i].lhs_id][k]==1 && parse_table[G[i].lhs_id][k]==-1){
                         parse_table[G[i].lhs_id][k] = i;
                     }
                 }
@@ -236,17 +236,16 @@ void populate_parse_table(){
         }
         else{
             //is a nt
-            printf("Rule is non term %d\n", i+1);
             for(int j = 0; j < NUM_OF_TERMINALS-1; j++){
                 //printf("first of non terminal %d ", First[G[i].firstRHS->rhs_id][j]);
-                if (First[G[i].firstRHS->rhs_id][j] == 1){
+                if (First[G[i].firstRHS->rhs_id][j] == 1 && parse_table[G[i].lhs_id][j]==-1){
                     // if(parse_table[G[i].lhs_id][j] != -1){
                     //     printf("First except epsilon Old: %d , New: %d\n",parse_table[G[i].lhs_id][j]+1,i+1);
                     // }
-                    //printf("lhs id is %d ", G[i].lhs_id);
                     parse_table[G[i].lhs_id][j] = i;
                 }
             }
+
 
             if(First[G[i].firstRHS->rhs_id][eps]==1){
                 //if the first set contains epsilon populate with follow
@@ -256,26 +255,157 @@ void populate_parse_table(){
                     }
                 }
             }
+
+
         }
         
     }
     int ctr = 0;
-    // for(int i=0;i<NUM_OF_NONTERMINALS;i++){
-    //     for(int j=0;j<NUM_OF_TERMINALS;j++){
-    //         if(parse_table[i][j] == 4){
-    //             printf("%d ",parse_table[i][j]);
-    //         }
-    //         else{
-    //             printf(" ");
-    //         }
-            
-            
+}
+
+void loadFirstFollow() {
+    FILE *g = fopen("firstArr.txt", "r");
+    
+    // read each line of the file and store its contents in the array
+    for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
+        char line[256];
+        fgets(line, sizeof(line), g);
+        
+        // split the line into an array of integers
+        char *token;
+        int j = 0;
+        token = strtok(line, ",");
+        while (token != NULL) {
+            First[i][j] = atoi(token);
+            j++;
+            token = strtok(NULL, ",");
+        }
+    }
+
+    
+    // print the contents of the array
+    // printf("First Array\n");
+    // for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
+    //     for (int j = 0; j < NUM_OF_TERMINALS; j++) {
+    //         printf("%d ", First[i][j]);
     //     }
-    //     // printf("\n");
+    //     printf("\n");
     // }
+    
+    // close the file
+    fclose(g);
+
+    FILE *h = fopen("followArr.txt", "r");
+    
+    // read each line of the file and store its contents in the array
+    for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
+        char line[256];
+        fgets(line, sizeof(line), h);
+        
+        // split the line into an array of integers
+        char *token;
+        int j = 0;
+        token = strtok(line, ",");
+        while (token != NULL) {
+            Follow[i][j] = atoi(token);
+            j++;
+            token = strtok(NULL, ",");
+        }
+    }
+    
+    // print the contents of the array
+    // printf("Follow Array:\n");
+    // for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
+    //     for (int j = 0; j < NUM_OF_TERMINALS; j++) {
+    //         printf("%d ", Follow[i][j]);
+    //     }
+    //     printf("\n");
+    // }
+    
+    // close the file
+    fclose(h);
+}
+
+void printGrammar(){
+    for(int i = 0; i < NUM_OF_RULES; i++){
+        rhs * temp = G[i].firstRHS;
+        printf("Line no: %d :- ",i+1);
+        printf("%d ", G[i].lhs_id);
+        while(temp != NULL){
+            printf("%d ",temp->rhs_id);
+            temp = temp -> nextRHS;
+        }
+        printf("\n");
+    }
+}
+
+int main(){
+    populate_grammar();
+    generateGrammar();
+    loadFirstFollow();
+    // computeFirstandFollow();
+    populate_parse_table();
+
+    //to check if parse table works 
+    // bool arr[NUM_OF_RULES] = {0};
+    // for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
+    //     // printf("NTNO: %d \n", i);
+    //     for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
+    //         if(parse_table[i][j]!=-1){
+    //             if(arr[parse_table[i][j]]==0){
+    //                 arr[parse_table[i][j]]=1;
+    //             }
+    //         }
+    //     }
+    // }
+    // printf("\n Sus numbers\n");
+    // for(int i = 0 ; i < NUM_OF_RULES ; i++){
+    //     if(arr[i] == 0){
+    //         printf("%d ", i+1);
+    //     }
+    // }
+    //printf("\ndone with parse table");
+    return 0;
 }
 
 
+
+//char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
+//char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
+/*
+int get_id(char *str, int t){
+    //printf("call to get id ");
+    //t= 0 for non terminal and 1 and terminal
+    //the id for epsilong is -1
+    //id returned is -2 if it isn't detected 
+    if(strcmp(str, "epsilon")==0){
+        return -1;
+    }
+    if(t==0){
+        for(int i=0;i< NUM_OF_NONTERMINALS; i++ ){
+            if(strcmp(non_terminals[i], str)==0){
+                //printf("strcmp value %d ", strcmp(non_terminals[i], str));
+                //printf("%s \n", non_terminals[i]);
+                return i;
+            }
+        //printf("%s non_terminal : Symbol doesn't exist %s \n", str, non_terminals[i]);
+        }
+    }
+    else {
+        for(int i=0;i< NUM_OF_TERMINALS; i++ ){
+        if(strcmp(terminals[i], str)==0){
+            return i;
+        }
+        //printf("%s terminal : Symbol doesn't exist %s \n", str, terminals[i]);
+    }
+    }
+    printf("not detected \n");
+    return -2;
+    
+}
+*/ 
+
+//FIRST AND FOLLOW 
 // void findFirst(lhs target){
 //     // printf("entering first %d\n", target.lhs_id);
 
@@ -480,158 +610,5 @@ void populate_parse_table(){
 //     }
 // }
 
-void loadFirstFollow() {
-    FILE *g = fopen("firstArr.txt", "r");
-    
-    // read each line of the file and store its contents in the array
-    for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-        char line[256];
-        fgets(line, sizeof(line), g);
-        
-        // split the line into an array of integers
-        char *token;
-        int j = 0;
-        token = strtok(line, ",");
-        while (token != NULL) {
-            First[i][j] = atoi(token);
-            j++;
-            token = strtok(NULL, ",");
-        }
-    }
-
-    
-    // print the contents of the array
-    // printf("First Array\n");
-    // for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-    //     for (int j = 0; j < NUM_OF_TERMINALS; j++) {
-    //         printf("%d ", First[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-    
-    // close the file
-    fclose(g);
-
-    FILE *h = fopen("followArr.txt", "r");
-    
-    // read each line of the file and store its contents in the array
-    for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-        char line[256];
-        fgets(line, sizeof(line), h);
-        
-        // split the line into an array of integers
-        char *token;
-        int j = 0;
-        token = strtok(line, ",");
-        while (token != NULL) {
-            Follow[i][j] = atoi(token);
-            j++;
-            token = strtok(NULL, ",");
-        }
-    }
-    
-    // print the contents of the array
-    // printf("Follow Array:\n");
-    // for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-    //     for (int j = 0; j < NUM_OF_TERMINALS; j++) {
-    //         printf("%d ", Follow[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-    
-    // close the file
-    fclose(h);
-}
-
-void printGrammar(){
-    for(int i = 0; i < NUM_OF_RULES; i++){
-        rhs * temp = G[i].firstRHS;
-        printf("Line no: %d :- ",i+1);
-        printf("%d ", G[i].lhs_id);
-        while(temp != NULL){
-            printf("%d ",temp->rhs_id);
-            temp = temp -> nextRHS;
-        }
-        printf("\n");
-    }
-}
-
-int main(){
-    populate_grammar();
-    generateGrammar();
-    loadFirstFollow();
-    // computeFirstandFollow();
-    populate_parse_table();
-    //         printf("Arithematic\n");
-    // for(int i = 0; i < NUM_OF_TERMINALS; i++){
-
-    //     printf(" %d ", First[2][i]);
-    // }
-    //  printf("Anyterm\n");
-    // for(int i = 0; i < NUM_OF_TERMINALS; i++){
-       
-    //     printf(" %d ", First[1][i]);
-    // }
-    bool arr[NUM_OF_RULES] = {0};
-    for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-        // printf("NTNO: %d \n", i);
-        for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-            if(parse_table[i][j]!=-1){
-                if(arr[parse_table[i][j]]==0){
-                    arr[parse_table[i][j]]=1;
-                }
-            }
-        }
-    }
-    printf("\n Sus numbers\n");
-    for(int i = 0 ; i < NUM_OF_RULES ; i++){
-        if(arr[i] == 0){
-            printf("%d ", i+1);
-        }
-    }
-    printf("parse table for rule \n");
-    for(int i=0;i<NUM_OF_TERMINALS;i++){
-        printf("%d ", parse_table[38][i]);
-    }
-    printf("\ndone with parse table");
-    return 0;
-}
-
-
-
-//char *non_terminals[]={"start", "module", "otherModules", "moduleDef"};
-//char *terminals[]={"NUM", "ID", "COLON", "EPSILON"};
-/*
-int get_id(char *str, int t){
-    //printf("call to get id ");
-    //t= 0 for non terminal and 1 and terminal
-    //the id for epsilong is -1
-    //id returned is -2 if it isn't detected 
-    if(strcmp(str, "epsilon")==0){
-        return -1;
-    }
-    if(t==0){
-        for(int i=0;i< NUM_OF_NONTERMINALS; i++ ){
-            if(strcmp(non_terminals[i], str)==0){
-                //printf("strcmp value %d ", strcmp(non_terminals[i], str));
-                //printf("%s \n", non_terminals[i]);
-                return i;
-            }
-        //printf("%s non_terminal : Symbol doesn't exist %s \n", str, non_terminals[i]);
-        }
-    }
-    else {
-        for(int i=0;i< NUM_OF_TERMINALS; i++ ){
-        if(strcmp(terminals[i], str)==0){
-            return i;
-        }
-        //printf("%s terminal : Symbol doesn't exist %s \n", str, terminals[i]);
-    }
-    }
-    printf("not detected \n");
-    return -2;
-    
-}
-*/ 
 
 
