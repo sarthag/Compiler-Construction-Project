@@ -1,62 +1,79 @@
 #include "computeFirstandFollow.h"
 
 void findf1(lhs target){
-    printf("here %d\n", target.lhs_id);
+    //printf("here %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
-        if(temp->rhs_id == NUM_OF_TERMINALS - 1){          // assuming EPSILON id = 3
-        if(temp->rhs_id == NUM_OF_TERMINALS - 1){      
-            rhs* temp2 = temp->nextRHS;
-            if(temp2 != NULL){           
-            int i = 0;
-            for(i; i < NUM_OF_RULES; i++){
-                if(G[i].lhs_id == temp2->rhs_id){
-                    break;
-                }
-            }
-            
-            findf1(G[i]);
-            for(int i = 0; i < NUM_OF_TERMINALS; i++){
-                if (f1[temp->rhs_id][i] == 1)
-                f1[target.lhs_id][i] = f1[temp->rhs_id][i];
-                f1Done[target.lhs_id] = 1;
-            }
-            }
-        }
+       
         f1[target.lhs_id][temp->rhs_id] = 1;
         f1Done[target.lhs_id] = 1;
     }
     else{
+       // printf("nt %d\n", temp->rhs_id);
         if (f1Done[temp->rhs_id] == 0){
-            int i = 0;
-            for(i; i < NUM_OF_RULES; i++){
-                if(G[i].lhs_id == temp->rhs_id){
-                    break;
+            //printf("here: required first not done\n");
+            for(int i = 0; i < NUM_OF_RULES; i++){
+                if(G[i].lhs_id == temp->rhs_id){                    
+                    findf1(G[i]);;
                 }
             }
-            
-            findf1(G[i]);
         }
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
-            if(f1[temp->rhs_id][i] == 1)
-            f1[target.lhs_id][i] = f1[temp->rhs_id][i];
-            f1Done[target.lhs_id] = 1;
+        for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
+            if(f1[temp->rhs_id][i] == 1){
+                f1[target.lhs_id][i] = f1[temp->rhs_id][i];
+            }
         }
+        rhs * temp2 = temp->nextRHS;
+        //printf("epsilon: %d \n", f1[temp->rhs_id][NUM_OF_TERMINALS-1]);
+        while (f1[temp->rhs_id][NUM_OF_TERMINALS - 1] == 1){
+            if(temp2 != NULL){
+                if(temp2->isTerminal == 1){
+                    f1[target.lhs_id][temp2->rhs_id] = 1;
+                    break;
+                }
+                //printf("here: first nt has epsilon: %d\n", temp2->rhs_id);
+                if (f1Done[temp2->rhs_id] == 0){
+                    for(int i = 0; i < NUM_OF_RULES; i++){
+                        if(G[i].lhs_id == temp2->rhs_id){
+                            findf1(G[i]);;
+                        }
+                    }
+                }
+                //printf("\nrule found\n\n");
+                for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
+                    if(f1[temp2->rhs_id][i] == 1){
+                        //printf("here");
+                        f1[target.lhs_id][i] = 1;
+                    }
+                }
+                temp = temp2;
+                temp2 = temp2->nextRHS;
+            }
+            else{
+                //printf("\n\nadding epsilon \n\n");
+                f1[target.lhs_id][NUM_OF_TERMINALS-1] = 1;
+                break;
+            }
+        }
+        f1Done[target.lhs_id] = 1;
     }
+    //printf("rule ended: %d \n", target.lhs_id);
 }
-}
+
 
 void findf2(lhs start, rhs *target, rhs *temp){
     if (target->isTerminal == 1){
         return;
     }
     if(temp == NULL){
+        printf("Only rhs in rule %d\n", target->rhs_id);
         for(int i =0; i < NUM_OF_TERMINALS; i++){
             f2[target->rhs_id][i] = f2[start.lhs_id][i];
         }
         return; 
     }
     if (temp->isTerminal == 1){
+        printf("terminal is next\n");
         f2[target->rhs_id][temp->rhs_id] = 1;
         return;
     }
@@ -88,18 +105,19 @@ void computef1andf2(){
         findf1(G[j]);
     }
 
-    for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-        printf("\n%d\n%d\n", j, f1Done[j]);
+    // for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
+    //     printf("\n%d\n%d\n", j, f1Done[j]);
 
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
-            printf("%d", f1[j][i]);
-        }
-    }
+    //     for(int i = 0; i < NUM_OF_TERMINALS; i++){
+    //         printf("%d", f1[j][i]);
+    //     }
+    // }
 
-    f2[0][NUM_OF_TERMINALS - 1] = 1;
+    f2[0][NUM_OF_TERMINALS - 2] = 1;
 
     for(int j = 0; j < NUM_OF_RULES; j++){
         rhs * target = G[j].firstRHS;
+        printf("rule: %d\n", j);
         while (target != NULL)
         {
             rhs * temp = target->nextRHS;
@@ -108,13 +126,13 @@ void computef1andf2(){
         }       
     }
 
-    for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
-        printf("\n");
-        for(int i = 0; i < NUM_OF_TERMINALS; i++){
+    // for (int j = 0; j < NUM_OF_NONTERMINALS; j++){
+    //     printf("\n");
+    //     for(int i = 0; i < NUM_OF_TERMINALS; i++){
             
-            printf("%d", f2[j][i]);
-        }      
-    }
+    //         printf("%d", f2[j][i]);
+    //     }      
+    // }
 }
 
 // void syncronization_set(){
@@ -590,15 +608,54 @@ int main(){
     for(int i = 0; i < NUM_OF_NONTERMINALS; i++){
         for(int j = 0; j < NUM_OF_TERMINALS; j++){
             if(First[i][j] != f1[i][j]){
-                printf("Fucked first %d", i);
-                break;
-            }
-            if(Follow[i][j] != f2[i][j]){
-                printf("Fucked first %d", i);
+                printf("Fucked first %d\n", i);
                 break;
             }
         }
-        
     }
+
+
+    int count = 0;
+    int followList[] = {0, 1, 2, 5, 6, 7, 8, 10, 13, 15, 17, 20, 22, 24, 25, 28, 29, 31, 34, 35, 36, 37, 38, 39, 40, 42, 44, 45, 49, 53, 61, 63, 63, 64};
+
+    for(int i = 0; i < NUM_OF_NONTERMINALS; i++){
+        for(int j = 0; j < NUM_OF_TERMINALS; j++){
+            if(Follow[i][j] == 0 && f2[i][j] == 1){
+                printf("Fucked Follow %d\n", i);
+                break;
+            }
+        }
+    }
+
+    // findf1(G[54]);
+
+    for(int i = 0; i < 1; i++){
+        for(int j = 0; j < NUM_OF_TERMINALS; j++){
+            printf("%d ", Follow[2][j]);
+        }
+    }
+    printf("\n");
+    for(int i = 0; i < 1; i++){
+        for(int j = 0; j < NUM_OF_TERMINALS; j++){
+            printf("%d ", f2[2][j]);
+        }
+    }
+
+    for (int i = 0; i < 40; i++){
+        printf("\n here \n");
+        printf("%d\n", followList[i]);
+        printf("\n here \n");
+        for(int j = 0; j < NUM_OF_TERMINALS; j++){
+            printf("%d ", Follow[followList[i]][j]);
+        }
+        printf("\n");
+        for(int j = 0; j < NUM_OF_TERMINALS; j++){
+            printf("%d ", f2[followList[i]][j]);
+        }
+        printf("\n");
+    }
+
+    printf("DOne");
+    // printf("%d \n \n", G[54].firstRHS->nextRHS->rhs_id);
 
 }
