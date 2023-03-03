@@ -77,6 +77,7 @@ void findf2(lhs start, rhs *target, rhs *temp){
         f2[target->rhs_id][temp->rhs_id] = 1;
         return;
     }
+    printf("nt isnext \n");
     for(int i =0; i < NUM_OF_TERMINALS - 1; i++){
         if (f1[temp->rhs_id][i] == 1){
             f2[target->rhs_id][i] = f1[temp->rhs_id][i];
@@ -121,6 +122,7 @@ void computef1andf2(){
         while (target != NULL)
         {
             rhs * temp = target->nextRHS;
+            printf("rhs null? %d\n", temp == NULL);
             findf2(G[j], target, temp); 
             target = temp;
         }       
@@ -629,31 +631,31 @@ int main(){
 
     // findf1(G[54]);
 
-    for(int i = 0; i < 1; i++){
-        for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            printf("%d ", Follow[2][j]);
-        }
-    }
-    printf("\n");
-    for(int i = 0; i < 1; i++){
-        for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            printf("%d ", f2[2][j]);
-        }
-    }
+    // for(int i = 0; i < 1; i++){
+    //     for(int j = 0; j < NUM_OF_TERMINALS; j++){
+    //         printf("%d ", Follow[2][j]);
+    //     }
+    // }
+    // printf("\n");
+    // for(int i = 0; i < 1; i++){
+    //     for(int j = 0; j < NUM_OF_TERMINALS; j++){
+    //         printf("%d ", f2[2][j]);
+    //     }
+    // }
 
-    for (int i = 0; i < 40; i++){
-        printf("\n here \n");
-        printf("%d\n", followList[i]);
-        printf("\n here \n");
-        for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            printf("%d ", Follow[followList[i]][j]);
-        }
-        printf("\n");
-        for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            printf("%d ", f2[followList[i]][j]);
-        }
-        printf("\n");
-    }
+    // for (int i = 0; i < 40; i++){
+    //     printf("\n here \n");
+    //     printf("%d\n", followList[i]);
+    //     printf("\n here \n");
+    //     for(int j = 0; j < NUM_OF_TERMINALS; j++){
+    //         printf("%d ", Follow[followList[i]][j]);
+    //     }
+    //     printf("\n");
+    //     for(int j = 0; j < NUM_OF_TERMINALS; j++){
+    //         printf("%d ", f2[followList[i]][j]);
+    //     }
+    //     printf("\n");
+    // }
 
     printf("DOne");
     // printf("%d \n \n", G[54].firstRHS->nextRHS->rhs_id);
