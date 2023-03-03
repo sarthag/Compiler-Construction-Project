@@ -128,7 +128,7 @@ void computef1andf2(){
     //     }
     // }
     
-    f2[0][NUM_OF_TERMINALS - 2] = 1;
+    f2[53][NUM_OF_TERMINALS - 2] = 1;
 
     for(int j = 0; j < NUM_OF_RULES; j++){
         rhs * target = G[j].firstRHS;
@@ -644,32 +644,32 @@ int main(){
     }
 
 
-    int count = 0;
-    int followList[] = {0, 34, 53};
+    // int count = 0;
+    // int followList[] = {0, 53};
 
-    for(int i = 0; i < NUM_OF_NONTERMINALS; i++){
-        for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            if(Follow[i][j] != f2[i][j]){
-                printf("Fucked follow %d\n", i);
-                count += 1;
-                break;
-            }
-        }
-    }
-    printf("count Follow fucked %d\n", count);
-    // findf1(G[54]);
+    // for(int i = 0; i < NUM_OF_NONTERMINALS; i++){
+    //     for(int j = 0; j < NUM_OF_TERMINALS; j++){
+    //         if(Follow[i][j] != f2[i][j]){
+    //             printf("Fucked follow %d\n", i);
+    //             count += 1;
+    //             break;
+    //         }
+    //     }
+    // }
+    // printf("count Follow fucked %d\n", count);
+    // // findf1(G[54]);
 
-    for(int k = 0; k < 3; k++){
-        printf("%d \n", k);
-        for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            printf("%d ", Follow[followList[k]][j]);
-        }
-        printf("\n");
-        for(int j = 0; j < NUM_OF_TERMINALS; j++){
-            printf("%d ", f2[followList[k]][j]);
-        }
-        printf("\n");
-    }
+    // for(int k = 0; k < 3; k++){
+    //     printf("%d \n", k);
+    //     for(int j = 0; j < NUM_OF_TERMINALS; j++){
+    //         printf("%d ", Follow[followList[k]][j]);
+    //     }
+    //     printf("\n");
+    //     for(int j = 0; j < NUM_OF_TERMINALS; j++){
+    //         printf("%d ", f2[followList[k]][j]);
+    //     }
+    //     printf("\n");
+    // }
     // for (int i = 0; i < 40; i++){
     //     printf("\n here \n");
     //     printf("%d\n", followList[i]);
