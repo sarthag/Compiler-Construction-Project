@@ -56,9 +56,9 @@ void InitializeParser(){
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
     parseTree = create_parse_tree();
+    parseTree->root = create_node(NON_TERMINAL, program);
     push(parserStack, TERMINAL, $, NULL);
     push(parserStack, NON_TERMINAL, program, parseTree->root);
-    parseTree->root = create_node(NON_TERMINAL, program);
     L = tokenList.start ;
     printf("HEAD OF TOKEN LIST : %d", tokenList.start->tid);
 }
@@ -109,20 +109,27 @@ void parse_code(){
             printf("NON terminal: %d\n",x ->element.nt.nid);
             printf("PARSE TABLE VALUE : %d\n",parse_table[x->element.nt.nid][L->tid]);
             if (parse_table[x->element.nt.nid][L->tid] != -1){
-                pop(parserStack);
+                x = pop(parserStack);
+                printf("x -> treeLocation is NULL after pop?: %d\n", x->treeLocation== NULL);
                 printf("PRINTING STACK AFTER POP:\n");
                 printStack(parserStack);
                 printf("popped\n");
                 // printf("%d %d %d\n", x->element.nt.nid, L->tid, G[parse_table[x->element.nt.nid][L->tid]].lastRHS->rhs_id);
                 rhs * toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
                 printf("TO PUSH INTO STACK : %d, %d\n",toPush->isTerminal,toPush->rhs_id);
+                printf("x -> treeLocation is NULL after rhs?: %d\n", x->treeLocation== NULL);
 
                 while (toPush->prevRHS != NULL)
                 {   
                     printf("inside while\n");
-                    // tree_node * temp = create_node(toPush->isTerminal, toPush->rhs_id);
-                    // insert_child(x->treeLocation, temp);
-                    tree_node * temp = NULL;
+                    printf("x -> treeLocation is NULL before temp?: %d\n", x->treeLocation== NULL);
+                    tree_node* temp = create_node(toPush->isTerminal, toPush->rhs_id);
+                    // tree_node* temp = NULL;
+                    printf("To be inserted into tree: %d\n",temp ->element.nt.nid);
+                    printf("x -> treeLocation is NULL after temp?: %d\n", x->treeLocation== NULL);
+                    printf("parseTree -> root : %d\n",parseTree->root->element.nt.nid);
+                    insert_child(x->treeLocation, temp);
+                    printf("Inserted into tree: %d",temp ->element.nt.nid);
                     push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
                     printStack(parserStack);
                     toPush = toPush->prevRHS;
