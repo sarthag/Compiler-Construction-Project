@@ -24,7 +24,13 @@ void printtokenLL(tokenLL tkll){
     printf("NULL\n");
 }
 
-int main(){
+int main(int argc, char* argv[]){
+    if(argc != 3) {
+        printf("Incorrect Number of Arguments!!");
+    }
+    char* filename = argv[1];
+    char* parseTreefile = argv[2];
+    int BUFFSIZE = atoi(argv[3]);
     printf("First and Follow Set Automated\n Both Lexical and Syntax analysis modules implemented\n");
     printf("0. EXIT\n");
     printf("1. Code without comments\n");
@@ -32,7 +38,7 @@ int main(){
     printf("3. Results of compilation\n");
     printf("4. Time analysis\n");
     int s;
-    char* filename = "t2";
+    // char* filename = "test_cases (stage_1)/t6(with_syntax_errors).txt";
     FILE* prog; 
     clock_t start_time, end_time, t;
     double total_CPU_time, total_CPU_time_in_seconds;
@@ -63,7 +69,7 @@ int main(){
             getNextToken(prog);
             InitializeParser();
             parse_code();
-            print_parse_tree(parseTree->root);
+            printParseTree(parseTree->root, parseTreefile);
             break;
         case 4:         //prints total time taken
             start_time = clock();
