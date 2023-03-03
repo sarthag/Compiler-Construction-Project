@@ -12,6 +12,7 @@
 int f1[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 bool f1Done[NUM_OF_NONTERMINALS];
 int f2[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+bool f2Done[NUM_OF_NONTERMINALS];
 
 void findf1(lhs target);
 void findf2(lhs start, rhs *target, rhs *temp);
