@@ -163,11 +163,11 @@ void delete_node(tree_node *node) {
 void inorder_traversal(tree_node *node, FILE* fp) {
     // printf("Inside inorder_traversal");
     if (node == NULL) {
-        printf("Null node\n");
+        // printf("Null node\n");
         return;
     }
     if (node->type == NON_TERMINAL) {
-        printf("Non terminal\t");
+        // printf("Non terminal\t");
         // non_terminal tok = node->element.nt;
         // printf("%d\n", node->element.nt.nid);
         if(node->element.nt.nid == 53) {
@@ -178,7 +178,7 @@ void inorder_traversal(tree_node *node, FILE* fp) {
         }
     } 
     else {
-        printf("Terminal\t");
+        // printf("Terminal\t");
         token tok = node->element.t;
         if (tok.tid == NUM){
             fprintf(fp, "| ----- | %d | %d | %d | %d | yes |\n", tok.line_no, tok.num, tok.tid, node->parent->element.nt.nid);
