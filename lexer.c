@@ -258,7 +258,7 @@ void getNextToken(FILE *code) {
     state = 1;
     // err = 0;
     token* t;
-    char c;    
+    char c=' ';    
 
     while (state >= 1 && c != '\0') {
         c = getNextChar(code);

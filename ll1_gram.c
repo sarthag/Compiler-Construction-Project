@@ -32,7 +32,7 @@ void generateGrammar(){
         char *str;
         rhs *firstRHS = NULL;
         rhs *prev_rhs = NULL;
-        str=strtok(lineBuf, " \n");
+        str=strtok(lineBuf, " \t\r\n");
         for(int i = 0; str != NULL; i++){
             if(i==0){
                 //lhs non_terminal
@@ -66,7 +66,7 @@ void generateGrammar(){
                 prev_rhs = new_rhs;
                 
             }
-            str=strtok(NULL, " \n");
+            str=strtok(NULL, " \t\r\n");
         }
         G[rule_no].firstRHS = firstRHS;
         G[rule_no].lastRHS = prev_rhs;
@@ -182,6 +182,8 @@ void populate_grammar(){
     insertNonTerminal("n5", n5, nonTerminalHash);
     insertNonTerminal("n6", n6, nonTerminalHash);
     insertNonTerminal("n7", n7, nonTerminalHash);
+    insertNonTerminal("n8", n8, nonTerminalHash);
+    insertNonTerminal("n9", n9, nonTerminalHash);
     insertNonTerminal("new_NT", new_NT, nonTerminalHash);
     insertNonTerminal("new_index", new_index, nonTerminalHash);
     insertNonTerminal("new_index_for_loop", new_index_for_loop, nonTerminalHash);
