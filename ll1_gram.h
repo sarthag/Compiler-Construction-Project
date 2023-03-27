@@ -22,5 +22,6 @@ void loadFirstFollow();
 void findFirst(lhs target);
 void findFollow(lhs start, rhs *target, rhs *temp, int rule);
 void computeFirstandFollow();
+void print_ff(int r);
 
 #endif
