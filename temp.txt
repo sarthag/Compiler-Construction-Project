@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<driver program>>>
 start
 	
@@ -11,3 +12,11 @@ end
 
 
 
+=======
+declare module mod1;
+<<<driver program>>>
+start
+    declare v, w, r :integer;
+    get_value(v);
+end
+>>>>>>> 20d485499075ec63ae5405631c475b0999e208be
