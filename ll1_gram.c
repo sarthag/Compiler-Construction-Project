@@ -218,12 +218,13 @@ void populate_grammar(){
 }
 
 
-void findFirst(lhs target){
+void findFirst(lhs target, int j){
     //printf("here %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
        
         First[target.lhs_id][temp->rhs_id] = 1;
+        firstRHS[j][temp->rhs_id] = 1;
         firstDone[target.lhs_id] = 1;
     }
     else{
@@ -232,13 +233,14 @@ void findFirst(lhs target){
             //printf("here: required first not done\n");
             for(int i = 0; i < NUM_OF_RULES; i++){
                 if(G[i].lhs_id == temp->rhs_id){                    
-                    findFirst(G[i]);;
+                    findFirst(G[i], i);
                 }
             }
         }
         for(int i = 0; i < NUM_OF_TERMINALS - 2; i++){
             if(First[temp->rhs_id][i] == 1){
                 First[target.lhs_id][i] = First[temp->rhs_id][i];
+                firstRHS[j][i] = First[temp->rhs_id][i];
             }
         }
         rhs * temp2 = temp->nextRHS;
@@ -247,13 +249,14 @@ void findFirst(lhs target){
             if(temp2 != NULL){
                 if(temp2->isTerminal == 1){
                     First[target.lhs_id][temp2->rhs_id] = 1;
+                    firstRHS[j][temp2->rhs_id] = 1;
                     break;
                 }
                 //printf("here: first nt has epsilon: %d\n", temp2->rhs_id);
                 if (firstDone[temp2->rhs_id] == 0){
                     for(int i = 0; i < NUM_OF_RULES; i++){
                         if(G[i].lhs_id == temp2->rhs_id){
-                            findFirst(G[i]);;
+                            findFirst(G[i], i);
                         }
                     }
                 }
@@ -262,6 +265,7 @@ void findFirst(lhs target){
                     if(First[temp2->rhs_id][i] == 1){
                         //printf("here");
                         First[target.lhs_id][i] = 1;
+                        firstRHS[j][i] = 1;
                     }
                 }
                 temp = temp2;
@@ -270,6 +274,7 @@ void findFirst(lhs target){
             else{
                 //printf("\n\nadding epsilon \n\n");
                 First[target.lhs_id][NUM_OF_TERMINALS-1] = 1;
+                firstRHS[j][NUM_OF_TERMINALS - 1] = 1;
                 break;
             }
         }
@@ -333,7 +338,7 @@ void findFollow(lhs start, rhs *target, rhs *temp, int rule){
 
 void computeFirstandFollow(){
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
-        findFirst(G[j]);
+        findFirst(G[j], j);
     }
 
     
@@ -534,7 +539,8 @@ int main(){
     populate_grammar();
     generateGrammar();
     computeFirstandFollow();
-    printf("%d ", First[0][NUM_OF_TERMINALS - 1]);
+    printf("%d \n", firstRHS[68][NUM_OF_TERMINALS - 1]);
+    printf("%d \n", firstRHS[67][NUM_OF_TERMINALS - 1]);
     return 0;
 }
 
