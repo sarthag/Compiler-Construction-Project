@@ -68,19 +68,16 @@ idList1 ID idList2
 idList2 COMMA ID idList2
 idList2 EPSILON
 expression arithmeticOrBooleanExpr u
-u unary_op new_NT
+u op1 new_NT
 new_NT BO arithmeticExpr BC 
 new_NT var_id_num
 var_id_num ID
 var_id_num NUM
 var_id_num RNUM
-unary_op PLUS
-unary_op MINUS
 arithmeticOrBooleanExpr anyTerm n1
 n1 logicalOp anyTerm n1
 n1 EPSILON 
 anyTerm arithmeticExpr n2
-anyTerm boolConstt
 n2 relationalOp arithmeticExpr 
 n2 EPSILON
 arithmeticExpr term n3
@@ -106,7 +103,7 @@ arrFactor ID
 arrFactor NUM
 arrFactor boolConstt
 arrFactor BO arrExpr BC
-element_index_with_expressions sign n6
+element_index_with_expressions op1 n6
 element_index_with_expressions arrExpr
 n6 new_index
 n6 BO arrExpr BC
@@ -135,8 +132,5 @@ default1 EPSILON
 iterativeStmt FOR BO ID IN range_for_loop BC START statements END
 iterativeStmt WHILE BO arithmeticOrBooleanExpr BC START statements END
 range_for_loop index_for_loop RANGEOP index_for_loop
-index_for_loop sign_for_loop new_index_for_loop
+index_for_loop sign new_index_for_loop
 new_index_for_loop NUM
-sign_for_loop PLUS 
-sign_for_loop MINUS 
-sign_for_loop EPSILON
