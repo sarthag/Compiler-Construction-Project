@@ -67,7 +67,8 @@ optional EPSILON
 idList1 ID idList2
 idList2 COMMA ID idList2
 idList2 EPSILON
-expression arithmeticOrBooleanExpr u
+expression arithmeticOrBooleanExpr 
+expression u
 u op1 new_NT
 new_NT BO arithmeticExpr BC 
 new_NT var_id_num

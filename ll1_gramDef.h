@@ -18,7 +18,7 @@
 #include "adt.h"
 
 #define MAX_LINE_LENGTH 300
-#define NUM_OF_RULES 136
+#define NUM_OF_RULES 137
 #define NUM_OF_TERMINALS 59
 #define NUM_OF_NONTERMINALS 73
 
