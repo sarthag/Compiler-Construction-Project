@@ -236,7 +236,7 @@ void findFirst(lhs target){
                 }
             }
         }
-        for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
+        for(int i = 0; i < NUM_OF_TERMINALS - 2; i++){
             if(First[temp->rhs_id][i] == 1){
                 First[target.lhs_id][i] = First[temp->rhs_id][i];
             }
@@ -258,7 +258,7 @@ void findFirst(lhs target){
                     }
                 }
                 //printf("\nrule found\n\n");
-                for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
+                for(int i = 0; i < NUM_OF_TERMINALS - 2; i++){
                     if(First[temp2->rhs_id][i] == 1){
                         //printf("here");
                         First[target.lhs_id][i] = 1;
@@ -533,36 +533,8 @@ void print_ff(int r){
 int main(){
     populate_grammar();
     generateGrammar();
-    loadFirstFollow();
-    populate_parse_table();
-
-    //to check if parse table works 
-    bool arr[NUM_OF_RULES] = {0};
-    for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-        // printf("NTNO: %d \n", i);
-        for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-            if(parse_table[i][j]!=-1){
-                if(arr[parse_table[i][j]]==0){
-                    arr[parse_table[i][j]]=1;
-                }
-            }
-        }
-    }
-    printf("\n Sus numbers\n");
-    for(int i = 0 ; i < NUM_OF_RULES ; i++){
-        if(arr[i] == 0){
-            printf("%d ", i+1);
-        }
-    }
-    printf("\n");
-
-    // for(int i = 0 ; i < NUM_OF_TERMINALS ; i++){
-    //         printf("%d ", parse_table[arrExpr][i]);
-    // }
-
-    printf("\ndone with parse table: %d", parse_table[default1][EPSILON]);
-
-
+    computeFirstandFollow();
+    printf("%d ", First[0][NUM_OF_TERMINALS - 1]);
     return 0;
 }
 
