@@ -32,7 +32,7 @@ void generateGrammar(){
         char *str;
         rhs *firstRHS = NULL;
         rhs *prev_rhs = NULL;
-        str=strtok(lineBuf, " \n");
+        str=strtok(lineBuf, " \t\r\n");
         for(int i = 0; str != NULL; i++){
             if(i==0){
                 //lhs non_terminal
@@ -66,7 +66,7 @@ void generateGrammar(){
                 prev_rhs = new_rhs;
                 
             }
-            str=strtok(NULL, " \n");
+            str=strtok(NULL, " \t\r\n");
         }
         G[rule_no].firstRHS = firstRHS;
         G[rule_no].lastRHS = prev_rhs;
@@ -138,6 +138,7 @@ void populate_grammar(){
     insertTerminal("WHILE", WHILE, terminalHash);
     insertTerminal("WITH", WITH, terminalHash);
     insertTerminal("EPSILON", EPSILON, terminalHash);
+
     //POPULATING NON TERMINALS TABLE 
     insertNonTerminal("actualParaList", actualParaList, nonTerminalHash);
     insertNonTerminal("anyTerm", anyTerm, nonTerminalHash);
@@ -182,6 +183,8 @@ void populate_grammar(){
     insertNonTerminal("n5", n5, nonTerminalHash);
     insertNonTerminal("n6", n6, nonTerminalHash);
     insertNonTerminal("n7", n7, nonTerminalHash);
+    insertNonTerminal("n8", n8, nonTerminalHash);
+    insertNonTerminal("n9", n9, nonTerminalHash);
     insertNonTerminal("new_NT", new_NT, nonTerminalHash);
     insertNonTerminal("new_index", new_index, nonTerminalHash);
     insertNonTerminal("new_index_for_loop", new_index_for_loop, nonTerminalHash);
@@ -198,16 +201,13 @@ void populate_grammar(){
     insertNonTerminal("relationalOp", relationalOp, nonTerminalHash);
     insertNonTerminal("ret", ret, nonTerminalHash);
     insertNonTerminal("sign", sign, nonTerminalHash);
-    insertNonTerminal("sign_for_loop", sign_for_loop, nonTerminalHash);
     insertNonTerminal("simpleStmt", simpleStmt, nonTerminalHash);
     insertNonTerminal("statement", statement, nonTerminalHash);
     insertNonTerminal("statements", statements, nonTerminalHash);
     insertNonTerminal("term", term, nonTerminalHash);
     insertNonTerminal("type", type, nonTerminalHash);
     insertNonTerminal("u", u, nonTerminalHash);
-    insertNonTerminal("unary_op", unary_op, nonTerminalHash);
     insertNonTerminal("value", value, nonTerminalHash);
-    //insertNonTerminal("var", var, nonTerminalHash);
     insertNonTerminal("var_id_num", var_id_num, nonTerminalHash);
     insertNonTerminal("var_print", var_print, nonTerminalHash);
     insertNonTerminal("valueIDStmt", valueIDStmt, nonTerminalHash);
@@ -216,12 +216,13 @@ void populate_grammar(){
 }
 
 
-void findFirst(lhs target){
+void findFirst(lhs target, int j){
     //printf("here %d\n", target.lhs_id);
     rhs *temp = target.firstRHS;
     if (temp->isTerminal == 1){
        
         First[target.lhs_id][temp->rhs_id] = 1;
+        firstRHS[j][temp->rhs_id] = 1;
         firstDone[target.lhs_id] = 1;
     }
     else{
@@ -230,13 +231,14 @@ void findFirst(lhs target){
             //printf("here: required first not done\n");
             for(int i = 0; i < NUM_OF_RULES; i++){
                 if(G[i].lhs_id == temp->rhs_id){                    
-                    findFirst(G[i]);;
+                    findFirst(G[i], i);
                 }
             }
         }
-        for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
+        for(int i = 0; i < NUM_OF_TERMINALS - 2; i++){
             if(First[temp->rhs_id][i] == 1){
                 First[target.lhs_id][i] = First[temp->rhs_id][i];
+                firstRHS[j][i] = First[temp->rhs_id][i];
             }
         }
         rhs * temp2 = temp->nextRHS;
@@ -245,21 +247,23 @@ void findFirst(lhs target){
             if(temp2 != NULL){
                 if(temp2->isTerminal == 1){
                     First[target.lhs_id][temp2->rhs_id] = 1;
+                    firstRHS[j][temp2->rhs_id] = 1;
                     break;
                 }
                 //printf("here: first nt has epsilon: %d\n", temp2->rhs_id);
                 if (firstDone[temp2->rhs_id] == 0){
                     for(int i = 0; i < NUM_OF_RULES; i++){
                         if(G[i].lhs_id == temp2->rhs_id){
-                            findFirst(G[i]);;
+                            findFirst(G[i], i);
                         }
                     }
                 }
                 //printf("\nrule found\n\n");
-                for(int i = 0; i < NUM_OF_TERMINALS - 1; i++){
+                for(int i = 0; i < NUM_OF_TERMINALS - 2; i++){
                     if(First[temp2->rhs_id][i] == 1){
                         //printf("here");
                         First[target.lhs_id][i] = 1;
+                        firstRHS[j][i] = 1;
                     }
                 }
                 temp = temp2;
@@ -268,6 +272,7 @@ void findFirst(lhs target){
             else{
                 //printf("\n\nadding epsilon \n\n");
                 First[target.lhs_id][NUM_OF_TERMINALS-1] = 1;
+                firstRHS[j][NUM_OF_TERMINALS - 1] = 1;
                 break;
             }
         }
@@ -331,7 +336,7 @@ void findFollow(lhs start, rhs *target, rhs *temp, int rule){
 
 void computeFirstandFollow(){
     for(int j = NUM_OF_RULES - 1; j >= 0; j--){
-        findFirst(G[j]);
+        findFirst(G[j], j);
     }
 
     
@@ -365,64 +370,90 @@ void computeFirstandFollow(){
 
 void populate_parse_table(){
     //populate the table with -1 
-    for(int i=0;i<NUM_OF_NONTERMINALS;i++){
-        for(int j=0;j< NUM_OF_TERMINALS;j++){
-            parse_table[i][j]=-1;
+    for(int i=0; i<NUM_OF_NONTERMINALS; i++){
+        for(int j=0; j<NUM_OF_TERMINALS; j++){
+            parse_table[i][j] = -1;
         }
     }
-    for(int i=0;i<NUM_OF_RULES;i++){
-        int eps= getTokenFromTTable("EPSILON", terminalHash);
-        if(G[i].firstRHS->isTerminal==1){
+    for(int i=0; i<NUM_OF_RULES; i++){
+        int eps = getTokenFromTTable("EPSILON", terminalHash);
+        if(G[i].firstRHS->isTerminal == 1){
             //if it's a TERMINAL
-            if(G[i].firstRHS->rhs_id!=eps && parse_table[G[i].lhs_id][i]==-1){
-                parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id]=i;
-            }
-            else{
-                for(int k=0;k<NUM_OF_TERMINALS;k++){
-                    parse_table[G[i].lhs_id][eps] = i;
-                    if(Follow[G[i].lhs_id][k]==1 && parse_table[G[i].lhs_id][k]==-1){
-                        parse_table[G[i].lhs_id][k] = i;
-                    }
+            if(G[i].firstRHS->rhs_id != eps){
+                
+                if(parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id] == -1){
+                    parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id] = i;
+                }
+
+                else{
+                    printf("CLASH1: %d and %d\n", parse_table[G[i].lhs_id][G[i].firstRHS->rhs_id]+1, i+1);
                 }
             }
-            
+
+            else{ //directly derives EPSILON
+                for(int k=0; k<NUM_OF_TERMINALS; k++){
+                    parse_table[G[i].lhs_id][eps] = i;
+                    
+                    if(Follow[G[i].lhs_id][k] == 1){
+                        if(parse_table[G[i].lhs_id][k] == -1 || parse_table[G[i].lhs_id][k] == i){
+                            parse_table[G[i].lhs_id][k] = i;
+                        }
+
+                        else{
+                                printf("CLASH2: %d and %d\n", parse_table[G[i].lhs_id][k]+1, i+1);
+                                print_ff(parse_table[G[i].lhs_id][k]);
+                                print_ff(i);
+                                printf("\n");
+                        }
+                    }
+                }
+            }            
         }
+
         else{
             //is a nt
             for(int j = 0; j < NUM_OF_TERMINALS-1; j++){
-                if (First[G[i].firstRHS->rhs_id][j] == 1 && parse_table[G[i].lhs_id][j]==-1){
-                    if(parse_table[G[i].lhs_id][j] == -1){
+                if (firstRHS[i][j] == 1){
+                    if(parse_table[G[i].lhs_id][j] == -1 || parse_table[G[i].lhs_id][j] == i){
                         parse_table[G[i].lhs_id][j] = i;
                     }
-                    
+
+                    else{
+                        printf("CLASH3: %d and %d\n", parse_table[G[i].lhs_id][j]+1, i+1);
+                        print_ff(parse_table[G[i].lhs_id][j]);
+                        print_ff(i);
+                        printf("\n");
+                    }            
                 }
             }
 
-            rhs* r = G[i].firstRHS;
+            // rhs* r = G[i].firstRHS;
 
 
-            if(First[r->rhs_id][eps]==1){
+            if(firstRHS[i][eps] == 1){
                 //if the first set contains epsilon populate with follow
-                for(int k=0;k<NUM_OF_TERMINALS-1;k++){
-                    if(Follow[G[i].lhs_id][k]==1 && parse_table[G[i].lhs_id][k]==-1){
-                        parse_table[G[i].lhs_id][k] = i;
-                    }
-                }
-
-                while(First[r->rhs_id][eps] == 1 && r->nextRHS != NULL){
-                    r = r->nextRHS;
-                    for(int l=0; l<NUM_OF_TERMINALS-1; l++){
-                        if(parse_table[G[i].lhs_id][l]==-1){
-                            parse_table[G[i].lhs_id][l] = i; 
+                for(int k=0; k<NUM_OF_TERMINALS-1; k++){
+                    if(Follow[G[i].lhs_id][k] == 1){
+                        if(parse_table[G[i].lhs_id][k] == -1 || parse_table[G[i].lhs_id][k] == i){
+                            parse_table[G[i].lhs_id][k] = i;
                         }
-                        
+
+                        else{
+                           printf("CLASH4: %d and %d\n", parse_table[G[i].lhs_id][k]+1, i+1); 
+                        }
                     }
                 }
+
+                // while(First[r->rhs_id][eps] == 1 && r->nextRHS != NULL){
+                //     r = r->nextRHS;
+                //     for(int l=0; l<NUM_OF_TERMINALS-1; l++){
+                //         if(parse_table[G[i].lhs_id][l] == -1){
+                //             parse_table[G[i].lhs_id][l] = i; 
+                //         }                        
+                //     }
+                // }
             }
-
-
-        }
-        
+        } 
     }
     int ctr = 0;
 }
@@ -486,39 +517,63 @@ void printGrammar(){
     }
 }
 
-// int main(){
-//     populate_grammar();
-//     generateGrammar();
-//     loadFirstFollow();
-//     populate_parse_table();
+void print_ff(int r){
+    printf("For rule %d:\n", r+1);
+    printf("Firsts: ");
+    for(int i=0; i<NUM_OF_TERMINALS; i++){
+        if(firstRHS[r][i]==1){
+            printf("%d, ", i);
+        }
+    }
+    printf("\n");
+    printf("Follows: ");
+    for(int i=0; i<NUM_OF_TERMINALS; i++){
+        if(Follow[G[r].lhs_id][i]==1){
+            printf("%d, ", i);
+        }
+    }
+    printf("\n");
+}
 
-//     //to check if parse table works 
-//     bool arr[NUM_OF_RULES] = {0};
-//     for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-//         // printf("NTNO: %d \n", i);
-//         for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-//             if(parse_table[i][j]!=-1){
-//                 if(arr[parse_table[i][j]]==0){
-//                     arr[parse_table[i][j]]=1;
-//                 }
-//             }
-//         }
-//     }
-//     printf("\n Sus numbers\n");
-//     for(int i = 0 ; i < NUM_OF_RULES ; i++){
-//         if(arr[i] == 0){
-//             printf("%d ", i+1);
-//         }
-//     }
+int main(){
+    populate_grammar();
+    generateGrammar();
+    computeFirstandFollow();
+    populate_parse_table();
 
-//     for(int i = 0 ; i < NUM_OF_TERMINALS ; i++){
-//             printf("%d ", parse_table[arrExpr][i]);
-//     }
+    //to check if parse table works 
+    bool arr[NUM_OF_RULES] = {0};
+    for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
+        // printf("NTNO: %d \n", i);
+        for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
+            if(parse_table[i][j]!=-1){
+                if(arr[parse_table[i][j]]==0){
+                    arr[parse_table[i][j]]=1;
+                }
+            }
+        }
+    }
+    printf("\n Sus numbers\n");
+    for(int i = 0 ; i < NUM_OF_RULES ; i++){
+        if(arr[i] == 0){
+            printf("%d ", i+1);
+        }
+    }
+    printf("\n");
 
-//     printf("\ndone with parse table: %d", parse_table[default1][EPSILON]);
+    // for(int i=0; i<NUM_OF_NONTERMINALS; i++){
+    //     for(int j=0; j<NUM_OF_TERMINALS; j++){
+    //         printf("%d ", parse_table[i][j]);
+    //     }
+    //     printf("\n");
+    // }
 
-//     return 0;
-// }
+    // for(int i = 0 ; i < NUM_OF_TERMINALS ; i++){
+    //         printf("%d ", parse_table[arrExpr][i]);
+    // }
+
+    return 0;
+}
 
 
 

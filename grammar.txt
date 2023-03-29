@@ -15,6 +15,9 @@ input_plist2 EPSILON
 output_plist1 ID COLON type output_plist2
 output_plist2 COMMA ID COLON type output_plist2
 output_plist2 EPSILON
+dataType INTEGER 
+dataType REAL
+dataType BOOLEAN
 dataType ARRAY SQBO range_arrays SQBC OF type
 range_arrays index_arr RANGEOP index_arr
 type INTEGER 
@@ -31,14 +34,11 @@ ioStmt GET_VALUE BO ID BC SEMICOL
 ioStmt PRINT BO var_print BC SEMICOL
 boolConstt TRUE
 boolConstt FALSE 
-id_num_rnum ID
-id_num_rnum NUM 
-id_num_rnum RNUM
 var_print boolConstt
 var_print ID p1
 var_print NUM
 var_print RNUM
-p1 SQBO new_index SQBC
+p1 SQBO sign new_index SQBC
 p1 EPSILON 
 simpleStmt assignmentStmt moduleReuseStmt
 assignmentStmt ID whichStmt
@@ -53,10 +53,13 @@ sign PLUS
 sign MINUS
 sign EPSILON
 moduleReuseStmt optional USE MODULE ID WITH PARAMETERS actualParaList SEMICOL
-actualParaList NUM
-actualParaList RNUM
-actualParaList boolConstt
-actualParaList ID n7
+actualParaList sign n8 n9
+n8 NUM 
+n8 RNUM 
+n8 boolConstt 
+n8 ID n7
+n9 COMMA sign n8 n9 
+n9 EPSILON
 n7 SQBO element_index_with_expressions SQBC
 n7 EPSILON
 optional SQBO idList1 SQBC ASSIGNOP
@@ -64,15 +67,14 @@ optional EPSILON
 idList1 ID idList2
 idList2 COMMA ID idList2
 idList2 EPSILON
-expression arithmeticOrBooleanExpr u
-u unary_op new_NT
+expression arithmeticOrBooleanExpr 
+expression u
+u op1 new_NT
 new_NT BO arithmeticExpr BC 
 new_NT var_id_num
 var_id_num ID
 var_id_num NUM
 var_id_num RNUM
-unary_op PLUS
-unary_op MINUS
 arithmeticOrBooleanExpr anyTerm n1
 n1 logicalOp anyTerm n1
 n1 EPSILON 
@@ -102,7 +104,7 @@ arrFactor ID
 arrFactor NUM
 arrFactor boolConstt
 arrFactor BO arrExpr BC
-element_index_with_expressions sign n6
+element_index_with_expressions op1 n6
 element_index_with_expressions arrExpr
 n6 new_index
 n6 BO arrExpr BC
@@ -131,8 +133,5 @@ default1 EPSILON
 iterativeStmt FOR BO ID IN range_for_loop BC START statements END
 iterativeStmt WHILE BO arithmeticOrBooleanExpr BC START statements END
 range_for_loop index_for_loop RANGEOP index_for_loop
-index_for_loop sign_for_loop new_index_for_loop
+index_for_loop sign new_index_for_loop
 new_index_for_loop NUM
-sign_for_loop PLUS 
-sign_for_loop MINUS 
-sign_for_loop EPSILON

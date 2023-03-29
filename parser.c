@@ -48,8 +48,8 @@ bool follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{0,0,0,1}, {0,1,1,0}, {0
 void synchronization_set(){
     token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
 
-    for(int i=0; i<=NUM_OF_NONTERMINALS; i++){
-        for(int j=0; j<=NUM_OF_TERMINALS; j++){
+    for(int i=0; i<NUM_OF_NONTERMINALS; i++){
+        for(int j=0; j<NUM_OF_TERMINALS; j++){
             sync_set[i][j] = (j == semicol) || (j == bc) || (j == sqbc) || First[i][j] || Follow[i][j];
         }
     }

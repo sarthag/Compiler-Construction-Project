@@ -65,7 +65,7 @@ stack_node* pop(stack* s) {
     stack_node* top_node = s->top;
     stack_node* temp = top_node;
     s->top = s->top->next;
-    free(top_node);
+    //free(top_node);
     s->size--;
 
     return temp;
@@ -157,7 +157,7 @@ void delete_node(tree_node *node) {
     if (node->right_sibling != NULL) {
         delete_node(node->right_sibling);
     }
-    free(node);
+    //free(node);
 }
 
 void inorder_traversal(tree_node *node, FILE* fp) {
