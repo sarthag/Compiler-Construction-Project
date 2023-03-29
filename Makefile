@@ -1,6 +1,5 @@
 stage1exe: parser.o driver.o grammarHash.o adt.o ll1_gram.o lexer.o keywordTable.o
 	gcc -o stage1exe parser.o driver.o grammarHash.o adt.o ll1_gram.o lexer.o keywordTable.o
-	./exe 
 parser.o: parser.c 
 	gcc -c parser.c
 driver.o : driver.c

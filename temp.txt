@@ -1,6 +1,14 @@
-declare module mod1;
 <<<driver program>>>
 start
-    declare v, w, r :integer;
-    get_value(v);
+	
 end
+<<module empty>>
+takes input[a:boolean];
+start
+
+end
+
+
+
+
+ù®’T
