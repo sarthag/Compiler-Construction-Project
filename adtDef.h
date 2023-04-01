@@ -69,6 +69,7 @@ typedef struct tree_node {
     struct tree_node *parent;
     struct tree_node *left_child;
     struct tree_node *right_sibling;
+    int rule;
     int is_visited;
 } tree_node;
 

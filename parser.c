@@ -123,7 +123,9 @@ void parse_code(){
                 //printf("x -> treeLocation is NULL after pop?: %d\n", x->treeLocation== NULL);
                 // printStack(parserStack);
                 // printf("%d %d %d\n", x->element.nt.nid, L->tid, G[parse_table[x->element.nt.nid][L->tid]].lastRHS->rhs_id);
-                rhs* toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS; 
+                rhs* toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS;
+                int ruleNo = parse_table[x->element.nt.nid][L->tid];
+                x->treeLocation->rule = ruleNo;
                 //printf("x -> treeLocation is NULL after rhs?: %d\n", x->treeLocation== NULL);
 
                 while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON)

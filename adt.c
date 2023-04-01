@@ -107,6 +107,7 @@ tree_node *create_node(node_type type, int id) {
     else {
         new_node->element.nt = *(non_terminal*)element;
     }
+    new_node->rule = -1;
     new_node->parent = NULL;
     new_node->left_child = NULL;
     new_node->right_sibling = NULL;
