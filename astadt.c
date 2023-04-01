@@ -1,6 +1,6 @@
 #include "astadt.h"
 
-void initStack(astStack* s) {
+void initASTStack(astStack* s) {
     s->top = NULL;
     s->size = 0; 
 }
@@ -40,7 +40,31 @@ ast *createSyntaxTree() {
     return tree;
 }
 
-astNode* createASTNode(labels label, int rule_no, int childast, int )
+astNode* createASTNode(labels label, int rule_no){
+    astNode *new = (astNode*) malloc(sizeof(astNode));
+    new -> rule_no = rule_no; 
+
+  
+    new->parent = NULL; 
+    new->child.leftChild = NULL; 
+    new->sibling.parseTreeSib = NULL; 
+
+    return new; 
+}
+
+
+void insertASTchild(astNode *parent, astNode* child){
+    child -> parent = parent; 
+
+
+}
+
+
+void insertPTchild(astNode *parent, tree_node* child) {
+
+}
+
+
 
 
 
