@@ -29,7 +29,7 @@ typedef struct ast{
 // Stack
 
 typedef struct astStackNode {
-    struct astNode *treeloc;
+    struct tree_node *treeloc;
     struct astStackNode *next;
 } astStackNode;
 
