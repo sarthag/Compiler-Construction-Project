@@ -46,8 +46,8 @@ astNode* createASTNode(labels label, int rule_no){
 
   
     new->parent = NULL; 
-    new->child.leftChild = NULL; 
-    new->sibling.parseTreeSib = NULL; 
+    new->leftChild = NULL; 
+    new->rightSibling = NULL; 
 
     return new; 
 }
@@ -56,17 +56,36 @@ astNode* createASTNode(labels label, int rule_no){
 void insertASTchild(astNode *parent, astNode* child){
     child -> parent = parent; 
 
-
+    if (parent->leftChild == NULL) {
+        parent->leftChild = child;
+    } 
+    
+    else {
+        astNode *sibling = parent->leftChild;
+        while (sibling->rightSibling != NULL) {
+            sibling = sibling->rightSibling;
+        }
+        sibling->rightSibling = child;
+    }
 }
 
 
-void insertPTchild(astNode *parent, tree_node* child) {
-
+void setASTSibling(astNode *node, astNode *sibling) {
+    sibling->parent = node->parent;
+    if (node->rightSibling == NULL) {
+        node->rightSibling = sibling;
+    }
+    else {
+        set_sibling(node->rightSibling, sibling);
+    }
 }
 
 
-
-
-
-
-
+void setASTparent(astNode *node, astNode *parent) {
+    if (node != NULL) {
+        node->rightSibling = NULL;
+        if (parent != NULL) {
+            insert_child(parent, node);
+        }
+    }
+}

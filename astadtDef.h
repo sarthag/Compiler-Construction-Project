@@ -16,16 +16,8 @@ typedef struct astNode{
     int sibast;
 
     struct astNode *parent; 
-    
-    union{
     struct astNode *leftChild;
-    struct tree_node *parseTreeChild;
-    }child;
-
-    union{
-    struct astNode *rightSibling;
-    struct tree_node *parseTreeSib;
-    }sibling;  
+    struct astNode *rightSibling; 
 } astNode; 
 
 
