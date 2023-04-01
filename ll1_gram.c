@@ -535,45 +535,45 @@ void print_ff(int r){
     printf("\n");
 }
 
-int main(){
-    populate_grammar();
-    generateGrammar();
-    computeFirstandFollow();
-    populate_parse_table();
+// int main(){
+//     populate_grammar();
+//     generateGrammar();
+//     computeFirstandFollow();
+//     populate_parse_table();
 
-    //to check if parse table works 
-    bool arr[NUM_OF_RULES] = {0};
-    for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-        // printf("NTNO: %d \n", i);
-        for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-            if(parse_table[i][j]!=-1){
-                if(arr[parse_table[i][j]]==0){
-                    arr[parse_table[i][j]]=1;
-                }
-            }
-        }
-    }
-    printf("\n Sus numbers\n");
-    for(int i = 0 ; i < NUM_OF_RULES ; i++){
-        if(arr[i] == 0){
-            printf("%d ", i+1);
-        }
-    }
-    printf("\n");
+//     //to check if parse table works 
+//     bool arr[NUM_OF_RULES] = {0};
+//     for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
+//         // printf("NTNO: %d \n", i);
+//         for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
+//             if(parse_table[i][j]!=-1){
+//                 if(arr[parse_table[i][j]]==0){
+//                     arr[parse_table[i][j]]=1;
+//                 }
+//             }
+//         }
+//     }
+//     printf("\n Sus numbers\n");
+//     for(int i = 0 ; i < NUM_OF_RULES ; i++){
+//         if(arr[i] == 0){
+//             printf("%d ", i+1);
+//         }
+//     }
+//     printf("\n");
 
-    // for(int i=0; i<NUM_OF_NONTERMINALS; i++){
-    //     for(int j=0; j<NUM_OF_TERMINALS; j++){
-    //         printf("%d ", parse_table[i][j]);
-    //     }
-    //     printf("\n");
-    // }
+//     // for(int i=0; i<NUM_OF_NONTERMINALS; i++){
+//     //     for(int j=0; j<NUM_OF_TERMINALS; j++){
+//     //         printf("%d ", parse_table[i][j]);
+//     //     }
+//     //     printf("\n");
+//     // }
 
-    // for(int i = 0 ; i < NUM_OF_TERMINALS ; i++){
-    //         printf("%d ", parse_table[arrExpr][i]);
-    // }
+//     // for(int i = 0 ; i < NUM_OF_TERMINALS ; i++){
+//     //         printf("%d ", parse_table[arrExpr][i]);
+//     // }
 
-    return 0;
-}
+//     return 0;
+// }
 
 
 
