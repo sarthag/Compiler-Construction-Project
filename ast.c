@@ -9,10 +9,12 @@
 // ------------------------------------------------
 
 /*How to go about building an AST:
-1.Pick the node
-2. Do something
-3. Push its children on the stack
-4. Do something*/
+0)The AST node needs to be changed to include a list attribute which points to head of the list -> need to make a new structure called listhead
+1)Top down apporoach creating a node and pushing it onto the stack
+2)Bottom up approach has different categories for which we use the switch case
+3)Each switch case will have the ast rules for that rule
+4)Remember to malloc everything in step 1 so that we dont get bt with free
+*/
 #include "ast.h"
 
 void initAST(){
