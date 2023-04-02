@@ -13,7 +13,7 @@
 #define AST_H 
 
 #include "astDef.h"
-
+void createAST(int rule);
 
 
 #endif

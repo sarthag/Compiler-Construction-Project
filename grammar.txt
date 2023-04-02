@@ -40,7 +40,8 @@ var_print NUM
 var_print RNUM
 p1 SQBO sign new_index SQBC
 p1 EPSILON 
-simpleStmt assignmentStmt moduleReuseStmt
+simpleStmt assignmentStmt 
+simpleStmt moduleReuseStmt
 assignmentStmt ID whichStmt
 whichStmt valueIDStmt
 whichStmt valueARRStmt

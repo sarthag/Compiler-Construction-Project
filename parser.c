@@ -104,6 +104,7 @@ void parse_code(){
         printf("\nBEFORE:");
         printStack(parserStack);
         printf("L -> tkid : %d\n:",L ->tid);
+        printf("Line No:%d\n",L->line_no);
         stack_node* x = parserStack->top;
         if (x->type == TERMINAL){
             printf("Rule No: %d\n",(parse_table[L ->tid][x->element.t.tid])+1);

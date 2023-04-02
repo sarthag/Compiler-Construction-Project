@@ -8,7 +8,11 @@
 // SHREYAS SESHAM 2020A7PS1684P
 // ------------------------------------------------
 
-
+/*How to go about building an AST:
+1.Pick the node
+2. Do something
+3. Push its children on the stack
+4. Do something*/
 #include "ast.h"
 
 void initAST(){
@@ -16,10 +20,10 @@ void initAST(){
     initASTStack(syntaxStack);
     syntaxTree = createSyntaxTree();
     int rule = parseTree->root->rule;
-    ASTrules(rule);
+    createAST(rule);
 }
 
-ASTrules(int rule){
+void createAST(int rule){
     switch (rule)
     {
     case 0:
