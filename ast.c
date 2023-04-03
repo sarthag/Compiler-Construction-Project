@@ -36,3 +36,7 @@ void createAST(int rule){
         break;
     }
 }
+
+void topDownPass(astStack *stack){
+    ;
+} 

@@ -6,7 +6,7 @@
 void initASTStack(astStack* s);
 astStackNode* createastStackNode(tree_node *treeloc);
 void pushast(astStack* s, tree_node *treeloc);
-void popast(astStack* s);
+astStackNode* popast(astStack* s);
 
 
 ast *createSyntaxTree();

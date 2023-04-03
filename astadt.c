@@ -20,7 +20,7 @@ void pushast(astStack* s, tree_node *treeloc){
     s->top = node;
 }
 
-void popast(astStack* s){
+astStackNode* popast(astStack* s){
     if (s->size == 0) {
         return NULL;
     }
@@ -46,8 +46,8 @@ astNode* createASTNode(labels label, int rule_no){
 
   
     new->parent = NULL; 
-    new->leftChild = NULL; 
-    new->rightSibling = NULL; 
+    new->child.leftChild = NULL; 
+    new->nextElm.rightSibling = NULL; 
 
     return new; 
 }
@@ -56,36 +56,36 @@ astNode* createASTNode(labels label, int rule_no){
 void insertASTchild(astNode *parent, astNode* child){
     child -> parent = parent; 
 
-    if (parent->leftChild == NULL) {
-        parent->leftChild = child;
+    if (parent->child.leftChild == NULL) {
+        parent->child.leftChild = child;
     } 
     
     else {
-        astNode *sibling = parent->leftChild;
-        while (sibling->rightSibling != NULL) {
-            sibling = sibling->rightSibling;
+        astNode *sibling = parent->child.leftChild;
+        while (sibling->nextElm.rightSibling != NULL) {
+            sibling = sibling->nextElm.rightSibling;
         }
-        sibling->rightSibling = child;
+        sibling->nextElm.rightSibling = child;
     }
 }
 
 
 void setASTSibling(astNode *node, astNode *sibling) {
     sibling->parent = node->parent;
-    if (node->rightSibling == NULL) {
-        node->rightSibling = sibling;
+    if (node->nextElm.rightSibling == NULL) {
+        node->nextElm.rightSibling = sibling;
     }
     else {
-        set_sibling(node->rightSibling, sibling);
+        setASTSibling(node->nextElm.rightSibling, sibling);
     }
 }
 
 
 void setASTparent(astNode *node, astNode *parent) {
     if (node != NULL) {
-        node->rightSibling = NULL;
+        node->nextElm.rightSibling = NULL;
         if (parent != NULL) {
-            insert_child(parent, node);
+            insertASTchild(parent, node);
         }
     }
 }
