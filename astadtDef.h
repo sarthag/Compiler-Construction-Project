@@ -4,20 +4,14 @@
 #include "parser.h"
 
 
-typedef enum {
-   LABEL
-} labels;
-
-
 typedef struct astNode{
-    labels label; 
+    //labels label;
+    char* label[25]; 
     int rule_no;
-    int childast;
-    int sibast;
     
     int isHead; //0- Child | 1-ListHead 
-    int isListElm; //0- sibiling | 1-list Element 
-    
+    int isList; //0- sibiling | 1-list Element 
+
     struct astNode *parent; 
     union{
         struct astNode *leftChild;

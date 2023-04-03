@@ -42,6 +42,9 @@ astNode* topDownPass(astNode* parent, tree_node *root){
         return;
     }
     astNode* temp = (astNode*)malloc(sizeof(astNode));
+    //check if it is a list node or if it is an irrelevant terminal - using a binary array for each of them 
+
+    //set the rest of the attributes of temp - rule no, tree pointer, etc 
     temp->parent=parent;
     temp->child.leftChild= topDownPass(temp, root->left_child);
     tree_node* temp1= root->left_child;
