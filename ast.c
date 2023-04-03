@@ -37,6 +37,24 @@ void createAST(int rule){
     }
 }
 
-void topDownPass(astStack *stack){
-    ;
+astNode* topDownPass(astNode* parent, tree_node *root){
+    if(root==NULL){
+        return;
+    }
+    astNode* temp = (astNode*)malloc(sizeof(astNode));
+    temp->parent=parent;
+    temp->child.leftChild= topDownPass(temp, root->left_child);
+    tree_node* temp1= root->left_child;
+    astNode* nextChild= temp->child.leftChild;
+    while(temp1->right_sibling!=NULL){
+        temp1=temp1->right_sibling;
+        nextChild->sibast= topDownPass(temp, temp1);
+    }
+    if(root == parseTree-> root){
+        syntaxTree->root = temp;
+    }
 } 
+
+int main(){
+
+}
