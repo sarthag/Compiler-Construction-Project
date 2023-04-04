@@ -6,7 +6,13 @@
 
 typedef struct astNode{
     //labels label;
-    char* label[25]; 
+    union {
+        non_terminal nt;
+        token t;
+    }name;
+
+    node_type nodeType;
+
     int rule_no;
     
     int typeId;
@@ -19,7 +25,7 @@ typedef struct astNode{
         listHead *head;
     } type;
     
-    struct treenode *pt;
+    tree_node *pt;
 } astNode; 
 
 

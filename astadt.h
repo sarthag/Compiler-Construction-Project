@@ -10,7 +10,7 @@ astStackNode* popast(astStack* s);
 
 
 ast *createSyntaxTree();
-astNode* createASTNode(labels label, int rule_no);
+astNode* createASTNode(node_type nodeType,int rule_no, int typeID,tree_node* pTNode);
 void insertASTchild(astNode *parent, astNode* child);
 void setASTSibling(astNode *node, astNode *sibling);
 void setASTparent(astNode *node, astNode *parent) ;

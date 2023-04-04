@@ -40,21 +40,30 @@ ast *createSyntaxTree() {
     return tree;
 }
 
-astNode* createASTNode(char* label, int rule_no, int type){
+astNode* createASTNode(node_type nodeType,int rule_no, int typeID,tree_node* pTNode){
     astNode *new = (astNode*) malloc(sizeof(astNode));
     new -> rule_no = rule_no; 
-    new->typeId = type;
-  
+    new->typeId = typeID;
+    new ->pt = pTNode;
+    if(pTNode -> type == TERMINAL){
+        new -> nodeType= TERMINAL;
+        new -> name.t.tid = pTNode ->element.t.tid;
+
+    }
+    else if(pTNode -> type == NON_TERMINAL){
+        new -> nodeType = NON_TERMINAL;
+        new -> name.nt.nid = pTNode -> element.nt.nid;
+    }
     new->parent = NULL;
-    if (type == 0){
+    if (typeID == 0){
         new->type.reg->leftChild = NULL; 
         new->rightSibling = NULL;
     }
-    if (type == 2){
+    if (typeID == 2){
         new->rightSibling = NULL; 
         new->type.listNode->prevElm = NULL;
     } 
-    if (type == 1){
+    if (typeID == 1){
         new->type.head->leftChild = NULL; 
         new->rightSibling = NULL;
         new->type.head->firstNode = NULL;

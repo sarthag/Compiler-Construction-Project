@@ -24,7 +24,7 @@ void populateLabels(){
     token_key tk;
     for(int i=0; i<NUM_OF_RELAVENT; i++){
         tk = getTokenFromTTable(relavent[i], terminalHash);
-        lables[tk] = 1; 
+        labels[tk] = 1; 
     }
 }
 
