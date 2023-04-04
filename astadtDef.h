@@ -9,26 +9,30 @@ typedef struct astNode{
     char* label[25]; 
     int rule_no;
     
-    int isHead; //0- Child | 1-ListHead 
-    int isList; //0- sibiling | 1-list Element 
+    int typeId;
 
-    struct astNode *parent; 
+    struct astNode *parent;
+    struct astNode *rightSibling; 
     union{
-        struct astNode *leftChild;
-        struct listHead *head;
-    }child;
-
-    union{
-        struct astNode *rightSibling; 
-        struct astNode *nextList; 
-    }nextElm;
+        regNode *reg;
+        listElm *listNode;
+        listHead *head;
+    } type;
     
     struct treenode *pt;
 } astNode; 
 
+
+typedef struct regNode{
+    struct astNode *leftChild;
+}regNode;
+typedef struct listElm{
+    struct listElm *prevElm;
+}listElm;
 typedef struct listHead{
-    struct astNode *firstNode; //points to the first element of the list 
-    struct astNode *lastNode; //points to the last element of the list 
+    struct astNode *leftChild;
+    struct listElm *firstNode; //points to the first element of the list 
+    struct listElm *lastNode; //points to the last element of the list 
 } listHead;
 
 typedef struct ast{

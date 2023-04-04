@@ -40,52 +40,83 @@ ast *createSyntaxTree() {
     return tree;
 }
 
-astNode* createASTNode(labels label, int rule_no){
+astNode* createASTNode(char* label, int rule_no, int type){
     astNode *new = (astNode*) malloc(sizeof(astNode));
     new -> rule_no = rule_no; 
-
+    new->typeId = type;
   
-    new->parent = NULL; 
-    new->child.leftChild = NULL; 
-    new->nextElm.rightSibling = NULL; 
+    new->parent = NULL;
+    if (type == 0){
+        new->type.reg->leftChild = NULL; 
+        new->rightSibling = NULL;
+    }
+    if (type == 2){
+        new->rightSibling = NULL; 
+        new->type.listNode->prevElm = NULL;
+    } 
+    if (type == 1){
+        new->type.head->leftChild = NULL; 
+        new->rightSibling = NULL;
+        new->type.head->firstNode = NULL;
+        new->type.head->lastNode = NULL;
+    } 
+ 
 
     return new; 
 }
 
 
-void insertASTchild(astNode *parent, astNode* child){
+void insertASTchild(astNode *parent, astNode* child, int parentType){
     child -> parent = parent; 
 
-    if (parent->child.leftChild == NULL) {
-        parent->child.leftChild = child;
-    } 
-    
-    else {
-        astNode *sibling = parent->child.leftChild;
-        while (sibling->nextElm.rightSibling != NULL) {
-            sibling = sibling->nextElm.rightSibling;
+    switch (parentType)
+    {
+    case 0:
+        if(parent->type.reg->leftChild == NULL){
+            parent->type.reg->leftChild = child;
         }
-        sibling->nextElm.rightSibling = child;
+        else{
+            astNode *temp = parent->type.reg->leftChild;
+            while(temp->rightSibling != NULL){
+                temp = temp->rightSibling;
+            }
+            temp->rightSibling = child;
+        }
+        break;
+    case 1:
+        if (parent->type.head->leftChild == NULL){
+            parent->type.reg->leftChild = child;
+        }
+        else{
+            astNode *temp = parent->type.head->leftChild;
+            while(temp->rightSibling != NULL){
+                temp = temp->rightSibling;
+            }
+            temp->rightSibling = child;
+        }
+    default:
+        print("error: parent invalid");
+        break;
     }
 }
 
 
 void setASTSibling(astNode *node, astNode *sibling) {
     sibling->parent = node->parent;
-    if (node->nextElm.rightSibling == NULL) {
-        node->nextElm.rightSibling = sibling;
+    if (node->rightSibling == NULL) {
+        node->rightSibling = sibling;
     }
     else {
-        setASTSibling(node->nextElm.rightSibling, sibling);
+        setASTSibling(node->rightSibling, sibling);
     }
 }
 
 
 void setASTparent(astNode *node, astNode *parent) {
     if (node != NULL) {
-        node->nextElm.rightSibling = NULL;
+        node->rightSibling = NULL;
         if (parent != NULL) {
-            insertASTchild(parent, node);
+            insertASTchild(parent, node, parent->typeId);
         }
     }
 }
