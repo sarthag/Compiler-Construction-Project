@@ -15,6 +15,9 @@
 3)Each switch case will have the ast rules for that rule
 4)Remember to malloc everything in step 1 so that we dont get bt with free
 */
+
+// type - 0 is regNode, 1 is listHead, 2 is listElm
+
 #include "ast.h"
 
 void initAST(){
@@ -45,13 +48,13 @@ astNode* topDownPass(astNode* parent, tree_node *root){
     //check if it is a list node or if it is an irrelevant terminal - using a binary array for each of them 
 
     //set the rest of the attributes of temp - rule no, tree pointer, etc 
-    temp->parent=parent;
-    temp->child.leftChild= topDownPass(temp, root->left_child);
+    temp->parent=set_parent();
+    temp->type.reg->leftChild = topDownPass(temp, root->left_child);
     tree_node* temp1= root->left_child;
     astNode* nextChild= temp->child.leftChild;
     while(temp1->right_sibling!=NULL){
         temp1=temp1->right_sibling;
-        nextChild->sibast= topDownPass(temp, temp1);
+        nextChild->nextElm.rightSibling = topDownPass(temp, temp1);
     }
     if(root == parseTree-> root){
         syntaxTree->root = temp;
