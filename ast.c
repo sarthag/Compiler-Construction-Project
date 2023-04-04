@@ -20,9 +20,18 @@
 
 #include "ast.h"
 
+void populateLabels(){
+    token_key tk;
+    for(int i=0; i<NUM_OF_RELAVENT; i++){
+        tk = getTokenFromTTable(relavent[i], terminalHash);
+        lables[tk] = 1; 
+    }
+}
+
 void initAST(){
     astStack* syntaxStack = (astStack*) malloc(sizeof(astStack));
     initASTStack(syntaxStack);
+    populateLabels();
     syntaxTree = createSyntaxTree();
     int rule = parseTree->root->rule;
     createAST(rule);

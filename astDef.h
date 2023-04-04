@@ -19,4 +19,10 @@
 astStack* syntaxStack;
 ast* syntaxTree;
 
+
+#define NUM_OF_RELAVENT 2
+
+char* relavent[NUM_OF_RELAVENT] = {"PLUS", "MINUS"};
+int lables[NUM_OF_TERMINALS] = {0};
+
 #endif
