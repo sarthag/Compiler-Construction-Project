@@ -59,7 +59,6 @@ void createRelevant(){
 }
 
 void topDownPass(astNode* parent, tree_node *parseNode){
-
     if(parseNode==NULL){
         return;
     }
