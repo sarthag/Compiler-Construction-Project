@@ -73,7 +73,23 @@ astNode* createASTNode(node_type nodeType,int rule_no, int typeID,tree_node* pTN
 
     return new; 
 }
+void deleteASTnode(astNode * node){
+    astNode * parent = node->parent;
+    astNode * prev = NULL;
+    astNode * temp = parent->type.reg->leftChild;
+    if(node->name.t.tid != temp->name.t.tid){
 
+    }
+    else{
+        while(node->name.t.tid != temp->name.t.tid){
+            prev = temp;
+            temp = temp->rightSibling;
+        }
+        prev->rightSibling = temp->rightSibling;
+    }
+    free(node);
+    
+}
 
 void insertASTchild(astNode *parent, astNode* child, int parentType){
     child -> parent = parent; 

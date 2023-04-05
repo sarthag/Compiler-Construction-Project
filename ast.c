@@ -102,3 +102,102 @@ int main(){
     topDownPass(ASTroot, parseTree->root->left_child);
     printASTstack(syntaxStack);
 }
+
+void findAction(astNode * current){
+    switch (current->rule_no)
+    {
+    case 0:
+
+        break;
+    case 1:
+
+        break;
+    case 2:
+
+        break;
+    case 3:
+
+        break;
+    case 4:
+
+        break;
+    case 5:
+    
+        break;
+    case 6:
+        deleteASTnode(current);
+        break;
+    case 7:
+    
+        break;
+    case 8:
+    
+        break;
+    case 9:
+    
+        break;
+    case 10:
+    
+        break;
+    case 11:
+    
+        break;
+    case 12:
+    
+        break;
+    case 13:
+    
+        break;
+    case 14:
+    
+        break;
+    case 18:
+
+        break;
+    case 26:
+
+        break;
+    case 27:
+        deleteASTnode(current);
+        break;
+    case 29:
+
+    break;
+    case 30:
+
+        break;
+    case 43:
+
+        break;
+    case 46:
+
+        break;
+    case 48:
+
+        break;
+    case 68:
+
+        break;
+    case 69:
+
+        break;
+    case 70:
+
+        break;
+    case 81:
+        deleteASTnode(current);
+        break;
+    case 84:
+        deleteASTnode(current);
+        break;
+    case 87:
+        deleteASTnode(current);
+        break;
+    case 124:
+
+        break;
+
+    default:
+        break;
+    }
+}
