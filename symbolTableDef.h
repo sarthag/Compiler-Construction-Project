@@ -1,4 +1,6 @@
-#ifndef SYMBOLTABLEDEF_H
+typedef enum dataType{ 
+    INTEGER,REAL, BOOLEAN, ARRAY
+}dataType;#ifndef SYMBOLTABLEDEF_H
 #define SYMBOLTABLEDEF_H
 
 #include "astadt.h"

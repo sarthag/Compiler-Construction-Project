@@ -20,9 +20,10 @@ astStack* syntaxStack;
 ast* syntaxTree;
 
 
-#define NUM_OF_RELAVENT 2
+#define NUM_OF_RELEVANT 2
 
-char* relavent[NUM_OF_RELAVENT] = {"PLUS", "MINUS"};
+char* relevant[NUM_OF_RELEVANT] = {"PLUS", "MINUS"};
 int labels[NUM_OF_TERMINALS] = {0};
+int binRelevant[NUM_OF_TERMINALS] = {0};
 
 #endif
