@@ -3,6 +3,18 @@
 
 #include "parser.h"
 
+typedef struct regNode{
+    struct astNode *leftChild;
+}regNode;
+typedef struct listElm{
+    struct listElm *prevElm;
+}listElm;
+typedef struct listHead{
+    struct astNode *leftChild;
+    struct listElm *firstNode; //points to the first element of the list 
+    struct listElm *lastNode; //points to the last element of the list 
+} listHead;
+
 
 typedef struct astNode{
     //labels label;
@@ -29,17 +41,6 @@ typedef struct astNode{
 } astNode; 
 
 
-typedef struct regNode{
-    struct astNode *leftChild;
-}regNode;
-typedef struct listElm{
-    struct listElm *prevElm;
-}listElm;
-typedef struct listHead{
-    struct astNode *leftChild;
-    struct listElm *firstNode; //points to the first element of the list 
-    struct listElm *lastNode; //points to the last element of the list 
-} listHead;
 
 typedef struct ast{
     struct astNode* root;
