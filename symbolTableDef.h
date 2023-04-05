@@ -28,17 +28,28 @@ typedef struct usageLL{
 } usageLL; 
 
 
+typedef struct symbolTable{
+
+} symbolTable;
+
 typedef struct symbolRecord{
     char* name; 
+
+    bool isFunction; 
+    symbolTable* functionPointer; //if isFunction = 1 then points to the symbol table of function 
+
+    symbolTable* nextTable;
+    symbolTable* parentTable;  
+
     dataType type; 
     int size;
-    // int offset; 
+    int offset; 
     // int dimension
     // int line_of_declaration; 
     usageLL line_of_usage;
-    astNode* address; 
-} record;
+    // astNode* address; 
+} symbolRecord;
 
-record symbtTable[200]; // Temp delete if wrong 
+symbolRecord symbtTable[200]; // Temp delete if wrong 
 
 #endif
