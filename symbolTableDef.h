@@ -35,21 +35,32 @@ typedef struct symbolTable{
 typedef struct symbolRecord{
     char* name; 
 
-    bool isFunction; 
-    symbolTable* functionPointer; //if isFunction = 1 then points to the symbol table of function 
+    bool isScope;  //isScope is 1 if it is a function, conditional or iterative stmt 
+    symbolTable* scopePointer; //if isScope = 1 then points to the symbol table of the next scope 
 
-    symbolTable* nextTable;
     symbolTable* parentTable;  
+    symbolRecord* nextEntry;
 
     dataType type; 
     int size;
     int offset; 
     // int dimension
     // int line_of_declaration; 
-    usageLL line_of_usage;
+    usageLL line_of_usage; //if the linked list approach is going to be used 
     // astNode* address; 
 } symbolRecord;
 
-symbolRecord symbtTable[200]; // Temp delete if wrong 
+typedef struct symnolTable{
+    char *tableName; //function name / iterative stmts name / conditional stmts name 
+    int baseOffset;
+    int tableWidth;
+    symbolTable* parentTable; //table to return to 
+    symbolTable* nextTable; //not sure if this is needed since there are no nested functions 
+
+    symbolRecord* firstEntry; 
+    //array of enteries 
+}symbolTable;
+
+//symbolRecord symbtTable[200]; // Temp delete if wrong 
 
 #endif
