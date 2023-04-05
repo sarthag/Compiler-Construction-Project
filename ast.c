@@ -49,25 +49,30 @@ void createAST(int rule){
     }
 }
 
-astNode* topDownPass(astNode* parent, tree_node *root){
-    if(root==NULL){
+void createRelevant(){
+    
+    for(int i=0;i<NUM_OF_RELEVANT;i++){
+        int index = getTokenFromKT(relevant[i], keyword_table);
+        binRelevant[index]=1;
+    }
+
+}
+
+astNode* topDownPass(astNode* parent, tree_node *parseNode){
+
+    if(parseNode==NULL){
         return;
     }
-    astNode* temp = (astNode*)malloc(sizeof(astNode));
-    //check if it is a list node or if it is an irrelevant terminal - using a binary array for each of them 
+    if(parseNode->type == TERMINAL){
+        if(binRelevant[parseNode->element.t.tid] == 1){
+            createASTNode(parseNode->type, parseNode->rule, ,parseNode)
+        }
+    }
 
+
+    //check if it is a list node or if it is an irrelevant terminal - using a binary array for each of them 
     //set the rest of the attributes of temp - rule no, tree pointer, etc 
-    temp->parent=set_parent();
-    temp->type.reg->leftChild = topDownPass(temp, root->left_child);
-    tree_node* temp1= root->left_child;
-    astNode* nextChild= temp->child.leftChild;
-    while(temp1->right_sibling!=NULL){
-        temp1=temp1->right_sibling;
-        nextChild->nextElm.rightSibling = topDownPass(temp, temp1);
-    }
-    if(root == parseTree-> root){
-        syntaxTree->root = temp;
-    }
+    
 } 
 
 int main(){
