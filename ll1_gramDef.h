@@ -23,16 +23,6 @@
 #define NUM_OF_NONTERMINALS 73
 
 
-lhs G[NUM_OF_RULES];
-bool sync_set[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
-int First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
-int Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
-int firstRHS[NUM_OF_RULES][NUM_OF_TERMINALS];
-int firstRHS[NUM_OF_RULES][NUM_OF_TERMINALS];
-int firstDone[NUM_OF_NONTERMINALS];
-int flag[NUM_OF_RULES];
-int parse_table[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
-
 typedef struct rhs_struct{
     int rhs_id;
     bool isTerminal;
@@ -46,5 +36,14 @@ typedef struct lhs_struct{
     rhs* lastRHS; 
 } lhs; 
 
+lhs G[NUM_OF_RULES];
+bool sync_set[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+int First[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+int Follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
+int firstRHS[NUM_OF_RULES][NUM_OF_TERMINALS];
+int firstRHS[NUM_OF_RULES][NUM_OF_TERMINALS];
+int firstDone[NUM_OF_NONTERMINALS];
+int flag[NUM_OF_RULES];
+int parse_table[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS];
 
 #endif
