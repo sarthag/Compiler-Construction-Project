@@ -3,4 +3,6 @@
 
 #include "symbolTableDef.h"
 
+
+symbolTable* globalTable;
 #endif

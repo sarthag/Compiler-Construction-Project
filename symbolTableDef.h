@@ -28,10 +28,6 @@ typedef struct usageLL{
 } usageLL; 
 
 
-typedef struct symbolTable{
-
-} symbolTable;
-
 typedef struct symbolRecord{
     char* name; 
 
@@ -50,14 +46,16 @@ typedef struct symbolRecord{
     // astNode* address; 
 } symbolRecord;
 
-typedef struct symnolTable{
+typedef struct symbolTable{
     char *tableName; //function name / iterative stmts name / conditional stmts name 
+
     int baseOffset;
     int tableWidth;
     symbolTable* parentTable; //table to return to 
     symbolTable* nextTable; //not sure if this is needed since there are no nested functions 
 
     symbolRecord* firstEntry; 
+    symbolRecord* lastEntry; 
     //array of enteries 
 }symbolTable;
 
