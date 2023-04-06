@@ -103,7 +103,7 @@ int main(){
     printASTstack(syntaxStack);
 }
 
-void findAction(astNode * current){
+astNode* findAction(astNode * current, astNode * prev){
     switch (current->rule_no)
     {
     case 0:
@@ -125,7 +125,7 @@ void findAction(astNode * current){
     
         break;
     case 6:
-        deleteASTnode(current);
+        current->type.reg->leftChild = NULL;
         break;
     case 7:
     
@@ -154,11 +154,11 @@ void findAction(astNode * current){
     case 18:
 
         break;
-    case 26:
+    case 25:
 
         break;
-    case 27:
-        deleteASTnode(current);
+    case 26:
+        current->type.reg->leftChild = NULL;
         break;
     case 29:
 
@@ -172,8 +172,8 @@ void findAction(astNode * current){
     case 46:
 
         break;
-    case 48:
-
+    case 47:
+        current = prev;
         break;
     case 68:
 
@@ -182,22 +182,50 @@ void findAction(astNode * current){
 
         break;
     case 70:
-
+        current = prev;
+        break;
+    case 78:
+        current->type.reg->leftChild = prev;
+        break;
+    case 80:
+        current->type.reg->leftChild = NULL;
         break;
     case 81:
-        deleteASTnode(current);
+        current->type.reg->leftChild = prev;
+    case 83:
+        current->type.reg->leftChild = NULL;
         break;
     case 84:
-        deleteASTnode(current);
+        current->type.reg->leftChild = prev;
+    case 85:
+        current->type.reg->leftChild = prev;
+        break;
+    case 86:
+        current->type.reg->leftChild = NULL;
         break;
     case 87:
-        deleteASTnode(current);
+        current->type.reg->leftChild = prev;
         break;
+    case 89:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 94:
+        current->type.reg->leftChild = prev;
+        break;
+    case 96:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 111:
+        current = prev;
     case 124:
 
         break;
 
     default:
+        printf("Error: Rule No. invalid");
+        return NULL;
         break;
     }
+    free(prev);
+    return current;
 }
