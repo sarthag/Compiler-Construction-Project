@@ -136,7 +136,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
 
         break;
     case 2:
-
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 3:
 
@@ -145,16 +146,18 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
 
         break;
     case 5:
-    
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 6:
-        current->leftChild = NULL;
+        
         break;
     case 7:
     
         break;
     case 8:
-    
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 9:
     
@@ -169,58 +172,199 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
     
         break;
     case 13:
-    
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 14:
     
         break;
+    case 16: 
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
     case 17:
         current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
     case 18:
-
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 19:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 22:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 23:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 24:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 25:
 
         break;
     case 26:
-        current->leftChild = NULL;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 27:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 28:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 29:
-
-    break;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
     case 30:
-
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 31:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 32:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 35:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 36:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 38:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 39:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 41:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 42:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 43:
-
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 45:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 46:
-
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
-    case 47:
-        current = prev;
+    case 50:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 51:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 52:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 53:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 54:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 57:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 58:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 59:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 62:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 64:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 66:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 67:
+        current->nodeType = prev -> nodeType;
+        current->name = prev->name;
+        current->rightSibling = prev->rightSibling;
         break;
     case 68:
-        current->leftChild = lastTerminal;
-        current->leftChild->rightSibling = prev->leftChild;
+        current->nodeType = prev -> nodeType;
+        current->name = prev->name;
+        current->rightSibling = prev->rightSibling;
         break;
     case 69:
-        
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 70:
-        current = prev;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
+    case 71:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 75:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 76:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 77:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    
     case 78:
         current->leftChild = prev;
         break;
     case 80:
-        current->leftChild = NULL;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 81:
         
         break;
     case 83:
-        current->leftChild = NULL;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 84:
         
@@ -229,14 +373,28 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         
         break;
     case 86:
-        current->leftChild = NULL;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 87:
         current->leftChild = lastTerminal;
         current->leftChild->rightSibling = prev;
         break;
     case 89:
-        current->leftChild = NULL;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 91:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 92:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 93:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 94:
         current->leftChild = lastTerminal;
@@ -244,14 +402,112 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
 
         break;
     case 96:
-        current->leftChild = NULL;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 99:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 102:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 103:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 104:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 105:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 108:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 109:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 111:
-        current->name.t.tid = prev->pt->element.t.tid;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 112:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 113:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 114:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 115:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 116:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 117:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 118:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 119:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 120:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 121:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 122:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
     case 124:
 
         break;
-
+    case 127:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 128:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 129:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 130:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 132:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 137:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
     default:
         printf("Error: Rule No. invalid");
         return NULL;
