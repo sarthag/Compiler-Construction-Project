@@ -11,7 +11,7 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
-void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType entrydType, bool isArray){
+void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType entrydType){
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
@@ -39,7 +39,7 @@ void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,
     table -> symbTable[index].occupied = true;
 }
 
-void insertIntoStymbolTableArr(symbolTable* table, char* name,int lowerBound, int upperBound, dType arrType){
+void insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int upperBound, dType arrType){
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
