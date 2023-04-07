@@ -103,7 +103,7 @@ int main(){
     printASTstack(syntaxStack);
 }
 
-astNode* findAction(astNode * current, astNode * prev){
+astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
     switch (current->rule_no)
     {
     case 0:
@@ -125,7 +125,7 @@ astNode* findAction(astNode * current, astNode * prev){
     
         break;
     case 6:
-        current->type.reg->leftChild = NULL;
+        current->leftChild = NULL;
         break;
     case 7:
     
@@ -158,7 +158,7 @@ astNode* findAction(astNode * current, astNode * prev){
 
         break;
     case 26:
-        current->type.reg->leftChild = NULL;
+        current->leftChild = NULL;
         break;
     case 29:
 
@@ -176,7 +176,8 @@ astNode* findAction(astNode * current, astNode * prev){
         current = prev;
         break;
     case 68:
-        current->rightSibling = current->pt->left_child->right_sibling;
+        current->rightSibling = lastTerminal;
+        current->rightSibling->rightSibling = prev;
         break;
     case 69:
         current->rightSibling = NULL;
@@ -185,39 +186,43 @@ astNode* findAction(astNode * current, astNode * prev){
         current = prev;
         break;
     case 78:
-        current->type.reg->leftChild = prev;
+        current->leftChild = prev;
         break;
     case 80:
-        current->type.reg->leftChild = NULL;
+        current->leftChild = NULL;
         break;
     case 81:
-        current->type.reg->leftChild = prev;
+        
+        break;
     case 83:
-        current->type.reg->leftChild = NULL;
+        current->leftChild = NULL;
         break;
     case 84:
-        current->type.reg->leftChild = prev;
+        
+        break;
     case 85:
-        current->type.reg->leftChild = prev;
+        
         break;
     case 86:
-        current->type.reg->leftChild = NULL;
+        current->leftChild = NULL;
         break;
     case 87:
-        current->type.reg->leftChild = prev;
+        current->leftChild = lastTerminal;
+        current->leftChild->rightSibling = prev;
         break;
     case 89:
-        current->type.reg->leftChild = NULL;
+        current->leftChild = NULL;
         break;
     case 94:
-        current->type.reg->leftChild = current->type.reg->leftChild->pt->left_child;
-        current->type.reg->leftChild->rightSibling = prev;
+        current->leftChild = lastTerminal;
+        current->leftChild->rightSibling = prev;
+
         break;
     case 96:
-        current->type.reg->leftChild = NULL;
+        current->leftChild = NULL;
         break;
     case 111:
-        current = prev;
+        current->name.t.tid = prev->pt->element.t.tid;
     case 124:
 
         break;

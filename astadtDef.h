@@ -31,11 +31,13 @@ typedef struct astNode{
 
     struct astNode *parent;
     struct astNode *rightSibling; 
-    union{
+/*    union{
         regNode *reg;
         listElm *listNode;
         listHead *head;
     } type;
+*/
+    struct astNode * leftChild;
     
     tree_node *pt;
 } astNode; 
