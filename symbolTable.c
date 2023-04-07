@@ -11,7 +11,7 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
-void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType dType, bool isArray){
+void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType entrydType, bool isArray){
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
@@ -32,12 +32,32 @@ void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,
     } 
     else{
         table -> symbTable[index].isScope = 1;
-        table ->nextTable = createSymbolTable(name,table);
+        table -> symbTable[index].scopePointer = createSymbolTable(name,table);
     }
-    if(isArray){
-        // table ->symbTable[index].isScope
-    }
+    table ->symbTable[index].isArray = false;
+    table ->symbTable[index].varType.primitiveType = entrydType;
     table -> symbTable[index].occupied = true;
+}
+
+void insertIntoStymbolTableArr(symbolTable* table, char* name,int lowerBound, int upperBound, dType arrType){
+    int i = 0;
+    int hash = hashingFunction(name);
+    int index = hash % ST_SIZE;
+    char* tableName;
+    while(table->symbTable[index].occupied == true){
+        i++;
+        index  = (hash + (i*i))%ST_SIZE;
+        
+    }
+    strcpy(table ->symbTable[index].name, name);
+    bool isArray = true;
+    bool isScope = false;
+    table ->symbTable[index].entryType = VARIABLE;
+    table ->symbTable[index].varType.arr.arraydType = arrType;
+    table ->symbTable[index].varType.arr.lowerBound = lowerBound;
+    table ->symbTable[index].varType.arr.upperBound = upperBound;
+    table ->symbTable[index].occupied = true;
+
 }
 
 int hashingFunction(char* name){
