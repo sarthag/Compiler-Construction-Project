@@ -3,6 +3,12 @@
 
 #include "symbolTableDef.h"
 
+/*
+Pass 1 : Adding names and type to the symbol table
+
+Pass 2 : Go back and add offset and width 
+
+*/
 
 symbolTable* globalTable;
 

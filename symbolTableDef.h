@@ -11,7 +11,7 @@ single table or divide it into 3-4 tables
 
 
 typedef enum{
-    INT_DT, REAL_DT, BOOL_DT, ARRAY_DT, NA
+    INT_DT, REAL_DT, BOOL_DT, NA
 }dType;
 
 typedef enum{
@@ -32,6 +32,11 @@ typedef struct usageLL{
     int count; 
 } usageLL; 
 
+typedef struct arrayType{
+    dType arraydType;
+    int lowerBound;
+    int upperBound;
+}arrayType;
 
 typedef struct symbolRecord{
     char* name; 
@@ -41,8 +46,12 @@ typedef struct symbolRecord{
     stEntryType entryType; //for storing whether it is a variable function conditional or iterative stmt
     struct symbolTable* parentTable;  
     struct symbolRecord* nextEntry;
-
-    dType type; 
+    bool isArray;
+    union{
+        dType primitiveType;
+        arrayType arr;
+    }varType;
+     
     int size;
     int offset;
     bool occupied; //to see if this symbolrecord is occupied or not helps in hashing
