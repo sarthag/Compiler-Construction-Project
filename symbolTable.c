@@ -10,17 +10,6 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 }
 
 
-// void insertIntoSymbolTable(symbolTable* table, symbolRecord* record){
-//     //record has been created and is only being inserted to the table 
-//     if(table->firstEntry==NULL){
-//         table->firstEntry = record;
-//     }
-//     else{
-//         table->lastEntry->nextEntry = record;
-//         table->lastEntry = record;
-//     }
-// }
-
 //Make dType NA for iterative and conditional
 void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType dType){
     int i = 0;
