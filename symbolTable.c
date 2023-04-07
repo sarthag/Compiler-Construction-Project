@@ -11,7 +11,7 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
-void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType entrydType){
+void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, dType entrydType){
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
@@ -39,6 +39,7 @@ void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,
     table -> symbTable[index].occupied = true;
 }
 
+
 void insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int upperBound, dType arrType){
     int i = 0;
     int hash = hashingFunction(name);
@@ -60,6 +61,7 @@ void insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int
 
 }
 
+
 int hashingFunction(char* name){
     long long prime = PRIME;
     long long hashVal = 0;
@@ -67,13 +69,14 @@ int hashingFunction(char* name){
     long long mod = MOD;
     int size = strlen(name);
     for(int i = 0  ; i < size ; i++){
-        hashVal = (hashVal + ((name[i]-'a'+1)*primePower)) % mod;
+        hashVal = (hashVal + ((name[i]-'0'+1)*primePower)) % mod;
         primePower = (primePower + 1) % mod;
     }
 
     return hashVal;
-
 }
+
+
 //this function just specifically searches a given symbol table not all the symbol tables we'll make another function for that
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
     int i = 0;
@@ -90,10 +93,95 @@ symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
 
 }
 
-
-void generateST(astNode* root){
+void initSymbolTable(){
     globalTable = createSymbolTable("global", NULL);
+    generateST(syntaxTree->root, globalTable);
+}
+
+
+void generateST(astNode* treeRoot, symbolTable* table){
+    astNode* root = treeRoot;
+    root = root->leftChild; 
+
+    while(root != NULL){
+        insertSTSwitch(root, table);
+        generateST(root, table);
+        root = root->rightSibling;
+    }
+    return;
+}
+
+void insertSTSwitch(astNode* node, symbolTable* table){
+    int rule = node->rule_no + 1;
+    switch (rule){
+    case 4:
+        insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, NA);    
+        //FIGURE OUT FUNCTION DATATYPE    
+        break;
     
+    case 7:
+        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,NA);
+        //inputplist handled in case 12 need to check the logic though
+        break;
+    
+    case 8:
+        //depends on the AST for the logic
+        break; 
+
+    case 10:
+        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,NA);
+        break; 
+    
+    case 12:
+        //depends on the AST for the logic first get datatype and then iterate 
+        break; 
+
+    case 13:
+    //depends on the AST for the logic
+        break; 
+    
+    case 15: 
+    //depends on the AST for the logic
+        break;
+    
+    case 16: 
+    //depends on the AST for the logic
+        break; 
+
+    case 68:
+    //depends on the AST for the logic first get datatype and then iterate 
+        break; 
+
+    case 69: 
+    //depends on the AST for the logic first get datatype and then iterate 
+        break; 
+
+    case 124: 
+    //depends on the AST for the logic first get datatype and then iterate 
+        break; 
+
+    case 125:
+        sprintf(counterStr, "%d", counter);
+        insertIntoSymbolTable(table, counterStr, CONDITIONAL, NA);
+        counter++;
+        break; 
+
+    case 134:
+        sprintf(counterStr, "%d", counter);
+        insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        counter++;
+        break; 
+
+    case 135: 
+        sprintf(counterStr, "%d", counter);
+        insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        counter++;
+        break; 
+
+    default:
+        break;
+    }
+
 }
 
 void main(){

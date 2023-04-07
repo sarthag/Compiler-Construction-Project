@@ -10,8 +10,6 @@ Pass 2 : Go back and add offset and width
 
 */
 
-symbolTable* globalTable;
-
 symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable);
 // symbolRecord* createNewRecord();
 void insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType entrydType);
@@ -19,5 +17,6 @@ void insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int
 int hashingFunction(char* name);
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table);
 void initSymbolTable();
-void generateST();
+void generateST(astNode* root, symbolTable* table);
+//void insertSTSwitch(int rule_no, symbolTable* table);
 #endif

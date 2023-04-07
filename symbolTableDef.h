@@ -1,7 +1,7 @@
 #ifndef SYMBOLTABLEDEF_H
 #define SYMBOLTABLEDEF_H
 
-#include "astadt.h"
+#include "ast.h"
 
 #define ST_SIZE 300
 /*
@@ -74,6 +74,10 @@ typedef struct symbolTable{
     //array of enteries 
 }symbolTable;
 
+
+symbolTable* globalTable;
+int counter = 0;
+char counterStr[20];
 
 
 #endif
