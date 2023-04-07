@@ -19,5 +19,5 @@ void insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int
 int hashingFunction(char* name);
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table);
 void initSymbolTable();
-void main();
+void generateST();
 #endif
