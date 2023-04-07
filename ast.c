@@ -59,7 +59,6 @@ void createRelevant(){
 }
 
 void topDownPass(astNode* parent, tree_node *parseNode){
-
     if(parseNode==NULL){
         return;
     }
@@ -176,10 +175,10 @@ astNode* findAction(astNode * current, astNode * prev){
         current = prev;
         break;
     case 68:
-
+        current->rightSibling = current->pt->left_child->right_sibling;
         break;
     case 69:
-
+        current->rightSibling = NULL;
         break;
     case 70:
         current = prev;
@@ -210,7 +209,8 @@ astNode* findAction(astNode * current, astNode * prev){
         current->type.reg->leftChild = NULL;
         break;
     case 94:
-        current->type.reg->leftChild = prev;
+        current->type.reg->leftChild = current->type.reg->leftChild->pt->left_child;
+        current->type.reg->leftChild->rightSibling = prev;
         break;
     case 96:
         current->type.reg->leftChild = NULL;
