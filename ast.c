@@ -66,6 +66,7 @@ void topDownPass(astNode* parent, tree_node *parseNode){
         if(binRelevant[parseNode->element.t.tid] == 1){
             astNode * new = createASTNode(parseNode->type, parseNode->rule, 0, parseNode);
         astNode * temp;
+        temp = parent -> leftChild;
         if(temp == NULL){
             parent->leftChild = new;
         }
@@ -76,7 +77,7 @@ void topDownPass(astNode* parent, tree_node *parseNode){
             temp->rightSibling = new;
         }
             new->parent = parent;
-            pushast(syntaxStack, parseNode);
+            pushast(syntaxStack, new);
         }
         
     }
@@ -94,7 +95,7 @@ void topDownPass(astNode* parent, tree_node *parseNode){
             temp->rightSibling = new;
         }
         new->parent = parent;
-        pushast(syntaxStack, parseNode);
+        pushast(syntaxStack, new);
         topDownPass(new, parseNode->left_child);
     }
     topDownPass(parent, parseNode->right_sibling);
@@ -174,7 +175,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
     
         break;
     case 17:
-        current = prev;
+        current->nodeType = prev->nodeType;
     case 18:
 
         break;
@@ -204,8 +205,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         current->leftChild->rightSibling = prev->leftChild;
         break;
     case 69:
-        free(current);
-        return NULL;
+        
         break;
     case 70:
         current = prev;

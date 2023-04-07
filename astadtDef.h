@@ -27,8 +27,6 @@ typedef struct astNode{
 
     int rule_no;
     
-    int typeId;
-
     struct astNode *parent;
     struct astNode *rightSibling; 
 /*    union{
