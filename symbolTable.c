@@ -90,8 +90,10 @@ symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
 
 }
 
-void initSymbolTable(){
+
+void generateST(astNode* root){
     globalTable = createSymbolTable("global", NULL);
+    
 }
 
 void main(){
