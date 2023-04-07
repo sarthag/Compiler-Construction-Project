@@ -43,10 +43,10 @@ ast *createSyntaxTree() {
 astNode* createASTNode(node_type nodeType,int rule_no, int typeID,tree_node* pTNode){
     astNode *new = (astNode*) malloc(sizeof(astNode));
     new -> rule_no = rule_no; 
-    new->typeId = typeID;
-    new ->pt = pTNode;
+    new-> typeId = typeID;
+    new -> pt = pTNode;
     if(pTNode -> type == TERMINAL){
-        new -> nodeType= TERMINAL;
+        new -> nodeType = TERMINAL;
         new -> name.t.tid = pTNode ->element.t.tid;
 
     }
@@ -55,28 +55,14 @@ astNode* createASTNode(node_type nodeType,int rule_no, int typeID,tree_node* pTN
         new -> name.nt.nid = pTNode -> element.nt.nid;
     }
     new->parent = NULL;
-    if (typeID == 0){
-        new->type.reg->leftChild = NULL; 
-        new->rightSibling = NULL;
-    }
-    if (typeID == 2){
-        new->rightSibling = NULL; 
-        new->type.listNode->prevElm = NULL;
-    } 
-    if (typeID == 1){
-        new->type.head->leftChild = NULL; 
-        new->rightSibling = NULL;
-        new->type.head->firstNode = NULL;
-        new->type.head->lastNode = NULL;
-    } 
- 
+    new->leftChild = NULL;
 
     return new; 
 }
 void deleteASTnode(astNode * node){
     astNode * parent = node->parent;
     astNode * prev = NULL;
-    astNode * temp = parent->type.reg->leftChild;
+    astNode * temp = parent->leftChild;
     if(node->name.t.tid != temp->name.t.tid){
 
     }
@@ -97,11 +83,11 @@ void insertASTchild(astNode *parent, astNode* child, int parentType){
     switch (parentType)
     {
     case 0:
-        if(parent->type.reg->leftChild == NULL){
-            parent->type.reg->leftChild = child;
+        if(parent->leftChild == NULL){
+            parent->leftChild = child;
         }
         else{
-            astNode *temp = parent->type.reg->leftChild;
+            astNode *temp = parent->leftChild;
             while(temp->rightSibling != NULL){
                 temp = temp->rightSibling;
             }
@@ -109,11 +95,11 @@ void insertASTchild(astNode *parent, astNode* child, int parentType){
         }
         break;
     case 1:
-        if (parent->type.head->leftChild == NULL){
-            parent->type.reg->leftChild = child;
+        if (parent->leftChild == NULL){
+            parent->leftChild = child;
         }
         else{
-            astNode *temp = parent->type.head->leftChild;
+            astNode *temp = parent->leftChild;
             while(temp->rightSibling != NULL){
                 temp = temp->rightSibling;
             }

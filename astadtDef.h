@@ -22,7 +22,7 @@ typedef struct astNode{
         non_terminal nt;
         token t;
     }name;
-
+    char* labelName;
     node_type nodeType;
 
     int rule_no;
