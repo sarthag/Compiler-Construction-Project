@@ -101,3 +101,131 @@ int main(){
     topDownPass(ASTroot, parseTree->root->left_child);
     printASTstack(syntaxStack);
 }
+
+astNode* findAction(astNode * current, astNode * prev){
+    switch (current->rule_no)
+    {
+    case 0:
+
+        break;
+    case 1:
+
+        break;
+    case 2:
+
+        break;
+    case 3:
+
+        break;
+    case 4:
+
+        break;
+    case 5:
+    
+        break;
+    case 6:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 7:
+    
+        break;
+    case 8:
+    
+        break;
+    case 9:
+    
+        break;
+    case 10:
+    
+        break;
+    case 11:
+    
+        break;
+    case 12:
+    
+        break;
+    case 13:
+    
+        break;
+    case 14:
+    
+        break;
+    case 18:
+
+        break;
+    case 25:
+
+        break;
+    case 26:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 29:
+
+    break;
+    case 30:
+
+        break;
+    case 43:
+
+        break;
+    case 46:
+
+        break;
+    case 47:
+        current = prev;
+        break;
+    case 68:
+        current->rightSibling = current->pt->left_child->right_sibling;
+        break;
+    case 69:
+        current->rightSibling = NULL;
+        break;
+    case 70:
+        current = prev;
+        break;
+    case 78:
+        current->type.reg->leftChild = prev;
+        break;
+    case 80:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 81:
+        current->type.reg->leftChild = prev;
+    case 83:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 84:
+        current->type.reg->leftChild = prev;
+    case 85:
+        current->type.reg->leftChild = prev;
+        break;
+    case 86:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 87:
+        current->type.reg->leftChild = prev;
+        break;
+    case 89:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 94:
+        current->type.reg->leftChild = current->type.reg->leftChild->pt->left_child;
+        current->type.reg->leftChild->rightSibling = prev;
+        break;
+    case 96:
+        current->type.reg->leftChild = NULL;
+        break;
+    case 111:
+        current = prev;
+    case 124:
+
+        break;
+
+    default:
+        printf("Error: Rule No. invalid");
+        return NULL;
+        break;
+    }
+    free(prev);
+    return current;
+}
