@@ -34,13 +34,13 @@ void createICG(astNode* node, symbolTable* table){
                 createICG(node -> leftChild -> rightSibling, table);
                 symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
                 symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
+                
                 if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == INT_DT){
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,INT_DT);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = INT_ADD;
                     icgLineNo++;
-
                 }
 
                 else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == REAL_DT){
@@ -84,6 +84,7 @@ void createICG(astNode* node, symbolTable* table){
                 createICG(node -> leftChild -> rightSibling, table);
                 symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
                 symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
+
                 if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == INT_DT){
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,INT_DT);
                     intermediateCode[icgLineNo].op1 = leftOp;
@@ -133,6 +134,7 @@ void createICG(astNode* node, symbolTable* table){
                 createICG(node -> leftChild -> rightSibling, table);
                 symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
                 symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
+                
                 if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == INT_DT){
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,INT_DT);
                     intermediateCode[icgLineNo].op1 = leftOp;
@@ -374,8 +376,6 @@ void createICG(astNode* node, symbolTable* table){
                 break;
         }
     }
-
-
 }
 
 void generateIC(){
