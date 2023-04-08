@@ -126,14 +126,11 @@ int main(){
     printASTstack(syntaxStack);
 }
 
-astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
-    switch (current->rule_no)
-    {
+astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
+    switch (current->rule_no) {
     case 0:
-
         break;
     case 1:
-
         break;
     case 2:
         current->nodeType = prev->nodeType;
@@ -166,17 +163,30 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
     
         break;
     case 11:
-    
+        astNode * temp = prev -> rightSibling;
+        prev->rightSibling = temp->rightSibling;
+        prev->leftChild = temp;
         break;
     case 12:
-    
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->rightSibling = prev->rightSibling->rightSibling;
+        current->leftChild = prev->rightSibling;
         break;
     case 13:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
     case 14:
-    
+        astNode * temp = prev -> rightSibling;
+        prev->rightSibling = temp->rightSibling;
+        prev->leftChild = temp;
+        break;
+    case 15:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->rightSibling = prev->rightSibling->rightSibling;
+        current->leftChild = prev->rightSibling;
         break;
     case 16: 
         current->nodeType = prev->nodeType;
@@ -311,7 +321,15 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
+    case 63:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
     case 64:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 65:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
@@ -320,9 +338,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         current->name = prev->name;
         break;
     case 67:
-        current->nodeType = prev -> nodeType;
-        current->name = prev->name;
-        current->rightSibling = prev->rightSibling;
+        // current->nodeType = prev -> nodeType;
+        // current->name = prev->name;
+        // current->rightSibling = prev->rightSibling;
         break;
     case 68:
         current->nodeType = prev -> nodeType;
@@ -401,7 +419,10 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
     case 94:
         current->leftChild = lastTerminal;
         current->leftChild->rightSibling = prev;
-
+        break;
+    case 95:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 96:
         current->nodeType = prev->nodeType;
@@ -424,6 +445,10 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         current->name = prev->name;
         break;
     case 105:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 106:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
@@ -483,6 +508,10 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
+    case 123:
+        current -> nodeType = prev -> nodeType
+        current ->name = prev->name
+        current->leftChild = prev->rightSibling
     case 124:
 
         break;
@@ -499,6 +528,10 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         current->name = prev->name;
         break;
     case 130:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        break;
+    case 131:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
