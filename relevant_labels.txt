@@ -16,6 +16,8 @@ RNUM
 MUL
 DIV
 DECLARE
+START 
+END
 
 Non-Terminals
 
