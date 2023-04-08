@@ -23,7 +23,7 @@ range_arrays index_arr RANGEOP index_arr
 | type INTEGER 
 | type REAL 
 | type BOOLEAN
-statements statement statements
+| statements statement statements
 | statements EPSILON
 | statement ioStmt
 | statement simpleStmt

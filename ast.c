@@ -207,7 +207,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal){
         current->name = prev->name;
         break;
     case 25:
-
+        current->nodeType = prev -> nodeType;
+        current->name = prev->name;
+        current->rightSibling = prev->rightSibling;
         break;
     case 26:
         current->nodeType = prev->nodeType;
