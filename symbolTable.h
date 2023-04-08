@@ -18,5 +18,6 @@ int hashingFunction(char* name);
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table);
 void initSymbolTable();
 void generateST(astNode* root, symbolTable* table);
-//void insertSTSwitch(int rule_no, symbolTable* table);
+void insertSTSwitch(astNode* node, symbolTable* table);
+
 #endif

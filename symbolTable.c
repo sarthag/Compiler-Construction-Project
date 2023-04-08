@@ -112,6 +112,13 @@ void generateST(astNode* treeRoot, symbolTable* table){
 }
 
 void insertSTSwitch(astNode* node, symbolTable* table){
+
+    //search to check if it already exists in one of the tables 
+    if(searchSymbolTable(node->name.t.lexeme, table) !=NULL){
+        printf("ERROR: Redeclaration of a variable \n ");
+        return;
+    }
+    
     int rule = node->rule_no + 1;
     switch (rule){
     case 4:
@@ -182,6 +189,37 @@ void insertSTSwitch(astNode* node, symbolTable* table){
         break;
     }
 
+}
+
+void printSymbolTables(symbolTable* entryTable){
+    //print all the symbol tables 
+    for(int i=0;i<ST_SIZE;i++){
+
+        if(entryTable->symbTable[i].occupied==1){
+            //if the table is occupied 
+            if(entryTable->symbTable[i].isScope==1){
+                //function, conditional or iterative
+                printf("\n\n Printing Symbol Table of %s \n ", entryTable->symbTable[i].name);
+                printSymbolTables(entryTable->symbTable[i].scopePointer);
+            }
+            else {
+                //primitive or array type
+                if(entryTable->symbTable[i].isArray==1){
+                    printf("Array element %s is of Type %d with lower bound %d and upper bound %d \n", 
+                    entryTable->symbTable[i].name, entryTable->symbTable[i].varType.arr.arraydType,
+                    entryTable->symbTable[i].varType.arr.lowerBound, entryTable->symbTable[i].varType.arr.upperBound);
+                }
+                else{
+                    printf("Variable %s is of Type %d \n", entryTable->symbTable[i].name, 
+                    entryTable->symbTable[i].varType.primitiveType);
+                }
+                
+            }
+        }
+    }
+
+    printf("Finished printing the table \n");
+    
 }
 
 void main(){
