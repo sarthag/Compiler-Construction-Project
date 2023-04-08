@@ -38,7 +38,7 @@ ioStmt PRINT BO var_print BC SEMICOL
 var_print ID p1
 | var_print NUM
 | var_print RNUM
-p1 SQBO sign new_index SQBC
+| p1 SQBO sign new_index SQBC
 | p1 EPSILON 
 | simpleStmt assignmentStmt 
 | simpleStmt moduleReuseStmt
