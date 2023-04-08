@@ -5,7 +5,7 @@
 #define MAXLINES 5000
 
 typedef enum ICGlabels{
-    INT_ADD, INT_SUB, INT_MUL, INT_DIV
+    INT_ADD, INT_SUB, INT_MUL, INT_DIV, REAL_ADD, REAL_SUB, REAL_MUL, REAL_DIV, INT_TO_REAL
 }icgLabels;
 
 /*
