@@ -118,7 +118,7 @@ void insertSTSwitch(astNode* node, symbolTable* table){
         printf("ERROR: Redeclaration of a variable \n ");
         return;
     }
-    
+
     int rule = node->rule_no + 1;
     switch (rule){
     case 4:
@@ -224,4 +224,6 @@ void printSymbolTables(symbolTable* entryTable){
 
 void main(){
     initSymbolTable();
+    generateST(syntaxTree->root, globalTable);
+    printSymbolTables(globalTable);
 }
