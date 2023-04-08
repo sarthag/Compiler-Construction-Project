@@ -3,17 +3,17 @@
 
 #include "parser.h"
 
-typedef struct regNode{
-    struct astNode *leftChild;
-}regNode;
-typedef struct listElm{
-    struct listElm *prevElm;
-}listElm;
-typedef struct listHead{
-    struct astNode *leftChild;
-    struct listElm *firstNode; //points to the first element of the list 
-    struct listElm *lastNode; //points to the last element of the list 
-} listHead;
+// typedef struct regNode{
+//     struct astNode *leftChild;
+// }regNode;
+// typedef struct listElm{
+//     struct listElm *prevElm;
+// }listElm;
+// typedef struct listHead{
+//     struct astNode *leftChild;
+//     struct listElm *firstNode; //points to the first element of the list 
+//     struct listElm *lastNode; //points to the last element of the list 
+// } listHead;
 
 
 typedef struct astNode{
@@ -29,14 +29,7 @@ typedef struct astNode{
     
     struct astNode *parent;
     struct astNode *rightSibling; 
-/*    union{
-        regNode *reg;
-        listElm *listNode;
-        listHead *head;
-    } type;
-*/
     struct astNode * leftChild;
-    
     tree_node *pt;
 } astNode; 
 
@@ -50,7 +43,7 @@ typedef struct ast{
 // Stack
 
 typedef struct astStackNode {
-    struct tree_node *treeloc;
+    struct astNode *treeloc;
     struct astStackNode *next;
 } astStackNode;
 
