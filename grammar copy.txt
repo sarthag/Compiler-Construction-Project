@@ -71,8 +71,8 @@ n9 COMMA sign n8 n9
 | expression arithmeticOrBooleanExpr 
 | expression u
 u op1 new_NT
-new_NT BO arithmeticExpr BC 
-new_NT var_id_num
+| new_NT BO arithmeticExpr BC 
+| new_NT var_id_num
 | var_id_num ID
 | var_id_num NUM
 | var_id_num RNUM
@@ -108,7 +108,7 @@ arr_N5 op2 arrFactor arr_N5
 element_index_with_expressions op1 n6
 | element_index_with_expressions arrExpr
 | n6 new_index
-n6 BO arrExpr BC
+| n6 BO arrExpr BC
 | op1 PLUS
 | op1 MINUS
 | op2 MUL
@@ -131,8 +131,8 @@ caseStmt2 CASE value COLON statements BREAK SEMICOL caseStmt2
 | value FALSE
 | default1 DEFAULT COLON statements BREAK SEMICOL 
 | default1 EPSILON
-iterativeStmt FOR BO ID IN range_for_loop BC START statements END
-iterativeStmt WHILE BO arithmeticOrBooleanExpr BC START statements END
-range_for_loop index_for_loop RANGEOP index_for_loop
-index_for_loop sign new_index_for_loop
+| iterativeStmt FOR BO ID IN range_for_loop BC START statements END
+| iterativeStmt WHILE BO arithmeticOrBooleanExpr BC START statements END
+| range_for_loop index_for_loop RANGEOP index_for_loop
+| index_for_loop sign new_index_for_loop
 | new_index_for_loop NUM
