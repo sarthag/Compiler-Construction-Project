@@ -28,8 +28,6 @@ void * makeElement(node_type type, int id){
     return NULL;
 }
 
-
-
 stack_node* create_stack_node(node_type type, void* element, tree_node* treeLocation) {
     stack_node* new_node = (stack_node*) malloc(sizeof(stack_node));
     new_node->type = type;
