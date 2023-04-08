@@ -106,7 +106,7 @@ void insertASTchild(astNode *parent, astNode* child, int parentType){
             temp->rightSibling = child;
         }
     default:
-        print("error: parent invalid");
+        printf("error: parent invalid");
         break;
     }
 }

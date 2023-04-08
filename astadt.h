@@ -4,8 +4,8 @@
 #include "astadtDef.h"
 
 void initASTStack(astStack* s);
-astStackNode* createastStackNode(tree_node *treeloc);
-void pushast(astStack* s, tree_node *treeloc);
+astStackNode* createastStackNode(astNode *treeloc);
+void pushast(astStack* s, astNode *treeloc);
 astStackNode* popast(astStack* s);
 
 
