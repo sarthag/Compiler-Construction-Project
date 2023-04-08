@@ -20,7 +20,7 @@ typedef struct icgTuple{
     symbolRecord* op1; 
     symbolRecord* op2; 
     //token immediateVal;
-    char* jump;
+    char* jump; // need to figure out later if this should remain a char
 }icgTuple;
 
 

@@ -3,5 +3,6 @@
 
 #include "icGenerationDef.h"
 
+int tempVarCounter;
 
 #endif

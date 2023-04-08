@@ -63,15 +63,13 @@ typedef struct symbolRecord{
 
 typedef struct symbolTable{
     char *tableName; //function name / iterative stmts name / conditional stmts name 
-
     int baseOffset;
     int tableWidth;
     struct symbolTable* parentTable; //table to return to 
     struct symbolTable* nextTable; //not sure if this is needed since there are no nested functions 
     symbolRecord symbTable[ST_SIZE]; // Temp delete if wrong 
-    //symbolRecord* firstEntry; 
-    //symbolRecord* lastEntry; 
-    //array of enteries 
+    struct symbolTable* tempTable;
+    
 }symbolTable;
 
 
