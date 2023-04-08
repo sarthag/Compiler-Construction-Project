@@ -65,17 +65,17 @@ void topDownPass(astNode* parent, tree_node *parseNode){
     if(parseNode->type == TERMINAL){
         if(binRelevant[parseNode->element.t.tid] == 1){
             astNode * new = createASTNode(parseNode->type, parseNode->rule, 0, parseNode);
-        astNode * temp;
-        temp = parent -> leftChild;
-        if(temp == NULL){
-            parent->leftChild = new;
-        }
-        else{
-            while(temp->rightSibling != NULL){
-                temp = temp->rightSibling;
+            astNode * temp;
+            temp = parent -> leftChild;
+            if(temp == NULL){
+                parent->leftChild = new;
             }
-            temp->rightSibling = new;
-        }
+            else{
+                while(temp->rightSibling != NULL){
+                    temp = temp->rightSibling;
+                }
+                temp->rightSibling = new;
+            }
             new->parent = parent;
             pushast(syntaxStack, new);
         }
@@ -121,9 +121,10 @@ void printASTstack(astStack * syntaxStack) {
 
 int main(){
     initAST();
-    astStackNode* ASTroot = createASTNode(NON_TERMINAL, -1, 0, parseTree->root);
-    topDownPass(ASTroot, parseTree->root->left_child);
+    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, 0, parseTree->root);
+    topDownPass(ASTroot, parseTree->root->left_child);    
     printASTstack(syntaxStack);
+    callfindAction(ASTroot);
 }
 
 astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
@@ -550,4 +551,20 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     }
     free(prev);
     return current;
+}
+
+astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
+    astNode * prev = popast(syntaxStack);
+    astNode * lastTerminal = prev;
+    astNode * current = popast(syntaxStack);
+    findAction(current, prev, lastTerminal);
+    while(syntaxStack->top != NULL) {
+        current = popast(syntaxStack);
+        if(current->nodeType == TERMINAL) {
+            prev = current;
+            lastTerminal = current;
+            current = popast;
+        }
+        findAction(current, prev, lastTerminal);
+    }
 }

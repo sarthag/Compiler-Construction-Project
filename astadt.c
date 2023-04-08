@@ -5,7 +5,7 @@ void initASTStack(astStack* s) {
     s->size = 0; 
 }
 
-astStackNode* createastStackNode(tree_node *treeloc){
+astStackNode* createastStackNode(astNode *treeloc){
     astStackNode* new = (astStackNode*) malloc(sizeof(astStackNode));
     new -> treeloc = treeloc;
     new -> next = NULL;
@@ -13,7 +13,7 @@ astStackNode* createastStackNode(tree_node *treeloc){
     return new; 
 }
 
-void pushast(astStack* s, tree_node *treeloc){
+void pushast(astStack* s, astNode *treeloc){
     astStackNode* node = createastStackNode(treeloc);
     s->size++;
     node->next = s->top; 
