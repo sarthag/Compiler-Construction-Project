@@ -2,6 +2,7 @@
 #define ICGENERATIONDEF_H 
 
 #include "symbolTable.h"
+#define MAXLINES 5000
 
 typedef enum ICGlabels{
     INT_ADD, INT_SUB, INT_MUL, INT_DIV
@@ -14,14 +15,16 @@ To access the labels
 3. if non-terminal, access the NT name
 */
 
-typedef struct icgTuple{
+typedef struct icgLine{
     icgLabels label;
     symbolRecord* lhs; 
     symbolRecord* op1; 
     symbolRecord* op2; 
     //token immediateVal;
     char* jump; // need to figure out later if this should remain a char
-}icgTuple;
+}icgLine;
 
+icgLine intermediateCode[MAXLINES];
+int icgLineNo;
 
 #endif
