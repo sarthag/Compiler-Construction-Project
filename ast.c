@@ -138,10 +138,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 3:
-
         break;
     case 4:
-
         break;
     case 5:
         current->nodeType = prev->nodeType;
@@ -277,6 +275,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 40:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 41:
         current->nodeType = prev->nodeType;
