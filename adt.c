@@ -172,20 +172,20 @@ void inorder_traversal(tree_node *node, FILE* fp) {
             fprintf(fp, "----- | Root Node (No Parent) | no | %d |%d |%d \n", node->element.nt.nid,node -> rule,node ->type);
         }
         else {
-            printf("----- | %s | no | %s |%d|%d \n", nt_list[node->parent->element.nt.nid], nt_list[node->element.nt.nid],node ->rule,node ->type); // change this back
+            fprintf(fp, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->element.nt.nid], nt_list[node->element.nt.nid],node ->rule,node ->type); // change this back
         }
     } 
     else {
         // printf("Terminal\t");
         token tok = node->element.t;
         if (tok.tid == NUM){
-            printf("| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->element.nt.nid], node ->rule,node ->type);
+            fprintf(fp, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->element.nt.nid], node ->rule,node ->type);
         }
         else if (tok.tid == RNUM){
-            printf("| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type);
+            fprintf(fp, "| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type);
         }
         else{
-            printf("| %s | %d | %s | %s| yes |%d|%d \n", tok.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
+            fprintf(fp, "| %s | %d | %s | %s| yes |%d|%d \n", tok.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
         }
     }
 
