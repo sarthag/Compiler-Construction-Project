@@ -11,40 +11,6 @@
 
 #include "parser.h"
 
-//populate fake values of first and follow
-/*
-bool first[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{1,1,0,1}, {1,1,0,1}, {0,1,0,1}, {0,0,1,0}};
-bool follow[NUM_OF_NONTERMINALS][NUM_OF_TERMINALS+1] = {{0,0,0,1}, {0,1,1,0}, {0,0,1,0}, {0,0,0,1}};
-*/
-
-// void populate_parse_table(){
-//     //populate the table with -1 
-//     for(int i=0;i<NUM_OF_NONTERMINALS;i++){
-//         for(int j=0;j<PT_COLS;j++){
-//             parse_table[i][j]=-1;
-//         }
-//     }
-//     for(int i=0;i<NUM_OF_RULES;i++){
-//         bool first_set[NUM_OF_TERMINALS] = {0}; 
-//         for(int j = 0; j < NUM_OF_TERMINALS; j++)
-//             first_set[j] = First[G[i].lhs_id][j];
-//         for(int j=0; j<NUM_OF_TERMINALS-1;j++){
-//             if(first_set[j]==1){
-//                 parse_table[G[i].lhs_id][j]=i+1;
-//             }
-//         } 
-//         if(first_set[NUM_OF_TERMINALS-1]==1){
-//             //if the first set contains epsilon
-//             bool* follow_set= Follow[G[i].lhs_id];
-//             for(int k=0;k<NUM_OF_TERMINALS;k++){
-//                 if(follow_set[k]==1){
-//                     parse_table[G[i].lhs_id][k]=i+1;
-//                 }
-//             }
-//         }
-//     }
-// }
-
 void synchronization_set(){
     token_key semicol = SEMICOL, bc = BC, sqbc = SQBC;
 
@@ -59,7 +25,6 @@ void InitializeParser(){
     populate_grammar();
     generateGrammar();
     computeFirstandFollow();
-    //loadFirstFollow();
     synchronization_set();
     populate_parse_table();
     parserStack = (stack*) malloc(sizeof(stack));
@@ -89,7 +54,6 @@ token * getNextTk(tokenLL tokenList, token * current){
 
 void parser_retract(non_terminal nonterm, token* current) {
     while(!sync_set[nonterm.nid][current ->tid]){
-        // stack_node *sn = pop(parserStack);
         if(parse_table[nonterm.nid][EPSILON]){
             pop(parserStack);
             // printStack(parserStack);
@@ -100,8 +64,7 @@ void parser_retract(non_terminal nonterm, token* current) {
 }
 
 void parse_code(){
-    int c=0;
-    // stack_node* s;
+    int c = 0;
     while(L != NULL){
         printf("\nBEFORE:");
         printStack(parserStack);
@@ -133,18 +96,14 @@ void parse_code(){
             printf("Rule No from PT: %d\n",(parse_table[x->element.nt.nid][L ->tid])+1);
             if (parse_table[x->element.nt.nid][L->tid] != -1){
                 x = pop(parserStack);
-                //printf("x -> treeLocation is NULL after pop?: %d\n", x->treeLocation== NULL);
-                 //printStack(parserStack);
+                //printStack(parserStack);
                 // printf("%d %d %d\n", x->element.nt.nid, L->tid, G[parse_table[x->element.nt.nid][L->tid]].lastRHS->rhs_id);
                 rhs* toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS;
                 int ruleNo = parse_table[x->element.nt.nid][L->tid];
                 x->treeLocation->rule = ruleNo;
-                //printf("x -> treeLocation is NULL after rhs?: %d\n", x->treeLocation== NULL);
 
-                while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON)
-                {   
-                    // if(toPush->prevRHS== NULL) {
-                    //printf("x -> treeLocation is NULL before temp?: %d\n", x->treeLocation== NULL);
+                while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON){   
+               
                     tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
                     temp=create_node(toPush ->isTerminal,toPush->rhs_id);
                     temp->element.t.line_no = L->line_no;
@@ -159,22 +118,11 @@ void parse_code(){
                         temp->element.t.lexeme = L->lexeme;
                     }
                     temp->element.t.tid = L->tid;      
-                    // }          
-                    //// break;
-                    //printf("x -> treeLocation is NULL after temp?: %d\n", x->treeLocation== NULL);
-                    //tree_node* temp = NULL;
-                    // printf("temp type : %d\n", temp->type);
-                    // printf("temp type : %d\n", temp->is_visited);
-                    // tree_node* temp = NULL;
-                    // printf("To be inserted into tree: %d\n",temp ->element.nt.nid);
-                    // printf("x -> treeLocation is NULL after temp?: %d\n", x->treeLocation== NULL);
-                    // printf("parseTree -> root : %d\n",parseTree->root->element.nt.nid);
                     insert_child(x->treeLocation, temp);
                     // printf("Inserted into tree: %d",temp ->element.nt.nid);
                     push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
                     //printStack(parserStack);
                     toPush = toPush->prevRHS;
-                    //break;
                 }   
                 if(toPush->isTerminal ==1 && toPush -> rhs_id == EPSILON){
                     printf("Rule No from Parse Tree element: %d\n",(x->treeLocation->rule)+1);
@@ -200,7 +148,6 @@ void parse_code(){
                 // }
 
                 parser_retract(x ->element.nt,L);
-                // break;
             }
         }
         else if (x == NULL){
@@ -211,22 +158,16 @@ void parse_code(){
             printf("==================\n");
             continue;
         }
-        // L = getNextTk(tokenList)
-        // c=c+1;
-        // if(c==20){
-        //     break;
-        // }
+
         printf("\nAFTER:");
         printStack(parserStack);
         printf("==================\n");
     }
-    //if((parserStack->top != NULL || parserStack-> top->element.t.tid!=$) && L -> next == NULL ){
+
     if(parserStack -> top != NULL && L -> next == NULL){
         printf("ERROR: Linked List empty, stack not empty\n");
     }
 }
-
-
 
 
 void printParseTree(tree_node *node, char* parseTreeFile){
