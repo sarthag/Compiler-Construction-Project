@@ -11,19 +11,19 @@
 
 #include "parser.h"
 
-void synchronization_set(){
-    for(int i=0; i<NUM_OF_NONTERMINALS; i++){
-        for(int j=0; j<NUM_OF_TERMINALS; j++){
-            sync_set[i][j] = (j == SEMICOL) || Follow[i][j];
-        }
-    }
-}
+// void synchronization_set(){
+//     for(int i=0; i<NUM_OF_NONTERMINALS; i++){
+//         for(int j=0; j<NUM_OF_TERMINALS; j++){
+//             sync_set[i][j] = (j == SEMICOL) || Follow[i][j];
+//         }
+//     }
+// }
 
 void InitializeParser(){
     populate_grammar();
     generateGrammar();
     computeFirstandFollow();
-    synchronization_set();
+    //synchronization_set();
     populate_parse_table();
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
@@ -96,8 +96,7 @@ void parse_code(){
                     }
                     prev_err_line = L->line_no;
                 }
-                
-
+        
                 pop(parserStack); 
             }    
         }
@@ -111,27 +110,13 @@ void parse_code(){
 
                 rhs* toPush = G[parse_table[x->element.nt.nid][L->tid]].lastRHS;
                 int ruleNo = parse_table[x->element.nt.nid][L->tid];
+
                 x->treeLocation->rule = ruleNo;
 
-                while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON){   
+                while (toPush->prevRHS != NULL && toPush->rhs_id != EPSILON){   
                
                     tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
-                    temp = create_node(toPush ->isTerminal, toPush->rhs_id);
-                    temp->element.t.line_no = L->line_no;
-
-                    if(L->tid == NUM) {
-                        temp->element.t.num = L->num;                        
-                    }
-
-                    else if(L->tid == RNUM) {
-                        temp->element.t.rnum = L->rnum;
-                    }
-
-                    else {
-                        temp->element.t.lexeme = L->lexeme;
-                    }
-
-                    temp->element.t.tid = L->tid;      
+                    temp = create_node(toPush ->isTerminal, toPush->rhs_id);     
                     insert_child(x->treeLocation, temp);
                     push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
                     toPush = toPush->prevRHS;
@@ -142,9 +127,9 @@ void parse_code(){
                 } 
 
                 tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
-                    temp = create_node(toPush->isTerminal, toPush->rhs_id);
-                    insert_child(x->treeLocation, temp);
-                    push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
+                temp = create_node(toPush->isTerminal, toPush->rhs_id);
+                insert_child(x->treeLocation, temp);
+                push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
             }
 
             else{
@@ -182,6 +167,27 @@ void parse_code(){
     if(parserStack -> top != NULL && L -> next == NULL){
         printf("ERROR: Linked List empty, stack not empty\n");
     }
+
+    fixParseTree(parseTree->root);
+}
+
+
+void fixParseTree(tree_node* root){
+    if(root == NULL || root->type == TERMINAL){
+        return; 
+    }
+
+    if(root->left_child == NULL){
+        tree_node* eps = (tree_node*)malloc(sizeof(tree_node));
+        eps = create_node(TERMINAL, EPSILON);
+        insert_child(root, eps);
+    }
+
+    else{
+        fixParseTree(root->left_child);
+    }
+
+    fixParseTree(root->right_sibling);
 }
 
 
