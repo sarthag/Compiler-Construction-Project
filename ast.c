@@ -28,13 +28,14 @@ void populateLabels(){
     }
 }
 
-void initAST(){
+astStack* initAST(){
     astStack* syntaxStack = (astStack*) malloc(sizeof(astStack));
     initASTStack(syntaxStack);
     populateLabels();
     syntaxTree = createSyntaxTree();
     int rule = parseTree->root->rule;
     createAST(rule);
+    return syntaxStack;
 }
 
 void createAST(int rule){
@@ -58,13 +59,15 @@ void createRelevant(){
 
 }
 
-void topDownPass(astNode* parent, tree_node *parseNode){
+void topDownPass(astNode* parent, tree_node *parseNode, astStack* syntaxStack){
     if(parseNode==NULL){
         return;
     }
     if(parseNode->type == TERMINAL){
+        printf("Terminal\n");
+        printf("%d\t%s\n", parseNode->rule, token_list[parseNode->element.t.tid]);
         if(binRelevant[parseNode->element.t.tid] == 1){
-            astNode * new = createASTNode(parseNode->type, parseNode->rule, 0, parseNode);
+            astNode * new = createASTNode(parseNode->type, parseNode->rule, parseNode);
             astNode * temp;
             temp = parent -> leftChild;
             if(temp == NULL){
@@ -82,11 +85,15 @@ void topDownPass(astNode* parent, tree_node *parseNode){
         
     }
     else if (parseNode->type == NON_TERMINAL){
-        astNode* new = createASTNode(parseNode->type, parseNode->element.nt.nid, 0, parseNode);
+        printf("Non Terminal\n");
+        printf("%d\t%s\n", parseNode->rule, nt_list[parseNode->element.nt.nid]);
+        astNode* new = createASTNode(parseNode->type, parseNode->element.nt.nid, parseNode);
         astNode * temp;
         temp = parent->leftChild;
+        // printf("Temp\n");
         if(temp == NULL){
             parent->leftChild = new;
+            // printf("If Over\n");
         }
         else{
             while(temp->rightSibling != NULL){
@@ -94,11 +101,15 @@ void topDownPass(astNode* parent, tree_node *parseNode){
             }
             temp->rightSibling = new;
         }
+        // printf("Else Over\n");
         new->parent = parent;
+        // printf("Parent Assigned\n");
+        // printf("%d\n", syntaxStack->size);
         pushast(syntaxStack, new);
-        topDownPass(new, parseNode->left_child);
+        // printf("Before Recursion\n");
+        topDownPass(new, parseNode->left_child, syntaxStack);
     }
-    topDownPass(parent, parseNode->right_sibling);
+    topDownPass(parent, parseNode->right_sibling, syntaxStack);
 
     //check if it is a list node or if it is an irrelevant terminal - using a binary array for each of them 
     //set the rest of the attributes of temp - rule no, tree pointer, etc 
@@ -109,25 +120,49 @@ void printASTstack(astStack * syntaxStack) {
     astStackNode * top = (astStackNode*)malloc(sizeof(astStackNode));
     top = syntaxStack -> top;
     while(top->next != NULL) {
-        if (top->treeloc->type == TERMINAL){
-            printf("TERMINAL\t%d\t%d\n", top->treeloc->element.t.tid, top->treeloc->rule);
+        if (top->treeloc->nodeType == TERMINAL){
+            printf("TERMINAL\t%d\tRule: %d\n", token_list[top->treeloc->name.t.tid], top->treeloc->rule_no);
         }
         else {
-            printf("NON TERMINAL\t%d\t%d\n", top->treeloc->element.nt.nid, top->treeloc->rule);
+            printf("NON TERMINAL\t%d\tRule: %d\n", nt_list[top->treeloc->name.nt.nid], top->treeloc->rule_no);
         }
+        top = top->next;
 
     }
 }
 
 int main(){
-    initAST();
-    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, 0, parseTree->root);
-    topDownPass(ASTroot, parseTree->root->left_child);    
+    FILE* prog;
+    char* filename = "testOwn.txt";
+    char* parseTreeFile = "parseTree.txt";
+    // printf("here\n");
+    removeComments(filename);
+    // printf("here\n");
+    prog = readFile(filename);
+    // printf("here\n");
+    populate_keyword_table();
+    // printf("here\n");
+    getNextToken(prog);
+    // printf("here\n");
+    InitializeParser();
+    // printf("here\n");
+    parse_code();
+    // printf("here\n");
+    // printParseTree(parseTree->root, parseTreeFile);
+    // printf("here\n");
+    syntaxStack = initAST();
+    // printf("here\n");
+    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+    // printf("here\n");
+    topDownPass(ASTroot, parseTree->root, syntaxStack);    
+    printf("here\n");
     printASTstack(syntaxStack);
-    callfindAction(ASTroot);
+    printf("here\n");
+    // callfindAction(ASTroot, syntaxStack);
 }
 
 astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
+    astNode * temp;
     switch (current->rule_no) {
     case 0:
         break;
@@ -161,8 +196,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 10:
     
         break;
-    case 11:
-        astNode * temp = prev -> rightSibling;
+    case 11: 
+        temp = prev -> rightSibling;
         prev->rightSibling = temp->rightSibling;
         prev->leftChild = temp;
         break;
@@ -177,7 +212,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 14:
-        astNode * temp = prev -> rightSibling;
+        temp = prev -> rightSibling;
         prev->rightSibling = temp->rightSibling;
         prev->leftChild = temp;
         break;
@@ -615,7 +650,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->leftChild = prev->rightSibling;
         break;
     case 135:
-        astNode * temp = prev->rightSibling;
+        temp = prev->rightSibling;
         current->nodeType = temp->nodeType;
         current->name = temp->name;
         prev->rightSibling = temp->rightSibling;
@@ -640,16 +675,16 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
 }
 
 astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
-    astNode * prev = popast(syntaxStack);
+    astNode * prev = popast(syntaxStack)->treeloc;
     astNode * lastTerminal = prev;
-    astNode * current = popast(syntaxStack);
+    astNode * current = popast(syntaxStack)->treeloc;
     findAction(current, prev, lastTerminal);
     while(syntaxStack->top != NULL) {
-        current = popast(syntaxStack);
+        current = popast(syntaxStack)->treeloc;
         if(current->nodeType == TERMINAL) {
             prev = current;
             lastTerminal = current;
-            current = popast;
+            current = popast(syntaxStack)->treeloc;
         }
         findAction(current, prev, lastTerminal);
     }
