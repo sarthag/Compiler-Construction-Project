@@ -38,6 +38,16 @@ typedef struct arrayType{
     int upperBound;
 }arrayType;
 
+typedef union{
+    dType primitiveType;
+    arrayType arr;
+}vartype;
+
+typedef struct{
+    bool isArray;
+    vartype varType;
+}entryDataType;
+
 typedef struct symbolRecord{
     char* name; 
 
@@ -46,11 +56,7 @@ typedef struct symbolRecord{
     stEntryType entryType; //for storing whether it is a variable function conditional or iterative stmt
     struct symbolTable* parentTable;  
     struct symbolRecord* nextEntry;
-    bool isArray;
-    union{
-        dType primitiveType;
-        arrayType arr;
-    }varType;
+    entryDataType entry_DT;
      
     int size;
     int offset;
@@ -66,7 +72,7 @@ typedef struct symbolTable{
     int baseOffset;
     int tableWidth;
     struct symbolTable* parentTable; //table to return to 
-    struct symbolTable* nextTable; //not sure if this is needed since there are no nested functions 
+    // struct symbolTable* nextTable; //not sure if this is needed since there are no nested functions 
     symbolRecord symbTable[ST_SIZE]; // Temp delete if wrong 
     struct symbolTable* tempTable;
     

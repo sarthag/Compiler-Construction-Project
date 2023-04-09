@@ -34,14 +34,15 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
         table -> symbTable[index].isScope = 1;
         table -> symbTable[index].scopePointer = createSymbolTable(name,table);
     }
-    table ->symbTable[index].isArray = false;
-    table ->symbTable[index].varType.primitiveType = entrydType;
+    table ->symbTable[index].entry_DT.isArray = false;
+    table ->symbTable[index].entry_DT.varType.primitiveType = entrydType;
     table -> symbTable[index].occupied = true;
     return table;
 }
 
 
-void insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int upperBound, dType arrType){
+void insertIntoSymbolTableArr(symbolTable* table, char* name,vartype vt){
+
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
@@ -55,9 +56,10 @@ void insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int
     bool isArray = true;
     bool isScope = false;
     table ->symbTable[index].entryType = VARIABLE;
-    table ->symbTable[index].varType.arr.arraydType = arrType;
-    table ->symbTable[index].varType.arr.lowerBound = lowerBound;
-    table ->symbTable[index].varType.arr.upperBound = upperBound;
+    table ->symbTable[index].entry_DT.isArray = true;
+    table ->symbTable[index].entry_DT.varType.arr.arraydType = vt.arr.arraydType;
+    table ->symbTable[index].entry_DT.varType.arr.lowerBound = vt.arr.lowerBound;
+    table ->symbTable[index].entry_DT.varType.arr.upperBound = vt.arr.upperBound;
     table ->symbTable[index].occupied = true;
 
 }
@@ -105,35 +107,86 @@ void generateST(astNode* treeRoot, symbolTable* table){
     root = root->leftChild; 
 
     while(root != NULL){
-        insertSTSwitch(root, table);
+        table = insertSTSwitch(root, table);
         generateST(root, table);
         root = root->rightSibling;
     }
     return;
 }
+entryDataType gettypeFromtid(astNode* astnode,symbolTable* table){
+    entryDataType edt;
 
-void insertSTSwitch(astNode* node, symbolTable* table){
+    switch(astnode->name.t.tid){
+                case INTEGER:
+                    edt.isArray = false;
+                    edt.varType.primitiveType = INT_DT;
+                    break;
+                case REAL:
+                    edt.isArray = false;
+                    edt.varType.primitiveType  = REAL_DT;
+                    break;
+                case BOOLEAN:
+                    edt.isArray = false;
+                    edt.varType.primitiveType  = BOOL_DT;
+                    break;
+                case ARRAY:
+                    //need to take care of ID type
+                    edt.isArray = true;
+                    vartype varType;
+                    varType.arr.arraydType = gettypeFromtid(astnode ->leftChild -> rightSibling,table).varType.primitiveType;
+                    int lbSign = 1;
+                    int rbSign = 1;
+                    int lb;
+                    int rb;
+                    if(astnode->leftChild->name.t.tid == MINUS){
+                        lbSign = -1;
+                    }
+                    if(astnode->leftChild->rightSibling->name.t.tid == MINUS){
+                        rbSign = -1;
+                    }
+                    lb = lbSign*(astnode -> leftChild ->leftChild->name.t.num);
+                    rb = rbSign*(astnode -> leftChild ->rightSibling->name.t.num);
+                    edt.varType.arr.lowerBound = lb;
+                    edt.varType.arr.upperBound = rb;
+                    insertIntoSymbolTableArr(table,astnode->name.t.lexeme,varType);
+                    
+
+                    
+                    break;
+
+                    
+                //ARRAY case yet to be implemented
+    
+    }
+    return edt;
+
+}
+
+symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     //search to check if it already exists in one of the tables 
     if(searchSymbolTable(node->name.t.lexeme, table) !=NULL){
         printf("ERROR: Redeclaration of a variable \n ");
         return;
     }
-
+    //need to make the rule nos 0 indexed
     int rule = node->rule_no + 1;
     switch (rule){
     case 4:
-        insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, NA);    
+        symbolRecord* record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, NA);  
+        // insertSTSwitch(node -> , record ->scopePointer);  
+        return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;
     
     case 7:
-        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,NA);
-        //inputplist handled in case 12 need to check the logic though
+        symbolRecord* record = searchSymbolTable(node ->name.t.lexeme,table);
+        return record ->scopePointer;
         break;
     
     case 8:
-        //depends on the AST for the logic
+        symbolRecord* record = searchSymbolTable(node ->name.t.lexeme,table);
+        return record ->scopePointer;
         break; 
 
     case 10:
@@ -141,21 +194,33 @@ void insertSTSwitch(astNode* node, symbolTable* table){
         break; 
     
     case 12:
-        //depends on the AST for the logic first get datatype and then iterate 
+        dType datatype;
+        astNode* astListnode = node -> leftChild;
+        while(astListnode -> name.t.tid != EPSILON){
+            datatype = gettypeFromtid(astListnode ->leftChild->name.t.tid,table).varType.primitiveType;
+            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            astListnode = astListnode -> rightSibling;
+        }
+        return table;
         break; 
 
-    case 13:
-    //depends on the AST for the logic
-        break; 
-    
     case 15: 
-    //depends on the AST for the logic
-        break;
-    
-    case 16: 
-    //depends on the AST for the logic
-        break; 
+        dType datatype;
+        astNode* astListnode = node -> leftChild;
+        while(astListnode -> name.t.tid != EPSILON){
+            datatype = gettypeFromtid(node ->leftChild -> rightSibling->name.t.tid,table).varType.primitiveType;
+            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            astListnode = astListnode -> rightSibling;
 
+        }
+        return table;
+
+        break;
+    case 22:
+        
+        
+        return table;
+        break;
     case 68:
     //depends on the AST for the logic first get datatype and then iterate 
         break; 
@@ -165,28 +230,46 @@ void insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     case 124: 
+        dType datatype;
+        arrayType arrType;
+        bool isArrayType;
+        datatype = gettypeFromtid(node ->leftChild -> rightSibling->name.t.tid,table).varType.primitiveType;
+        astNode* idListnode  = node -> leftChild -> leftChild;
+        while(idListnode -> name.t.tid != EPSILON){
+            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            idListnode = idListnode ->rightSibling;
+        } 
+
+        return table;
     //depends on the AST for the logic first get datatype and then iterate 
         break; 
 
     case 125:
         sprintf(counterStr, "%d", counter);
-        insertIntoSymbolTable(table, counterStr, CONDITIONAL, NA);
+        symbolRecord* record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, NA);
+        // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
+        return record -> scopePointer;
         break; 
 
     case 134:
         sprintf(counterStr, "%d", counter);
-        insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        symbolRecord* record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
+        return record -> scopePointer;
         break; 
 
     case 135: 
         sprintf(counterStr, "%d", counter);
-        insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        symbolRecord* record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
+        return record -> scopePointer;
         break; 
 
     default:
+        return table;
         break;
     }
 
@@ -205,14 +288,14 @@ void printSymbolTables(symbolTable* entryTable){
             }
             else {
                 //primitive or array type
-                if(entryTable->symbTable[i].isArray==1){
+                if(entryTable->symbTable[i].entry_DT.isArray==1){
                     printf("Array element %s is of Type %d with lower bound %d and upper bound %d \n", 
-                    entryTable->symbTable[i].name, entryTable->symbTable[i].varType.arr.arraydType,
-                    entryTable->symbTable[i].varType.arr.lowerBound, entryTable->symbTable[i].varType.arr.upperBound);
+                    entryTable->symbTable[i].name, entryTable->symbTable[i].entry_DT.varType.arr.arraydType,
+                    entryTable->symbTable[i].entry_DT.varType.arr.lowerBound, entryTable->symbTable[i].entry_DT.varType.arr.upperBound);
                 }
                 else{
                     printf("Variable %s is of Type %d \n", entryTable->symbTable[i].name, 
-                    entryTable->symbTable[i].varType.primitiveType);
+                    entryTable->symbTable[i].entry_DT.varType.primitiveType);
                 }
                 
             }
