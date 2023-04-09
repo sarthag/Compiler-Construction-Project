@@ -7,4 +7,5 @@
 void generateAssembly(FILE* asmFile);
 
 void readWriteST(bool isRead, int width, symbolRecord* rec, FILE* asmFile);
+
 #endif
