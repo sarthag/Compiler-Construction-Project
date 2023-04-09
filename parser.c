@@ -93,7 +93,8 @@ void parse_code(){
             }
 
             else{
-                printf("ERROR at line %d: Terminal Mismatch\n", L->line_no);
+                printf("ERROR at line %d: Terminal Mismatch, unexpected %s\n", L->line_no, L->lexeme);
+
                 pop(parserStack); 
             }    
         }
@@ -145,7 +146,7 @@ void parse_code(){
 
             else{
                 if(L->line_no != prev_err_line){
-                    printf("ERROR at Line %d: Treminal Non-Terminal Mismatch \n", L->line_no);
+                    printf("ERROR at Line %d: Treminal Non-Terminal Mismatch, unexpected %s for %s\n", L->line_no, L->lexeme, nt_list[parserStack->top->element.nt.nid]);
                     prev_err_line = L->line_no;
                 }
                 // if(!sync_set[x->element.nt.nid][L ->tid]){

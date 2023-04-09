@@ -169,7 +169,7 @@ void inorder_traversal(tree_node *node, FILE* fp) {
         // printf("%d\n", node->element.nt.nid);
         if(node->element.nt.nid == program) {
             
-            fprintf(fp, "----- | Root Node (No Parent) | no | %d |%d |%d |%d \n", node->element.nt.nid,node -> rule,node ->type);
+            fprintf(fp, "----- | Root Node (No Parent) | no | %d |%d |%d \n", node->element.nt.nid,node -> rule,node ->type);
         }
         else {
             fprintf(fp, "----- | %d | no | %d |%d|%d \n", node->parent->element.nt.nid, node->element.nt.nid,node ->rule,node ->type); // change this back
@@ -188,6 +188,7 @@ void inorder_traversal(tree_node *node, FILE* fp) {
             fprintf(fp, "| %s | %d | %d | %d | yes |%d|%d \n", tok.lexeme, tok.line_no, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type); // change this back
         }
     }
+
     // if(node->type==0 && node->rule==-1){
     //     printf("\nThe non terminal is %d \n", node->element.nt.nid);
     // }
