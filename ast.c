@@ -148,7 +148,7 @@ int main(){
     // printf("here\n");
     parse_code();
     // printf("here\n");
-    // printParseTree(parseTree->root, parseTreeFile);
+    printParseTree(parseTree->root, parseTreeFile);
     // printf("here\n");
     syntaxStack = initAST();
     // printf("here\n");

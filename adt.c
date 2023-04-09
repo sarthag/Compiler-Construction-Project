@@ -169,23 +169,23 @@ void inorder_traversal(tree_node *node, FILE* fp) {
         // printf("%d\n", node->element.nt.nid);
         if(node->element.nt.nid == program) {
             
-            fprintf(fp, "----- | Root Node (No Parent) | no | %d |%d |%d |%d \n", node->element.nt.nid,node -> rule,node ->type);
+            printf("----- | Root Node (No Parent) | no |%s |%d |%d \n", nt_list[node->element.nt.nid], node -> rule, node ->type);
         }
         else {
-            fprintf(fp, "----- | %d | no | %d |%d|%d \n", node->parent->element.nt.nid, node->element.nt.nid,node ->rule,node ->type); // change this back
+            printf("----- | %s | no | %s |%d|%d \n", nt_list[node->parent->element.nt.nid], nt_list[node->element.nt.nid],node ->rule,node ->type); // change this back
         }
     } 
     else {
         // printf("Terminal\t");
         token tok = node->element.t;
         if (tok.tid == NUM){
-            fprintf(fp, "| ----- | %d | %d | %d | %d | yes |%d|%d \n", tok.line_no, tok.num, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type);
+            printf("| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->element.nt.nid], node ->rule,node ->type);
         }
         else if (tok.tid == RNUM){
-            fprintf(fp, "| ---- | %d | %d | %d | %d | yes |%d|%d \n", tok.line_no, tok.rnum, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type);
+            printf("| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type);
         }
         else{
-            fprintf(fp, "| %s | %d | %d | %d | yes |%d|%d \n", tok.lexeme, tok.line_no, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type); // change this back
+            printf("| %s | %d | %s | %s| yes |%d|%d \n", tok.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
         }
     }
     // if(node->type==0 && node->rule==-1){
