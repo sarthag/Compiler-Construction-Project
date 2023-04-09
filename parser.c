@@ -152,7 +152,15 @@ void parse_code(){
                 //     printf("Element not in synch set, skipping input\n");
                 //     L = getNextTk(tokenList, L);
                 // }
-                L = getNextTk(tokenList, L);
+               if(Follow[parserStack->top->element.nt.nid][L->tid] || L->tid == SEMICOL){
+                // printf("in sync set\n");
+                // printStack(parserStack);
+                pop(parserStack);
+            }
+
+            L = getNextTk(tokenList, L);              
+            
+                
                 
                 // implement retraction here
 
@@ -160,23 +168,6 @@ void parse_code(){
                 //parser_retract(x ->element.nt,L);
             }
         }
-
-        else{
-            printf("ERROR : Non terminal doesnt exist\n");
-            
-
-            if(Follow[parserStack->top->element.nt.nid][L->tid] || L->tid == SEMICOL){
-                printf("in sync set\n");
-                printStack(parserStack);
-                pop(parserStack);
-            }
-
-            else{
-                printf("Not in sync set\n");
-                L = getNextTk(tokenList, L);                 
-            }
-        }
-
         // printf("\nAFTER:");
         // printStack(parserStack);
         // printf("==================\n");
