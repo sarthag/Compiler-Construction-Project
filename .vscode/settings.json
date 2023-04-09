@@ -3,6 +3,7 @@
     "files.associations": {
         "*.py": "python",
         "astadt.h": "c",
-        "icgeneration.h": "c"
+        "icgeneration.h": "c",
+        "codegen.h": "c"
     }
 }
