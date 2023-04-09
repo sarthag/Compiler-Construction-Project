@@ -133,7 +133,7 @@ void printASTstack(astStack * syntaxStack) {
 
 int main(){
     FILE* prog;
-    char* filename = "testOwn.txt";
+    char* filename = "test_cases (stage_1)/t2.txt";
     char* parseTreeFile = "parseTree.txt";
     // printf("here\n");
     removeComments(filename);
