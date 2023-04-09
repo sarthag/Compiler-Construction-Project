@@ -114,18 +114,10 @@ tree_node *create_node(node_type type, int id) {
 }
 
 void insert_child(tree_node *parent, tree_node *child) {
+    // insets the left child
     child->parent = parent;
-    if (parent->left_child == NULL) {
-        parent->left_child = child;
-    } 
-    
-    else {
-        tree_node *sibling = parent->left_child;
-        while (sibling->right_sibling != NULL) {
-            sibling = sibling->right_sibling;
-        }
-        sibling->right_sibling = child;
-    }
+    child->right_sibling = parent->left_child;
+    parent->left_child = child; 
 }
 
 
@@ -169,7 +161,7 @@ void inorder_traversal(tree_node *node, FILE* fp) {
         // printf("%d\n", node->element.nt.nid);
         if(node->element.nt.nid == program) {
             
-            fprintf(fp, "----- | Root Node (No Parent) | no | %d |%d |%d \n", node->element.nt.nid,node -> rule,node ->type);
+            fprintf(fp, "----- | Root Node (No Parent) | no | %s |%d |%d \n", nt_list[node->element.nt.nid] ,node -> rule,node ->type);
         }
         else {
             fprintf(fp, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->element.nt.nid], nt_list[node->element.nt.nid],node ->rule,node ->type); // change this back

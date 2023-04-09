@@ -49,18 +49,6 @@ token * getNextTk(tokenLL tokenList, token * current){
     return (current -> next == NULL) ?NULL :current->next;
 }
 
-
-void parser_retract(non_terminal nonterm, token* current) {
-    while(!sync_set[nonterm.nid][L ->tid]){
-        if(parse_table[nonterm.nid][L->tid] != -1){
-            return;
-            //pop(parserStack);
-            // printStack(parserStack);  
-        }
-        L = getNextTk(tokenList, L); 
-    }
-}
-
 void parse_code(){
     int prev_err_line = 0; 
     bool popped = false;
@@ -128,7 +116,7 @@ void parse_code(){
                 while (toPush->prevRHS!= NULL && toPush->rhs_id != EPSILON){   
                
                     tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
-                    temp=create_node(toPush ->isTerminal,toPush->rhs_id);
+                    temp = create_node(toPush ->isTerminal, toPush->rhs_id);
                     temp->element.t.line_no = L->line_no;
 
                     if(L->tid == NUM) {
@@ -174,26 +162,16 @@ void parse_code(){
                     }
                     prev_err_line = L->line_no;
                 }
-                // if(!sync_set[x->element.nt.nid][L ->tid]){
-                //     printf("Element not in synch set, skipping input\n");
-                //     L = getNextTk(tokenList, L);
-                // }
+              
                if((Follow[parserStack->top->element.nt.nid][L->tid] || L->tid == SEMICOL || L->tid == END) && !popped){
                 pop(parserStack);
                 popped = true;
-            }
+                }
 
-            else{
-                L = getNextTk(tokenList, L);  
-                popped = false; 
-            }            
-            
-                
-                
-                // implement retraction here
-
-
-                //parser_retract(x ->element.nt,L);
+                else{
+                    L = getNextTk(tokenList, L);  
+                    popped = false; 
+                }            
             }
         }
         // printf("\nAFTER:");
