@@ -169,62 +169,31 @@ void inorder_traversal(tree_node *node, FILE* fp) {
         // printf("%d\n", node->element.nt.nid);
         if(node->element.nt.nid == program) {
             
-            fprintf(stdout, "----- | Root Node (No Parent) | no | %d |%d |%d |%d \n", node->element.nt.nid,node -> rule,node ->type);
+            fprintf(fp, "----- | Root Node (No Parent) | no | %d |%d |%d |%d \n", node->element.nt.nid,node -> rule,node ->type);
         }
         else {
-            fprintf(stdout, "----- | %d | no | %d |%d|%d \n", node->parent->element.nt.nid, node->element.nt.nid,node ->rule,node ->type); // change this back
+            fprintf(fp, "----- | %d | no | %d |%d|%d \n", node->parent->element.nt.nid, node->element.nt.nid,node ->rule,node ->type); // change this back
         }
     } 
     else {
         // printf("Terminal\t");
         token tok = node->element.t;
         if (tok.tid == NUM){
-            fprintf(stdout, "| ----- | %d | %d | %d | %d | yes |%d|%d \n", tok.line_no, tok.num, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type);
+            fprintf(fp, "| ----- | %d | %d | %d | %d | yes |%d|%d \n", tok.line_no, tok.num, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type);
         }
         else if (tok.tid == RNUM){
-            fprintf(stdout, "| ---- | %d | %d | %d | %d | yes |%d|%d \n", tok.line_no, tok.rnum, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type);
+            fprintf(fp, "| ---- | %d | %d | %d | %d | yes |%d|%d \n", tok.line_no, tok.rnum, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type);
         }
         else{
-            fprintf(stdout, "| %s | %d | %d | %d | yes |%d|%d \n", tok.lexeme, tok.line_no, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type); // change this back
+            fprintf(fp, "| %s | %d | %d | %d | yes |%d|%d \n", tok.lexeme, tok.line_no, tok.tid, node->parent->element.nt.nid,node ->rule,node ->type); // change this back
         }
     }
-    if(node->type==0 && node->rule==-1){
-        printf("\nThe non terminal is %d \n", node->element.nt.nid);
-    }
+    // if(node->type==0 && node->rule==-1){
+    //     printf("\nThe non terminal is %d \n", node->element.nt.nid);
+    // }
     // printf("Here\n");
     node->is_visited = 1;
     // printf("Here\n");
     inorder_traversal(node->left_child, fp);
     inorder_traversal(node->right_sibling, fp);
 }
-
-
-
-
-// int main(){
-//     parse_tree *pt = create_parse_tree();
-//     non_terminal *nt = (non_terminal*)malloc(sizeof(struct nonTerminal));
-//     nt->nid = 0;
-//     tree_node* st = create_node(NON_TERMINAL, nt);
-//     pt->root = st; 
-//     token *t = (token*)malloc(sizeof(struct token));
-//     t->tid = 1;
-//     tree_node* t1 = create_node(TERMINAL, t);
-//     insert_child(pt->root, t1);
-//     token *tt = (token*)malloc(sizeof(struct token));
-//     tt->tid = 2;
-//     tree_node* t2 = create_node(TERMINAL, tt);
-//     token *ttt = (token*)malloc(sizeof(struct token));
-//     ttt->tid = 3;
-//     tree_node* t3 = create_node(TERMINAL, ttt);
-//     insert_child(pt->root->left_child, t3);
-//     insert_child(pt->root, t2);
-
-//     // printf("child1id: %d\n", pt->root->left_child->element.t.tid);
-//     // printf("child2id: %d\n", pt->root->left_child->right_sibling->element.t.tid);
-//     print_parse_tree(pt);
-
-//     // stack_node* t1 = (stack_node*)malloc(sizeof(struct stack_node));
-//     // t1 = pop(s);
-//     // printf("Size: %d, popid: %d", s->size, t1->element.t.tid);
-// }
