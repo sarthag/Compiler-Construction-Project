@@ -14,7 +14,7 @@ void initStack(stack* s) {
     s->size = 0; 
 }
 
-void * makeElement(node_type type, int id){
+void *  makeElement(node_type type, int id){
     if (type == NON_TERMINAL){
         non_terminal * element = (non_terminal *)malloc(sizeof(non_terminal));
         element->nid = id;
@@ -164,7 +164,7 @@ void inorder_traversal(tree_node *node, FILE* fp) {
             fprintf(fp, "----- | Root Node (No Parent) | no | %s |%d |%d \n", nt_list[node->element.nt.nid] ,node -> rule,node ->type);
         }
         else {
-            fprintf(fp, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->element.nt.nid], nt_list[node->element.nt.nid],node ->rule,node ->type); // change this back
+            fprintf(fp, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->element.nt.nid], nt_list[node->element.nt.nid],node ->rule, node ->type); // change this back
         }
     } 
     else {
