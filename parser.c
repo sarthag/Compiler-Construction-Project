@@ -66,6 +66,8 @@ void InitializeParser(){
     initStack(parserStack);
     parseTree = create_parse_tree();
     parseTree->root = create_node(NON_TERMINAL, program);
+    parseTree -> root ->rule = 0;
+    parseTree -> root ->type = NON_TERMINAL;
     push(parserStack, TERMINAL, $, NULL);
     push(parserStack, NON_TERMINAL, program, parseTree->root);
     L = tokenList.start ;
@@ -128,7 +130,7 @@ void parse_code(){
             
         }
         else if (x->type == NON_TERMINAL){
-             printf("Rule No: %d\n",(parse_table[x->element.nt.nid][L ->tid])+1);
+            printf("Rule No from PT: %d\n",(parse_table[x->element.nt.nid][L ->tid])+1);
             if (parse_table[x->element.nt.nid][L->tid] != -1){
                 x = pop(parserStack);
                 //printf("x -> treeLocation is NULL after pop?: %d\n", x->treeLocation== NULL);
@@ -175,13 +177,18 @@ void parse_code(){
                     //break;
                 }   
                 if(toPush->isTerminal ==1 && toPush -> rhs_id == EPSILON){
+                    printf("Rule No from Parse Tree element: %d\n",(x->treeLocation->rule)+1);
+                    // fprintf(stdout, "----- | %d | no | %d |%d|%d \n", node->parent->element.nt.nid, node->element.nt.nid,node ->rule,node ->type);
                     continue;
                 } 
                 tree_node* temp = (tree_node*)malloc(sizeof(tree_node));
                     temp = create_node(toPush->isTerminal, toPush->rhs_id);
                     insert_child(x->treeLocation, temp);
-                    push(parserStack, toPush->isTerminal, toPush->rhs_id, x->treeLocation);
+                    push(parserStack, toPush->isTerminal, toPush->rhs_id, temp);
                     // printStack(parserStack);
+                printf("Rule No from Parse Tree element: %d\n",(x->treeLocation->rule)+1);
+                // fprintf(stdout, "----- | %d | no | %d |%d|%d \n",x->treeLocation->parent->element.nt.nid, node->element.nt.nid,node ->rule,node ->type);
+
             }
             else{
                 printf("ERROR : Non terminal doesnt exist\n");
