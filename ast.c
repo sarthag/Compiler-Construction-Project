@@ -64,8 +64,7 @@ void topDownPass(astNode* parent, tree_node *parseNode, astStack* syntaxStack){
         return;
     }
     if(parseNode->type == TERMINAL){
-        printf("Terminal\n");
-        printf("%d\t%s\n", parseNode->rule, token_list[parseNode->element.t.tid]);
+        printf("Terminal || Rule No: %d || lexeme %s\n", parseNode->rule, token_list[parseNode->element.t.tid]);
         if(binRelevant[parseNode->element.t.tid] == 1){
             astNode * new = createASTNode(parseNode->type, parseNode->rule, parseNode);
             astNode * temp;
@@ -85,8 +84,7 @@ void topDownPass(astNode* parent, tree_node *parseNode, astStack* syntaxStack){
         
     }
     else if (parseNode->type == NON_TERMINAL){
-        printf("Non Terminal\n");
-        printf("%d\t%s\n", parseNode->rule, nt_list[parseNode->element.nt.nid]);
+        printf("Non Terminal || Rule No: %d || NT Name: %s  ", parseNode->rule, nt_list[parseNode->element.nt.nid]);
         astNode* new = createASTNode(parseNode->type, parseNode->element.nt.nid, parseNode);
         astNode * temp;
         temp = parent->leftChild;
@@ -131,35 +129,6 @@ void printASTstack(astStack * syntaxStack) {
     }
 }
 
-int main(){
-    FILE* prog;
-    char* filename = "test_cases (stage_1)/t2.txt";
-    char* parseTreeFile = "parseTree.txt";
-    // printf("here\n");
-    removeComments(filename);
-    // printf("here\n");
-    prog = readFile(filename);
-    // printf("here\n");
-    populate_keyword_table();
-    // printf("here\n");
-    getNextToken(prog);
-    // printf("here\n");
-    InitializeParser();
-    // printf("here\n");
-    parse_code();
-    // printf("here\n");
-    printParseTree(parseTree->root, parseTreeFile);
-    // printf("here\n");
-    syntaxStack = initAST();
-    // printf("here\n");
-    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
-    // printf("here\n");
-    topDownPass(ASTroot, parseTree->root, syntaxStack);    
-    printf("here\n");
-    printASTstack(syntaxStack);
-    printf("here\n");
-    // callfindAction(ASTroot, syntaxStack);
-}
 
 astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     astNode * temp;
@@ -239,7 +208,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 20:
-        currbent->nodeType = prev->nodeType;
+        current->nodeType = prev->nodeType;
         current->name = prev->name;
         current -> leftChild = prev -> rightSibling;
         break;
@@ -347,7 +316,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 48:
         break;
     case 49:
-        current -> leftChild prev -> rightSibling;
+        current -> leftChild;
+        prev -> rightSibling;
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
@@ -698,4 +668,33 @@ astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
         }
         findAction(current, prev, lastTerminal);
     }
+}
+
+int main(){
+    FILE* prog;
+    char* filename = "testOwn.txt";
+    char* parseTreeFile = "parseTree.txt";
+    // printf("read files\n");
+    removeComments(filename);
+    // printf("comments removed\n");
+    prog = readFile(filename);
+    // printf("file wo comments read\n");
+    populate_keyword_table();
+    printf("\n");
+    getNextToken(prog);
+    // printf("here\n");
+    InitializeParser();
+    // printf("here\n");
+    parse_code();
+    printf("parsing done\n");
+    //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
+    printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
+    syntaxStack = initAST();
+    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+    printf("ast init \n");
+    topDownPass(ASTroot, parseTree->root, syntaxStack);    
+    printf("top down pass done\n");
+    printASTstack(syntaxStack);
+    printf("here\n");
+    // callfindAction(ASTroot, syntaxStack);
 }
