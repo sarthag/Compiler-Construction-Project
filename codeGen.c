@@ -42,13 +42,22 @@ void generateASMCode(FILE* asmFile){
             case INT_DIV:
                 //division of integer variable 
                 readWriteST(1, 2, intermediateCode[i].op1, asmFile);
-                fprintf(asmFile,"\tMOV AX, BX\n");
+                fprintf(asmFile,"\tMOV EAX, BX\n");
                 readWriteST(1, 2, intermediateCode[i].op2, asmFile);
-                fprintf(asmFile,"\tDIV AX, BX\n");
+                fprintf(asmFile, "\tCWD\n");
+                fprintf(asmFile, "\tIDIv BX\n");
+                fprintf(asmFile, "\tSHR EAX, 16\n");
                 fprintf(asmFile, "\tMOV BX, AX\n");
                 readWriteST(0, 2, intermediateCode[i].lhs, asmFile);
                 break;
-
+            case REAL_ADD:
+                break;
+            case REAL_SUB:
+                break;
+            case REAL_MUL:
+                break;
+            case REAL_DIV:
+                break;
             default:
         }
     }
