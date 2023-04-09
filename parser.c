@@ -63,6 +63,7 @@ void parser_retract(non_terminal nonterm, token* current) {
 
 void parse_code(){
     int prev_err_line = 0; 
+    bool popped = false;
     int c = 0;
     while(L != NULL){
 
@@ -93,7 +94,21 @@ void parse_code(){
             }
 
             else{
-                printf("ERROR at line %d: Terminal Mismatch, unexpected %s\n", L->line_no, L->lexeme);
+                if(L->line_no != prev_err_line){
+                    if(L->tid == NUM){
+                        printf("ERROR at line %d: Unexpected %d\n", L->line_no, L->num);
+                    }
+
+                    else if(L->tid == RNUM){
+                        printf("ERROR at line %d: Unexpected %f\n", L->line_no, L->rnum);
+                    }
+
+                    else{
+                        printf("ERROR at line %d: Unexpected %s\n", L->line_no, L->lexeme);
+                    }
+                    prev_err_line = L->line_no;
+                }
+                
 
                 pop(parserStack); 
             }    
@@ -146,20 +161,32 @@ void parse_code(){
 
             else{
                 if(L->line_no != prev_err_line){
-                    printf("ERROR at Line %d: Treminal Non-Terminal Mismatch, unexpected %s for %s\n", L->line_no, L->lexeme, nt_list[parserStack->top->element.nt.nid]);
+                    if(L->tid == NUM){
+                        printf("ERROR at line %d: Unexpected %d\n", L->line_no, L->num);
+                    }
+
+                    else if(L->tid == RNUM){
+                        printf("ERROR at line %d: Unexpected %f\n", L->line_no, L->rnum);
+                    }
+
+                    else{
+                        printf("ERROR at line %d: Unexpected %s\n", L->line_no, L->lexeme);
+                    }
                     prev_err_line = L->line_no;
                 }
                 // if(!sync_set[x->element.nt.nid][L ->tid]){
                 //     printf("Element not in synch set, skipping input\n");
                 //     L = getNextTk(tokenList, L);
                 // }
-               if(Follow[parserStack->top->element.nt.nid][L->tid] || L->tid == SEMICOL){
-                // printf("in sync set\n");
-                // printStack(parserStack);
+               if((Follow[parserStack->top->element.nt.nid][L->tid] || L->tid == SEMICOL || L->tid == END) && !popped){
                 pop(parserStack);
+                popped = true;
             }
 
-            L = getNextTk(tokenList, L);              
+            else{
+                L = getNextTk(tokenList, L);  
+                popped = false; 
+            }            
             
                 
                 
