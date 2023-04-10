@@ -46,6 +46,7 @@ void createICG(astNode* node, symbolTable* table){
     send leftdt and rightdt in the if statements*/
     if(node ->nodeType == TERMINAL){
         switch(node ->name.t.tid){
+            //arithmetic expressions
             case PLUS :
                 // symbolRecord* tempVar;
                 createICG(node -> leftChild, table);
@@ -277,7 +278,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
                 break; 
-
+            //logical expressions
             case AND:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
@@ -438,8 +439,40 @@ void createICG(astNode* node, symbolTable* table){
                 icgLineNo++;
                 break;
 
+            //Assignment operation
+            case ASSIGNOP:
+                createICG(node -> leftChild, table);
+                createICG(node -> leftChild -> rightSibling, table);
+                symbolRecord* lhsOp;
+                lhsOp = findFromST(node -> leftChild ->name.t.lexeme,table);
+                leftOp = findFromST(node ->leftChild-> rightSibling ->name.t.lexeme,table);
+                if(getdTypeFromEDT(lhsOp) == INT_DT && getdTypeFromEDT(leftOp) == INT_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = ASSIGN_INT;
+                }
+                else if(getdTypeFromEDT(lhsOp) == REAL_DT && getdTypeFromEDT(leftOp) == REAL_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = ASSIGN_REAL;
 
-            default:
+                }
+                else if(getdTypeFromEDT(lhsOp) == BOOL_DT && getdTypeFromEDT(leftOp) == BOOL_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = ASSIGN_BOOL;
+
+                }
+                else if(getdTypeFromEDT(lhsOp) == REAL_DT && getdTypeFromEDT(leftOp) == INT_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = INT_TO_REAL;
+
+                }
+
+                
+
+            default: 
                 break;
         }
     }
