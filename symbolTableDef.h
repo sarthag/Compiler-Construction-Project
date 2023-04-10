@@ -67,7 +67,7 @@ typedef struct symbolRecord{
 
 typedef struct symbolTable{
     char *tableName; //function name / iterative stmts name / conditional stmts name 
-    int baseOffset;
+    int latestOffset;
     int tableWidth;
     int nestingLevel; 
     struct symbolTable* parentTable; //table to return to 
@@ -81,6 +81,7 @@ typedef struct symbolTable{
 symbolTable* globalTable;
 int counter = 0;
 char counterStr[20];
+entryDataType na;
 
 
 #endif

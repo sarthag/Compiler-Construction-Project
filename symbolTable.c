@@ -3,19 +3,27 @@
 symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
     symbolTable* newTable = (symbolTable*)malloc(sizeof(symbolTable));
     newTable->parentTable = parentTable;
-    // newTable->firstEntry=NULL;
-    // newTable->lastEntry = NULL;
+    newTable -> latestOffset = 0;
+    newTable -> nestingLevel = parentTable -> nestingLevel + 1;
     newTable->tableName=tableName;
     return newTable;
 }
 
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
-symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, dType entrydType){
+symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType){
+    
+    symbolRecord* searchRecord = searchSymbolTable(name, table);
+    if (searchRecord != NULL){
+        return searchRecord;
+    }
+    
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
     char* tableName;
+
+
     while(table->symbTable[index] ->occupied == true){
         i++;
         index  = (hash + (i*i))%ST_SIZE;
@@ -27,7 +35,10 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index] ->entryType = entryType;
     //if it is a VARIABLE then we create no new table but if it is not then we create a new symbol table
     if(entryType == VARIABLE){
-       table ->symbTable[index] ->isScope = 0; 
+       table ->symbTable[index] ->isScope = 0;
+       table -> symbTable[index]->offset = table ->latestOffset;
+       incrementOffset(table, entrydType);
+       
        
     }
     else{
@@ -35,13 +46,15 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
         table -> symbTable[index] -> scopePointer = createSymbolTable(name,table);
     }
     table ->symbTable[index] -> entry_DT.isArray = false;
-    table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType;
+    table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType.varType.primitiveType;
     table -> symbTable[index] -> occupied = true;
+
+    
     return table -> symbTable[index];
 }
 
 
-symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,vartype vt){
+symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataType entryDt){
 
     int i = 0;
     int hash = hashingFunction(name);
@@ -57,10 +70,12 @@ symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,vartype vt
     bool isScope = false;
     table ->symbTable[index] ->entryType = VARIABLE;
     table ->symbTable[index] ->entry_DT.isArray = true;
-    table ->symbTable[index] ->entry_DT.varType.arr.arraydType = vt.arr.arraydType;
-    table ->symbTable[index] ->entry_DT.varType.arr.lowerBound = vt.arr.lowerBound;
-    table ->symbTable[index] ->entry_DT.varType.arr.upperBound = vt.arr.upperBound;
+    table ->symbTable[index] ->entry_DT.varType.arr.arraydType = entryDt.varType.arr.arraydType;
+    table ->symbTable[index] ->entry_DT.varType.arr.lowerBound = entryDt.varType.arr.lowerBound;
+    table ->symbTable[index] ->entry_DT.varType.arr.upperBound = entryDt.varType.arr.upperBound;
     table ->symbTable[index] ->occupied = true;
+    table ->symbTable[index] ->offset = table->latestOffset;
+    incrementOffset(table,entryDt);
     return table -> symbTable[index];
 }
 
@@ -140,49 +155,77 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
     entryDataType edt;
 
     switch(astnode->name.t.tid){
-                case INTEGER:
-                    edt.isArray = false;
-                    edt.varType.primitiveType = INT_DT;
-                    break;
-                case REAL:
-                    edt.isArray = false;
-                    edt.varType.primitiveType  = REAL_DT;
-                    break;
-                case BOOLEAN:
-                    edt.isArray = false;
-                    edt.varType.primitiveType  = BOOL_DT;
-                    break;
-                case ARRAY:
-                    //need to take care of ID type
-                    edt.isArray = true;
-                    vartype varType;
-                    varType.arr.arraydType = gettypeFromtid(astnode ->leftChild -> rightSibling,table).varType.primitiveType;
-                    int lbSign = 1;
-                    int rbSign = 1;
-                    int lb;
-                    int rb;
-                    if(astnode->leftChild->name.t.tid == MINUS){
-                        lbSign = -1;
-                    }
-                    if(astnode->leftChild->rightSibling->name.t.tid == MINUS){
-                        rbSign = -1;
-                    }
-                    lb = lbSign*(astnode -> leftChild ->leftChild->name.t.num);
-                    rb = rbSign*(astnode -> leftChild ->rightSibling->name.t.num);
-                    edt.varType.arr.lowerBound = lb;
-                    edt.varType.arr.upperBound = rb;
-                    insertIntoSymbolTableArr(table,astnode->name.t.lexeme,varType);
-                    
-
-                    
-                    break;
-
-                    
-                //ARRAY case yet to be implemented
-    
+        case INTEGER:
+            edt.isArray = false;
+            edt.varType.primitiveType = INT_DT;
+            break;
+        case REAL:
+            edt.isArray = false;
+            edt.varType.primitiveType  = REAL_DT;
+            break;
+        case BOOLEAN:
+            edt.isArray = false;
+            edt.varType.primitiveType  = BOOL_DT;
+            break;
+        case ARRAY:
+            //need to take care of ID type
+            edt.isArray = true;
+            edt.varType.arr.arraydType = gettypeFromtid(astnode ->leftChild -> rightSibling,table).varType.primitiveType;
+            int lbSign = 1;
+            int rbSign = 1;
+            int lb;
+            int rb;
+            if(astnode->leftChild->name.t.tid == MINUS){
+                lbSign = -1;
+            }
+            if(astnode->leftChild->rightSibling->name.t.tid == MINUS){
+                rbSign = -1;
+            }
+            lb = lbSign*(astnode -> leftChild ->leftChild->name.t.num);
+            rb = rbSign*(astnode -> leftChild ->rightSibling->name.t.num);
+            edt.varType.arr.lowerBound = lb;
+            edt.varType.arr.upperBound = rb;
+            insertIntoSymbolTableArr(table,astnode->name.t.lexeme,edt);
+            break;
     }
     return edt;
+}
 
+void incrementOffset(symbolTable*table, entryDataType edt){
+    if(edt.isArray){
+        int arrSize = edt.varType.arr.upperBound - edt.varType.arr.lowerBound + 1 ;
+        table->latestOffset += ARRAY_WIDTH_EXTRA;
+
+        switch(edt.varType.arr.arraydType){
+            case INT_DT :
+                table ->latestOffset += arrSize*(INT_WIDTH);
+                break;
+            case REAL_DT:
+                table ->latestOffset += arrSize*(REAL_WIDTH);
+                break;
+            case BOOL_DT:
+                table ->latestOffset += arrSize*(BOOL_WIDTH);
+                break;
+            default:
+                break;
+        }
+    }
+
+    else{
+        switch(edt.varType.primitiveType){
+            case INT_DT :
+                table ->latestOffset += INT_WIDTH;
+                break;
+            case REAL_DT:
+                table ->latestOffset += REAL_WIDTH;
+                break;
+            case BOOL_DT:
+                table ->latestOffset += BOOL_WIDTH;
+                break;
+            default:
+                break;
+        }  
+    }
 }
 
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
@@ -195,16 +238,15 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     //variables for switch case
     symbolRecord* record;
     astNode* astListnode;
-    dType datatype;
     entryDataType entrydt;
-    arrayType arrType;
-    bool isArrayType;
 
     //need to make the rule nos 0 indexed
     int rule = node->rule_no + 1;
     switch (rule){
     case 4:
-        record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, NA);  
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
         // insertSTSwitch(node -> , record ->scopePointer);  
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
@@ -221,14 +263,18 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     case 10:
-        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,entrydt);
         break; 
     
     case 12:
         astListnode = node -> leftChild;
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
         while(astListnode -> name.t.tid != EPSILON){
-            datatype = gettypeFromtid(astListnode ->leftChild,table).varType.primitiveType;
-            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            entrydt = gettypeFromtid(astListnode ->leftChild,table);
+            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
             astListnode = astListnode -> rightSibling;
         }
         return table;
@@ -236,9 +282,11 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 15: 
         astListnode = node -> leftChild;
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
         while(astListnode -> name.t.tid != EPSILON){
-            datatype = gettypeFromtid(node ->leftChild -> rightSibling,table).varType.primitiveType;
-            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
+            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
             astListnode = astListnode -> rightSibling;
 
         }
@@ -251,10 +299,10 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         astNode* idListnode  = node -> leftChild -> leftChild;
         while(idListnode -> name.t.tid != EPSILON){
             if(entrydt.isArray){
-                insertIntoSymbolTableArr(table,node->name.t.lexeme,entrydt.varType);
+                insertIntoSymbolTableArr(table,node->name.t.lexeme,entrydt);
             }
             else{
-                insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+                insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
             }
             
             idListnode = idListnode ->rightSibling;
@@ -266,7 +314,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 125:
         sprintf(counterStr, "switch_%d", counter);
-        record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
@@ -274,7 +324,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 134:
         sprintf(counterStr, "for_%d", counter);
-        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
@@ -282,7 +334,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 135: 
         sprintf(counterStr, "while_%d", counter);
-        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
@@ -292,7 +346,6 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         return table;
         break;
     }
-
 }
 
 void printSymbolTables(symbolTable* entryTable){
@@ -323,7 +376,6 @@ void printSymbolTables(symbolTable* entryTable){
     }
 
     printf("Finished printing the table \n");
-    
 }
 
 
