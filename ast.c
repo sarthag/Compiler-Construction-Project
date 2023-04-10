@@ -153,10 +153,13 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 6:
-        
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->leftChild = prev->rightSibling
         break;
     case 7:
-    
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 8:
         current->nodeType = prev->nodeType;
@@ -270,9 +273,14 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current -> leftChild = prev -> rightSibling;
         break;
     case 33:
-
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->leftChild = prev->rightSibling;
         break;
     case 34:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->leftChild = prev->rightSibling;
         break;
     case 35:
         current->nodeType = prev->nodeType;
@@ -293,7 +301,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 40:
-        
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current -> leftChild = prev -> rightSibling;
         break;
     case 41:
         current->nodeType = prev->nodeType;
@@ -308,6 +318,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 44:
+        current->nodeType = prev->rightSibling->nodeType;
+        current->name = prev->rightSibling->name;
+        prev->rightSibling = prev->rightSibling->leftChild;
         break;
     case 45:
         current->nodeType = prev->nodeType;
@@ -318,14 +331,16 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 47:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current -> leftChild = prev -> rightSibling;
         break;
     case 48:
         break;
     case 49:
-        current -> leftChild;
-        prev -> rightSibling;
         current->nodeType = prev->nodeType;
         current->name = prev->name;
+        current -> leftChild = prev -> rightSibling;
         break;
     case 50:
         current->nodeType = prev->nodeType;
@@ -498,14 +513,25 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 97:
         break;
     case 98:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current -> leftChild = prev -> rightSibling;
         break;
     case 99:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
     case 100:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current -> leftChild = prev -> rightSibling;
+        current -> rightSibling = current->leftChild->rightSibling;
+        current->leftChild->rightSibling = NULL;
         break;
     case 101:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current -> leftChild = prev -> rightSibling;
         break;
     case 102:
         current->nodeType = prev->nodeType;
