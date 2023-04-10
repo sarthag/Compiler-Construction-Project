@@ -46,8 +46,8 @@
 | whichStmt valueIDStmt
 | whichStmt valueARRStmt
 | valueIDStmt ASSIGNOP expression SEMICOL
-valueARRStmt SQBO element_index_with_expressions SQBC ASSIGNOP expression SEMICOL 
-index_arr sign new_index
+| valueARRStmt SQBO element_index_with_expressions SQBC ASSIGNOP expression SEMICOL 
+| index_arr sign new_index
 | new_index NUM
 | new_index ID 
 | sign PLUS
@@ -58,7 +58,7 @@ index_arr sign new_index
 | n8 NUM 
 | n8 RNUM 
 | n8 boolConstt 
-n8 ID n7
+| n8 ID n7
 | n9 COMMA sign n8 n9 
 | n9 EPSILON
 | n7 SQBO element_index_with_expressions SQBC
@@ -77,16 +77,16 @@ n8 ID n7
 | var_id_num NUM
 | var_id_num RNUM
 arithmeticOrBooleanExpr anyTerm n1
-n1 logicalOp anyTerm n1
+| n1 logicalOp anyTerm n1
 | n1 EPSILON 
 anyTerm arithmeticExpr n2
 n2 relationalOp arithmeticExpr 
 | n2 EPSILON
 arithmeticExpr term n3
-n3 op1 term n3
+| n3 op1 term n3
 | n3 EPSILON
-term factor n4
-n4 op2 factor n4 
+| term factor n4
+| n4 op2 factor n4 
 | n4 EPSILON
 | factor BO arithmeticOrBooleanExpr BC 
 | factor NUM
@@ -105,7 +105,7 @@ arrExpr arrTerm arr_N4
 | arrFactor NUM
 | arrFactor boolConstt
 | arrFactor BO arrExpr BC
-element_index_with_expressions op1 n6
+| element_index_with_expressions op1 n6
 | element_index_with_expressions arrExpr
 | n6 new_index
 | n6 BO arrExpr BC
