@@ -37,11 +37,11 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index].entry_DT.isArray = false;
     table ->symbTable[index].entry_DT.varType.primitiveType = entrydType;
     table -> symbTable[index].occupied = true;
-    return table;
+    return table -> symbTable[index];
 }
 
 
-void insertIntoSymbolTableArr(symbolTable* table, char* name,vartype vt){
+symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,vartype vt){
 
     int i = 0;
     int hash = hashingFunction(name);
@@ -61,7 +61,7 @@ void insertIntoSymbolTableArr(symbolTable* table, char* name,vartype vt){
     table ->symbTable[index].entry_DT.varType.arr.lowerBound = vt.arr.lowerBound;
     table ->symbTable[index].entry_DT.varType.arr.upperBound = vt.arr.upperBound;
     table ->symbTable[index].occupied = true;
-
+    return table -> symbTable[index];
 }
 
 
@@ -223,20 +223,28 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break;
     case 68:
     //depends on the AST for the logic first get datatype and then iterate 
+        //is it needed
         break; 
 
     case 69: 
-    //depends on the AST for the logic first get datatype and then iterate 
+    //depends on the AST for the logic first get datatype and then iterate
+    //is it needed 
         break; 
 
     case 124: 
-        dType datatype;
+        entryDataType entrydt;
         arrayType arrType;
         bool isArrayType;
-        datatype = gettypeFromtid(node ->leftChild -> rightSibling->name.t.tid,table).varType.primitiveType;
+        entrydt = gettypeFromtid(node ->leftChild -> rightSibling->name.t.tid,table);
         astNode* idListnode  = node -> leftChild -> leftChild;
         while(idListnode -> name.t.tid != EPSILON){
-            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            if(entrydt.isArray){
+                insertIntoSymbolTableArr(table,node->name.t.lexeme,entrydt.varType);
+            }
+            else{
+                insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            }
+            
             idListnode = idListnode ->rightSibling;
         } 
 
