@@ -42,7 +42,7 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index]->entryType = entryType;
     //if it is a VARIABLE then we create no new table but if it is not then we create a new symbol table
     if(entryType == VARIABLE){
-       table ->symbTable[index] ->isScope = 0;
+       table ->symbTable[index] ->isScope = 0; 
        table -> symbTable[index]->offset = table ->latestOffset;
        incrementOffset(table, entrydType, index);
        
@@ -125,7 +125,7 @@ void initSymbolTable(){
 }
 
 
-void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ // SHRAYES CHECK
+void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ // SHRAYES SAYS IT SEEMS RIGHT WILL TEST
 
     if(treeRoot->name.t.tid == USE){
         return; 
@@ -166,42 +166,42 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
     entryDataType edt;
 
     switch(astnode->name.t.tid){
-        case INTEGER:
-            edt.isArray = false;
-            edt.varType.primitiveType = INT_DT;
-            break;
-        case REAL:
-            edt.isArray = false;
-            edt.varType.primitiveType  = REAL_DT;
-            break;
-        case BOOLEAN:
-            edt.isArray = false;
-            edt.varType.primitiveType  = BOOL_DT;
-            break;
-        case ARRAY:
-            //need to take care of ID type
-            edt.isArray = true;
+                case INTEGER:
+                    edt.isArray = false;
+                    edt.varType.primitiveType = INT_DT;
+                    break;
+                case REAL:
+                    edt.isArray = false;
+                    edt.varType.primitiveType  = REAL_DT;
+                    break;
+                case BOOLEAN:
+                    edt.isArray = false;
+                    edt.varType.primitiveType  = BOOL_DT;
+                    break;
+                case ARRAY:
+                    //need to take care of ID type
+                    edt.isArray = true;
             edt.varType.arr.arraydType = gettypeFromtid(astnode ->leftChild -> rightSibling,table).varType.primitiveType;
-            int lbSign = 1;
-            int rbSign = 1;
-            int lb;
-            int rb;
-            if(astnode->leftChild->name.t.tid == MINUS){
-                lbSign = -1;
-            }
-            if(astnode->leftChild->rightSibling->name.t.tid == MINUS){
-                rbSign = -1;
-            }
-            lb = lbSign*(astnode -> leftChild ->leftChild->name.t.num);
-            rb = rbSign*(astnode -> leftChild ->rightSibling->name.t.num);
-            edt.varType.arr.lowerBound = lb;
-            edt.varType.arr.upperBound = rb;
+                    int lbSign = 1;
+                    int rbSign = 1;
+                    int lb;
+                    int rb;
+                    if(astnode->leftChild->name.t.tid == MINUS){
+                        lbSign = -1;
+                    }
+                    if(astnode->leftChild->rightSibling->name.t.tid == MINUS){
+                        rbSign = -1;
+                    }
+                    lb = lbSign*(astnode -> leftChild ->leftChild->name.t.num);
+                    rb = rbSign*(astnode -> leftChild ->rightSibling->name.t.num);
+                    edt.varType.arr.lowerBound = lb;
+                    edt.varType.arr.upperBound = rb;
             insertIntoSymbolTableArr(table,astnode->name.t.lexeme,edt);
             break;
     }
     return edt;
 }
-
+                    
 void incrementOffset(symbolTable*table, entryDataType edt, int index){
     table->symbTable[index]->width = 0; 
     table->symbTable[index]->offset = table->latestOffset;
@@ -209,11 +209,11 @@ void incrementOffset(symbolTable*table, entryDataType edt, int index){
     if(edt.isArray){
         int arrSize = edt.varType.arr.upperBound - edt.varType.arr.lowerBound + 1 ;
         table->symbTable[index]->width += ARRAY_WIDTH_EXTRA;
-
+                    
         switch(edt.varType.arr.arraydType){
             case INT_DT :
                 table->symbTable[index]->width += arrSize*(INT_WIDTH);
-                break;
+                    break;
             case REAL_DT:
                 table->symbTable[index]->width += arrSize*(REAL_WIDTH);
                 break;
@@ -224,9 +224,9 @@ void incrementOffset(symbolTable*table, entryDataType edt, int index){
                 break;
         }
 
-        
+                    
     }
-
+    
     else{
         table->symbTable[index]->offset = table->latestOffset;
         switch(edt.varType.primitiveType){
@@ -241,7 +241,7 @@ void incrementOffset(symbolTable*table, entryDataType edt, int index){
                 break;
             default:
                 break;
-        }  
+    }
     }
 
     table->latestOffset += table->symbTable[index]->width;
@@ -314,12 +314,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         }
         return table;
         break;
-    
+
     case 56: 
         record = searchSymbolTable(node ->name.t.lexeme,table);
         record->funcCall = true; // SHRAYES CHECK
         return record ->scopePointer;
-        break; 
+        break;
 
 
     case 124:  
@@ -404,10 +404,7 @@ void printSymbolTables(symbolTable* entryTable){
     }
 
     printf("Finished printing the table \n");
+    
 }
 
 
-void main(){
-    initSymbolTable();
-    printSymbolTables(globalTable);
-}
