@@ -12,12 +12,15 @@ Pass 2 : Go back and add offset and width
 
 symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable);
 // symbolRecord* createNewRecord();
-symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType,dType entrydType);
-symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,int lowerBound, int upperBound, dType arrType);
+symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType);
+symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataType entryDt);
 int hashingFunction(char* name);
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table);
+entryDataType gettypeFromtid(astNode* astnode,symbolTable* table);
+void incrementOffset(symbolTable*table, entryDataType edt);
 void initSymbolTable();
-void generateST(astNode* root, symbolTable* table);
+void generateSTpass1(astNode* treeRoot, symbolTable* homeTable);
+void generateSTpass2(astNode* treeRoot, symbolTable* homeTable);
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table);
 
 #endif

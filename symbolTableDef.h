@@ -4,10 +4,10 @@
 #include "ast.h"
 
 #define ST_SIZE 300
-/*
-Figure out what alias is 
-single table or divide it into 3-4 tables 
-*/
+#define INT_WIDTH 2
+#define REAL_WIDTH 4
+#define BOOL_WIDTH 1
+#define ARRAY_WIDTH_EXTRA 1
 
 
 typedef enum{
@@ -50,14 +50,12 @@ typedef struct{
 
 typedef struct symbolRecord{
     char* name; 
-
     bool isScope;  //isScope is 1 if it is a function, conditional or iterative stmt 
     struct symbolTable* scopePointer; //if isScope = 1 then points to the symbol table of the next scope 
     stEntryType entryType; //for storing whether it is a variable function conditional or iterative stmt
     struct symbolTable* parentTable;  
     struct symbolRecord* nextEntry;
-    entryDataType entry_DT;
-     
+    entryDataType entry_DT; 
     int size;
     int offset;
     bool occupied; //to see if this symbolrecord is occupied or not helps in hashing
@@ -69,11 +67,12 @@ typedef struct symbolRecord{
 
 typedef struct symbolTable{
     char *tableName; //function name / iterative stmts name / conditional stmts name 
-    int baseOffset;
+    int latestOffset;
     int tableWidth;
+    int nestingLevel; 
     struct symbolTable* parentTable; //table to return to 
     // struct symbolTable* nextTable; //not sure if this is needed since there are no nested functions 
-    symbolRecord symbTable[ST_SIZE]; // Temp delete if wrong 
+    symbolRecord* symbTable[ST_SIZE]; // Temp delete if wrong 
     struct symbolTable* tempTable;
     
 }symbolTable;
@@ -82,6 +81,7 @@ typedef struct symbolTable{
 symbolTable* globalTable;
 int counter = 0;
 char counterStr[20];
+entryDataType na;
 
 
 #endif
