@@ -83,7 +83,7 @@ void readWriteST(bool isRead, int width, symbolRecord* rec, FILE* asmFile){
 
     if(rec->parentTable==globalTable){
         fprintf(asmFile, "\tPUSH EBP\n");
-        fprintf(asmFile, "\tMOV EBP, %d\n", globalTable->baseOffset);
+        //fprintf(asmFile, "\tMOV EBP, %d\n", globalTable->baseOffset);
     }
     //EBP holds the base address of the symbol table 
 

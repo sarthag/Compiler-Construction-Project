@@ -56,13 +56,12 @@ typedef struct symbolRecord{
     struct symbolTable* parentTable;  
     struct symbolRecord* nextEntry;
     entryDataType entry_DT; 
-    int size;
+    int width;
     int offset;
-    bool occupied; //to see if this symbolrecord is occupied or not helps in hashing
-    // int dimension
-    // int line_of_declaration; 
-    //usageLL line_of_usage; //if the linked list approach is going to be used 
-    // astNode* address; 
+    bool occupied; //to see if this symbolrecord is occupied or not helps in hashing 
+
+    bool isFuncDeclaration;
+    bool funcCall;
 } symbolRecord;
 
 typedef struct symbolTable{

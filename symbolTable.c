@@ -4,7 +4,13 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
     symbolTable* newTable = (symbolTable*)malloc(sizeof(symbolTable));
     newTable->parentTable = parentTable;
     newTable -> latestOffset = 0;
-    newTable -> nestingLevel = parentTable -> nestingLevel + 1;
+    if(parentTable == NULL){
+        newTable->nestingLevel = 0;
+    }
+
+    else{
+        newTable -> nestingLevel = parentTable -> nestingLevel + 1;
+    }
     newTable->tableName=tableName;
     return newTable;
 }
@@ -48,8 +54,8 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index] -> entry_DT.isArray = false;
     table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType.varType.primitiveType;
     table -> symbTable[index] -> occupied = true;
-
-    
+    table -> symbTable[index] ->isFuncDeclaration = false;
+    table -> symbTable[index] ->funcCall = false;
     return table -> symbTable[index];
 }
 
