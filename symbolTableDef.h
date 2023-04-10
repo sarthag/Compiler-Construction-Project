@@ -34,6 +34,7 @@ typedef struct usageLL{
 
 typedef struct arrayType{
     dType arraydType;
+    bool isDynamic;   // ADD CODE FOR THIS
     int lowerBound;
     int upperBound;
 }arrayType;

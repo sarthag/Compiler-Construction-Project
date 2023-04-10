@@ -21,6 +21,7 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     
     symbolRecord* searchRecord = searchSymbolTable(name, table);
     if (searchRecord != NULL){
+        printf("ERROR: Redeclaration of record"); 
         return searchRecord;
     }
     
@@ -37,13 +38,13 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     }//open addressing incase of collision
 
     //assigning values
-    strcpy(table ->symbTable[index] ->name, name);
-    table ->symbTable[index] ->entryType = entryType;
+    strcpy(table ->symbTable[index]->name, name);
+    table ->symbTable[index]->entryType = entryType;
     //if it is a VARIABLE then we create no new table but if it is not then we create a new symbol table
     if(entryType == VARIABLE){
        table ->symbTable[index] ->isScope = 0;
        table -> symbTable[index]->offset = table ->latestOffset;
-       incrementOffset(table, entrydType);
+       incrementOffset(table, entrydType, index);
        
        
     }
@@ -81,7 +82,7 @@ symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataT
     table ->symbTable[index] ->entry_DT.varType.arr.upperBound = entryDt.varType.arr.upperBound;
     table ->symbTable[index] ->occupied = true;
     table ->symbTable[index] ->offset = table->latestOffset;
-    incrementOffset(table,entryDt);
+    incrementOffset(table, entryDt, index);
     return table -> symbTable[index];
 }
 
@@ -124,9 +125,9 @@ void initSymbolTable(){
 }
 
 
-void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){
+void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ // SHRAYES CHECK
 
-    if(treeRoot->name.t.tid == MODULE){
+    if(treeRoot->name.t.tid == USE){
         return; 
     }
 
@@ -143,7 +144,11 @@ void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){
 }
 
 
-void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){
+void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){  // SHRAYES CHECK
+    if(treeRoot->name.t.tid != USE){
+        return; 
+    }
+
     astNode* root = treeRoot;
     symbolTable* table = homeTable;
     root = root->leftChild; 
@@ -197,48 +202,56 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
     return edt;
 }
 
-void incrementOffset(symbolTable*table, entryDataType edt){
+void incrementOffset(symbolTable*table, entryDataType edt, int index){
+    table->symbTable[index]->width = 0; 
+    table->symbTable[index]->offset = table->latestOffset;
+    
     if(edt.isArray){
         int arrSize = edt.varType.arr.upperBound - edt.varType.arr.lowerBound + 1 ;
-        table->latestOffset += ARRAY_WIDTH_EXTRA;
+        table->symbTable[index]->width += ARRAY_WIDTH_EXTRA;
 
         switch(edt.varType.arr.arraydType){
             case INT_DT :
-                table ->latestOffset += arrSize*(INT_WIDTH);
+                table->symbTable[index]->width += arrSize*(INT_WIDTH);
                 break;
             case REAL_DT:
-                table ->latestOffset += arrSize*(REAL_WIDTH);
+                table->symbTable[index]->width += arrSize*(REAL_WIDTH);
                 break;
             case BOOL_DT:
-                table ->latestOffset += arrSize*(BOOL_WIDTH);
+                table->symbTable[index]->width += arrSize*(BOOL_WIDTH);
                 break;
             default:
                 break;
         }
+
+        
     }
 
     else{
+        table->symbTable[index]->offset = table->latestOffset;
         switch(edt.varType.primitiveType){
             case INT_DT :
-                table ->latestOffset += INT_WIDTH;
+                table->symbTable[index]->width += INT_WIDTH;
                 break;
             case REAL_DT:
-                table ->latestOffset += REAL_WIDTH;
+                table->symbTable[index]->width += REAL_WIDTH;
                 break;
             case BOOL_DT:
-                table ->latestOffset += BOOL_WIDTH;
+                table->symbTable[index]->width += BOOL_WIDTH;
                 break;
             default:
                 break;
         }  
     }
+
+    table->latestOffset += table->symbTable[index]->width;
 }
 
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     
     //search to check if it already exists in one of the tables 
     if(searchSymbolTable(node->name.t.lexeme, table) !=NULL){
-        printf("ERROR: Redeclaration of a variable \n ");
+        printf("ERROR: Redeclaration of a variable \n ");       //SHRAYES CHECK
         return NULL;
     }
     //variables for switch case
@@ -253,6 +266,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
+        record->isFuncDeclaration = true;
         // insertSTSwitch(node -> , record ->scopePointer);  
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
@@ -297,8 +311,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
         }
         return table;
-
         break;
+    
+    case 56: 
+        record->funcCall = true; // SHRAYES CHECK
+        break; 
+
 
     case 124:  
         entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
