@@ -53,13 +53,13 @@ valueARRStmt SQBO element_index_with_expressions SQBC ASSIGNOP expression SEMICO
 | sign PLUS
 | sign MINUS
 | sign EPSILON
-moduleReuseStmt optional USE MODULE ID WITH PARAMETERS actualParaList SEMICOL
-actualParaList sign n8 n9
+| moduleReuseStmt optional USE MODULE ID WITH PARAMETERS actualParaList SEMICOL
+| actualParaList sign n8 n9
 | n8 NUM 
 | n8 RNUM 
 | n8 boolConstt 
 n8 ID n7
-n9 COMMA sign n8 n9 
+| n9 COMMA sign n8 n9 
 | n9 EPSILON
 | n7 SQBO element_index_with_expressions SQBC
 | n7 EPSILON
@@ -70,7 +70,7 @@ n9 COMMA sign n8 n9
 | idList2 EPSILON
 | expression arithmeticOrBooleanExpr 
 | expression u
-u op1 new_NT
+| u op1 new_NT
 | new_NT BO arithmeticExpr BC 
 | new_NT var_id_num
 | var_id_num ID
@@ -88,11 +88,11 @@ n3 op1 term n3
 term factor n4
 n4 op2 factor n4 
 | n4 EPSILON
-factor BO arithmeticOrBooleanExpr BC 
+| factor BO arithmeticOrBooleanExpr BC 
 | factor NUM
 | factor RNUM
 | factor boolConstt
-factor ID n5
+| factor ID n5
 | n5 SQBO element_index_with_expressions SQBC 
 | n5 EPSILON
 arrExpr arrTerm arr_N4
@@ -122,9 +122,9 @@ element_index_with_expressions op1 n6
 | relationalOp EQ
 | relationalOp NE
 | declareStmt DECLARE idList1 COLON dataType SEMICOL
-conditionalStmt SWITCH BO ID BC START caseStmt1 default1 END
-caseStmt1 CASE value COLON statements BREAK SEMICOL caseStmt2
-caseStmt2 CASE value COLON statements BREAK SEMICOL caseStmt2
+| \conditionalStmt SWITCH BO ID BC START caseStmt1 default1 END
+| caseStmt1 CASE value COLON statements BREAK SEMICOL caseStmt2
+| caseStmt2 CASE value COLON statements BREAK SEMICOL caseStmt2
 | caseStmt2 EPSILON
 | value NUM
 | value TRUE

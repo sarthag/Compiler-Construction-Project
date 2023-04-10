@@ -363,8 +363,14 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 55:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 56:
+        temp = prev->rightSibling;
+        prev->leftChild = prev->rightSibling;
+        prev->rightSibling = temp->rightSibling;
+
         break;
     case 57:
         current->nodeType = prev->nodeType;
@@ -381,6 +387,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 60:
         break;
     case 61:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->leftChild = prev->rightSibling;
         break;
     case 62:
         current->nodeType = prev->nodeType;
@@ -479,12 +488,18 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->leftChild->rightSibling = prev;
         break;
     case 88:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        
+
         break;
     case 89:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         break;
     case 90:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 91:
         current->nodeType = prev->nodeType;
@@ -499,8 +514,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 94:
-        current->leftChild = lastTerminal;
-        current->leftChild->rightSibling = prev;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        prev->leftChild = prev->rightSibling;
         break;
     case 95:
         current->nodeType = prev->nodeType;
@@ -620,12 +636,19 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current ->name = prev->name;
         current->leftChild = prev->rightSibling;
     case 124:
-
         break;
     case 125:
+        temp = prev->rightSibling;
+        prev->leftChild = prev->rightSibling;
+        while(temp->rightSibling.name.t.tid != CASE) {
+            temp = temp->rightSibling;
+        }
+        prev->rightSibling = temp->rightSibling;
+        temp->rightSibling = NULL;
         break;
     case 126:
-
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 127:
         current->nodeType = prev->nodeType;
