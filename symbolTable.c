@@ -216,20 +216,6 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         return table;
 
         break;
-    case 22:
-        
-        
-        return table;
-        break;
-    case 68:
-    //depends on the AST for the logic first get datatype and then iterate 
-        //is it needed
-        break; 
-
-    case 69: 
-    //depends on the AST for the logic first get datatype and then iterate
-    //is it needed 
-        break; 
 
     case 124: 
         entryDataType entrydt;
