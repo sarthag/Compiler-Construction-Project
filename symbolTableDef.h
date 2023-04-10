@@ -59,6 +59,9 @@ typedef struct symbolRecord{
     int width;
     int offset;
     bool occupied; //to see if this symbolrecord is occupied or not helps in hashing 
+
+    bool isFuncDeclaration;
+    bool funcCall;
 } symbolRecord;
 
 typedef struct symbolTable{

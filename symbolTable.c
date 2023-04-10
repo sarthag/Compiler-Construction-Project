@@ -54,8 +54,8 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index] -> entry_DT.isArray = false;
     table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType.varType.primitiveType;
     table -> symbTable[index] -> occupied = true;
-
-    
+    table -> symbTable[index] ->isFuncDeclaration = false;
+    table -> symbTable[index] ->funcCall = false;
     return table -> symbTable[index];
 }
 
