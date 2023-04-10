@@ -125,7 +125,7 @@ void initSymbolTable(){
 }
 
 
-void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ // SHRAYES SAYS IT SEEMS RIGHT WILL TEST
+void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ 
 
     if(treeRoot->name.t.tid == USE){
         return; 
@@ -251,7 +251,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     
     //search to check if it already exists in one of the tables 
     if(searchSymbolTable(node->name.t.lexeme, table) !=NULL){
-        printf("ERROR: Redeclaration of a variable \n ");       //SHRAYES CHECK
+        printf("ERROR: Redeclaration of a variable \n ");       
         return NULL;
     }
     //variables for switch case
@@ -279,7 +279,6 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
             record = insertIntoSymbolTable(table, node -> name.t.lexeme, FUNCTION, entrydt);
         }
         record -> isFuncDef = true;
-        // Get input plist and output plist here SHRAYES
         return record ->scopePointer;
         break;
     
@@ -302,7 +301,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         while(astListnode -> name.t.tid != EPSILON){
             entrydt = gettypeFromtid(astListnode ->leftChild, table); // table is func table
             insertIntoSymbolTable(table, node -> name.t.lexeme, VARIABLE, entrydt);
-            
+
             plistNode* dataNode = (plistNode*)malloc(sizeof(plistNode));
             dataNode->entryDT = entrydt; 
             dataNode->name = node->name.t.lexeme;
@@ -349,7 +348,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 56: 
         record = searchSymbolTable(node ->name.t.lexeme,table);
-        record->funcCall = true; // SHRAYES CHECK
+        record->funcCall = true; // NIVZZZZZ CHECK
         return record ->scopePointer;
         break;
 
