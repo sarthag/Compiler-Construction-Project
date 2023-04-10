@@ -34,6 +34,7 @@ typedef struct usageLL{
 
 typedef struct arrayType{
     dType arraydType;
+    bool isDynamic;   // ADD CODE FOR THIS
     int lowerBound;
     int upperBound;
 }arrayType;
@@ -48,6 +49,18 @@ typedef struct{
     vartype varType;
 }entryDataType;
 
+typedef struct plistNode{
+    char* name; 
+    entryDataType entryDT; 
+    struct plistNode* next;
+}plistNode; 
+
+typedef struct plist{
+    int numParams; 
+    struct plistNode* head; 
+    struct plistNode* tail; 
+}plist; 
+
 typedef struct symbolRecord{
     char* name; 
     bool isScope;  //isScope is 1 if it is a function, conditional or iterative stmt 
@@ -56,13 +69,14 @@ typedef struct symbolRecord{
     struct symbolTable* parentTable;  
     struct symbolRecord* nextEntry;
     entryDataType entry_DT; 
-    int size;
+    int width;
     int offset;
-    bool occupied; //to see if this symbolrecord is occupied or not helps in hashing
-    // int dimension
-    // int line_of_declaration; 
-    //usageLL line_of_usage; //if the linked list approach is going to be used 
-    // astNode* address; 
+    bool occupied; //to see if this symbolrecord is occupied or not helps in hashing 
+
+    bool isFuncDef;
+    bool funcCall;
+    struct plist input_plist; 
+    struct plist output_plist;     
 } symbolRecord;
 
 typedef struct symbolTable{
@@ -70,9 +84,8 @@ typedef struct symbolTable{
     int latestOffset;
     int tableWidth;
     int nestingLevel; 
-    struct symbolTable* parentTable; //table to return to 
-    // struct symbolTable* nextTable; //not sure if this is needed since there are no nested functions 
-    symbolRecord* symbTable[ST_SIZE]; // Temp delete if wrong 
+    struct symbolTable* parentTable; //table to return to  
+    symbolRecord* symbTable[ST_SIZE];
     struct symbolTable* tempTable;
     
 }symbolTable;
@@ -81,7 +94,6 @@ typedef struct symbolTable{
 symbolTable* globalTable;
 int counter = 0;
 char counterStr[20];
-entryDataType na;
 
 
 #endif

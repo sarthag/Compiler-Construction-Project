@@ -47,7 +47,7 @@
 | whichStmt valueARRStmt
 | valueIDStmt ASSIGNOP expression SEMICOL
 valueARRStmt SQBO element_index_with_expressions SQBC ASSIGNOP expression SEMICOL 
-| index_arr sign new_index
+index_arr sign new_index
 | new_index NUM
 | new_index ID 
 | sign PLUS

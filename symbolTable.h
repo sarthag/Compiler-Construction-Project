@@ -17,7 +17,7 @@ symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataT
 int hashingFunction(char* name);
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table);
 entryDataType gettypeFromtid(astNode* astnode,symbolTable* table);
-void incrementOffset(symbolTable*table, entryDataType edt);
+void incrementOffset(symbolTable*table, entryDataType edt, int index);
 void initSymbolTable();
 void generateSTpass1(astNode* treeRoot, symbolTable* homeTable);
 void generateSTpass2(astNode* treeRoot, symbolTable* homeTable);
