@@ -55,7 +55,7 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index] -> entry_DT.isArray = false;
     table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType.varType.primitiveType;
     table -> symbTable[index] -> occupied = true;
-    table -> symbTable[index] ->isFuncDeclaration = false;
+    table -> symbTable[index] ->isFuncDef = false;
     table -> symbTable[index] ->funcCall = false;
     return table -> symbTable[index];
 }
@@ -144,7 +144,7 @@ void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ // SHRAYES CHEC
 }
 
 
-void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){  // THIS IS WRONG NEED TO FIX
+void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){  // THIS IS WRONG NEED TO FIX SHRAYES
     if(treeRoot->name.t.tid != USE){
         return; 
     }
@@ -266,14 +266,15 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
-        record->isFuncDeclaration = true;
-        // insertSTSwitch(node -> , record ->scopePointer);  
+ 
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;
     
     case 7:
         record = searchSymbolTable(node ->name.t.lexeme,table);
+        record -> isFuncDef = true;
+        // Get input plist and output plist here SHRAYES
         return record ->scopePointer;
         break;
     
@@ -294,7 +295,8 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.varType.primitiveType = NA;
         while(astListnode -> name.t.tid != EPSILON){
             entrydt = gettypeFromtid(astListnode ->leftChild,table);
-            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
+            insertIntoSymbolTable(table,node -> name.t.lexeme, VARIABLE, entrydt);
+
             astListnode = astListnode -> rightSibling;
         }
         return table;
@@ -314,7 +316,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break;
     
     case 56: 
+        record = searchSymbolTable(node ->name.t.lexeme,table);
         record->funcCall = true; // SHRAYES CHECK
+        return record ->scopePointer;
         break; 
 
 
