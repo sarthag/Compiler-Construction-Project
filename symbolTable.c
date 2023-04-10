@@ -259,7 +259,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     int rule = node->rule_no + 1;
     switch (rule){
     case 4:
-        record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, NA);  
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
         // insertSTSwitch(node -> , record ->scopePointer);  
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
@@ -276,14 +278,18 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     case 10:
-        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,entrydt);
         break; 
     
     case 12:
         astListnode = node -> leftChild;
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
         while(astListnode -> name.t.tid != EPSILON){
-            datatype = gettypeFromtid(astListnode ->leftChild,table);
-            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            entrydt = gettypeFromtid(astListnode ->leftChild,table);
+            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
             astListnode = astListnode -> rightSibling;
         }
         return table;
@@ -291,9 +297,11 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 15: 
         astListnode = node -> leftChild;
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
         while(astListnode -> name.t.tid != EPSILON){
-            datatype = gettypeFromtid(node ->leftChild -> rightSibling,table).varType.primitiveType;
-            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,datatype);
+            entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
+            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
             astListnode = astListnode -> rightSibling;
 
         }
@@ -321,7 +329,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 125:
         sprintf(counterStr, "switch_%d", counter);
-        record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
@@ -329,7 +339,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 134:
         sprintf(counterStr, "for_%d", counter);
-        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
@@ -337,7 +349,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     case 135: 
         sprintf(counterStr, "while_%d", counter);
-        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
+        entrydt.isArray = false; 
+        entrydt.varType.primitiveType = NA;
+        record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;

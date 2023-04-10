@@ -81,6 +81,7 @@ typedef struct symbolTable{
 symbolTable* globalTable;
 int counter = 0;
 char counterStr[20];
+entryDataType na;
 
 
 #endif
