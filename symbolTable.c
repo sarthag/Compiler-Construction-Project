@@ -98,22 +98,45 @@ symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
 
 void initSymbolTable(){
     globalTable = createSymbolTable("global", NULL);
-    generateST(syntaxTree->root, globalTable);
+    generateSTpass1(syntaxTree->root, globalTable);
+    generateSTpass2(syntaxTree->root, globalTable);
 }
 
 
-void generateST(astNode* treeRoot, symbolTable* table){
+void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){
+
+    if(treeRoot->name.t.tid == MODULE){
+        return; 
+    }
+
     astNode* root = treeRoot;
+    symbolTable* table = homeTable;
     root = root->leftChild; 
 
     while(root != NULL){
         table = insertSTSwitch(root, table);
-        generateST(root, table);
+        generateSTpass1(root, table);
         root = root->rightSibling;
     }
     return;
 }
-entryDataType gettypeFromtid(astNode* astnode,symbolTable* table){
+
+
+void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){
+    astNode* root = treeRoot;
+    symbolTable* table = homeTable;
+    root = root->leftChild; 
+
+    while(root != NULL){
+        table = insertSTSwitch(root, table);
+        generateSTpass2(root, table);
+        root = root->rightSibling;
+    }
+    return;
+}
+
+
+entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
     entryDataType edt;
 
     switch(astnode->name.t.tid){
@@ -242,7 +265,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     case 125:
-        sprintf(counterStr, "%d", counter);
+        sprintf(counterStr, "switch_%d", counter);
         record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, NA);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
@@ -250,7 +273,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     case 134:
-        sprintf(counterStr, "%d", counter);
+        sprintf(counterStr, "for_%d", counter);
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
@@ -258,7 +281,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     case 135: 
-        sprintf(counterStr, "%d", counter);
+        sprintf(counterStr, "while_%d", counter);
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, NA);
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
@@ -303,8 +326,8 @@ void printSymbolTables(symbolTable* entryTable){
     
 }
 
+
 void main(){
     initSymbolTable();
-    generateST(syntaxTree->root, globalTable);
     printSymbolTables(globalTable);
 }

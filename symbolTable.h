@@ -18,7 +18,8 @@ int hashingFunction(char* name);
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table);
 entryDataType gettypeFromtid(astNode* astnode,symbolTable* table);
 void initSymbolTable();
-void generateST(astNode* root, symbolTable* table);
+void generateSTpass1(astNode* treeRoot, symbolTable* homeTable);
+void generateSTpass2(astNode* treeRoot, symbolTable* homeTable);
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table);
 
 #endif
