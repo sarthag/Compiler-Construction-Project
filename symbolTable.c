@@ -4,7 +4,13 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
     symbolTable* newTable = (symbolTable*)malloc(sizeof(symbolTable));
     newTable->parentTable = parentTable;
     newTable -> latestOffset = 0;
-    newTable -> nestingLevel = parentTable -> nestingLevel + 1;
+    if(parentTable == NULL){
+        newTable->nestingLevel = 0;
+    }
+
+    else{
+        newTable -> nestingLevel = parentTable -> nestingLevel + 1;
+    }
     newTable->tableName=tableName;
     return newTable;
 }
