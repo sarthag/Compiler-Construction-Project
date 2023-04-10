@@ -144,7 +144,7 @@ void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ // SHRAYES CHEC
 }
 
 
-void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){  // SHRAYES CHECK
+void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){  // THIS IS WRONG NEED TO FIX
     if(treeRoot->name.t.tid != USE){
         return; 
     }
@@ -205,7 +205,7 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
 void incrementOffset(symbolTable*table, entryDataType edt, int index){
     table->symbTable[index]->width = 0; 
     table->symbTable[index]->offset = table->latestOffset;
-    
+
     if(edt.isArray){
         int arrSize = edt.varType.arr.upperBound - edt.varType.arr.lowerBound + 1 ;
         table->symbTable[index]->width += ARRAY_WIDTH_EXTRA;
