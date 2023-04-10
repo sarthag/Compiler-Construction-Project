@@ -21,6 +21,14 @@ symbolRecord* findFromST(char* recordName, symbolTable* table){
     
 }
 
+dType getdTypeFromEDT(symbolRecord* op){
+    if(op->entry_DT.isArray){
+        return op->entry_DT.varType.arr.arraydType;
+    }
+    return op->entry_DT.varType.primitiveType;
+
+}
+
 void createICG(astNode* node, symbolTable* table){
     //keep track of which table we are in depending on ast 
     if(node == NULL){
@@ -28,6 +36,14 @@ void createICG(astNode* node, symbolTable* table){
     }
     symbolRecord* leftOp;
     symbolRecord* rightOp;
+    
+    /*
+    leftdt, rightdt 
+    if(leftisarr) take left dt from arr
+    if (!leftisarr) take left dt from primitive
+    
+    same for right 
+    send leftdt and rightdt in the if statements*/
     if(node ->nodeType == TERMINAL){
         switch(node ->name.t.tid){
             case PLUS :
@@ -38,7 +54,7 @@ void createICG(astNode* node, symbolTable* table){
                 rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
                 
                 entryDataType edt;
-                if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = INT_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
@@ -48,7 +64,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -58,7 +74,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -73,7 +89,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -96,7 +112,7 @@ void createICG(astNode* node, symbolTable* table){
                 leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
                 rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
 
-                if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
@@ -106,7 +122,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -116,7 +132,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -131,7 +147,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -154,7 +170,7 @@ void createICG(astNode* node, symbolTable* table){
                 symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
                 symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
                 
-                if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = INT_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
@@ -164,7 +180,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -174,7 +190,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -189,7 +205,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -211,7 +227,7 @@ void createICG(astNode* node, symbolTable* table){
                 createICG(node -> leftChild -> rightSibling, table);
                 leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
                 rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
-                if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = INT_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
@@ -221,7 +237,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -231,7 +247,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == INT_DT && rightOp->entry_DT.varType.primitiveType == REAL_DT){
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -246,7 +262,7 @@ void createICG(astNode* node, symbolTable* table){
                     icgLineNo++;
                 }
 
-                else if(leftOp->entry_DT.varType.primitiveType == REAL_DT && rightOp->entry_DT.varType.primitiveType == INT_DT){
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
                     edt.isArray = false;
                     edt.varType.primitiveType = REAL_DT;
                     intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
@@ -301,7 +317,7 @@ void createICG(astNode* node, symbolTable* table){
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->entry_DT.varType.primitiveType == REAL || rightOp->entry_DT.varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_LT;
                 }
 
@@ -323,7 +339,7 @@ void createICG(astNode* node, symbolTable* table){
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->entry_DT.varType.primitiveType == REAL || rightOp->entry_DT.varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_LE;
                 }
 
@@ -345,7 +361,7 @@ void createICG(astNode* node, symbolTable* table){
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->entry_DT.varType.primitiveType == REAL || rightOp->entry_DT.varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_EQ;
                 }
 
@@ -367,7 +383,7 @@ void createICG(astNode* node, symbolTable* table){
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->entry_DT.varType.primitiveType == REAL || rightOp->entry_DT.varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_NE;
                 }
 
@@ -389,7 +405,7 @@ void createICG(astNode* node, symbolTable* table){
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->entry_DT.varType.primitiveType == REAL || rightOp->entry_DT.varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_GT;
                 }
 
@@ -411,7 +427,7 @@ void createICG(astNode* node, symbolTable* table){
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->entry_DT.varType.primitiveType == REAL || rightOp->entry_DT.varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_GE;
                 }
 
