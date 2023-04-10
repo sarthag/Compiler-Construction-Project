@@ -153,10 +153,13 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         break;
     case 6:
-        
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->leftChild = prev->rightSibling
         break;
     case 7:
-    
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
         break;
     case 8:
         current->nodeType = prev->nodeType;

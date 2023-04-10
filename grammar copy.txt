@@ -2,10 +2,10 @@
 | moduleDeclarations moduleDeclaration moduleDeclarations
 | moduleDeclarations EPSILON 
 | moduleDeclaration DECLARE MODULE ID SEMICOL
-otherModules module otherModules
+| otherModules module otherModules
 | otherModules EPSILON 
-module DEF MODULE ID ENDDEF TAKES INPUT SQBO input_plist1 SQBC SEMICOL ret moduleDef
-ret RETURNS SQBO output_plist1 SQBC SEMICOL 
+| module DEF MODULE ID ENDDEF TAKES INPUT SQBO input_plist1 SQBC SEMICOL ret moduleDef
+| ret RETURNS SQBO output_plist1 SQBC SEMICOL 
 | ret EPSILON
 | driverModule DRIVERDEF DRIVER PROGRAM DRIVERENDDEF moduleDef
 | moduleDef START statements END
