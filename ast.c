@@ -20,18 +20,30 @@
 
 #include "ast.h"
 
-void populateLabels(){
-    token_key tk;
-    for(int i=0; i<NUM_OF_RELEVANT; i++){
-        tk = getTokenFromTTable(relevant[i], terminalHash);
-        labels[tk] = 1; 
+// void populateLabels(){
+//     token_key tk;
+//     for(int i=0; i<NUM_OF_RELEVANT; i++){
+//         tk = getTokenFromTTable(relevant[i], terminalHash);
+//         labels[tk] = 1; 
+//     }
+// }
+
+void createRelevant(){
+    
+    for(int i=0;i<NUM_OF_RELEVANT;i++){
+        int index = getTokenFromKT(relevant[i], keyword_table);
+        binRelevant[index]=1;
     }
 }
 
 astStack* initAST(){
     astStack* syntaxStack = (astStack*) malloc(sizeof(astStack));
+    printf("Stack made\n");
     initASTStack(syntaxStack);
-    populateLabels();
+    printf("initStack\n");
+    //populateLabels();
+    createRelevant();
+    for(int i = 0; i < 33)
     syntaxTree = createSyntaxTree();
     int rule = parseTree->root->rule;
     createAST(rule);
@@ -50,14 +62,6 @@ void createAST(int rule){
     }
 }
 
-void createRelevant(){
-    
-    for(int i=0;i<NUM_OF_RELEVANT;i++){
-        int index = getTokenFromKT(relevant[i], keyword_table);
-        binRelevant[index]=1;
-    }
-
-}
 
 void topDownPass(astNode* parent, tree_node *parseNode, astStack* syntaxStack){
     if(parseNode==NULL){
@@ -361,7 +365,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         break;
     case 44: 
         par = current->parent;
-        current->parent->leftChild = prev->rightSibling
+        current->parent->leftChild = prev->rightSibling;
         prev->rightSibling = current->leftChild;
         current->leftChild = prev;
         prev->leftChild = prev->rightSibling;
@@ -900,6 +904,7 @@ int main(){
     //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
     printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
     syntaxStack = initAST();
+    printf("initAST()\n");
     astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
     printf("ast init \n");
     topDownPass(ASTroot, parseTree->root, syntaxStack);    
