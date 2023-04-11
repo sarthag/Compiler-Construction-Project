@@ -1,5 +1,8 @@
 #include "symbolTable.h"
 
+/*
+ Terminals for type-checking: ASSIGNOP, PLUS, MINUS, MUL, DIV, LE, GE, LT, GT, EQ, NE, AND, OR, ARRAYS
+*/
 void staticTypeChecking(astNode * current, symbolTable * table){
     if(current->nodeType == TERMINAL){
         switch (current->name.t.tid)
@@ -36,7 +39,7 @@ void staticTypeChecking(astNode * current, symbolTable * table){
             else if (current->leftChild->name.t.tid == ID && current->leftChild->rightSibling->name.t.tid == NUM){
                 entryDataType locationTypeLHS = searchSymbolTable(current->leftChild->pt->element.t.lexeme, table)->entry_DT;
                 if(locationTypeLHS.isArray == 1){
-                    
+                    printf("Type Error: expecting INTEGER, recieved array");                   
                 }
                 else if (locationTypeLHS.isArray == 0){
                     if(locationTypeLHS.varType.primitiveType == NUM){
@@ -50,7 +53,7 @@ void staticTypeChecking(astNode * current, symbolTable * table){
             else if (current->leftChild->name.t.tid == NUM && current->leftChild->rightSibling->name.t.tid == ID){
                 entryDataType locationTypeRHS = searchSymbolTable(current->leftChild->rightSibling->pt->element.t.lexeme, table)->entry_DT;
                 if(locationTypeRHS.isArray == 1){
-                    
+                    printf("Type Error: expecting INTEGER, recieved array");
                 }
                 else if (locationTypeRHS.isArray == 0){
                     if(locationTypeRHS.varType.primitiveType == NUM){
@@ -64,8 +67,8 @@ void staticTypeChecking(astNode * current, symbolTable * table){
             else if (current->leftChild->name.t.tid == ID && current->leftChild->rightSibling->name.t.tid == ID){
                 entryDataType locationTypeRHS = searchSymbolTable(current->leftChild->rightSibling->pt->element.t.lexeme, table)->entry_DT;
                 entryDataType locationTypeLHS = searchSymbolTable(current->leftChild->pt->element.t.lexeme, table)->entry_DT;
-                if(locationTypeRHS.isArray == 1){
-                    
+                if(locationTypeRHS.isArray == 1 || locationTypeLHS.isArray){
+                    printf("Type Error: expecting INTEGER, recieved array");
                 }
                 else if (locationTypeRHS.isArray == 0 && locationTypeLHS.isArray == 0){
                     if(locationTypeLHS.varType.primitiveType == NUM && locationTypeRHS.varType.primitiveType == NUM){
@@ -77,9 +80,12 @@ void staticTypeChecking(astNode * current, symbolTable * table){
                 }
             }
             else{
-                rintf("Type Error: expecting INTEGER");
+                printf("Type Error: expecting INTEGER");
             }
-        
+        case 0:
+            break;
+        case 18:
+            
         default:
             break;
         }
