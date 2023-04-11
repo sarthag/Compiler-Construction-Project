@@ -3,7 +3,7 @@
 /*
  Terminals for type-checking: ASSIGNOP, PLUS, MINUS, MUL, DIV, LE, GE, LT, GT, EQ, NE, AND, OR, ARRAYS
 */
-void staticTypeChecking(astNode * current, symbolTable * table){
+dType staticTypeChecking(astNode * current, symbolTable * table){
     if(current->nodeType == TERMINAL){
         switch (current->name.t.tid)
         {
@@ -15,16 +15,38 @@ void staticTypeChecking(astNode * current, symbolTable * table){
                         entryDataType locationTypeRHS = searchSymbolTable(current->leftChild->rightSibling->pt->element.t.lexeme, table)->entry_DT;
                         if(locationTypeRHS.isArray == 0){
                             if(locationTypeLHS.varType.primitiveType == locationTypeRHS.varType.primitiveType){
-                                return gettypeFromtid(current->leftChild, globalTable).varType.primitiveType;
+                                return locationTypeLHS.varType.primitiveType;
                             }
                             else{
                                 printf("type mismatch");
-                                return;
+                                return NULL;
                             }
                         }
                     }
                     else if (current->leftChild->rightSibling->name.t.tid == NUM){
-
+                        if (locationTypeLHS.varType.primitiveType == INT_DT){
+                            return INT_DT;
+                        }
+                        else{
+                            printf("type mismatch");
+                            return NULL;
+                        }
+                    }
+                    else if (current->leftChild->rightSibling->name.t.tid == RNUM){
+                        if (locationTypeLHS.varType.primitiveType == REAL_DT){
+                            return REAL_DT;
+                        }
+                        else{
+                            printf("type mismatch");
+                            return NULL;
+                        }
+                    }
+                    else if (locationTypeLHS.varType.primitiveType == staticTypeChecking(current->leftChild->rightSibling, table)){
+                        return locationTypeLHS.varType.primitiveType;
+                    }
+                    else{
+                        printf("type mismatch");
+                        return NULL;
                     }
                 }
             }
@@ -34,7 +56,7 @@ void staticTypeChecking(astNode * current, symbolTable * table){
             break;
         case 7:
             if (current->leftChild->name.t.tid == NUM && current->leftChild->rightSibling->name.t.tid == NUM){
-                break;
+                return INT_DT;
             }
             else if (current->leftChild->name.t.tid == ID && current->leftChild->rightSibling->name.t.tid == NUM){
                 entryDataType locationTypeLHS = searchSymbolTable(current->leftChild->pt->element.t.lexeme, table)->entry_DT;
@@ -42,8 +64,8 @@ void staticTypeChecking(astNode * current, symbolTable * table){
                     printf("Type Error: expecting INTEGER, recieved array");                   
                 }
                 else if (locationTypeLHS.isArray == 0){
-                    if(locationTypeLHS.varType.primitiveType == NUM){
-                        break;
+                    if(locationTypeLHS.varType.primitiveType == INT_DT){
+                        return INT_DT;
                     }
                     else{
                         printf("Type Error: expecting INTEGER");
@@ -57,7 +79,7 @@ void staticTypeChecking(astNode * current, symbolTable * table){
                 }
                 else if (locationTypeRHS.isArray == 0){
                     if(locationTypeRHS.varType.primitiveType == NUM){
-                        break;
+                        return INT_DT;
                     }
                     else{
                         printf("Type Error: expecting INTEGER");
@@ -67,12 +89,12 @@ void staticTypeChecking(astNode * current, symbolTable * table){
             else if (current->leftChild->name.t.tid == ID && current->leftChild->rightSibling->name.t.tid == ID){
                 entryDataType locationTypeRHS = searchSymbolTable(current->leftChild->rightSibling->pt->element.t.lexeme, table)->entry_DT;
                 entryDataType locationTypeLHS = searchSymbolTable(current->leftChild->pt->element.t.lexeme, table)->entry_DT;
-                if(locationTypeRHS.isArray == 1 || locationTypeLHS.isArray){
+                if(locationTypeRHS.isArray == 1 || locationTypeLHS.isArray == 1){
                     printf("Type Error: expecting INTEGER, recieved array");
                 }
                 else if (locationTypeRHS.isArray == 0 && locationTypeLHS.isArray == 0){
                     if(locationTypeLHS.varType.primitiveType == NUM && locationTypeRHS.varType.primitiveType == NUM){
-                        break;
+                        return INT_DT;
                     }
                     else{
                         printf("Type Error: expecting INTEGER");
@@ -82,10 +104,12 @@ void staticTypeChecking(astNode * current, symbolTable * table){
             else{
                 printf("Type Error: expecting INTEGER");
             }
+            break;
         case 0:
+            
             break;
         case 18:
-            
+                            
         default:
             break;
         }
