@@ -56,6 +56,7 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType.varType.primitiveType;
     table -> symbTable[index] -> occupied = true;
     table -> symbTable[index] ->isFuncDef = false;
+    table -> symbTable[index] ->isFuncDecl = false;
     table -> symbTable[index] ->funcCall = false;
     return table -> symbTable[index];
 }
@@ -116,6 +117,20 @@ symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
     }
     return NULL;
 
+}
+
+symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table){
+    symbolRecord* search = (symbolRecord* )malloc(sizeof(symbolRecord));
+    symbolTable* tempTable = table;
+    search = searchSymbolTable(recordName, tempTable);
+    if(search != NULL){ return search; }
+    //if search returns a NULL value
+    if(tempTable==globalTable){
+        printf("ERROR: Undeclared record %s \n", recordName);
+        return NULL;
+    }
+    tempTable = tempTable->parentTable;
+    searchAllSymbolTable(recordName, tempTable);
 }
 
 void initSymbolTable(){
@@ -281,7 +296,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
- 
+        record->isFuncDecl=true;
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;

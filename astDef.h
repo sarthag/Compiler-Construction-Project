@@ -13,17 +13,15 @@
 #define ASTDEF_H
 
 #include "astadt.h"   
-// #include "adtDef.h"
-//array of LHS grammar G 
-//array of follow and first
+
 astStack* syntaxStack;
 ast* syntaxTree;
 
 
-#define NUM_OF_RELEVANT 2
+#define NUM_OF_RELEVANT 32 
 
-char* relevant[NUM_OF_RELEVANT] = {"PLUS", "MINUS"};
-int labels[NUM_OF_TERMINALS] = {0};
-int binRelevant[NUM_OF_TERMINALS] = {0};
+char* relevant[NUM_OF_RELEVANT] = {"PLUS", "MINUS", "MUL", "DIV", "EPSILON", "ID", "INTEGER", "REAL", "BOOLEAN", "RANGEOP", "ASSIGNOP", "TRUE", "FALSE", "NUM", "RNUM", "DECLARE", "START", "END", "LT", "LE", "EQ", "NE", "GT", "GE", "AND", "OR", "ARRAY", "CASE", "FOR", "GET_VALUE", "PRINT", "WHILE"};
+
+int binRelevant[NUM_OF_TERMINALS];
 
 #endif

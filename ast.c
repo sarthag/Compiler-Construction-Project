@@ -20,18 +20,30 @@
 
 #include "ast.h"
 
-void populateLabels(){
-    token_key tk;
-    for(int i=0; i<NUM_OF_RELEVANT; i++){
-        tk = getTokenFromTTable(relevant[i], terminalHash);
-        labels[tk] = 1; 
+// void populateLabels(){
+//     token_key tk;
+//     for(int i=0; i<NUM_OF_RELEVANT; i++){
+//         tk = getTokenFromTTable(relevant[i], terminalHash);
+//         labels[tk] = 1; 
+//     }
+// }
+
+void createRelevant(){
+    
+    for(int i=0;i<NUM_OF_RELEVANT;i++){
+        int index = getTokenFromKT(relevant[i], keyword_table);
+        binRelevant[index]=1;
     }
 }
 
 astStack* initAST(){
     astStack* syntaxStack = (astStack*) malloc(sizeof(astStack));
+    printf("Stack made\n");
     initASTStack(syntaxStack);
-    populateLabels();
+    printf("initStack\n");
+    //populateLabels();
+    createRelevant();
+    for(int i = 0; i < 33)
     syntaxTree = createSyntaxTree();
     int rule = parseTree->root->rule;
     createAST(rule);
@@ -50,14 +62,6 @@ void createAST(int rule){
     }
 }
 
-void createRelevant(){
-    
-    for(int i=0;i<NUM_OF_RELEVANT;i++){
-        int index = getTokenFromKT(relevant[i], keyword_table);
-        binRelevant[index]=1;
-    }
-
-}
 
 void topDownPass(astNode* parent, tree_node *parseNode, astStack* syntaxStack){
     if(parseNode==NULL){
@@ -359,10 +363,13 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->parent->leftChild = prev;
         current->parent = par;
         break;
-    case 44: // 
-        current->nodeType = prev->rightSibling->nodeType;
-        current->name = prev->rightSibling->name;
-        prev->rightSibling = prev->rightSibling->leftChild;
+    case 44: 
+        par = current->parent;
+        current->parent->leftChild = prev->rightSibling;
+        prev->rightSibling = current->leftChild;
+        current->leftChild = prev;
+        prev->leftChild = prev->rightSibling;
+        prev->rightSibling = prev->rightSibling->rightSibling;
         break;
     case 45:
         par = current->parent;
@@ -580,7 +587,6 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->parent = par;
         break;
     case 87:
-        
         break;
     case 88:
         par = current->parent;
@@ -862,6 +868,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
 
 astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
     astNode * prev = popast(syntaxStack)->treeloc;
+    printf("First rule: type: %d id: %d rule: %d\n",prev->nodeType, prev->name.nt.nid, prev->rule_no);
     astNode * lastTerminal = prev;
     astNode * current = popast(syntaxStack)->treeloc;
     findAction(current, prev, lastTerminal);
@@ -897,6 +904,7 @@ int main(){
     //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
     printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
     syntaxStack = initAST();
+    printf("initAST()\n");
     astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
     printf("ast init \n");
     topDownPass(ASTroot, parseTree->root, syntaxStack);    
