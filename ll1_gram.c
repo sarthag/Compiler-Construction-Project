@@ -10,7 +10,7 @@
 
 
 #include "ll1_gram.h"
-
+#include <string.h>
 bool isTerm(char* str){
     //terminal
     if(str[0] >= 65 && str[0]<= 90){
@@ -541,38 +541,59 @@ void print_ff(int r){
 //     computeFirstandFollow();
 //     populate_parse_table();
 
-//     //to check if parse table works 
-//     bool arr[NUM_OF_RULES] = {0};
-//     for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
-//         // printf("NTNO: %d \n", i);
-//         for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
-//             if(parse_table[i][j]!=-1){
-//                 if(arr[parse_table[i][j]]==0){
-//                     arr[parse_table[i][j]]=1;
-//                 }
+//     FILE * fp = fopen("firstReadable.txt", "a");  
+//     for (int i = 0; i < NUM_OF_NONTERMINALS; i++){
+//         fprintf(fp, "First of %s\n", nt_list[i]);
+//         for (int j = 0; j < NUM_OF_TERMINALS; j++){
+//             if(First[i][j] == 1){
+//                 fprintf(fp, "%s\t", token_list[j]);
 //             }
 //         }
 //     }
-//     printf("\n Sus numbers\n");
-//     for(int i = 0 ; i < NUM_OF_RULES ; i++){
-//         if(arr[i] == 0){
-//             printf("%d ", i+1);
+//     fclose(fp);
+
+//     FILE * fp = fopen("followReadable.txt", "a");  
+//     for (int i = 0; i < NUM_OF_NONTERMINALS; i++){
+//         fprintf(fp, "First of %s\n", nt_list[i]);
+//         for (int j = 0; j < NUM_OF_TERMINALS; j++){
+//             if(Follow[i][j] == 1){
+//                 fprintf(fp, "%s\t", token_list[j]);
+//             }
 //         }
 //     }
-//     printf("\n");
-
-//     // for(int i=0; i<NUM_OF_NONTERMINALS; i++){
-//     //     for(int j=0; j<NUM_OF_TERMINALS; j++){
-//     //         printf("%d ", parse_table[i][j]);
+//     fclose(fp);
+//     // //to check if parse table works 
+//     // bool arr[NUM_OF_RULES] = {0};
+//     // for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
+//     //     // printf("NTNO: %d \n", i);
+//     //     for(int j = 0 ; j < NUM_OF_TERMINALS ;j++){
+//     //         if(parse_table[i][j]!=-1){
+//     //             if(arr[parse_table[i][j]]==0){
+//     //                 arr[parse_table[i][j]]=1;
+//     //             }
+//     //         }
 //     //     }
-//     //     printf("\n");
 //     // }
-
-//     // for(int i = 0 ; i < NUM_OF_TERMINALS ; i++){
-//     //         printf("%d ", parse_table[arrExpr][i]);
+//     // printf("\n Sus numbers\n");
+//     // for(int i = 0 ; i < NUM_OF_RULES ; i++){
+//     //     if(arr[i] == 0){
+//     //         printf("%d ", i+1);
+//     //     }
 //     // }
+//     // printf("\n");
 
-//     return 0;
+//     // // for(int i=0; i<NUM_OF_NONTERMINALS; i++){
+//     // //     for(int j=0; j<NUM_OF_TERMINALS; j++){
+//     // //         printf("%d ", parse_table[i][j]);
+//     // //     }
+//     // //     printf("\n");
+//     // // }
+
+//     // // for(int i = 0 ; i < NUM_OF_TERMINALS ; i++){
+//     // //         printf("%d ", parse_table[arrExpr][i]);
+//     // // }
+
+//     // return 0;
 // }
 
 
