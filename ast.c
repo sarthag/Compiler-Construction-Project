@@ -876,6 +876,8 @@ astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
     }
 }
 
+
+
 // int main(){
 //     astNodes = 0;
 //     FILE* prog;
@@ -908,3 +910,4 @@ astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
 //     printf("AST bottom up done");
 //     // callfindAction(ASTroot, syntaxStack);
 // }
+

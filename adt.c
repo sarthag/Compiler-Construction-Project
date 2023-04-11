@@ -189,3 +189,14 @@ void parse_tree_traversal(tree_node *node, FILE* fp) {
     parse_tree_traversal(node->left_child, fp);
     parse_tree_traversal(node->right_sibling, fp);
 }
+
+
+void countPTNodes(tree_node *node) {
+    if (node == NULL) {
+        return;
+    }
+    
+    parse_tree_nodes++; 
+    countPTNodes(node->left_child);
+    countPTNodes(node->right_sibling);
+}
