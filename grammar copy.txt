@@ -122,7 +122,7 @@ arrExpr arrTerm arr_N4
 | relationalOp EQ
 | relationalOp NE
 | declareStmt DECLARE idList1 COLON dataType SEMICOL
-| \conditionalStmt SWITCH BO ID BC START caseStmt1 default1 END
+| conditionalStmt SWITCH BO ID BC START caseStmt1 default1 END
 | caseStmt1 CASE value COLON statements BREAK SEMICOL caseStmt2
 | caseStmt2 CASE value COLON statements BREAK SEMICOL caseStmt2
 | caseStmt2 EPSILON
