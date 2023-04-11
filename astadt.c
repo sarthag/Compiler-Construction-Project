@@ -84,57 +84,42 @@ void deleteASTnode(astNode * node){
     
 }
 
-// void insertASTchild(astNode *parent, astNode* child, int parentType){
-//     child -> parent = parent; 
+void ast_traversal(astNode *node) {
+    if (node == NULL) {
+        return;
+    }
+    if (node->nodeType == NON_TERMINAL) {
+        // printf("Non terminal\t");
+        // non_terminal tok = node->element.nt;
+        // printf("%d\n", node->element.nt.nid);
+        if(node->name.nt.nid == program) {
+            
+            fprintf(stdout, "----- | Root Node (No Parent) | no | %s |%d |%d \n", nt_list[node->name.nt.nid] ,node->rule_no,node ->nodeType);
+        }
+        else {
+            fprintf(stdout, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->name.nt.nid], nt_list[node->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
+        }
+    } 
+    else {
+        // printf("Terminal\t");
+        token tok = node->name.t;
+        if (tok.tid == NUM){
+            fprintf(stdout, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no,node ->nodeType);
+        }
+        else if (tok.tid == RNUM){
+            fprintf(stdout, "| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType);
+        }
+        else{
+            fprintf(stdout, "| %s | %d | %s | %s| yes |%d|%d \n", tok.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no, node ->nodeType); // change this back
+        }
+    }
 
-//     switch (parentType)
-//     {
-//     case 0:
-//         if(parent->leftChild == NULL){
-//             parent->leftChild = child;
-//         }
-//         else{
-//             astNode *temp = parent->leftChild;
-//             while(temp->rightSibling != NULL){
-//                 temp = temp->rightSibling;
-//             }
-//             temp->rightSibling = child;
-//         }
-//         break;
-//     case 1:
-//         if (parent->leftChild == NULL){
-//             parent->leftChild = child;
-//         }
-//         else{
-//             astNode *temp = parent->leftChild;
-//             while(temp->rightSibling != NULL){
-//                 temp = temp->rightSibling;
-//             }
-//             temp->rightSibling = child;
-//         }
-//     default:
-//         printf("error: parent invalid");
-//         break;
-//     }
-// }
-
-
-// void setASTSibling(astNode *node, astNode *sibling) {
-//     sibling->parent = node->parent;
-//     if (node->rightSibling == NULL) {
-//         node->rightSibling = sibling;
-//     }
-//     else {
-//         setASTSibling(node->rightSibling, sibling);
-//     }
-// }
-
-
-// void setASTparent(astNode *node, astNode *parent) {
-//     if (node != NULL) {
-//         node->rightSibling = NULL;
-//         if (parent != NULL) {
-//             insertASTchild(parent, node, parent->typeId);
-//         }
-//     }
-// }
+    // if(node->type==0 && node->rule==-1){
+    //     printf("\nThe non terminal is %d \n", node->element.nt.nid);
+    // }
+    // printf("Here\n");
+    astNodes++; 
+    // printf("Here\n");
+    ast_traversal(node->leftChild);
+    ast_traversal(node->rightSibling);
+}

@@ -109,7 +109,6 @@ tree_node *create_node(node_type type, int id) {
     new_node->parent = NULL;
     new_node->left_child = NULL;
     new_node->right_sibling = NULL;
-    new_node->is_visited = 0;
     return new_node;
 }
 
@@ -185,7 +184,6 @@ void parse_tree_traversal(tree_node *node, FILE* fp) {
     //     printf("\nThe non terminal is %d \n", node->element.nt.nid);
     // }
     // printf("Here\n");
-    node->is_visited = 1;
     parse_tree_nodes++; 
     // printf("Here\n");
     parse_tree_traversal(node->left_child, fp);

@@ -131,6 +131,7 @@ void printASTstack(astStack * syntaxStack) {
 
 
 astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
+    printf("current rule no: %d\n", current->rule_no);
     astNode * temp;
     astNode * par;
     switch (current->rule_no) {
@@ -773,7 +774,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 125:
         temp = prev->rightSibling;
         prev->leftChild = prev->rightSibling;
-        while(temp->rightSibling.name.t.tid != CASE) {
+        while(temp->rightSibling->name.t.tid != CASE) {
             temp = temp->rightSibling;
         }
         prev->rightSibling = temp->rightSibling;
@@ -876,6 +877,7 @@ astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
 }
 
 int main(){
+    astNodes = 0;
     FILE* prog;
     char* filename = "testOwn.txt";
     char* parseTreeFile = "parseTree.txt";
@@ -901,5 +903,7 @@ int main(){
     printf("top down pass done\n");
     printASTstack(syntaxStack);
     printf("here\n");
+    callfindAction(ASTroot, syntaxStack);
+    printf("AST bottom up done");
     // callfindAction(ASTroot, syntaxStack);
 }
