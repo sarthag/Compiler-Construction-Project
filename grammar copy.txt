@@ -76,13 +76,13 @@
 | var_id_num ID
 | var_id_num NUM
 | var_id_num RNUM
-arithmeticOrBooleanExpr anyTerm n1
+| arithmeticOrBooleanExpr anyTerm n1
 | n1 logicalOp anyTerm n1
 | n1 EPSILON 
 anyTerm arithmeticExpr n2
 n2 relationalOp arithmeticExpr 
 | n2 EPSILON
-arithmeticExpr term n3
+| arithmeticExpr term n3
 | n3 op1 term n3
 | n3 EPSILON
 | term factor n4

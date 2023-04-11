@@ -119,6 +119,20 @@ symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
 
 }
 
+symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table){
+    symbolRecord* search = (symbolRecord* )malloc(sizeof(symbolRecord));
+    symbolTable* tempTable = table;
+    search = searchSymbolTable(recordName, tempTable);
+    if(search != NULL){ return search; }
+    //if search returns a NULL value
+    if(tempTable==globalTable){
+        printf("ERROR: Undeclared record %s \n", recordName);
+        return NULL;
+    }
+    tempTable = tempTable->parentTable;
+    searchAllSymbolTable(recordName, tempTable);
+}
+
 void initSymbolTable(){
     globalTable = createSymbolTable("global", NULL);
     generateSTpass1(syntaxTree->root, globalTable);
