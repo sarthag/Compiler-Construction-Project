@@ -133,11 +133,7 @@ symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table){
     searchAllSymbolTable(recordName, tempTable);
 }
 
-void initSymbolTable(){
-    globalTable = createSymbolTable("global", NULL);
-    generateSTpass1(syntaxTree->root, globalTable);
-    //generateSTpass2(syntaxTree->root, globalTable);
-}
+
 
 
 void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ 
@@ -497,6 +493,12 @@ void printSymbolTables(symbolTable* entryTable){
     
 }
 
+void initSymbolTable(){
+    globalTable = createSymbolTable("global", NULL);
+    generateSTpass1(syntaxTree->root, globalTable);
+    printSymbolTables(globalTable);
+    //generateSTpass2(syntaxTree->root, globalTable);
+}
 
 int main(){
     astNodes = 0;
