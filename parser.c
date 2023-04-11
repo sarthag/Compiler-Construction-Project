@@ -174,21 +174,26 @@ void parse_code(){
 
 
 void fixParseTree(tree_node* root){
-    if(root == NULL || root->type == TERMINAL){
+
+    if(root->type == TERMINAL){
         return; 
     }
 
     if(root->left_child == NULL){
         tree_node* eps = (tree_node*)malloc(sizeof(tree_node));
         eps = create_node(TERMINAL, EPSILON);
-        insert_child(root, eps);
+        root->left_child = eps;
     }
 
     else{
         fixParseTree(root->left_child);
     }
 
-    fixParseTree(root->right_sibling);
+    if(root->right_sibling != NULL){
+        fixParseTree(root->right_sibling);
+    }
+
+    return;
 }
 
 
