@@ -86,6 +86,7 @@ int main(int argc, char* argv[]){
             topDownPass(ASTroot, parseTree->root, syntaxStack);    
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot);// prints results of the AST
+            printf("Number of nodes in the ast tree: %d\n", astNodes);
             
             break; 
 
@@ -114,10 +115,10 @@ int main(int argc, char* argv[]){
             int astSize = astNodes*sizeof(astNode);
             printf("Number of nodes = %d\n", astNodes);
             printf("Size of each node = %lu\n", sizeof(astNode));
-            printf("Total size of parse tree = %lu\n", astSize);
+            printf("Total size of ast = %lu\n", astSize);
 
             int compression = ((ptSize-astSize) * 100) / ptSize;
-            printf("\nCompression Percentage = %d %", compression);
+            printf("\nCompression Percentage = %d%%", compression);
 
             break; 
 

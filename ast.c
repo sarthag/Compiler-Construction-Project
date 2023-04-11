@@ -118,9 +118,8 @@ void printASTstack(astStack * syntaxStack) {
     }
 }
 
-
 astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
-    printf("current rule no: %d\n", current->rule_no);
+    // printf("current rule no: %d\n", current->rule_no);
     astNode * temp;
     astNode * par;
     switch (current->rule_no) {
