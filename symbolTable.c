@@ -24,6 +24,8 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
 symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType){
+    printf("Inside insertIntoSymbolTable\n");
+    printf("%s",name);
     symbolRecord* searchRecord = searchSymbolTable(name, table);
     if (searchRecord != NULL){
         printf("ERROR: Redeclaration of record"); 
@@ -299,9 +301,11 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     printf("Rule no:%d :: \n",rule);
     switch (rule){
     case 4:
+        printf("case 4");
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
-        record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
+        record = insertIntoSymbolTable(table, node->pt->element.t.lexeme, FUNCTION, entrydt);
+        printf("insertedIntosymboltable\n");  
         record->isFuncDecl=true;
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
@@ -526,7 +530,7 @@ void initSymbolTable(astNode* node){
 int main(){
     astNodes = 0;
     FILE* prog;
-    char* filename = "testOwn.txt";
+    char* filename = "testOwn1.txt";
     char* parseTreeFile = "parseTree.txt";
     // printf("read files\n");
     removeComments(filename);
