@@ -31,7 +31,7 @@
 void createRelevant(){
     
     for(int i=0;i<NUM_OF_RELEVANT;i++){
-        int index = getTokenFromTTable(relevant[i], terminalHash);
+        int index = getTokenFromTTable(needed[i], terminalHash);
         //printf("%d ", index);
         binRelevant[index]=1;
     }
@@ -39,18 +39,9 @@ void createRelevant(){
 
 astStack* initAST(){
     astStack* syntaxStack = (astStack*) malloc(sizeof(astStack));
-    printf("Stack made\n");
     initASTStack(syntaxStack);
-    printf("initStack\n");
-    //populateLabels();
     createRelevant();
-    for(int i = 0; i < NUM_OF_RELEVANT; i++) {
-        printf("%d ", binRelevant[i]);
-    }
     syntaxTree = createSyntaxTree();
-    printf("\nSyntax tree created\n");
-    // int rule = parseTree->root->rule;
-    // createAST(rule);
     astNodes = 0;
     return syntaxStack;
 }

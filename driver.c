@@ -41,6 +41,7 @@ int main(int argc, char* argv[]){
     FILE* prog; 
     clock_t start_time, end_time, t;
     double total_CPU_time, total_CPU_time_in_seconds;
+    astNode* ASTroot;
     // s = 3;
     while (s != 0){
         printf("\n");
@@ -67,11 +68,32 @@ int main(int argc, char* argv[]){
             printParseTree(parseTree->root, "parseTree.txt");
             printf("Number of nodes in the parse tree: %d\n", parse_tree_nodes);
             break;
-        case 3: // prints results of the AST
+        case 3: 
+            removeComments(filename);
+            prog = readFile(filename);
+            populate_keyword_table();
+            getNextToken(prog);
+            InitializeParser();
+            parse_code();
+            syntaxStack = initAST();
+            ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+            topDownPass(ASTroot, parseTree->root, syntaxStack);    
+            callfindAction(ASTroot, syntaxStack);
+            ast_traversal(ASTroot);// prints results of the AST
             
             break; 
 
         case 4:
+            removeComments(filename);
+            prog = readFile(filename);
+            populate_keyword_table();
+            getNextToken(prog);
+            InitializeParser();
+            parse_code();
+            syntaxStack = initAST();
+            ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+            topDownPass(ASTroot, parseTree->root, syntaxStack);    
+            callfindAction(ASTroot, syntaxStack);
             printf("For Parse Tree :--\n");
             int ptSize = parse_tree_nodes*sizeof(tree_node);
             printf("Number of nodes = %d\n", parse_tree_nodes);
