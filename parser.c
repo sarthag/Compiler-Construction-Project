@@ -25,6 +25,7 @@ void InitializeParser(){
     computeFirstandFollow();
     //synchronization_set();
     populate_parse_table();
+    parse_tree_nodes = 0;
     parserStack = (stack*) malloc(sizeof(stack));
     initStack(parserStack);
     parseTree = create_parse_tree();
@@ -197,6 +198,6 @@ void printParseTree(tree_node *node, char* parseTreeFile){
         printf("FILE OPENING ERROR!!!\n");
         return;
     }
-    inorder_traversal(node, fp);
+    parse_tree_traversal(node, fp);
     fclose(fp);
 }
