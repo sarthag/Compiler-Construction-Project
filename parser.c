@@ -78,6 +78,17 @@ void parse_code(){
             }
 
             else if (x->element.t.tid == L->tid){
+                if(x->element.t.tid == NUM){
+                    x->treeLocation->element.t.num = L->num;
+                }
+
+                else if(x->element.t.tid == RNUM){
+                    x->treeLocation->element.t.rnum = L->rnum;
+                }
+
+                else{
+                    x->treeLocation->element.t.lexeme = L->lexeme;
+                }
                 pop(parserStack);
                 L = getNextTk(tokenList, L);                
             }
