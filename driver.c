@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#include "lexer.h"
-#include "parser.h"
+#include "symbolTable.h"
 
 void printtokenLL(tokenLL tkll){
     printf("Token Count : %d\n",tkll.tokenCount);
@@ -52,14 +51,13 @@ int main(int argc, char* argv[]){
         {
         case 0:
             exit(0);
-        case 1:
-                 // prints lexer results
+        case 1: // prints lexer results
             prog = readFile(filename);
             populate_keyword_table();
             getNextToken(prog);
             printtokenLL(tokenList);
             break;
-        case 2:   //prints all lexical and syntatic errors, prints parse tree
+        case 2:  //prints all lexical and syntatic errors, prints parse tree
             prog = readFile(filename);
             populate_keyword_table();
             getNextToken(prog);
@@ -71,6 +69,39 @@ int main(int argc, char* argv[]){
             break;
         case 3: // prints results of the AST
             
+            break; 
+
+        case 4:
+            printf("For Parse Tree :--\n");
+            int ptSize = parse_tree_nodes*sizeof(tree_node);
+            printf("Number of nodes = %d\n", parse_tree_nodes);
+            printf("Size of each node = %d\n", sizeof(tree_node));
+            printf("Total size of parse tree = %d\n", ptSize);
+
+            printf("\nFor AST :--\n");
+            int astSize = astNodes*sizeof(astNode);
+            printf("Number of nodes = %d\n", astNodes);
+            printf("Size of each node = %d\n", sizeof(astNode));
+            printf("Total size of parse tree = %d\n", astSize);
+
+            int compression = ((ptSize-astSize) * 100) / ptSize;
+            printf("\nCompression Percentage = %d%", compression);
+
+            break; 
+
+        case 5: // symbol table
+            break; 
+
+        case 6: //activation record size
+            break;
+
+        case 7: // static and dynamic arrays 
+            break;
+
+        case 8: // errors and total compilation time 
+            break; 
+
+        case 9: // code generation -- FUCKED
             break; 
         default:
             break;

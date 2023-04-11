@@ -4,6 +4,8 @@
         "*.py": "python",
         "astadt.h": "c",
         "icgeneration.h": "c",
-        "codegen.h": "c"
+        "codegen.h": "c",
+        "adt.h": "c",
+        "adtdef.h": "c"
     }
 }
