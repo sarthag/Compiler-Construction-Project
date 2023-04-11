@@ -127,7 +127,7 @@ void initSymbolTable(){
 
 void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ 
 
-    if(treeRoot->name.t.tid == USE){
+    if(treeRoot == NULL){
         return; 
     }
 
