@@ -182,7 +182,8 @@ void fixParseTree(tree_node* root){
         if(root->left_child == NULL){
         tree_node* eps = (tree_node*)malloc(sizeof(tree_node));
         eps = create_node(TERMINAL, EPSILON);
-        root->left_child = eps;
+        eps->rule = -1;
+        insert_child(root, eps);
         }
 
         else{
