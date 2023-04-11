@@ -31,7 +31,7 @@
 void createRelevant(){
     
     for(int i=0;i<NUM_OF_RELEVANT;i++){
-        int index = getTokenFromTTable(needed[i], terminalHash);
+        int index = getTokenFromTTable(relevant[i], terminalHash);
         //printf("%d ", index);
         binRelevant[index]=1;
     }
