@@ -862,6 +862,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
 
 astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
     astNode * prev = popast(syntaxStack)->treeloc;
+    printf("First rule: %d\n", prev->rule_no);
     astNode * lastTerminal = prev;
     astNode * current = popast(syntaxStack)->treeloc;
     findAction(current, prev, lastTerminal);
