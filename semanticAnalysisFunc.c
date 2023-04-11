@@ -18,14 +18,76 @@ Function overloading is not allowed. //taken care in the symbol table itself
 The function cannot be invoked recursively. //taken care by grammar rules 
 */
 
+//during function CALL- Function INPUT parameters passed while invoking it should be of the same type as those used in the 
+//function definition
+void matchInputParams(char* funcName, astNode* inputParams){
+    symbolRecord* funcGlobalEntry= searchSymbolTable(funcName, globalTable);
+    astNode* actualParaList = inputParams;
+    struct plistNode* temp = funcGlobalEntry->input_plist.head;
+    while(temp != NULL){
+        entryDataType edt= gettypeFromtid(actualParaList, funcGlobalEntry->scopePointer);
 
-void matchReturnParams(astNode* returnParams, symbolRecord* entry, astNode* assignParams){
+        actualParaList= actualParaList->rightSibling;
+        temp = temp->next;
+
+        if(temp->entryDT.isArray != edt.isArray){
+            printf("ERROR: Mismatch between array and non-array element\n");
+        }
+        if(temp->entryDT.isArray==false){
+            //not array elements 
+            if(temp->entryDT.varType.primitiveType != edt.varType.primitiveType){
+                printf("ERROR: Datatype Mismatch in Input Paramaters (Primitive case)");
+            }
+        }
+        else{
+            //array elements
+            if(temp->entryDT.varType.arr.arraydType != edt.varType.arr.arraydType){
+                printf("ERROR: Datatype Mismatch in Input Paramaters (Array case) ");
+            } 
+        }
+        //check if there is a mismatch in the number of parameters
+        if(temp ==NULL && actualParaList !=NULL || temp !=NULL && actualParaList ==NULL){
+            printf("ERROR: Mismatch between number of elements returned and function invokation \n");
+        }
+    }
     
 }
 
-//the parameters passed while invoking should be the same as those during function declaration
-void matchInputParams(astNode* invokeParams, char* funcName){
+
+//during function DEFINITION - the return parameters are matched to the parameters of function invokation
+//invoke params -> idList1
+void matchReturnParams(astNode* assignParams, char* funcName){
     symbolRecord* func = searchSymbolTable(funcName, globalTable);
-    
+    astNode* idListTemp = assignParams;
+    struct plistNode* temp = func->output_plist.head;
+    if(func->isFuncDef == true){
+            while(temp != NULL){
+                entryDataType edt= gettypeFromtid(idListTemp, func->scopePointer);
+                if(temp->entryDT.varType.primitiveType != edt.varType.primitiveType){
+                    printf("ERROR: Datatype Mismatch in return parameters \n");
+                }
+                
+                temp = temp -> next;
+                idListTemp = idListTemp->rightSibling;
+
+                if(temp ==NULL && idListTemp !=NULL || temp !=NULL && idListTemp ==NULL){
+                    printf("ERROR: Mismatch between number of elements returned and function invokation \n");
+                }
+            }
+    }
+}
+
+void checkNestedFunctionCall(symbolTable* funcST) {
+    for(int i=0; i<ST_SIZE;i++){
+        if(funcST->symbTable[i]->isScope==true && funcST->symbTable[i]->entryType==FUNCTION){
+            //this is a nested function 
+            if(funcST->symbTable[i]->isFuncDef==true){
+                if(funcST->symbTable[i]->isFuncDecl==true){
+                    printf("ERROR: Redundant function Declaration. Function defenition has occured \n");
+                    return;
+                }
+            }
+        }
+    }
 }
 

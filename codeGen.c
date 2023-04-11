@@ -63,6 +63,9 @@ void generateASMCode(FILE* asmFile){
     }
 }
 
+
+/*
+
 void readWriteST(bool isRead, int width, symbolRecord* rec, FILE* asmFile){
     char b[8];
     switch (width)
@@ -100,4 +103,6 @@ void readWriteST(bool isRead, int width, symbolRecord* rec, FILE* asmFile){
         fprintf(asmFile, "\tPOP EBP\n");
     }
 }
+
+*/
 

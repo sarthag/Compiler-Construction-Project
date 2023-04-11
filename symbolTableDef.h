@@ -32,11 +32,16 @@ typedef struct usageLL{
     int count; 
 } usageLL; 
 
+typedef union{
+    int bound;
+    char* variable;
+}boundType;
+
 typedef struct arrayType{
     dType arraydType;
     bool isDynamic;   // ADD CODE FOR THIS
-    int lowerBound;
-    int upperBound;
+    boundType lowerBound;
+    boundType upperBound;
 }arrayType;
 
 typedef union{
@@ -72,8 +77,8 @@ typedef struct symbolRecord{
     int width;
     int offset;
     bool occupied; //to see if this symbolrecord is occupied or not helps in hashing 
-
     bool isFuncDef;
+    bool isFuncDecl;
     bool funcCall;
     struct plist input_plist; 
     struct plist output_plist;     
@@ -87,6 +92,8 @@ typedef struct symbolTable{
     struct symbolTable* parentTable; //table to return to  
     symbolRecord* symbTable[ST_SIZE];
     struct symbolTable* tempTable;
+    int scopeBeginLine;
+    int scopeEndLine;
     
 }symbolTable;
 

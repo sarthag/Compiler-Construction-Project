@@ -56,6 +56,7 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType.varType.primitiveType;
     table -> symbTable[index] -> occupied = true;
     table -> symbTable[index] ->isFuncDef = false;
+    table -> symbTable[index] ->isFuncDecl = false;
     table -> symbTable[index] ->funcCall = false;
     return table -> symbTable[index];
 }
@@ -116,6 +117,20 @@ symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
     }
     return NULL;
 
+}
+
+symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table){
+    symbolRecord* search = (symbolRecord* )malloc(sizeof(symbolRecord));
+    symbolTable* tempTable = table;
+    search = searchSymbolTable(recordName, tempTable);
+    if(search != NULL){ return search; }
+    //if search returns a NULL value
+    if(tempTable==globalTable){
+        printf("ERROR: Undeclared record %s \n", recordName);
+        return NULL;
+    }
+    tempTable = tempTable->parentTable;
+    searchAllSymbolTable(recordName, tempTable);
 }
 
 void initSymbolTable(){
@@ -181,21 +196,32 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
                 case ARRAY:
                     //need to take care of ID type
                     edt.isArray = true;
-            edt.varType.arr.arraydType = gettypeFromtid(astnode ->leftChild -> rightSibling,table).varType.primitiveType;
+                    edt.varType.arr.arraydType = gettypeFromtid(astnode ->leftChild -> rightSibling,table).varType.primitiveType;
                     int lbSign = 1;
                     int rbSign = 1;
-                    int lb;
-                    int rb;
-                    if(astnode->leftChild->name.t.tid == MINUS){
+                    boundType lb;
+                    boundType rb;
+                    if(astnode->leftChild->leftChild->name.t.tid == MINUS){
                         lbSign = -1;
                     }
-                    if(astnode->leftChild->rightSibling->name.t.tid == MINUS){
+                    if(astnode->leftChild->leftChild ->rightSibling->name.t.tid == MINUS){
                         rbSign = -1;
                     }
-                    lb = lbSign*(astnode -> leftChild ->leftChild->name.t.num);
-                    rb = rbSign*(astnode -> leftChild ->rightSibling->name.t.num);
-                    edt.varType.arr.lowerBound = lb;
-                    edt.varType.arr.upperBound = rb;
+                    
+                    //static case sorted
+                    if(astnode ->leftChild ->leftChild ->leftChild->name.t.tid == NUM && astnode ->leftChild -> leftChild ->rightSibling->leftChild ->name.t.tid == NUM){
+                        edt.varType.arr.isDynamic = false;
+                        lb.bound = lbSign*(astnode ->leftChild ->leftChild ->leftChild->name.t.num);
+                        rb.bound = rbSign*(astnode ->leftChild -> leftChild ->rightSibling->leftChild ->name.t.num);
+                        edt.varType.arr.lowerBound.bound = lb.bound;
+                        edt.varType.arr.upperBound.bound = rb.bound;
+                    } //dynamic type
+                    else{
+                        edt.varType.arr.isDynamic = true;
+                        strcpy(edt.varType.arr.lowerBound.variable,astnode ->leftChild ->leftChild ->leftChild->name.t.lexeme);
+                        strcpy(edt.varType.arr.upperBound.variable,astnode ->leftChild -> leftChild ->rightSibling->leftChild ->name.t.lexeme);
+                    }
+                    
             insertIntoSymbolTableArr(table,astnode->name.t.lexeme,edt);
             break;
     }
@@ -207,24 +233,28 @@ void incrementOffset(symbolTable*table, entryDataType edt, int index){
     table->symbTable[index]->offset = table->latestOffset;
 
     if(edt.isArray){
-        int arrSize = edt.varType.arr.upperBound - edt.varType.arr.lowerBound + 1 ;
-        table->symbTable[index]->width += ARRAY_WIDTH_EXTRA;
-                    
-        switch(edt.varType.arr.arraydType){
-            case INT_DT :
-                table->symbTable[index]->width += arrSize*(INT_WIDTH);
-                    break;
-            case REAL_DT:
-                table->symbTable[index]->width += arrSize*(REAL_WIDTH);
-                break;
-            case BOOL_DT:
-                table->symbTable[index]->width += arrSize*(BOOL_WIDTH);
-                break;
-            default:
-                break;
+        if(edt.varType.arr.isDynamic){
+            table->symbTable[index]->width += ARRAY_WIDTH_EXTRA;
         }
+        else{
+            int arrSize = edt.varType.arr.upperBound.bound - edt.varType.arr.lowerBound.bound + 1 ;
+            table->symbTable[index]->width += ARRAY_WIDTH_EXTRA;
+                        
+            switch(edt.varType.arr.arraydType){
+                case INT_DT :
+                    table->symbTable[index]->width += arrSize*(INT_WIDTH);
+                        break;
+                case REAL_DT:
+                    table->symbTable[index]->width += arrSize*(REAL_WIDTH);
+                    break;
+                case BOOL_DT:
+                    table->symbTable[index]->width += arrSize*(BOOL_WIDTH);
+                    break;
+                default:
+                    break;
+            }
 
-                    
+        }               
     }
     
     else{
@@ -266,7 +296,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
- 
+        record->isFuncDecl=true;
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;
@@ -307,14 +337,15 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
             dataNode->name = node->name.t.lexeme;
             if(funcRecord->input_plist.head == NULL){
                 funcRecord->input_plist.head = dataNode;
-                funcRecord->input_plist.tail = dataNode;                            
+                funcRecord->input_plist.tail = dataNode;
+                funcRecord->input_plist.numParams = 0;                            
             }
 
             else{
                 funcRecord->input_plist.tail->next = dataNode; 
                 funcRecord->input_plist.tail = dataNode;
             }
-
+            funcRecord ->input_plist.numParams++;
             astListnode = astListnode -> rightSibling;
         }
         return table;
@@ -333,14 +364,15 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
             dataNode->name = node->name.t.lexeme;
             if(funcRecord->output_plist.head == NULL){
                 funcRecord->output_plist.head = dataNode;
-                funcRecord->output_plist.tail = dataNode;                            
+                funcRecord->output_plist.tail = dataNode; 
+                funcRecord->output_plist.numParams = 0;                           
             }
 
             else{
                 funcRecord->output_plist.tail->next = dataNode; 
                 funcRecord->output_plist.tail = dataNode;
             }
-
+            funcRecord->output_plist.numParams++;
             astListnode = astListnode -> rightSibling;
         }
         return table;

@@ -10,6 +10,7 @@ Pass 2 : Go back and add offset and width
 
 */
 
+symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table);
 symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable);
 // symbolRecord* createNewRecord();
 symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType);
