@@ -458,82 +458,82 @@ void populate_parse_table(){
     int ctr = 0;
 }
 
-void loadFirstFollow() {
-    FILE *g = fopen("firstArr.txt", "r");
+// void loadFirstFollow() {
+//     FILE *g = fopen("firstArr.txt", "r");
     
-    // read each line of the file and store its contents in the array
-    for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-        char line[256];
-        fgets(line, sizeof(line), g);
+//     // read each line of the file and store its contents in the array
+//     for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
+//         char line[256];
+//         fgets(line, sizeof(line), g);
         
-        // split the line into an array of integers
-        char *token;
-        int j = 0;
-        token = strtok(line, ",");
-        while (token != NULL) {
-            First[i][j] = atoi(token);
-            j++;
-            token = strtok(NULL, ",");
-        }
-    }
+//         // split the line into an array of integers
+//         char *token;
+//         int j = 0;
+//         token = strtok(line, ",");
+//         while (token != NULL) {
+//             First[i][j] = atoi(token);
+//             j++;
+//             token = strtok(NULL, ",");
+//         }
+//     }
 
 
-    // close the file
-    fclose(g);
+//     // close the file
+//     fclose(g);
 
-    FILE *h = fopen("followArr.txt", "r");
+//     FILE *h = fopen("followArr.txt", "r");
     
-    // read each line of the file and store its contents in the array
-    for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
-        char line[256];
-        fgets(line, sizeof(line), h);
+//     // read each line of the file and store its contents in the array
+//     for (int i = 0; i < NUM_OF_NONTERMINALS; i++) {
+//         char line[256];
+//         fgets(line, sizeof(line), h);
         
-        // split the line into an array of integers
-        char *token;
-        int j = 0;
-        token = strtok(line, ",");
-        while (token != NULL) {
-            Follow[i][j] = atoi(token);
-            j++;
-            token = strtok(NULL, ",");
-        }
-    }
+//         // split the line into an array of integers
+//         char *token;
+//         int j = 0;
+//         token = strtok(line, ",");
+//         while (token != NULL) {
+//             Follow[i][j] = atoi(token);
+//             j++;
+//             token = strtok(NULL, ",");
+//         }
+//     }
 
     
-    // close the file
-    fclose(h);
-}
+//     // close the file
+//     fclose(h);
+// }
 
-void printGrammar(){
-    for(int i = 0; i < NUM_OF_RULES; i++){
-        rhs * temp = G[i].firstRHS;
-        printf("Line no: %d :- ",i+1);
-        printf("%d ", G[i].lhs_id);
-        while(temp != NULL){
-            printf("%d ",temp->rhs_id);
-            temp = temp -> nextRHS;
-        }
-        printf("\n");
-    }
-}
+// void printGrammar(){
+//     for(int i = 0; i < NUM_OF_RULES; i++){
+//         rhs * temp = G[i].firstRHS;
+//         printf("Line no: %d :- ",i+1);
+//         printf("%d ", G[i].lhs_id);
+//         while(temp != NULL){
+//             printf("%d ",temp->rhs_id);
+//             temp = temp -> nextRHS;
+//         }
+//         printf("\n");
+//     }
+// }
 
-void print_ff(int r){
-    printf("For rule %d:\n", r+1);
-    printf("Firsts: ");
-    for(int i=0; i<NUM_OF_TERMINALS; i++){
-        if(firstRHS[r][i]==1){
-            printf("%d, ", i);
-        }
-    }
-    printf("\n");
-    printf("Follows: ");
-    for(int i=0; i<NUM_OF_TERMINALS; i++){
-        if(Follow[G[r].lhs_id][i]==1){
-            printf("%d, ", i);
-        }
-    }
-    printf("\n");
-}
+// void print_ff(int r){
+//     printf("For rule %d:\n", r+1);
+//     printf("Firsts: ");
+//     for(int i=0; i<NUM_OF_TERMINALS; i++){
+//         if(firstRHS[r][i]==1){
+//             printf("%d, ", i);
+//         }
+//     }
+//     printf("\n");
+//     printf("Follows: ");
+//     for(int i=0; i<NUM_OF_TERMINALS; i++){
+//         if(Follow[G[r].lhs_id][i]==1){
+//             printf("%d, ", i);
+//         }
+//     }
+//     printf("\n");
+// }
 
 // int main(){
 //     populate_grammar();
@@ -543,25 +543,29 @@ void print_ff(int r){
 
 //     FILE * fp = fopen("firstReadable.txt", "a");  
 //     for (int i = 0; i < NUM_OF_NONTERMINALS; i++){
-//         fprintf(fp, "First of %s\n", nt_list[i]);
+//         fprintf(fp, "%s => { ", nt_list[i]);
 //         for (int j = 0; j < NUM_OF_TERMINALS; j++){
 //             if(First[i][j] == 1){
-//                 fprintf(fp, "%s\t", token_list[j]);
+//                 fprintf(fp, "%s ", token_list[j]);
 //             }
 //         }
+//         fprintf(fp, "}\n");
 //     }
 //     fclose(fp);
 
-//     FILE * fp = fopen("followReadable.txt", "a");  
+//     fp = fopen("followReadable.txt", "a");  
 //     for (int i = 0; i < NUM_OF_NONTERMINALS; i++){
-//         fprintf(fp, "First of %s\n", nt_list[i]);
+//         fprintf(fp, "%s => { ", nt_list[i]);
 //         for (int j = 0; j < NUM_OF_TERMINALS; j++){
 //             if(Follow[i][j] == 1){
-//                 fprintf(fp, "%s\t", token_list[j]);
+//                 fprintf(fp, "%s ", token_list[j]);
 //             }
 //         }
+//         fprintf(fp, "}\n");
 //     }
 //     fclose(fp);
+
+    
 //     // //to check if parse table works 
 //     // bool arr[NUM_OF_RULES] = {0};
 //     // for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
