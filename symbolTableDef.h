@@ -78,6 +78,7 @@ typedef struct symbolRecord{
     int offset;
     bool occupied; //to see if this symbolrecord is occupied or not helps in hashing 
     bool isFuncDef;
+    bool isFuncDecl;
     bool funcCall;
     struct plist input_plist; 
     struct plist output_plist;     

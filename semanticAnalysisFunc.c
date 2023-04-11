@@ -81,7 +81,12 @@ void checkNestedFunctionCall(symbolTable* funcST) {
     for(int i=0; i<ST_SIZE;i++){
         if(funcST->symbTable[i]->isScope==true && funcST->symbTable[i]->entryType==FUNCTION){
             //this is a nested function 
-            
+            if(funcST->symbTable[i]->isFuncDef==true){
+                if(funcST->symbTable[i]->isFuncDecl==true){
+                    printf("ERROR: Redundant function Declaration. Function defenition has occured \n");
+                    return;
+                }
+            }
         }
     }
 }
