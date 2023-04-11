@@ -177,7 +177,6 @@ void parse_tree_traversal(tree_node *node, FILE* fp) {
         }
         else if(tok.tid == EPSILON){
             fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
-            // fprintf(stdout, "| EPSILON | NA | %s |%s \n",token_list[tok.tid],nt_list[node->parent->element.nt.nid]);//,node ->rule,node ->type); // change this back
 
         }
         else{
@@ -186,12 +185,7 @@ void parse_tree_traversal(tree_node *node, FILE* fp) {
         
     }
 
-    // if(node->type==0 && node->rule==-1){
-    //     printf("\nThe non terminal is %d \n", node->element.nt.nid);
-    // }
-    // printf("Here\n");
     parse_tree_nodes++; 
-    // printf("Here\n");
     parse_tree_traversal(node->left_child, fp);
     parse_tree_traversal(node->right_sibling, fp);
 }
