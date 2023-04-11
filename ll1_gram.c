@@ -543,25 +543,29 @@ void print_ff(int r){
 
 //     FILE * fp = fopen("firstReadable.txt", "a");  
 //     for (int i = 0; i < NUM_OF_NONTERMINALS; i++){
-//         fprintf(fp, "First of %s\n", nt_list[i]);
+//         fprintf(fp, "%s => { ", nt_list[i]);
 //         for (int j = 0; j < NUM_OF_TERMINALS; j++){
 //             if(First[i][j] == 1){
-//                 fprintf(fp, "%s\t", token_list[j]);
+//                 fprintf(fp, "%s ", token_list[j]);
 //             }
 //         }
+//         fprintf(fp, "}\n");
 //     }
 //     fclose(fp);
 
-//     FILE * fp = fopen("followReadable.txt", "a");  
+//     fp = fopen("followReadable.txt", "a");  
 //     for (int i = 0; i < NUM_OF_NONTERMINALS; i++){
-//         fprintf(fp, "First of %s\n", nt_list[i]);
+//         fprintf(fp, "%s => {", nt_list[i]);
 //         for (int j = 0; j < NUM_OF_TERMINALS; j++){
 //             if(Follow[i][j] == 1){
-//                 fprintf(fp, "%s\t", token_list[j]);
+//                 fprintf(fp, "%s ", token_list[j]);
 //             }
 //         }
+//         fprintf(fp, "}\n");
 //     }
 //     fclose(fp);
+
+    
 //     // //to check if parse table works 
 //     // bool arr[NUM_OF_RULES] = {0};
 //     // for(int i = 0 ; i < NUM_OF_NONTERMINALS ; i++){
