@@ -3,10 +3,76 @@
 /*
  Terminals for type-checking: ASSIGNOP, PLUS, MINUS, MUL, DIV, LE, GE, LT, GT, EQ, NE, AND, OR, (ARRAYS for each op)
 */
+
+dType checkBool(astNode * current, symbolTable * table){
+    dType boolType;
+    astNode* temp = current->leftChild;
+    if(temp->name.t.tid == ID){
+        symbolRecord* record = searchAllSymbolTable(temp->pt->element.t.lexeme, table);
+        if(record->entry_DT.isArray == 0){
+            boolType = record->entry_DT.varType.primitiveType;
+        }
+        else{
+            boolType = record->entry_DT.varType.arr.arraydType;
+        }
+    }
+    else if(temp->nodeType == NON_TERMINAL){
+        boolType = staticTypeChecking(temp->leftChild, table);
+    }
+    else{
+        boolType = gettypeFromtid(temp->name.t.tid, table).varType.primitiveType;
+    }
+    while(temp->rightSibling->name.t.tid != EPSILON){
+        temp = temp->rightSibling;
+        if(temp->leftChild->name.t.tid == ID){
+            symbolRecord* record = searchAllSymbolTable(temp->pt->element.t.lexeme, table);
+            if(record->entry_DT.isArray == 0){
+                if (boolType == record->entry_DT.varType.primitiveType){
+                    continue;
+                }
+                else{
+                    printf("Type Error");
+                    return NULL;
+                }
+            }
+            else{
+                if (boolType == record->entry_DT.varType.arr.arraydType){
+                    continue;
+                }
+                else{
+                    printf("Type Error");
+                    return NULL;
+                }
+            }
+        }
+        else if(temp->leftChild->nodeType == NON_TERMINAL){
+            if (boolType == staticTypeChecking(temp->leftChild, table)){
+                continue;
+            }
+            else{
+                printf("Type Error");
+                return NULL;
+            }
+        }
+        else{
+            if (boolType == gettypeFromtid(temp->leftChild->name.t.tid, table).varType.primitiveType){
+                continue;
+            }
+            else{
+                printf("Type Error");
+                return NULL;
+            }
+        }
+    }
+    return BOOL_DT;
+}
+
 dType staticTypeChecking(astNode * current, symbolTable * table){
     if(current->nodeType == TERMINAL){
         switch (current->name.t.tid)
         {
+        case 1:
+            checkBool(current, table);
         case 10:
             if(current->leftChild->name.t.tid == ID){
                 entryDataType locationTypeLHS = searchAllSymbolTable(current->leftChild->pt->element.t.lexeme, table)->entry_DT;
@@ -155,12 +221,16 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
                 printf("Type Error: expecting INTEGER");
             }
             break;
-        case 0:
-            break;
+        case 15:
+            return checkBool(current, table);
         case 18:
-
-            break;
-            
+            return checkBool(current, table);
+        case 19:
+            return checkBool(current, table);
+        case 21:
+            return checkBool(current, table);
+        case 22:
+            return checkBool(current, table);    
         default:
             break;
         }
@@ -230,6 +300,10 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
             }
             return termType;
             break;
+        case 3:
+            return checkBool(current, table);
+            break;
+
         case 64:
             dType factorPrimType;
             astNode * temp = current->leftChild;
