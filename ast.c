@@ -842,10 +842,10 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
 
 astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
     astNode * prev = popast(syntaxStack)->treeloc;
-    printf("First rule: type: %d id: %s rule: %d\n",prev->nodeType, token_list[prev->name.t.tid], prev->rule_no);
+    // printf("First rule: type: %d id: %s rule: %d\n",prev->nodeType, token_list[prev->name.t.tid], prev->rule_no);
     astNode * lastTerminal = prev;
     astNode * current = popast(syntaxStack)->treeloc;
-    printf("First rule: type: %d id: %s rule: %d\n",current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
+    // printf("First rule: type: %d id: %s rule: %d\n",current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
     
     findAction(current, prev, lastTerminal);
     while(syntaxStack->top != NULL) {
@@ -859,19 +859,19 @@ astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
             current = popast(syntaxStack)->treeloc;
             // printf("First rule: type: %d id: %s rule: %d\n", current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
         }
-        if(prev->nodeType == TERMINAL) {
-            printf("Prev: type: %d id: %s rule: %d\n", prev->nodeType, token_list[prev->name.t.tid], prev->rule_no);
-        }
-        else {
-            printf("prev: type: %d id: %s rule: %d\n", prev->nodeType, nt_list[prev->name.nt.nid], prev->rule_no);
-        }
+        // if(prev->nodeType == TERMINAL) {
+        //     printf("Prev: type: %d id: %s rule: %d\n", prev->nodeType, token_list[prev->name.t.tid], prev->rule_no);
+        // }
+        // else {
+        //     printf("prev: type: %d id: %s rule: %d\n", prev->nodeType, nt_list[prev->name.nt.nid], prev->rule_no);
+        // }
 
-        if(current->nodeType == TERMINAL) {
-            printf("Current: type: %d id: %s rule: %d\n", current->nodeType, token_list[current->name.t.tid], current->rule_no);
-        }
-        else {
-            printf("Current: type: %d id: %s rule: %d\n", current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
-        }
+        // if(current->nodeType == TERMINAL) {
+        //     printf("Current: type: %d id: %s rule: %d\n", current->nodeType, token_list[current->name.t.tid], current->rule_no);
+        // }
+        // else {
+        //     printf("Current: type: %d id: %s rule: %d\n", current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
+        // }
         findAction(current, prev, lastTerminal);
     }
 }
