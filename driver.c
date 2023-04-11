@@ -106,7 +106,7 @@ int main(int argc, char* argv[]){
             int ptSize = parse_tree_nodes*sizeof(tree_node);
             printf("Number of nodes = %d\n", parse_tree_nodes);
             printf("Size of each node = %lu\n", sizeof(tree_node));
-            printf("Total size of parse tree = %d\n", ptSize);
+            printf("Total size of parse tree = %lu\n", ptSize);
 
             astNodes = 0;
             countASTNodes(ASTroot);
@@ -114,7 +114,7 @@ int main(int argc, char* argv[]){
             int astSize = astNodes*sizeof(astNode);
             printf("Number of nodes = %d\n", astNodes);
             printf("Size of each node = %lu\n", sizeof(astNode));
-            printf("Total size of parse tree = %d\n", astSize);
+            printf("Total size of parse tree = %lu\n", astSize);
 
             int compression = ((ptSize-astSize) * 100) / ptSize;
             printf("\nCompression Percentage = %d %", compression);
