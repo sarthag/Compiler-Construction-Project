@@ -136,7 +136,7 @@ symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table){
 void initSymbolTable(){
     globalTable = createSymbolTable("global", NULL);
     generateSTpass1(syntaxTree->root, globalTable);
-    generateSTpass2(syntaxTree->root, globalTable);
+    //generateSTpass2(syntaxTree->root, globalTable);
 }
 
 
@@ -287,6 +287,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     //variables for switch case
     symbolRecord* record;
     astNode* astListnode;
+    astNode* temp;
     entryDataType entrydt;
 
     //need to make the rule nos 0 indexed
@@ -325,7 +326,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
     case 11:
         table ->scopeBeginLine = node ->leftChild->name.t.line_no;
-        astNode* temp = node -> leftChild;
+        temp = node -> leftChild;
         while(temp ->rightSibling != NULL){
             temp = temp ->rightSibling;
         }
@@ -418,7 +419,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
         record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->name.t.line_no;
-        astNode* temp = node ->leftChild ->rightSibling;
+        temp = node ->leftChild ->rightSibling;
         while(temp -> rightSibling != NULL){
             temp  = temp -> rightSibling;
         }
@@ -433,7 +434,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
         record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->rightSibling ->name.t.line_no;
-        astNode* temp = node ->leftChild ->rightSibling -> rightSibling;
+        temp = node ->leftChild ->rightSibling -> rightSibling;
         while(temp -> rightSibling != NULL){
             temp  = temp -> rightSibling;
         }
@@ -449,7 +450,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
         record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->name.t.line_no;
-        astNode* temp = node ->leftChild ->rightSibling;
+        temp = node ->leftChild ->rightSibling;
         while(temp -> rightSibling != NULL){
             temp  = temp -> rightSibling;
         }
@@ -497,3 +498,37 @@ void printSymbolTables(symbolTable* entryTable){
 }
 
 
+int main(){
+    astNodes = 0;
+    FILE* prog;
+    char* filename = "testOwn.txt";
+    char* parseTreeFile = "parseTree.txt";
+    // printf("read files\n");
+    removeComments(filename);
+    // printf("comments removed\n");
+    prog = readFile(filename);
+    // printf("file wo comments read\n");
+    populate_keyword_table();
+    printf("\n");
+    getNextToken(prog);
+    // printf("here\n");
+    InitializeParser();
+    // printf("here\n");
+    parse_code();
+    printf("parsing done\n");
+    //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
+    printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
+    syntaxStack = initAST();
+    printf("initAST()\n");
+    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+    printf("ast init \n");
+    topDownPass(ASTroot, parseTree->root, syntaxStack);    
+    printf("top down pass done\n");
+    printASTstack(syntaxStack);
+    printf("here\n");
+    callfindAction(ASTroot, syntaxStack);
+    printf("AST bottom up done");
+    printf("Starting symbolTable");
+    initSymbolTable();
+    // callfindAction(ASTroot, syntaxStack);
+}
