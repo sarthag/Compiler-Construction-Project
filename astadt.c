@@ -102,7 +102,7 @@ void ast_traversal(astNode *node) {
             fprintf(stdout, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->name.nt.nid], nt_list[node->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
         }
     } 
-    else {
+    else if (node->nodeType == TERMINAL) {
         // printf("Terminal\t");
         token tok = node->name.t;
         if (tok.tid == NUM){
