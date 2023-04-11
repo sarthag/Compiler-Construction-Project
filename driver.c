@@ -25,13 +25,13 @@ void printtokenLL(tokenLL tkll){
 }
 
 int main(int argc, char* argv[]){
-    if(argc != 4) {
+    if(argc != 3) {
         printf("Incorrect Number of Arguments!!");
         return 0;
     }
     char* filename = argv[1];
-    char* parseTreeFile = argv[2];
-    int BUFFSIZE = atoi(argv[3]);
+    //char* parseTreeFile = argv[2];
+    int BUFFSIZE = atoi(argv[2]);
     printf("First and Follow Set Automated\n Both Lexical and Syntax analysis modules implemented\n");
     printf("0. EXIT\n");
     printf("1. Code without comments\n");
@@ -70,7 +70,9 @@ int main(int argc, char* argv[]){
             getNextToken(prog);
             InitializeParser();
             parse_code();
-            printParseTree(parseTree->root, parseTreeFile);
+            printf("Printing Preorder Traversal of Parse tree (Parent->left Child->Right Child\n");
+            printParseTree(parseTree->root, "parseTree.txt");
+            printf("Number of nodes in the parse tree: %d\n", parse_tree_nodes);
             break;
         case 4:         //prints total time taken
             start_time = clock();

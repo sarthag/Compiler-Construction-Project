@@ -77,4 +77,6 @@ typedef struct parse_tree {
     tree_node *root;
 } parse_tree;
 
+int parse_tree_nodes; 
+
 #endif 
