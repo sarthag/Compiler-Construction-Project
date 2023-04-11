@@ -322,14 +322,15 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
             dataNode->name = node->name.t.lexeme;
             if(funcRecord->input_plist.head == NULL){
                 funcRecord->input_plist.head = dataNode;
-                funcRecord->input_plist.tail = dataNode;                            
+                funcRecord->input_plist.tail = dataNode;
+                funcRecord->input_plist.numParams = 0;                            
             }
 
             else{
                 funcRecord->input_plist.tail->next = dataNode; 
                 funcRecord->input_plist.tail = dataNode;
             }
-
+            funcRecord ->input_plist.numParams++;
             astListnode = astListnode -> rightSibling;
         }
         return table;
@@ -348,14 +349,15 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
             dataNode->name = node->name.t.lexeme;
             if(funcRecord->output_plist.head == NULL){
                 funcRecord->output_plist.head = dataNode;
-                funcRecord->output_plist.tail = dataNode;                            
+                funcRecord->output_plist.tail = dataNode; 
+                funcRecord->output_plist.numParams = 0;                           
             }
 
             else{
                 funcRecord->output_plist.tail->next = dataNode; 
                 funcRecord->output_plist.tail = dataNode;
             }
-            
+            funcRecord->output_plist.numParams++;
             astListnode = astListnode -> rightSibling;
         }
         return table;
