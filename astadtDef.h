@@ -53,5 +53,7 @@ typedef struct astStack {
     astStackNode *top;
 } astStack;
 
+int astNodes; 
+
 
 #endif 

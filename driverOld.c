@@ -25,17 +25,18 @@ void printtokenLL(tokenLL tkll){
 }
 
 int main(int argc, char* argv[]){
-    if(argc != 3) {
+    if(argc != 4) {
         printf("Incorrect Number of Arguments!!");
         return 0;
     }
     char* filename = argv[1];
-    //char* parseTreeFile = argv[2];
+    char* parseTreeFile = argv[2];
     int BUFFSIZE = atoi(argv[2]);
     printf("First and Follow Set Automated\n Both Lexical and Syntax analysis modules implemented\n");
     printf("0. EXIT\n");
-    printf("1. Results if lexical analysis\n");
-    printf("2. Results of compilation\n");
+    printf("1. Code without comments\n");
+    printf("2. Results if lexical analysis\n");
+    printf("3. Results of compilation\n");
     printf("4. Time analysis\n");
     int s;
     // char* filename = "test_cases (stage_1)/t6(with_syntax_errors).txt";
@@ -52,14 +53,18 @@ int main(int argc, char* argv[]){
         {
         case 0:
             exit(0);
-        case 1:
+        case 1:     //prints comment free code
+            /* code */
+            removeComments(filename);
+            break;
+        case 2:
                  // prints lexer results
             prog = readFile(filename);
             populate_keyword_table();
             getNextToken(prog);
             printtokenLL(tokenList);
             break;
-        case 2:   //prints all lexical and syntatic errors, prints parse tree
+        case 3:   //prints all lexical and syntatic errors, prints parse tree
             prog = readFile(filename);
             populate_keyword_table();
             getNextToken(prog);
@@ -69,9 +74,18 @@ int main(int argc, char* argv[]){
             printParseTree(parseTree->root, "parseTree.txt");
             printf("Number of nodes in the parse tree: %d\n", parse_tree_nodes);
             break;
-        case 3: // prints results of the AST
-            
-            break; 
+        case 4:         //prints total time taken
+            start_time = clock();
+            prog = readFile(filename);
+            populate_keyword_table();
+            getNextToken(prog);
+            InitializeParser();
+            parse_code();
+            end_time = clock();
+            total_CPU_time = (double) (end_time - start_time);
+            total_CPU_time_in_seconds = total_CPU_time / CLOCKS_PER_SEC;
+            printf("Total CPU Time: %f seconds\n", total_CPU_time_in_seconds);
+            break;
         default:
             break;
         }
