@@ -128,11 +128,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         break;
     case 1:
         if(current->rightSibling != NULL) {
-            temp = prev;
-            while(temp->rightSibling->name.t.tid != EPSILON) {
-                temp = temp->rightSibling;
-            }
-            temp->rightSibling = current->rightSibling;
+           break; 
         }
         current->nodeType = prev->nodeType;
         current->name = prev->name;
@@ -150,6 +146,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->leftChild = NULL;
         break;
     case 4:
+        if(current->rightSibling != NULL) {
+           break; 
+        }
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->leftChild = prev->leftChild;
@@ -944,7 +943,7 @@ int main(){
     callfindAction(ASTroot, syntaxStack);
     // printf("AST bottom up done");
     // printParseTree(parseTree->root, parseTreeFile);
-    ast_traversal(ASTroot);
+    ast_traversal(ASTroot->leftChild);
     // callfindAction(ASTroot, syntaxStack);
 }
 
