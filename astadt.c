@@ -49,7 +49,8 @@ ast *createSyntaxTree() {
 
 astNode* createASTNode(node_type nodeType,int rule_no,tree_node* pTNode){
     astNode *new = (astNode*) malloc(sizeof(astNode));
-    new -> rule_no = rule_no; 
+    new -> rule_no = pTNode->rule; 
+    printf("\n%d\t%d\t%d\n", rule_no, new->rule_no, pTNode->rule);
     // new-> typeId = typeID;
     new -> pt = pTNode;
     if(pTNode -> type == TERMINAL){

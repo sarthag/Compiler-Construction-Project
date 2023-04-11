@@ -173,11 +173,17 @@ void parse_tree_traversal(tree_node *node, FILE* fp) {
             fprintf(stdout, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->element.nt.nid], node ->rule,node ->type);
         }
         else if (tok.tid == RNUM){
-            fprintf(stdout, "| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type);
+            fprintf(stdout, "| ---- | %d | %lf | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type);
+        }
+        else if(tok.tid == EPSILON){
+            fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
+            // fprintf(stdout, "| EPSILON | NA | %s |%s \n",token_list[tok.tid],nt_list[node->parent->element.nt.nid]);//,node ->rule,node ->type); // change this back
+
         }
         else{
             fprintf(stdout, "| %s | %d | %s | %s| yes |%d|%d \n", tok.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
         }
+        
     }
 
     // if(node->type==0 && node->rule==-1){

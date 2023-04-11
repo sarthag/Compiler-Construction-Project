@@ -580,6 +580,16 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->parent = par;
         break;
     case 87:
+        printf("%s\n", nt_list[current->name.nt.nid]);
+        printf("%s\n", token_list[prev->name.t.tid]);
+        printf("%s\n", token_list[prev->rightSibling->name.t.tid]);
+        if(prev->rightSibling->name.t.tid == EPSILON) {
+            printf("here\n");
+            current->nodeType = prev->nodeType;
+            current->name = prev->name;
+            current->leftChild = NULL;
+        }
+        printf("%s\n", token_list[current->name.t.tid]);
         break;
     case 88:
         par = current->parent;
@@ -703,9 +713,10 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->parent = par;
         break;
     case 111:
-        par = current->parent;
-        current->parent->leftChild = prev;
-        current->parent = par;
+        printf("%s\n", nt_list[current->name.nt.nid]);
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        printf("%s\n", token_list[current->name.t.tid]);
         break;
     case 112:
         par = current->parent;
@@ -861,17 +872,36 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
 
 astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
     astNode * prev = popast(syntaxStack)->treeloc;
-    printf("First rule: type: %d id: %d rule: %d\n",prev->nodeType, prev->name.nt.nid, prev->rule_no);
+    printf("First rule: type: %d id: %s rule: %d\n",prev->nodeType, token_list[prev->name.t.tid], prev->rule_no);
     astNode * lastTerminal = prev;
     astNode * current = popast(syntaxStack)->treeloc;
+    printf("First rule: type: %d id: %s rule: %d\n",current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
+    
     findAction(current, prev, lastTerminal);
     while(syntaxStack->top != NULL) {
         current = popast(syntaxStack)->treeloc;
-        if(current->nodeType == TERMINAL) {
+        // printf("First rule: type: %d id: %s rule: %d\n", current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
+        while(current->nodeType == TERMINAL) {
             prev = current;
+            // printf("First rule: type: %d id: %s rule: %d\n", prev->nodeType, token_list[prev->name.t.tid], prev->rule_no);
             lastTerminal = current;
             current = popast(syntaxStack)->treeloc;
+            // printf("First rule: type: %d id: %s rule: %d\n", current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
         }
+        if(prev->nodeType == TERMINAL) {
+            printf("Prev: type: %d id: %s rule: %d\n", prev->nodeType, token_list[prev->name.t.tid], prev->rule_no);
+        }
+        else {
+            printf("prev: type: %d id: %s rule: %d\n", prev->nodeType, nt_list[prev->name.nt.nid], prev->rule_no);
+        }
+
+        if(current->nodeType == TERMINAL) {
+            printf("Current: type: %d id: %s rule: %d\n", current->nodeType, token_list[current->name.t.tid], current->rule_no);
+        }
+        else {
+            printf("Current: type: %d id: %s rule: %d\n", current->nodeType, nt_list[current->name.nt.nid], current->rule_no);
+        }
+
         findAction(current, prev, lastTerminal);
     }
 }
