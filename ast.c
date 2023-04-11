@@ -770,7 +770,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         current->leftChild = prev->rightSibling;
         temp = prev;
-        while(temp->rightSibling->name.t.tid != CASE && temp->rightSibling != NULL) {
+        while(temp->rightSibling->name.t.tid != CASE && temp->rightSibling.t.tid != EPSILON) {
             temp = temp->rightSibling;
         }
         current->rightSibling = temp->rightSibling;
