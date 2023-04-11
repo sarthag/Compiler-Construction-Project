@@ -52,6 +52,7 @@ typedef struct{
 typedef struct plistNode{
     char* name; 
     entryDataType entryDT; 
+    struct plistNode* next;
 }plistNode; 
 
 typedef struct plist{

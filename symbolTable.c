@@ -125,7 +125,7 @@ void initSymbolTable(){
 }
 
 
-void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ // SHRAYES SAYS IT SEEMS RIGHT WILL TEST
+void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ 
 
     if(treeRoot->name.t.tid == USE){
         return; 
@@ -251,7 +251,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     
     //search to check if it already exists in one of the tables 
     if(searchSymbolTable(node->name.t.lexeme, table) !=NULL){
-        printf("ERROR: Redeclaration of a variable \n ");       //SHRAYES CHECK
+        printf("ERROR: Redeclaration of a variable \n ");       
         return NULL;
     }
     //variables for switch case
@@ -273,8 +273,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     
     case 7:
         record = searchSymbolTable(node ->name.t.lexeme,table);
+        if(record == NULL){
+            entrydt.isArray = false; 
+            entrydt.varType.primitiveType = NA;
+            record = insertIntoSymbolTable(table, node -> name.t.lexeme, FUNCTION, entrydt);
+        }
         record -> isFuncDef = true;
-        // Get input plist and output plist here SHRAYES
         return record ->scopePointer;
         break;
     
@@ -293,9 +297,23 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         astListnode = node -> leftChild;
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
+        symbolRecord* funcRecord = searchSymbolTable(table->tableName, table->parentTable); 
         while(astListnode -> name.t.tid != EPSILON){
-            entrydt = gettypeFromtid(astListnode ->leftChild,table);
-            insertIntoSymbolTable(table,node -> name.t.lexeme, VARIABLE, entrydt);
+            entrydt = gettypeFromtid(astListnode ->leftChild, table); // table is func table
+            insertIntoSymbolTable(table, node -> name.t.lexeme, VARIABLE, entrydt);
+
+            plistNode* dataNode = (plistNode*)malloc(sizeof(plistNode));
+            dataNode->entryDT = entrydt; 
+            dataNode->name = node->name.t.lexeme;
+            if(funcRecord->input_plist.head == NULL){
+                funcRecord->input_plist.head = dataNode;
+                funcRecord->input_plist.tail = dataNode;                            
+            }
+
+            else{
+                funcRecord->input_plist.tail->next = dataNode; 
+                funcRecord->input_plist.tail = dataNode;
+            }
 
             astListnode = astListnode -> rightSibling;
         }
@@ -307,20 +325,32 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         while(astListnode -> name.t.tid != EPSILON){
-            entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
-            insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
-            astListnode = astListnode -> rightSibling;
+            entrydt = gettypeFromtid(node ->leftChild -> rightSibling, table);
+            insertIntoSymbolTable(table, node -> name.t.lexeme,VARIABLE,entrydt);
 
+            plistNode* dataNode = (plistNode*)malloc(sizeof(plistNode));
+            dataNode->entryDT = entrydt; 
+            dataNode->name = node->name.t.lexeme;
+            if(funcRecord->output_plist.head == NULL){
+                funcRecord->output_plist.head = dataNode;
+                funcRecord->output_plist.tail = dataNode;                            
+            }
+
+            else{
+                funcRecord->output_plist.tail->next = dataNode; 
+                funcRecord->output_plist.tail = dataNode;
+            }
+
+            astListnode = astListnode -> rightSibling;
         }
         return table;
         break;
 
     case 56: 
         record = searchSymbolTable(node ->name.t.lexeme,table);
-        record->funcCall = true; // SHRAYES CHECK
+        record->funcCall = true; // NIVZZZZZ CHECK
         return record ->scopePointer;
         break;
-
 
     case 124:  
         entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);

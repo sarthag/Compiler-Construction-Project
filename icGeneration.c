@@ -1,6 +1,6 @@
 #include "icGeneration.h"
 
-symbolRecord* insertIntoTempTable(symbolTable * parentTable, dType tempType){
+symbolRecord* insertIntoTempTable(symbolTable * parentTable, entryDataType tempType){
     symbolRecord* new;
     if(parentTable->tempTable==NULL){
         parentTable ->tempTable = createSymbolTable("temp",parentTable);
@@ -21,56 +21,84 @@ symbolRecord* findFromST(char* recordName, symbolTable* table){
     
 }
 
+dType getdTypeFromEDT(symbolRecord* op){
+    if(op->entry_DT.isArray){
+        return op->entry_DT.varType.arr.arraydType;
+    }
+    return op->entry_DT.varType.primitiveType;
+
+}
+
 void createICG(astNode* node, symbolTable* table){
     //keep track of which table we are in depending on ast 
     if(node == NULL){
-        printf("ERROR: AST IS EMPTY");
+        printf("ERROR: AST IS EMPTY, I BLAME SHAZ");
     }
+    symbolRecord* leftOp;
+    symbolRecord* rightOp;
+    
+    /*
+    leftdt, rightdt 
+    if(leftisarr) take left dt from arr
+    if (!leftisarr) take left dt from primitive
+    
+    same for right 
+    send leftdt and rightdt in the if statements*/
     if(node ->nodeType == TERMINAL){
         switch(node ->name.t.tid){
+            //arithmetic expressions
             case PLUS :
                 // symbolRecord* tempVar;
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
                 
-                if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,INT_DT);
+                entryDataType edt;
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = INT_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = INT_ADD;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_ADD;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_ADD;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = rightOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].label = REAL_ADD;
@@ -82,45 +110,53 @@ void createICG(astNode* node, symbolTable* table){
                 // symbolRecord* tempVar;
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
 
-                if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,INT_DT);
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = INT_SUB;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_SUB;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_SUB;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = rightOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].label = REAL_SUB;
@@ -135,42 +171,50 @@ void createICG(astNode* node, symbolTable* table){
                 symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
                 symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
                 
-                if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,INT_DT);
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = INT_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = INT_MUL;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_MUL;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_MUL;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = rightOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].label = REAL_MUL;
@@ -182,57 +226,67 @@ void createICG(astNode* node, symbolTable* table){
                 // symbolRecord* tempVar;
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
-                if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,INT_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme,table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme,table);
+                if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = INT_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table,edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = INT_DIV;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_DIV;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == INT_DT && rightOp->varType.primitiveType == REAL_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == INT_DT && getdTypeFromEDT(rightOp) == REAL_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].op2 = rightOp;
                     intermediateCode[icgLineNo].label = REAL_DIV;
                     icgLineNo++;
                 }
 
-                else if(leftOp->varType.primitiveType == REAL_DT && rightOp->varType.primitiveType == INT_DT){
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                else if(getdTypeFromEDT(leftOp) == REAL_DT && getdTypeFromEDT(rightOp) == INT_DT){
+                    edt.isArray = false;
+                    edt.varType.primitiveType = REAL_DT;
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = rightOp;
                     intermediateCode[icgLineNo].label = INT_TO_REAL;
                     icgLineNo++;
 
-                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, REAL_DT);
+                    intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                     intermediateCode[icgLineNo].op1 = leftOp;
                     intermediateCode[icgLineNo].op2 = intermediateCode[icgLineNo-1].lhs;
                     intermediateCode[icgLineNo].label = REAL_DIV;
                     icgLineNo++;
                 }
                 break; 
-
+            //logical expressions
             case AND:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
                 intermediateCode[icgLineNo].label = BOOL_AND;
@@ -242,9 +296,11 @@ void createICG(astNode* node, symbolTable* table){
             case OR:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
                 intermediateCode[icgLineNo].label = BOOL_OR;
@@ -254,13 +310,15 @@ void createICG(astNode* node, symbolTable* table){
             case LT:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->varType.primitiveType == REAL || rightOp->varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_LT;
                 }
 
@@ -274,13 +332,15 @@ void createICG(astNode* node, symbolTable* table){
             case LE:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->varType.primitiveType == REAL || rightOp->varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_LE;
                 }
 
@@ -294,13 +354,15 @@ void createICG(astNode* node, symbolTable* table){
             case EQ:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->varType.primitiveType == REAL || rightOp->varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_EQ;
                 }
 
@@ -314,13 +376,15 @@ void createICG(astNode* node, symbolTable* table){
             case NE:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->varType.primitiveType == REAL || rightOp->varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_NE;
                 }
 
@@ -334,13 +398,15 @@ void createICG(astNode* node, symbolTable* table){
             case GT:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->varType.primitiveType == REAL || rightOp->varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_GT;
                 }
 
@@ -354,13 +420,15 @@ void createICG(astNode* node, symbolTable* table){
             case GE:
                 createICG(node -> leftChild, table);
                 createICG(node -> leftChild -> rightSibling, table);
-                symbolRecord* leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
-                symbolRecord* rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
-                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, BOOL_DT);
+                leftOp = findFromST(node ->leftChild->name.t.lexeme, table);
+                rightOp = findFromST(node ->leftChild -> rightSibling->name.t.lexeme, table);
+                edt.isArray = false;
+                edt.varType.primitiveType = BOOL_DT;
+                intermediateCode[icgLineNo].lhs = insertIntoTempTable(table, edt);
                 intermediateCode[icgLineNo].op1 = leftOp;
                 intermediateCode[icgLineNo].op2 = rightOp;
 
-                if(leftOp->varType.primitiveType == REAL || rightOp->varType.primitiveType == REAL){
+                if(getdTypeFromEDT(leftOp) == REAL || getdTypeFromEDT(rightOp) == REAL){
                     intermediateCode[icgLineNo].label = ROP_REAL_GE;
                 }
 
@@ -371,8 +439,40 @@ void createICG(astNode* node, symbolTable* table){
                 icgLineNo++;
                 break;
 
+            //Assignment operation
+            case ASSIGNOP:
+                createICG(node -> leftChild, table);
+                createICG(node -> leftChild -> rightSibling, table);
+                symbolRecord* lhsOp;
+                lhsOp = findFromST(node -> leftChild ->name.t.lexeme,table);
+                leftOp = findFromST(node ->leftChild-> rightSibling ->name.t.lexeme,table);
+                if(getdTypeFromEDT(lhsOp) == INT_DT && getdTypeFromEDT(leftOp) == INT_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = ASSIGN_INT;
+                }
+                else if(getdTypeFromEDT(lhsOp) == REAL_DT && getdTypeFromEDT(leftOp) == REAL_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = ASSIGN_REAL;
 
-            default:
+                }
+                else if(getdTypeFromEDT(lhsOp) == BOOL_DT && getdTypeFromEDT(leftOp) == BOOL_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = ASSIGN_BOOL;
+
+                }
+                else if(getdTypeFromEDT(lhsOp) == REAL_DT && getdTypeFromEDT(leftOp) == INT_DT){
+                    intermediateCode[icgLineNo].lhs = lhsOp;
+                    intermediateCode[icgLineNo].op1 = leftOp;
+                    intermediateCode[icgLineNo].label = INT_TO_REAL;
+
+                }
+
+                
+
+            default: 
                 break;
         }
     }
