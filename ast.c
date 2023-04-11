@@ -126,6 +126,10 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 0:
         break;
     case 1:
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->rightSibling = prev->rightSibling;
+        current->leftChild = NULL;
         break;
     case 2:
         current->nodeType = prev->nodeType;
@@ -133,6 +137,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->leftChild = prev->leftChild;
         break;
     case 3:
+        current->nodeType = prev->rightSibling->nodeType;
+        current->name = prev->rightSibling->name;
+        current->leftChild = NULL;
         break;
     case 4:
         current->nodeType = prev->nodeType;
@@ -472,6 +479,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->rightSibling = prev->rightSibling;
+        current->leftChild = NULL;
         break;
     case 69:
         current->nodeType = prev->nodeType;
@@ -519,7 +527,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         if(prev->rightSibling->name.t.tid == EPSILON) {
             current->nodeType = prev->nodeType;
             current->name = prev->name;
-            current->leftChild = prev->rightSibling;
+            current->leftChild = prev->leftChild;
         }
         break;
     case 79:
@@ -537,7 +545,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         if(prev->rightSibling->name.t.tid == EPSILON) {
             current->nodeType = prev->nodeType;
             current->name = prev->name;
-            current->leftChild = prev->rightSibling;
+            current->leftChild = prev->leftChild;
         }
         break;
     case 82:
@@ -554,9 +562,14 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         if(prev->rightSibling->name.t.tid == EPSILON) {
             current->nodeType = prev->nodeType;
             current->name = prev->name;
-            current->leftChild = prev->rightSibling;
+            current->leftChild = NULL;
         }
-        
+        temp = current->leftChild;
+        while(temp != NULL) {
+            printf("%s\t", token_list[temp->name.t.tid]);
+            temp = temp->rightSibling;
+        }
+        printf("\n");
         break;
     case 85:
         // printf("%d\n", prev->rightSibling == NULL);
@@ -575,7 +588,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         if(prev->rightSibling->name.t.tid == EPSILON) {
             current->nodeType = prev->nodeType;
             current->name = prev->name;
-            current->leftChild = prev->rightSibling;
+            current->leftChild = NULL;
         }
         break;
     case 88:
@@ -598,7 +611,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 91:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
-        current->leftChild = prev->leftChild;
+        current->leftChild = NULL;
         break;
     case 92:
         current->nodeType = prev->nodeType;
