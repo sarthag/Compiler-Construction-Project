@@ -128,3 +128,13 @@ void ast_traversal(astNode *node) {
     ast_traversal(node->leftChild);
     ast_traversal(node->rightSibling);
 }
+
+void countASTNodes(astNode* node) {
+    if (node == NULL) {
+        return;
+    }
+    
+    astNodes++; 
+    countASTNodes(node->leftChild);
+    countASTNodes(node->rightSibling);
+}
