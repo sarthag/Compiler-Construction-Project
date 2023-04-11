@@ -108,7 +108,7 @@ void ast_traversal(astNode *node) {
             fprintf(stdout, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no,node ->nodeType);
         }
         else if (tok.tid == RNUM){
-            fprintf(stdout, "| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType);
+            fprintf(stdout, "| ---- | %d | %f | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType);
         }
         else if(tok.tid == EPSILON){
             fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
