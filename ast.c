@@ -31,7 +31,8 @@
 void createRelevant(){
     
     for(int i=0;i<NUM_OF_RELEVANT;i++){
-        int index = getTokenFromKT(relevant[i], keyword_table);
+        int index = getTokenFromTTable(relevant[i], terminalHash);
+        //printf("%d ", index);
         binRelevant[index]=1;
     }
 }
@@ -43,24 +44,16 @@ astStack* initAST(){
     printf("initStack\n");
     //populateLabels();
     createRelevant();
-    for(int i = 0; i < 33)
+    for(int i = 0; i < NUM_OF_RELEVANT; i++) {
+        printf("%d ", binRelevant[i]);
+    }
     syntaxTree = createSyntaxTree();
-    int rule = parseTree->root->rule;
-    createAST(rule);
+    printf("\nSyntax tree created\n");
+    // int rule = parseTree->root->rule;
+    // createAST(rule);
     return syntaxStack;
 }
 
-void createAST(int rule){
-    switch (rule)
-    {
-    case 0:
-        
-        break;
-    
-    default:
-        break;
-    }
-}
 
 
 void topDownPass(astNode* parent, tree_node *parseNode, astStack* syntaxStack){
@@ -123,10 +116,10 @@ void printASTstack(astStack * syntaxStack) {
     top = syntaxStack -> top;
     while(top->next != NULL) {
         if (top->treeloc->nodeType == TERMINAL){
-            printf("TERMINAL\t%d\tRule: %d\n", token_list[top->treeloc->name.t.tid], top->treeloc->rule_no);
+            printf("TERMINAL\t%s\tRule: %d\n", token_list[top->treeloc->name.t.tid], top->treeloc->rule_no);
         }
         else {
-            printf("NON TERMINAL\t%d\tRule: %d\n", nt_list[top->treeloc->name.nt.nid], top->treeloc->rule_no);
+            printf("NON TERMINAL\t%s\tRule: %d\n", nt_list[top->treeloc->name.nt.nid], top->treeloc->rule_no);
         }
         top = top->next;
 
