@@ -320,9 +320,18 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     case 10:
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
-        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,entrydt);
+        record = insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,entrydt);
+        return record ->scopePointer;
         break; 
-    
+    case 11:
+        table ->scopeBeginLine = node ->leftChild->name.t.line_no;
+        astNode* temp = node -> leftChild;
+        while(temp ->rightSibling != NULL){
+            temp = temp ->rightSibling;
+        }
+        table ->scopeEndLine = temp->name.t.line_no;
+        return table;
+        break;
     case 12:
         astListnode = node -> leftChild;
         entrydt.isArray = false; 
@@ -408,6 +417,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
+        record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->name.t.line_no;
+        astNode* temp = node ->leftChild ->rightSibling;
+        while(temp -> rightSibling != NULL){
+            temp  = temp -> rightSibling;
+        }
+        record->scopePointer->scopeEndLine = temp ->name.t.line_no;
         counter++;
         return record -> scopePointer;
         break; 
@@ -417,6 +432,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
+        record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->rightSibling ->name.t.line_no;
+        astNode* temp = node ->leftChild ->rightSibling -> rightSibling;
+        while(temp -> rightSibling != NULL){
+            temp  = temp -> rightSibling;
+        }
+        record->scopePointer->scopeEndLine = temp ->name.t.line_no;
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
@@ -427,6 +448,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
+        record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->name.t.line_no;
+        astNode* temp = node ->leftChild ->rightSibling;
+        while(temp -> rightSibling != NULL){
+            temp  = temp -> rightSibling;
+        }
+        record->scopePointer->scopeEndLine = temp ->name.t.line_no;
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
