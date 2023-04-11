@@ -18,7 +18,7 @@ astStack* syntaxStack;
 ast* syntaxTree;
 
 
-#define NUM_OF_RELEVANT 32 
+#define NUM_OF_RELEVANT 33
 
 char* relevant[NUM_OF_RELEVANT] = {"PLUS", "MINUS", "MUL", "DIV", "EPSILON", "ID", "INTEGER", "REAL", "BOOLEAN", "RANGEOP", "ASSIGNOP", "TRUE", "FALSE", "NUM", "RNUM", "DECLARE", "START", "END", "LT", "LE", "EQ", "NE", "GT", "GE", "AND", "OR", "ARRAY", "CASE", "FOR", "GET_VALUE", "PRINT", "WHILE", "SWITCH"};
 
