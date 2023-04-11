@@ -17,16 +17,13 @@
 
 
 typedef struct astNode{
-    //labels label;
     union {
         non_terminal nt;
         token t;
     }name;
-    char* labelName;
-    node_type nodeType;
 
+    node_type nodeType;
     int rule_no;
-    
     struct astNode *parent;
     struct astNode *rightSibling; 
     struct astNode * leftChild;
