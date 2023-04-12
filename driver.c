@@ -85,7 +85,7 @@ int main(int argc, char* argv[]){
             ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
             topDownPass(ASTroot, parseTree->root, syntaxStack);    
             callfindAction(ASTroot, syntaxStack);
-            ast_traversal(ASTroot);// prints results of the AST
+            ast_traversal(ASTroot->leftChild);// prints results of the AST
             printf("Number of nodes in the ast tree: %d\n", astNodes);
             
             break; 
