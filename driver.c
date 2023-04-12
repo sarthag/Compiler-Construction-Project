@@ -123,6 +123,18 @@ int main(int argc, char* argv[]){
             break; 
 
         case 5: // symbol table
+            removeComments(filename);
+            prog = readFile(filename);
+            populate_keyword_table();
+            getNextToken(prog);
+            InitializeParser();
+            parse_code();
+            syntaxStack = initAST();
+            ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+            topDownPass(ASTroot, parseTree->root, syntaxStack);    
+            callfindAction(ASTroot, syntaxStack);
+            ast_traversal(ASTroot);
+            initSymbolTable(ASTroot);
             break; 
 
         case 6: //activation record size
