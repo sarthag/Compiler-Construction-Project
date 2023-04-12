@@ -318,18 +318,19 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     case 5:
         printf("case 5");
         temp = node ->leftChild;
-        
         while(temp->name.t.tid != EPSILON){
             printASTnode(temp);
             entrydt.isArray = false; 
             entrydt.varType.primitiveType = NA;
-            record = insertIntoSymbolTable(table, node->pt->element.t.lexeme, FUNCTION, entrydt);
+            printf("INSERTING : %s",temp->pt->element.t.lexeme);
+            record = insertIntoSymbolTable(table, temp->pt->element.t.lexeme, FUNCTION, entrydt);
             printf("insertedIntosymboltable\n");  
             record->isFuncDecl=true;
             temp = temp ->rightSibling;
 
+
         }
-        
+        printf("EXITED LOOP\n");
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;

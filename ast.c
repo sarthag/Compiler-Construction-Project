@@ -150,11 +150,13 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         break;
     case 4:
         if (current->rightSibling != NULL) {
+            prev->rule_no = current->rule_no;
             break;
         }
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
+        current->rule_no = prev->rule_no;
         current->leftChild = prev->leftChild;
         current->rightSibling = prev->rightSibling;
         temp = current->leftChild;
@@ -170,6 +172,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
+        current->rule_no = prev->rule_no;
         current->leftChild = prev->rightSibling;
         break;
     case 7:
