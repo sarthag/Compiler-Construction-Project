@@ -1,4 +1,3 @@
-#include "adt.h"
 // ------------------------------------------------
 // GROUP 06 
 
@@ -8,6 +7,8 @@
 // SARTHAK AGARWAL 2020A7PS0112P
 // SHREYAS SESHAM 2020A7PS1684P
 // ------------------------------------------------
+
+#include "adt.h"
 
 void initStack(stack* s) {
     s->top = NULL;
