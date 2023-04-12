@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
     printf("2. Results of compilation\n");
     printf("3. Results of AST creation\n");
     printf("4. AST Space Efficiency\n");
-    printf("5. \n");
+    printf("5. Symbol Table\n");
     printf("6. \n");
     printf("7. \n");
     printf("8. \n");

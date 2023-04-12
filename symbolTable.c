@@ -545,38 +545,38 @@ void initSymbolTable(astNode* node){
 }
 
 
-int main(){
-    astNodes = 0;
-    FILE* prog;
-    char* filename = "testOwn.txt";
-    char* parseTreeFile = "parseTree.txt";
-    // printf("read files\n");
-    removeComments(filename);
-    // printf("comments removed\n");
-    prog = readFile(filename);
-    // printf("file wo comments read\n");
-    populate_keyword_table();
-    printf("\n");
-    getNextToken(prog);
-    // printf("here\n");
-    InitializeParser();
-    // printf("here\n");
-    parse_code();
-    printf("parsing done\n");
-    //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
-    printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
-    syntaxStack = initAST();
-    printf("initAST()\n");
-    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
-    printf("ast init \n");
-    topDownPass(ASTroot, parseTree->root, syntaxStack);    
-    printf("top down pass done\n");
-    printASTstack(syntaxStack);
-    printf("here\n");
-    callfindAction(ASTroot, syntaxStack);
-    ast_traversal(ASTroot);
-    printf("AST bottom up done\n");
-    printf("Starting symbolTable\n");
-    initSymbolTable(ASTroot);
-    // callfindAction(ASTroot, syntaxStack);
-}
+// int main(){
+//     astNodes = 0;
+//     FILE* prog;
+//     char* filename = "testOwn.txt";
+//     char* parseTreeFile = "parseTree.txt";
+//     // printf("read files\n");
+//     removeComments(filename);
+//     // printf("comments removed\n");
+//     prog = readFile(filename);
+//     // printf("file wo comments read\n");
+//     populate_keyword_table();
+//     printf("\n");
+//     getNextToken(prog);
+//     // printf("here\n");
+//     InitializeParser();
+//     // printf("here\n");
+//     parse_code();
+//     printf("parsing done\n");
+//     //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
+//     printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
+//     syntaxStack = initAST();
+//     printf("initAST()\n");
+//     astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+//     printf("ast init \n");
+//     topDownPass(ASTroot, parseTree->root, syntaxStack);    
+//     printf("top down pass done\n");
+//     printASTstack(syntaxStack);
+//     printf("here\n");
+//     callfindAction(ASTroot, syntaxStack);
+//     ast_traversal(ASTroot);
+//     printf("AST bottom up done\n");
+//     printf("Starting symbolTable\n");
+//     initSymbolTable(ASTroot);
+//     // callfindAction(ASTroot, syntaxStack);
+// }
