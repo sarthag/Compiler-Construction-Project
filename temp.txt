@@ -1,49 +1,46 @@
 
 
-<<module var_demo_array>>
-takes input [x:integer, m:array [2..20] of integer, p:real];
-returns [ n:integer, k: boolean];
+<<module var_demo>>
+takes input [x:integer, w: boolean, p:real];
+returns [m:integer, u:boolean, n:boolean];
 start
-	declare a,b:integer;	
+	declare a,b:integer;
+	a:= 5;
 	get_value(b);
-	declare p: array[2..20] of integer;		a:= m[5]+3;
-	p:= m;						p[10]:= a*b-20*h;			        n:= a - b;
-	declare b:real;					b:= b+3;
-	k:= a>b OR b>100;
-	print(k);	
-end
+	declare value, q, r: real;
+	get_value(q);
+	r:= 23.67e+2;
+	value:= p+q*r; 
+	m:=a + x;					u:= true AND false OR v;			u:= a<=b;
+	declare w: integer;				w:= 23;                                 	n:= a*25+100;
+	declare b, c: real;				c:= value-q+r;
+	w:= w + 5;				end
 
 
-<<module f1>>
-takes input[a: array[10..30] of integer, b:array[10..30] of integer, c:real];
-returns [m:boolean, n:integer];
+<<module compute>>
+takes input[a:integer, b:integer, s: real, c:integer];
+returns [res_1:boolean, res_2_a:integer, res_2__b:real];
 start
-	declare x,y: real;
-	get_value(y);
-	declare A,B: array[4..10] of integer;
-	get_value(B);
-	declare C: array[10..30] of integer;
-	A:=B;
-	C:=a;
-	D:=C;						x:=c+y;	
-	C[18]:= a[18]+ b[18];
-	A[5]:= B[6]- 10;
-	declare A: array[10..70] of integer;		m:= A[5]< C[18];
-	m:= c>=x AND E[10]>=y;				n:= 20*8-5;	
+	declare new:boolean;
+	declare abc_1, pqr_2: integer;
+	pqr_2:= abc_1 + 6;
+	declare abc_1: real;					res_2_a:= -(a*b-c/pqr_2);
+	declare s: integer;					res_2__b:= res_2_b + p *12+22.34E-2;			declare m,n: boolean;
+	res_1 := a <=  b AND c >= a OR  s<=23 AND false;
+	m:= n AND (abc_1<=pqr_2);
+	m:= m OR (a <= b) AND (res_2_b >= 30.65);
+	res_1:= (true AND c==b)OR(b>s AND (a<=d));		declare new: integer;					new:= a<b;
+	print(res_1);
 end
-
 
 
 <<<driver program>>>
 start
-	declare v_1_2_3, A:integer;
+	declare v_1_2_3:integer;
+	get_value(v_1_2_43);					
+	declare result_, v7, v9:integer;
 	declare u1:boolean;
-        A:=12;
-	declare p: real;
-	p:= 23.56;
-	get_value(v_1_2_43);								
-	declare B, C: array [2..20] of integer;
-	[ v_1_2_3, u1]:=use module var_demo_array with parameters A,B,p;		
-	[ v_1_2_3, k]:=use module var_demo_array with parameters A,B,p;			B:= C;
-	declare B: real;							end
+	[u1, result_, k]:=use module compute with parameters v_1_2_3, v7, v9;		print(result_);
+	declare u1: real;				end
+
 

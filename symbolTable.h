@@ -24,4 +24,5 @@ entryDataType gettypeFromtid(astNode* astnode,symbolTable* table);
 void incrementOffset(symbolTable*table, entryDataType edt, int index);
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table);
 void printSymbolTables(symbolTable* entryTable);
+void printAllST(symbolTable* table);
 #endif
