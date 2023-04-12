@@ -111,10 +111,10 @@ int main(int argc, char* argv[]){
     printf("3. Results of AST creation\n");
     printf("4. AST Space Efficiency\n");
     printf("5. Symbol Table Records\n");
-    printf("6. \n");
-    printf("7. \n");
-    printf("8. \n");
-    printf("9. \n");
+    printf("6. Activaton Record Sizes of Functions\n");
+    printf("7. Static and Dynamic Arrays\n");
+    printf("8. Errors and Time analysis\n");
+    printf("9. Code Generation (Not Completed)\n");
     int s;
     // char* filename = "test_cases (stage_1)/t6(with_syntax_errors).txt";
     FILE* prog; 
