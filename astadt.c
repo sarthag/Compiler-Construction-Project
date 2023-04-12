@@ -89,9 +89,6 @@ void ast_traversal(astNode *node) {
     if (node == NULL) {
         return;
     }
-    if (node->nodeType == TERMINAL && node->name.t.tid == EPSILON) {
-        astNodes--;
-    }
     if (node->nodeType == NON_TERMINAL) {
         // printf("Non terminal\t");
         // non_terminal tok = node->element.nt;
@@ -117,6 +114,7 @@ void ast_traversal(astNode *node) {
             // fprintf(stdout, "| ---- | %d | %f | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType);
         }
         else if(tok.tid == EPSILON){
+            astNodes--;
             // printf("Node: %s | Lexeme: EPSILON | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->rule_no);
             // fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
 
@@ -141,7 +139,9 @@ void countASTNodes(astNode* node) {
     if (node == NULL) {
         return;
     }
-    
+    if (node->nodeType == TERMINAL && node->name.t.tid == EPSILON) {
+        astNodes--;
+    }
     astNodes++; 
     countASTNodes(node->leftChild);
     countASTNodes(node->rightSibling);

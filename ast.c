@@ -266,6 +266,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         current->leftChild = prev->leftChild;
         current->rightSibling = prev->rightSibling;
+        current->rule_no = prev->rule_no;
         break;
     case 26:
         current->nodeType = prev->nodeType;
@@ -287,6 +288,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->leftChild = prev->leftChild;
+        current->rule_no = prev->rule_no;
         break;
     case 30:
         current->nodeType = prev->nodeType;
@@ -784,6 +786,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         current->leftChild = prev->rightSibling;
     case 124:
+        current->rule_no = 124;
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->leftChild = prev->rightSibling;
@@ -944,6 +947,7 @@ int main(){
     // printf("AST bottom up done");
     // printParseTree(parseTree->root, parseTreeFile);
     ast_traversal(ASTroot->leftChild);
+    printf("%d\n", astNodes);
     // callfindAction(ASTroot, syntaxStack);
 }
 
