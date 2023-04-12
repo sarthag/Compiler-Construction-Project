@@ -146,15 +146,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->nodeType = prev->rightSibling->nodeType;
         current->name = prev->rightSibling->name;
         current->pt = prev->rightSibling->pt;
-        printf("%s\n", prev->rightSibling->pt->element.t.lexeme);
         current->leftChild = NULL;
         break;
     case 4:
-        // temp = current;
-        // printf("%s\n", nt_list[current->name.nt.nid]);
-        // while(temp != NULL) {
-        //     printf("%s\n", token_list[temp->name.t.tid]);
-        // }
         if(current->rightSibling != NULL) {
            break; 
         }
