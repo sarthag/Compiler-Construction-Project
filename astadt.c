@@ -134,7 +134,47 @@ void ast_traversal(astNode *node) {
     ast_traversal(node->leftChild);
     ast_traversal(node->rightSibling);
 }
+void printASTnode(astNode*node){
+    printf("Printing AST node:\n");
+    if (node == NULL) {
+        return;
+    }
+    if (node->nodeType == NON_TERMINAL) {
+        // printf("Non terminal\t");
+        // non_terminal tok = node->element.nt;
+        // printf("%d\n", node->element.nt.nid);
+        if(node->name.nt.nid == program) {
+            printf("Node: %s | Rule: %d | Type: NON TERMINAL\n", nt_list[node->name.nt.nid], node->rule_no);
+            // fprintf(stdout, "----- | Root Node (No Parent) | no | %s |%d |%d \n", nt_list[node->name.nt.nid] ,node->rule_no,node ->nodeType);
+        }
+        else {
+            printf("Node: %s | Rule: %d | Type: NON TERMINAL\n", nt_list[node->name.nt.nid], node->rule_no);
+            // fprintf(stdout, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->name.nt.nid], nt_list[node->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
+        }
+    } 
+    else if (node->nodeType == TERMINAL) {
+        // printf("Terminal\t");
+        token tok = node->name.t;
+        if (tok.tid == NUM){
+            printf("Node: %s | Lexeme: %d | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->pt->element.t.num, node->rule_no);
+            // fprintf(stdout, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no,node ->nodeType);
+        }
+        else if (tok.tid == RNUM){
+            printf("Node: %s | Lexeme: %f | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->pt->element.t.rnum, node->rule_no);
+            // fprintf(stdout, "| ---- | %d | %f | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType);
+        }
+        else if(tok.tid == EPSILON){
+            astNodes--;
+            // printf("Node: %s | Lexeme: EPSILON | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->rule_no);
+            // fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
 
+        }
+        else{
+            printf("Node: %s | Lexeme: %s | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->pt->element.t.lexeme, node->rule_no);
+            // fprintf(stdout, "| %s | %d | %s | %s| yes |%d|%d \n", node->pt->element.t.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no, node ->nodeType); // change this back
+        }
+    }
+}
 void countASTNodes(astNode* node) {
     if (node == NULL) {
         return;

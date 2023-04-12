@@ -34,7 +34,7 @@ typedef struct usageLL{
 
 typedef union{
     int bound;
-    char* variable;
+    char variable[30];
 }boundType;
 
 typedef struct arrayType{
