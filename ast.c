@@ -133,6 +133,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->rightSibling = prev->rightSibling;
+        current->pt = prev->pt;
         current->leftChild = NULL;
         break;
     case 2:
@@ -143,6 +144,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
     case 3:
         current->nodeType = prev->rightSibling->nodeType;
         current->name = prev->rightSibling->name;
+        current->pt = prev->rightSibling->pt;
+        printf("%s\n", prev->rightSibling->pt->element.t.lexeme);
         current->leftChild = NULL;
         break;
     case 4:
@@ -313,10 +316,9 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         prev -> rightSibling = temp -> rightSibling;
         break;
     case 34:
-        temp = prev -> rightSibling;
-        current->nodeType = temp->nodeType;
-        current->name = temp->name;
-        prev -> rightSibling = temp -> rightSibling;
+        current->nodeType = prev->nodeType;
+        current->name = prev->name;
+        current->leftChild = NULL;
         break;
     case 35:
         current->nodeType = prev->nodeType;
@@ -797,8 +799,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         current->leftChild = prev->rightSibling;
         temp = prev;
-        while(temp->rightSibling->name.t.tid != CASE) {
-            temp = temp->rightSibling;
+        while(temp->rightSibling->name.t.tid != CASE && temp->rightSibling->name.t.tid != EPSILON) {
+            temp = temp->rightSibling;  
         }
         current->rightSibling = temp->rightSibling;
         temp->rightSibling = NULL;
