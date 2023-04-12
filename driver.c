@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
     printf("2. Results of compilation\n");
     printf("3. Results of AST creation\n");
     printf("4. AST Space Efficiency\n");
-    printf("5. Symbol Table\n");
+    printf("5. Symbol Table Records\n");
     printf("6. \n");
     printf("7. \n");
     printf("8. \n");
@@ -64,6 +64,7 @@ int main(int argc, char* argv[]){
             getNextToken(prog);
             printtokenLL(tokenList);
             break;
+
         case 2:  //prints all lexical and syntatic errors, prints parse tree
             prog = readFile(filename);
             populate_keyword_table();
@@ -74,6 +75,7 @@ int main(int argc, char* argv[]){
             printParseTree(parseTree->root, "parseTree.txt");
             printf("Number of nodes in the parse tree: %d\n", parse_tree_nodes);
             break;
+
         case 3: 
             removeComments(filename);
             prog = readFile(filename);
@@ -87,7 +89,6 @@ int main(int argc, char* argv[]){
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot->leftChild);// prints results of the AST
             printf("Number of nodes in the ast tree: %d\n", astNodes);
-            
             break; 
 
         case 4:
@@ -107,7 +108,7 @@ int main(int argc, char* argv[]){
             int ptSize = parse_tree_nodes*sizeof(tree_node);
             printf("Number of nodes = %d\n", parse_tree_nodes);
             printf("Size of each node = %lu\n", sizeof(tree_node));
-            printf("Total size of parse tree = %lu\n", ptSize);
+            printf("Total size of parse tree = %d\n", ptSize);
 
             astNodes = 0;
             countASTNodes(ASTroot);
@@ -115,7 +116,7 @@ int main(int argc, char* argv[]){
             int astSize = astNodes*sizeof(astNode);
             printf("Number of nodes = %d\n", astNodes);
             printf("Size of each node = %lu\n", sizeof(astNode));
-            printf("Total size of ast = %lu\n", astSize);
+            printf("Total size of ast = %d\n", astSize);
 
             int compression = ((ptSize-astSize) * 100) / ptSize;
             printf("\nCompression Percentage = %d%%", compression);

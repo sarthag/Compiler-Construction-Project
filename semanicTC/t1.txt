@@ -4,7 +4,7 @@
 
 <<module var_demo>>
 takes input [x:integer, w: boolean, p:real];
-returns [m:integer, n:integer, u: boolean];
+returns [m:integer, u:boolean, n:boolean];
 start
 	declare a,b:integer;
 	a:= 5;

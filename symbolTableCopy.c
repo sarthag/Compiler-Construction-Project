@@ -25,7 +25,7 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 //Make dType NA for iterative and conditional
 symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType){
     printf("Inside insertIntoSymbolTable\n");
-    printf("%s",name);
+    printf("SYMBOL TABLE name:%s",name);
     symbolRecord* searchRecord = searchSymbolTable(name, table);
     if (searchRecord != NULL){
         printf("ERROR: Redeclaration of record"); 
@@ -299,10 +299,14 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     //need to make the rule nos 0 indexed
     int rule = node->rule_no + 1;
-    printf("Rule no:%d :: \n",rule);
+    printf("===============================================\n");
+    printf("Rule no:%d\n",rule);
+    printASTnode(node);
+    printf("===============================================\n");
     switch (rule){
     case 4:
         printf("case 4");
+        temp = node;
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, node->pt->element.t.lexeme, FUNCTION, entrydt);
@@ -311,14 +315,31 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;
+    case 5:
+        printf("case 5");
+        temp = node ->leftChild;
+        
+        while(temp->name.t.tid != EPSILON){
+            printASTnode(temp);
+            entrydt.isArray = false; 
+            entrydt.varType.primitiveType = NA;
+            record = insertIntoSymbolTable(table, node->pt->element.t.lexeme, FUNCTION, entrydt);
+            printf("insertedIntosymboltable\n");  
+            record->isFuncDecl=true;
+            temp = temp ->rightSibling;
+
+        }
+        
+        return table;
+        //FIGURE OUT FUNCTION DATATYPE    
+        break;
+
     
     case 7:
-        printf("Case7\n");
-        printASTnode(node);
+        // printASTnode(node);
         record = searchSymbolTable(node ->pt ->element.t.lexeme,table);
         // printf("after searching symbol table");
         if(record == NULL){
-            printf("_>_>_>_>_> RECORD IS NULL!!!!\n");
             entrydt.isArray = false; 
             entrydt.varType.primitiveType = NA;
             record = insertIntoSymbolTable(table, node -> pt ->element.t.lexeme, FUNCTION, entrydt);
