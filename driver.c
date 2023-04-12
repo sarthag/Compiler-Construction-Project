@@ -37,7 +37,7 @@ int main(int argc, char* argv[]){
     printf("2. Results of compilation\n");
     printf("3. Results of AST creation\n");
     printf("4. AST Space Efficiency\n");
-    printf("5. \n");
+    printf("5. Symbol Table\n");
     printf("6. \n");
     printf("7. \n");
     printf("8. \n");
@@ -85,7 +85,7 @@ int main(int argc, char* argv[]){
             ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
             topDownPass(ASTroot, parseTree->root, syntaxStack);    
             callfindAction(ASTroot, syntaxStack);
-            ast_traversal(ASTroot);// prints results of the AST
+            ast_traversal(ASTroot->leftChild);// prints results of the AST
             printf("Number of nodes in the ast tree: %d\n", astNodes);
             
             break; 

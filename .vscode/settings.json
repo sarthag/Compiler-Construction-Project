@@ -6,6 +6,7 @@
         "icgeneration.h": "c",
         "codegen.h": "c",
         "adt.h": "c",
-        "adtdef.h": "c"
+        "adtdef.h": "c",
+        "symboltable.h": "c"
     }
 }
