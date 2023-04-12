@@ -409,10 +409,11 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     case 124:  
         // printASTnode(node);
         // printASTnode(node ->leftChild->rightSibling);
-        printASTnode(node->leftChild ->leftChild ->rightSibling -> rightSibling->rightSibling);
+        
         entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
         astNode* idListnode  = node -> leftChild -> leftChild;
-        while(idListnode -> name.t.tid != EPSILON){
+        while(idListnode ->name.t.tid != EPSILON){
+            printASTnode(idListnode);
             if(entrydt.isArray){
                 insertIntoSymbolTableArr(table,idListnode->pt->element.t.lexeme,entrydt);
             }
@@ -543,7 +544,7 @@ void initSymbolTable(astNode* node){
     //generateSTpass2(syntaxTree->root, globalTable);
 }
 
-/*
+
 int main(){
     astNodes = 0;
     FILE* prog;
@@ -579,4 +580,3 @@ int main(){
     initSymbolTable(ASTroot);
     // callfindAction(ASTroot, syntaxStack);
 }
-*/
