@@ -782,11 +782,11 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->leftChild = prev->leftChild;
         break;
     case 123:
+        current->rule_no = 123;
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->leftChild = prev->rightSibling;
     case 124:
-        current->rule_no = 124;
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->leftChild = prev->rightSibling;
@@ -918,7 +918,7 @@ astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack) {
 int main(){
     astNodes = 0;
     FILE* prog;
-    char* filename = "testOwn1.txt";
+    char* filename = "test_cases (stage_1)//t6.txt";
     char* parseTreeFile = "parseTree.txt";
     // printf("read files\n");
     removeComments(filename);
