@@ -493,9 +493,20 @@ void printSymbolTables(symbolTable* entryTable){
             else {
                 //primitive or array type
                 if(entryTable->symbTable[i] ->entry_DT.isArray==1){
-                    printf("Array element %s is of Type %d with lower bound %d and upper bound %d \n", 
-                    entryTable->symbTable[i] ->name, entryTable->symbTable[i] ->entry_DT.varType.arr.arraydType,
-                    entryTable->symbTable[i] -> entry_DT.varType.arr.lowerBound, entryTable->symbTable[i] ->entry_DT.varType.arr.upperBound);
+                    if(entryTable->symbTable[i] ->entry_DT.varType.arr.isDynamic){
+                        printf("Array element %s is of Type %d with lower bound %s and upper bound %s \n", 
+                        entryTable->symbTable[i] ->name, entryTable->symbTable[i] ->entry_DT.varType.arr.arraydType,
+                        entryTable->symbTable[i] -> entry_DT.varType.arr.lowerBound.variable, entryTable->symbTable[i] ->entry_DT.varType.arr.upperBound.variable);
+
+                    }
+                    else{
+                        printf("Array element %s is of Type %d with lower bound %d and upper bound %d \n", 
+                        entryTable->symbTable[i] ->name, entryTable->symbTable[i] ->entry_DT.varType.arr.arraydType,
+                        entryTable->symbTable[i] -> entry_DT.varType.arr.lowerBound.bound, entryTable->symbTable[i] ->entry_DT.varType.arr.upperBound.bound);
+                        
+
+                    }
+                    
                 }
                 else{
                     printf("Variable %s is of Type %d \n", entryTable->symbTable[i] ->name, 
