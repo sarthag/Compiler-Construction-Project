@@ -23,6 +23,79 @@ void printtokenLL(tokenLL tkll){
     printf("NULL\n");
 }
 
+
+void print_static_dynamic(symbolTable* entryTable){
+    //print all the symbol tables 
+    for(int i=0;i<ST_SIZE;i++){
+
+        if(entryTable->symbTable[i]->occupied==1){
+            //if the table is occupied 
+            if(entryTable->symbTable[i] ->isScope==1){
+                //function, conditional or iterative
+                print_static_dynamic(entryTable->symbTable[i] ->scopePointer);
+            }
+            else {
+                //primitive or array type
+                if(entryTable->symbTable[i] ->entry_DT.isArray==1){
+                    if(entryTable->symbTable[i] ->entry_DT.varType.arr.isDynamic){
+                        
+                        printf("1. Module: %s\t", entryTable->tableName);
+                        printf("2. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine);
+                        printf("3. Variable Name: %s \t", entryTable->symbTable[i]->name);
+                        printf("4. Statac or dynamic: Dynamic\t");
+                        printf("5. Range Variables: [%s, %s]", entryTable->symbTable[i]->entry_DT.varType.arr.lowerBound.variable, entryTable->symbTable[i]->entry_DT.varType.arr.upperBound.variable);
+                        printf("6. Element Type: %s\t", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
+    
+
+                    }
+                    else{
+                        printf("1. Module: %s\t", entryTable->tableName);
+                        printf("2. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine);
+                        printf("3. Variable Name: %s \t", entryTable->symbTable[i]->name);
+                        printf("4. Statac or dynamic: Static\t");
+                        printf("5. Range Index: [%d, %d]", entryTable->symbTable[i]->entry_DT.varType.arr.lowerBound.bound, entryTable->symbTable[i]->entry_DT.varType.arr.upperBound.bound);
+                        printf("6. Element Type: %s\t", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
+                        
+
+                    }
+                    
+                }
+                else{
+                    // variable
+                    continue;
+                }
+                
+            }
+        }
+    }
+    printf("Finished printing the static and dynamic %s\n", entryTable->tableName);
+}
+
+
+void printAllSD(symbolTable* table){
+    printf("Printing The Static and Dynamic\n");
+    print_static_dynamic(table);
+}
+
+
+void activationSizes(symbolTable* table){
+    printf("Activation record sizes\n");
+    int activationSize;
+    symbolTable* funcTable;
+    for(int i=0; i<ST_SIZE; i++){
+        activationSize = 0;
+
+        if(table->symbTable[i]->entryType == FUNCTION){
+            funcTable = table->symbTable[i]->scopePointer;
+            for(int j=0; j<ST_SIZE; j++){
+                activationSize += funcTable->symbTable[j]->width;
+            }
+
+            printf("%s\t%d", table->symbTable[i]->name, activationSize);
+        }
+    }
+}
+
 int main(int argc, char* argv[]){
     if(argc != 3) {
         printf("Incorrect Number of Arguments!!");
@@ -152,7 +225,7 @@ int main(int argc, char* argv[]){
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot);
             initSymbolTable(ASTroot);
-
+            activationSizes(globalTable);
             break;
 
         case 7: // static and dynamic arrays 
@@ -168,14 +241,30 @@ int main(int argc, char* argv[]){
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot);
             initSymbolTable(ASTroot);
-
-            
+            printAllSD(globalTable);
             break;
 
         case 8: // errors and total compilation time 
+            start_time = clock();
+            removeComments(filename);
+            prog = readFile(filename);
+            populate_keyword_table();
+            getNextToken(prog);
+            InitializeParser();
+            parse_code();
+            syntaxStack = initAST();
+            ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+            topDownPass(ASTroot, parseTree->root, syntaxStack);    
+            callfindAction(ASTroot, syntaxStack);
+            ast_traversal(ASTroot);
+            initSymbolTable(ASTroot);
+            end_time = clock();
+            total_CPU_time = (double) (end_time - start_time);
+            total_CPU_time_in_seconds = total_CPU_time / CLOCKS_PER_SEC;
+            printf("Total CPU Time: %f seconds\n", total_CPU_time_in_seconds);
             break; 
-
-        case 9: // code generation -- FUCKED
+        case 9: // code generation
+            printf("Code Generation not completed, Refer codeGen.c for the logic!!");
             break; 
         default:
             break;

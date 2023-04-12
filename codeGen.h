@@ -1,11 +1,9 @@
-#ifndef CODEGEN_H
-#define CODEGEN_H 
+#ifndef CODEGEN2_H
+#define CODEGEN2_H 
 
-#include "codeGenDef.h"
+#include "codeGen2Def.h"
 #include <stdio.h>
 
 void generateAssembly(FILE* asmFile);
-
-void readWriteST(bool isRead, int width, symbolRecord* rec, FILE* asmFile);
 
 #endif

@@ -1,108 +1,41 @@
-#include "codeGen.h"
+#include "codeGen2.h"
 
+//generate temporary variable
+//generate labels
+//find the next offset 
 
-void generateASMCode(FILE* asmFile){
-    if(asmFile == NULL){
-        printf("File is Invalid");
+void generateAssembly(FILE* asmFile, astNode* node){
+    if(node==NULL){
+        return ;
     }
+    if(node->pt->element.nt.nid== program){
+        //data section definitions
+        fprintf(asmFile, "section .data\n");
 
-    for(int i=0;i<MAXLINES;i++){
-        switch(intermediateCode[i].label){
-            case INT_ADD:
-                //addition of integer variable 
-                readWriteST(1, 2, intermediateCode[i].op1, asmFile);
-                fprintf(asmFile,"\tMOV AX, BX\n");
-                readWriteST(1, 2, intermediateCode[i].op2, asmFile);
-                fprintf(asmFile,"\tADD AX, BX\n");
-                fprintf(asmFile, "\tMOV BX, AX\n");
-                readWriteST(0, 2, intermediateCode[i].lhs, asmFile);
-                break;
+        fprintf(asmFile, "section .text\n");
+        fprintf(asmFile, "default rel\n");
+        fprintf(asmFile, "extern printf\n");
+        fprintf(asmFile, "extern scanf\n");
+        fprintf(asmFile, "global main\n");
 
-            case INT_SUB:
-                //subtraction of integer variable 
-                readWriteST(1, 2, intermediateCode[i].op1, asmFile);
-                fprintf(asmFile,"\tMOV AX, BX\n");
-                readWriteST(1, 2, intermediateCode[i].op2, asmFile);
-                fprintf(asmFile,"\tSUB AX, BX\n");
-                fprintf(asmFile, "\tMOV BX, AX\n");
-                readWriteST(0, 2, intermediateCode[i].lhs, asmFile);
-                break;
-
-            case INT_MUL:
-                //Mul of integer variable 
-                readWriteST(1, 2, intermediateCode[i].op1, asmFile);
-                fprintf(asmFile,"\tMOV AX, BX\n");
-                readWriteST(1, 2, intermediateCode[i].op2, asmFile);
-                fprintf(asmFile,"\tMUL AX, BX\n");
-                fprintf(asmFile, "\tMOV BX, AX\n");
-                readWriteST(0, 2, intermediateCode[i].lhs, asmFile);
-                break;
-
-            //look into this case 
-            case INT_DIV:
-                //division of integer variable 
-                readWriteST(1, 2, intermediateCode[i].op1, asmFile);
-                fprintf(asmFile,"\tMOV EAX, BX\n");
-                readWriteST(1, 2, intermediateCode[i].op2, asmFile);
-                fprintf(asmFile, "\tCWD\n");
-                fprintf(asmFile, "\tIDIv BX\n");
-                fprintf(asmFile, "\tSHR EAX, 16\n");
-                fprintf(asmFile, "\tMOV BX, AX\n");
-                readWriteST(0, 2, intermediateCode[i].lhs, asmFile);
-                break;
-            case REAL_ADD:
-                break;
-            case REAL_SUB:
-                break;
-            case REAL_MUL:
-                break;
-            case REAL_DIV:
-                break;
-            default:
+        //call the children of program 
+        astNode* temp = node->leftChild;
+        while(temp!=NULL){
+            generateAssembly(asmFile, temp);
+            temp = temp->rightSibling;
         }
     }
-}
 
-
-/*
-
-void readWriteST(bool isRead, int width, symbolRecord* rec, FILE* asmFile){
-    char b[8];
-    switch (width)
-    {
-    case 1:
-        sprintf(b, "BL");
-        break;
-    case 2:
-        sprintf(b, "BX");
-        break;
-    case 4:
-        sprintf(b, "EBX");
-        break;
-    default:
-        sprintf(b, "RBX");
-        break;
+    else if(node->pt->element.nt.nid == otherModules){
+        //recursively call the children
+        astNode* temp = node->leftChild;
+        while(temp!=NULL){
+            generateAssembly(asmFile, temp);
+            temp = temp->rightSibling;
+        }
     }
 
-    if(rec->parentTable==globalTable){
-        fprintf(asmFile, "\tPUSH EBP\n");
-        //fprintf(asmFile, "\tMOV EBP, %d\n", globalTable->baseOffset);
-    }
-    //EBP holds the base address of the symbol table 
+    else if(node->pt->element.nt.nid == driverModule){
 
-    if(isRead==0){
-        //writing into symbol table record 
-        fprintf("\tMOV %s, [EBP+%d]\n",b,rec->offset);
-    }
-    else if(isRead==1){
-        //reading from the symbol table 
-        fprintf("\tMOV [EBP+%d], %s\n",rec->offset, b);
-    }
-
-    if(rec->parentTable==globalTable){
-        fprintf(asmFile, "\tPOP EBP\n");
     }
 }
-
-*/
-
