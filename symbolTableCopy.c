@@ -286,11 +286,17 @@ void incrementOffset(symbolTable*table, entryDataType edt, int index){
 }
 
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
-    printf("----Inside insertSTSwitch----\n");
+    //printf("----Inside insertSTSwitch----\n");
     //search to check if it already exists in one of the tables 
-    // if(searchSymbolTable(node->pt -> element.t.lexeme, table) !=NULL){
-    //     printf("ERROR: Redeclaration of a variable \n ");       
-    //     return NULL;
+    // printASTnode(node);
+    // printf("BEFORE IF\n");
+    // if(node ->pt ->type == TERMINAL){
+    //     printASTnode(node);
+    //     printf("WEIRD SHIT:%s\n",node->pt -> element.t.lexeme);
+    //     if(searchSymbolTable(node->pt -> element.t.lexeme, table) !=NULL){
+    //         printf("ERROR: Redeclaration of a variable \n ");       
+    //         return table;
+    //     }
     // }
     //variables for switch case
     symbolRecord* record;
@@ -316,25 +322,26 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;
-    case 5:
-        printf("case 5");
-        temp = node ->leftChild;
-        while(temp->name.t.tid != EPSILON){
-            printASTnode(temp);
-            entrydt.isArray = false; 
-            entrydt.varType.primitiveType = NA;
-            printf("INSERTING : %s",temp->pt->element.t.lexeme);
-            record = insertIntoSymbolTable(table, temp->pt->element.t.lexeme, FUNCTION, entrydt);
-            printf("insertedIntosymboltable\n");  
-            record->isFuncDecl=true;
-            temp = temp ->rightSibling;
+    // case 5:
+    //     printf("case 5");
+    //     temp = node ->leftChild;
+    //     while(temp->name.t.tid != EPSILON){
+    //         printASTnode(temp);
+    //         entrydt.isArray = false; 
+    //         entrydt.varType.primitiveType = NA;
+    //         printf("INSERTING : %s",temp->pt->element.t.lexeme);
+    //         record = insertIntoSymbolTable(table, temp->pt->element.t.lexeme, FUNCTION, entrydt);
+    //         printf("insertedIntosymboltable\n");  
+    //         record->isFuncDecl=true;
+    //         temp = temp ->rightSibling;
 
 
-        }
-        printf("EXITED LOOP\n");
-        return table;
-        //FIGURE OUT FUNCTION DATATYPE    
-        break;
+    //     }
+        
+    //     // printf("EXITED LOOP\n");
+    //     return record->scopePointer;
+    //     //FIGURE OUT FUNCTION DATATYPE    
+    //     break;
 
     
     case 7:

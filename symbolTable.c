@@ -24,7 +24,7 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
 symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType){
-    //printf("Inside insertIntoSymbolTable\n");
+    printf("Inside insertIntoSymbolTable\n");
     printf("%s",name);
     symbolRecord* searchRecord = searchSymbolTable(name, table);
     if (searchRecord != NULL){
