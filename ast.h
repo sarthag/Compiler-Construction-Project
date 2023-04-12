@@ -13,7 +13,8 @@
 #define AST_H 
 
 #include "astDef.h"
-void createAST(int rule);
+void createRelevant();
+void topDownPass(astNode* parent, tree_node *parseNode, astStack* syntaxStack);
 void printASTstack(astStack * syntaxStack);
 astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal);
 astNode* callfindAction(astNode* ASTroot, astStack* syntaxStack);

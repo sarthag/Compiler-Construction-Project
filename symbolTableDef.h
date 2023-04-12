@@ -99,7 +99,7 @@ typedef struct symbolTable{
 
 
 symbolTable* globalTable;
-int counter = 0;
+int counter;
 char counterStr[20];
 
 

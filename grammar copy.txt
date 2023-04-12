@@ -79,8 +79,8 @@
 | arithmeticOrBooleanExpr anyTerm n1
 | n1 logicalOp anyTerm n1
 | n1 EPSILON 
-anyTerm arithmeticExpr n2
-n2 relationalOp arithmeticExpr 
+| anyTerm arithmeticExpr n2
+| n2 relationalOp arithmeticExpr 
 | n2 EPSILON
 | arithmeticExpr term n3
 | n3 op1 term n3
@@ -95,7 +95,7 @@ n2 relationalOp arithmeticExpr
 | factor ID n5
 | n5 SQBO element_index_with_expressions SQBC 
 | n5 EPSILON
-arrExpr arrTerm arr_N4
+| arrExpr arrTerm arr_N4
 | arr_N4 op1 arrTerm arr_N4
 | arr_N4 EPSILON
 | arrTerm arrFactor arr_N5

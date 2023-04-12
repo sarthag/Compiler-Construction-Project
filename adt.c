@@ -173,19 +173,30 @@ void parse_tree_traversal(tree_node *node, FILE* fp) {
             fprintf(stdout, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->element.nt.nid], node ->rule,node ->type);
         }
         else if (tok.tid == RNUM){
-            fprintf(stdout, "| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type);
+            fprintf(stdout, "| ---- | %d | %lf | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type);
+        }
+        else if(tok.tid == EPSILON){
+            fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
+
         }
         else{
             fprintf(stdout, "| %s | %d | %s | %s| yes |%d|%d \n", tok.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->element.nt.nid],node ->rule,node ->type); // change this back
         }
+        
     }
 
-    // if(node->type==0 && node->rule==-1){
-    //     printf("\nThe non terminal is %d \n", node->element.nt.nid);
-    // }
-    // printf("Here\n");
     parse_tree_nodes++; 
-    // printf("Here\n");
     parse_tree_traversal(node->left_child, fp);
     parse_tree_traversal(node->right_sibling, fp);
+}
+
+
+void countPTNodes(tree_node *node) {
+    if (node == NULL) {
+        return;
+    }
+    
+    parse_tree_nodes++; 
+    countPTNodes(node->left_child);
+    countPTNodes(node->right_sibling);
 }

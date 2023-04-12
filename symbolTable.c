@@ -4,6 +4,7 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
     symbolTable* newTable = (symbolTable*)malloc(sizeof(symbolTable));
     newTable->parentTable = parentTable;
     newTable -> latestOffset = 0;
+    newTable->tableName = (char*)malloc(sizeof(char)*100);
     if(parentTable == NULL){
         newTable->nestingLevel = 0;
     }
@@ -11,20 +12,25 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
     else{
         newTable -> nestingLevel = parentTable -> nestingLevel + 1;
     }
+    for(int i = 0 ; i < ST_SIZE ; i++){
+        newTable->symbTable[i] = (symbolRecord*)malloc(sizeof(symbolRecord));
+        newTable -> symbTable[i]->occupied = false;
+        newTable->symbTable[i]->name = (char*)malloc(sizeof(char)*100);
+        newTable->symbTable[i]->isScope = false;
+    }
     newTable->tableName=tableName;
     return newTable;
 }
-
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
 symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType){
-    
+    printf("Inside insertIntoSymbolTable\n");
+    printf("%s",name);
     symbolRecord* searchRecord = searchSymbolTable(name, table);
     if (searchRecord != NULL){
         printf("ERROR: Redeclaration of record"); 
         return searchRecord;
     }
-    
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
@@ -38,19 +44,23 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     }//open addressing incase of collision
 
     //assigning values
+    printf("name:%s",name);
     strcpy(table ->symbTable[index]->name, name);
+    printf("strcpy done \t");
     table ->symbTable[index]->entryType = entryType;
+    printf("entryType done \t");
     //if it is a VARIABLE then we create no new table but if it is not then we create a new symbol table
     if(entryType == VARIABLE){
        table ->symbTable[index] ->isScope = 0; 
        table -> symbTable[index]->offset = table ->latestOffset;
        incrementOffset(table, entrydType, index);
-       
+       printf("incrementOffset done\n");
        
     }
     else{
         table -> symbTable[index] -> isScope = 1;
         table -> symbTable[index] -> scopePointer = createSymbolTable(name,table);
+        printf("new st creation done\n");
     }
     table ->symbTable[index] -> entry_DT.isArray = false;
     table ->symbTable[index] -> entry_DT.varType.primitiveType = entrydType.varType.primitiveType;
@@ -58,6 +68,7 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table -> symbTable[index] ->isFuncDef = false;
     table -> symbTable[index] ->isFuncDecl = false;
     table -> symbTable[index] ->funcCall = false;
+    printf("Done inserting into symboltable\n");
     return table -> symbTable[index];
 }
 
@@ -98,7 +109,6 @@ int hashingFunction(char* name){
         hashVal = (hashVal + ((name[i]-'0'+1)*primePower)) % mod;
         primePower = (primePower + 1) % mod;
     }
-
     return hashVal;
 }
 
@@ -133,16 +143,12 @@ symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table){
     searchAllSymbolTable(recordName, tempTable);
 }
 
-void initSymbolTable(){
-    globalTable = createSymbolTable("global", NULL);
-    generateSTpass1(syntaxTree->root, globalTable);
-    generateSTpass2(syntaxTree->root, globalTable);
-}
+
 
 
 void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ 
-
-    if(treeRoot->name.t.tid == USE){
+    printf("---Inside generateSTpass1---\n");
+    if(treeRoot == NULL){
         return; 
     }
 
@@ -278,24 +284,28 @@ void incrementOffset(symbolTable*table, entryDataType edt, int index){
 }
 
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
-    
+    printf("----Inside insertSTSwitch----\n");
     //search to check if it already exists in one of the tables 
-    if(searchSymbolTable(node->name.t.lexeme, table) !=NULL){
-        printf("ERROR: Redeclaration of a variable \n ");       
-        return NULL;
-    }
+    // if(searchSymbolTable(node->name.t.lexeme, table) !=NULL){
+    //     printf("ERROR: Redeclaration of a variable \n ");       
+    //     return NULL;
+    // }
     //variables for switch case
     symbolRecord* record;
     astNode* astListnode;
+    astNode* temp;
     entryDataType entrydt;
 
     //need to make the rule nos 0 indexed
     int rule = node->rule_no + 1;
+    printf("Rule no:%d :: \n",rule);
     switch (rule){
     case 4:
+        printf("case 4");
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
-        record = insertIntoSymbolTable(table, node->name.t.lexeme, FUNCTION, entrydt);  
+        record = insertIntoSymbolTable(table, node->pt->element.t.lexeme, FUNCTION, entrydt);
+        printf("insertedIntosymboltable\n");  
         record->isFuncDecl=true;
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
@@ -318,11 +328,22 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     case 10:
+        printf("CASE 10\n");
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
-        insertIntoSymbolTable(table, node-> name.t.lexeme,FUNCTION,entrydt);
+        printf("before record \n");
+        record = insertIntoSymbolTable(table, "DRIVER",FUNCTION,entrydt);
+        return record ->scopePointer;
         break; 
-    
+    case 11:
+        table ->scopeBeginLine = node ->leftChild->name.t.line_no;
+        temp = node -> leftChild;
+        while(temp ->rightSibling != NULL){
+            temp = temp ->rightSibling;
+        }
+        table ->scopeEndLine = temp->name.t.line_no;
+        return table;
+        break;
     case 12:
         astListnode = node -> leftChild;
         entrydt.isArray = false; 
@@ -408,6 +429,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, CONDITIONAL, entrydt);
         // insertSTSwitch(node -> ,record ->scopePointer);
+        record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->name.t.line_no;
+        temp = node ->leftChild ->rightSibling;
+        while(temp -> rightSibling != NULL){
+            temp  = temp -> rightSibling;
+        }
+        record->scopePointer->scopeEndLine = temp ->name.t.line_no;
         counter++;
         return record -> scopePointer;
         break; 
@@ -417,6 +444,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
+        record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->rightSibling ->name.t.line_no;
+        temp = node ->leftChild ->rightSibling -> rightSibling;
+        while(temp -> rightSibling != NULL){
+            temp  = temp -> rightSibling;
+        }
+        record->scopePointer->scopeEndLine = temp ->name.t.line_no;
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
@@ -427,12 +460,19 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, counterStr, ITERATIVE, entrydt);
+        record ->scopePointer->scopeBeginLine = node ->leftChild ->rightSibling->name.t.line_no;
+        temp = node ->leftChild ->rightSibling;
+        while(temp -> rightSibling != NULL){
+            temp  = temp -> rightSibling;
+        }
+        record->scopePointer->scopeEndLine = temp ->name.t.line_no;
         // insertSTSwitch(node -> ,record ->scopePointer);
         counter++;
         return record -> scopePointer;
         break; 
 
     default:
+        printf("DEFAULT CASE::\n");
         return table;
         break;
     }
@@ -469,4 +509,57 @@ void printSymbolTables(symbolTable* entryTable){
     
 }
 
+void printGlobalTable(symbolTable* table){
+    printf("\nPrinting global table\n");
+    for(int i = 0 ; i < ST_SIZE ; i++){
+        if(table->symbTable[i]->occupied){
+            printf("| NAME:%s | isScope:%d | entryType:%d |isOccupied:%d\n",table->symbTable[i]->name,table->symbTable[i]->isScope,table->symbTable[i]->entryType,table->symbTable[i]->occupied);
+    }
+        }
+        
+}
 
+void initSymbolTable(astNode* node){
+    counter = 0;
+    globalTable = createSymbolTable("global", NULL);
+    generateSTpass1(node, globalTable);
+    printSymbolTables(globalTable);
+    // printGlobalTable(globalTable);
+    //generateSTpass2(syntaxTree->root, globalTable);
+}
+
+// int main(){
+//     astNodes = 0;
+//     FILE* prog;
+//     char* filename = "testOwn.txt";
+//     char* parseTreeFile = "parseTree.txt";
+//     // printf("read files\n");
+//     removeComments(filename);
+//     // printf("comments removed\n");
+//     prog = readFile(filename);
+//     // printf("file wo comments read\n");
+//     populate_keyword_table();
+//     printf("\n");
+//     getNextToken(prog);
+//     // printf("here\n");
+//     InitializeParser();
+//     // printf("here\n");
+//     parse_code();
+//     printf("parsing done\n");
+//     //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
+//     printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
+//     syntaxStack = initAST();
+//     printf("initAST()\n");
+//     astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+//     printf("ast init \n");
+//     topDownPass(ASTroot, parseTree->root, syntaxStack);    
+//     printf("top down pass done\n");
+//     printASTstack(syntaxStack);
+//     printf("here\n");
+//     callfindAction(ASTroot, syntaxStack);
+//     ast_traversal(ASTroot);
+//     printf("AST bottom up done\n");
+//     printf("Starting symbolTable\n");
+//     initSymbolTable(ASTroot);
+//     // callfindAction(ASTroot, syntaxStack);
+// }

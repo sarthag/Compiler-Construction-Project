@@ -49,7 +49,8 @@ ast *createSyntaxTree() {
 
 astNode* createASTNode(node_type nodeType,int rule_no,tree_node* pTNode){
     astNode *new = (astNode*) malloc(sizeof(astNode));
-    new -> rule_no = rule_no; 
+    new -> rule_no = pTNode->rule; 
+    printf("\n%d\t%d\t%d\n", rule_no, new->rule_no, pTNode->rule);
     // new-> typeId = typeID;
     new -> pt = pTNode;
     if(pTNode -> type == TERMINAL){
@@ -93,24 +94,34 @@ void ast_traversal(astNode *node) {
         // non_terminal tok = node->element.nt;
         // printf("%d\n", node->element.nt.nid);
         if(node->name.nt.nid == program) {
-            
-            fprintf(stdout, "----- | Root Node (No Parent) | no | %s |%d |%d \n", nt_list[node->name.nt.nid] ,node->rule_no,node ->nodeType);
+            printf("Node: %s | Rule: %d | Type: NON TERMINAL\n", nt_list[node->name.nt.nid], node->rule_no);
+            // fprintf(stdout, "----- | Root Node (No Parent) | no | %s |%d |%d \n", nt_list[node->name.nt.nid] ,node->rule_no,node ->nodeType);
         }
         else {
-            fprintf(stdout, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->name.nt.nid], nt_list[node->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
+            printf("Node: %s | Rule: %d | Type: NON TERMINAL\n", nt_list[node->name.nt.nid], node->rule_no);
+            // fprintf(stdout, "----- | %s | no | %s |%d|%d \n", nt_list[node->parent->name.nt.nid], nt_list[node->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
         }
     } 
-    else {
+    else if (node->nodeType == TERMINAL) {
         // printf("Terminal\t");
         token tok = node->name.t;
         if (tok.tid == NUM){
-            fprintf(stdout, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no,node ->nodeType);
+            printf("Node: %s | Lexeme: %d | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->pt->element.t.num, node->rule_no);
+            // fprintf(stdout, "| ----- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.num, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no,node ->nodeType);
         }
         else if (tok.tid == RNUM){
-            fprintf(stdout, "| ---- | %d | %d | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType);
+            printf("Node: %s | Lexeme: %f | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->pt->element.t.rnum, node->rule_no);
+            // fprintf(stdout, "| ---- | %d | %f | %s | %s | yes |%d|%d \n", tok.line_no, tok.rnum, token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType);
+        }
+        else if(tok.tid == EPSILON){
+            astNodes--;
+            // printf("Node: %s | Lexeme: EPSILON | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->rule_no);
+            // fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
+
         }
         else{
-            fprintf(stdout, "| %s | %d | %s | %s| yes |%d|%d \n", tok.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no, node ->nodeType); // change this back
+            printf("Node: %s | Lexeme: %s | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->pt->element.t.lexeme, node->rule_no);
+            // fprintf(stdout, "| %s | %d | %s | %s| yes |%d|%d \n", node->pt->element.t.lexeme, tok.line_no, token_list[tok.tid], nt_list[node->parent->name.nt.nid], node ->rule_no, node ->nodeType); // change this back
         }
     }
 
@@ -122,4 +133,16 @@ void ast_traversal(astNode *node) {
     // printf("Here\n");
     ast_traversal(node->leftChild);
     ast_traversal(node->rightSibling);
+}
+
+void countASTNodes(astNode* node) {
+    if (node == NULL) {
+        return;
+    }
+    if (node->nodeType == TERMINAL && node->name.t.tid == EPSILON) {
+        astNodes--;
+    }
+    astNodes++; 
+    countASTNodes(node->leftChild);
+    countASTNodes(node->rightSibling);
 }

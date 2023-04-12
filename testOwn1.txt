@@ -1,0 +1,8 @@
+declare module compute;
+<<<driver program>>>
+start
+declare a,b,c :integer;
+a:=1;
+b:=2;
+c:= a+b;
+end

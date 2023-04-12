@@ -1,5 +1,5 @@
-stage1exe: parser.o driver.o grammarHash.o adt.o ll1_gram.o lexer.o keywordTable.o
-	gcc -o stage1exe parser.o driver.o grammarHash.o adt.o ll1_gram.o lexer.o keywordTable.o
+stage2exe: parser.o driver.o grammarHash.o adt.o ll1_gram.o lexer.o keywordTable.o astadt.o ast.o
+	gcc -o stage2exe parser.o driver.o grammarHash.o adt.o ll1_gram.o lexer.o keywordTable.o astadt.o ast.o
 parser.o: parser.c 
 	gcc -c parser.c
 driver.o : driver.c
@@ -14,6 +14,10 @@ lexer.o: lexer.c
 	gcc -c lexer.c
 keywordTable.o: keywordTable.c 
 	gcc -c keywordTable.c
+astadt.o: astadt.c 
+	gcc -c astadt.c
+ast.o: ast.c 
+	gcc -c ast.c
 clean:
 	rm -f *.o 
-	rm stage1exe
+	rm stage2exe
