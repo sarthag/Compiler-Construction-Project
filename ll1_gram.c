@@ -517,23 +517,23 @@ void populate_parse_table(){
 //     }
 // }
 
-// void print_ff(int r){
-//     printf("For rule %d:\n", r+1);
-//     printf("Firsts: ");
-//     for(int i=0; i<NUM_OF_TERMINALS; i++){
-//         if(firstRHS[r][i]==1){
-//             printf("%d, ", i);
-//         }
-//     }
-//     printf("\n");
-//     printf("Follows: ");
-//     for(int i=0; i<NUM_OF_TERMINALS; i++){
-//         if(Follow[G[r].lhs_id][i]==1){
-//             printf("%d, ", i);
-//         }
-//     }
-//     printf("\n");
-// }
+void print_ff(int r){
+    printf("For rule %d:\n", r+1);
+    printf("Firsts: ");
+    for(int i=0; i<NUM_OF_TERMINALS; i++){
+        if(firstRHS[r][i]==1){
+            printf("%d, ", i);
+        }
+    }
+    printf("\n");
+    printf("Follows: ");
+    for(int i=0; i<NUM_OF_TERMINALS; i++){
+        if(Follow[G[r].lhs_id][i]==1){
+            printf("%d, ", i);
+        }
+    }
+    printf("\n");
+}
 
 // int main(){
 //     populate_grammar();
