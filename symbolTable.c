@@ -324,13 +324,14 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         record -> isFuncDef = true;
         return record ->scopePointer;
         break;
-    
+    /*
     case 8:
+        printf("The element to be search is %d \n",  node ->pt->element.nt.nid);
         record = searchSymbolTable(node ->pt -> element.t.lexeme,table);
         printf("searchsymboltable done\n");
         return record ->scopePointer;
         break; 
-
+    */
     case 10:
         printf("CASE 10\n");
         entrydt.isArray = false; 
@@ -498,7 +499,7 @@ void printSymbolTables(symbolTable* entryTable){
             //if the table is occupied 
             if(entryTable->symbTable[i] ->isScope==1){
                 //function, conditional or iterative
-                printf("\n\n Printing Symbol Table of %s \n ", entryTable->symbTable[i] ->name);
+                printf("\n\nPrinting Symbol Table of %s \n", entryTable->symbTable[i] ->name);
                 printSymbolTables(entryTable->symbTable[i] ->scopePointer);
             }
             else {
@@ -527,9 +528,7 @@ void printSymbolTables(symbolTable* entryTable){
             }
         }
     }
-
-    printf("Finished printing the table \n");
-    
+    printf("Finished printing the symbol table %s\n", entryTable->tableName);
 }
 
 void printGlobalTable(symbolTable* table){
@@ -547,6 +546,11 @@ void initSymbolTable(astNode* node){
     globalTable = createSymbolTable("global", NULL);
     generateSTpass1(node, globalTable);
     printSymbolTables(globalTable);
+
+    //printing all the table entries 
+    // for(int i=0;i<ST_SIZE;i++){
+    //     printf("Entry name: %s\n", globalTable->symbTable[i]->name);
+    // }
     // printGlobalTable(globalTable);
     //generateSTpass2(syntaxTree->root, globalTable);
 }
