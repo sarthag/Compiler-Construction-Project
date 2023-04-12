@@ -522,15 +522,15 @@ void printGlobalTable(symbolTable* table){
 void initSymbolTable(astNode* node){
     globalTable = createSymbolTable("global", NULL);
     generateSTpass1(node, globalTable);
-    // printSymbolTables(globalTable);
-    printGlobalTable(globalTable);
+    printSymbolTables(globalTable);
+    // printGlobalTable(globalTable);
     //generateSTpass2(syntaxTree->root, globalTable);
 }
 
 int main(){
     astNodes = 0;
     FILE* prog;
-    char* filename = "testOwn1.txt";
+    char* filename = "testOwn.txt";
     char* parseTreeFile = "parseTree.txt";
     // printf("read files\n");
     removeComments(filename);
