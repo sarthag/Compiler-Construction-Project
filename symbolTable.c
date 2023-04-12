@@ -178,6 +178,27 @@ void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){
 }
 
 
+
+void generateSTpass1withTC(astNode* treeRoot, symbolTable* homeTable){ 
+    printf("---Inside generateSTpass1---\n");
+    if(treeRoot == NULL){
+        return; 
+    }
+
+    astNode* root = treeRoot;
+    symbolTable* table = homeTable;
+    root = root->leftChild; 
+    dType type;
+
+    while(root != NULL){
+        table = insertSTSwitch(root, table);
+        type = staticTypeChecking(root, table);
+        generateSTpass1withTC(root, table);
+        root = root->rightSibling;
+    }
+    return;
+}
+
 void generateSTpass2(astNode* treeRoot, symbolTable* homeTable){  // THIS IS WRONG NEED TO FIX SHRAYES
     if(treeRoot->name.t.tid != USE){
         return; 
@@ -622,6 +643,15 @@ void initSymbolTable(astNode* node){
     counter = 0;
     globalTable = createSymbolTable("global", NULL);
     generateSTpass1(node, globalTable);
+    printSymbolTables(globalTable);
+    // printGlobalTable(globalTable);
+    //generateSTpass2(syntaxTree->root, globalTable);
+}
+
+void initSymbolTablewithTC(astNode* node){
+    counter = 0;
+    globalTable = createSymbolTable("global", NULL);
+    generateSTpass1withTC(node, globalTable);
     printSymbolTables(globalTable);
     // printGlobalTable(globalTable);
     //generateSTpass2(syntaxTree->root, globalTable);
