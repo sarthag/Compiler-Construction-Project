@@ -16,7 +16,7 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
 symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataType entryDt);
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table);
 symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table);
-void initSymbolTable();
+void initSymbolTable(astNode* node);
 int hashingFunction(char* name);
 void generateSTpass1(astNode* treeRoot, symbolTable* homeTable);
 void generateSTpass2(astNode* treeRoot, symbolTable* homeTable);
