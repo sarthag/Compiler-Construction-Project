@@ -2,11 +2,7 @@
 
 <<module var_demo>>
 takes input [x:integer, w: boolean, p:real];
-<<<<<<< HEAD
-returns [m:integer, n:integer, u: boolean];
-=======
 returns [m:integer, u:boolean, n:boolean];
->>>>>>> 32a6805e60d861d43d7e6aa6557c8a1e08ebe166
 start
 	declare a,b:integer;
 	a:= 5;

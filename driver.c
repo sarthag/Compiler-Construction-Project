@@ -209,7 +209,7 @@ int main(int argc, char* argv[]){
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot);
             initSymbolTable(ASTroot);
-            printAllST(globalTable);
+            // printAllST(globalTable);
             break; 
 
         case 6: //activation record size

@@ -383,12 +383,13 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break;
     case 12:
         printASTnode(node -> leftChild);
-        astListnode = node -> leftChild;
+        astListnode = node -> leftChild->leftChild;
         
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
+        printf("TABLE:%s\n",table -> tableName);
         symbolRecord* funcRecord = searchSymbolTable(table->tableName, table->parentTable); 
-        printf("funcRecord done");
+        // printf("funcRecord done");
         while(astListnode -> name.t.tid != EPSILON){
             entrydt = gettypeFromtid(astListnode ->leftChild, table); // table is func table
             printf("DTYPE: %d",entrydt.varType.primitiveType);
