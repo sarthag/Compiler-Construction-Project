@@ -74,7 +74,8 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
 
 
 symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataType entryDt){
-
+    printf("NAME:%s",name);
+    printf("DTYPE:%d",entryDt.varType.primitiveType);
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
@@ -224,11 +225,11 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
                     } //dynamic type
                     else{
                         edt.varType.arr.isDynamic = true;
-                        strcpy(edt.varType.arr.lowerBound.variable,astnode ->leftChild ->leftChild ->leftChild->name.t.lexeme);
-                        strcpy(edt.varType.arr.upperBound.variable,astnode ->leftChild -> leftChild ->rightSibling->leftChild ->name.t.lexeme);
+                        strcpy(edt.varType.arr.lowerBound.variable,astnode ->leftChild ->leftChild ->leftChild->pt->element.t.lexeme);
+                        strcpy(edt.varType.arr.upperBound.variable,astnode ->leftChild -> leftChild ->rightSibling->leftChild ->pt->element.t.lexeme);
                     }
                     
-            insertIntoSymbolTableArr(table,astnode->name.t.lexeme,edt);
+            insertIntoSymbolTableArr(table,astnode->pt->element.t.lexeme,edt);
             break;
     }
     return edt;
@@ -382,7 +383,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
             plistNode* dataNode = (plistNode*)malloc(sizeof(plistNode));
             dataNode->entryDT = entrydt; 
-            dataNode->name = node->name.t.lexeme;
+            dataNode->name = node->pt->element.t.lexeme;
             if(funcRecord->output_plist.head == NULL){
                 funcRecord->output_plist.head = dataNode;
                 funcRecord->output_plist.tail = dataNode; 
@@ -400,7 +401,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break;
 
     case 56: 
-        record = searchSymbolTable(node ->name.t.lexeme,table);
+        record = searchSymbolTable(node ->pt->element.t.lexeme,table);
         record->funcCall = true; // NIVZZZZZ CHECK
         return record ->scopePointer;
         break;
@@ -410,10 +411,10 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         astNode* idListnode  = node -> leftChild -> leftChild;
         while(idListnode -> name.t.tid != EPSILON){
             if(entrydt.isArray){
-                insertIntoSymbolTableArr(table,node->name.t.lexeme,entrydt);
+                insertIntoSymbolTableArr(table,idListnode->pt->element.t.lexeme,entrydt);
             }
             else{
-                insertIntoSymbolTable(table,node -> name.t.lexeme,VARIABLE,entrydt);
+                insertIntoSymbolTable(table,idListnode->pt->element.t.lexeme,VARIABLE,entrydt);
             }
             
             idListnode = idListnode ->rightSibling;
@@ -528,38 +529,38 @@ void initSymbolTable(astNode* node){
     //generateSTpass2(syntaxTree->root, globalTable);
 }
 
-// int main(){
-//     astNodes = 0;
-//     FILE* prog;
-//     char* filename = "testOwn.txt";
-//     char* parseTreeFile = "parseTree.txt";
-//     // printf("read files\n");
-//     removeComments(filename);
-//     // printf("comments removed\n");
-//     prog = readFile(filename);
-//     // printf("file wo comments read\n");
-//     populate_keyword_table();
-//     printf("\n");
-//     getNextToken(prog);
-//     // printf("here\n");
-//     InitializeParser();
-//     // printf("here\n");
-//     parse_code();
-//     printf("parsing done\n");
-//     //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
-//     printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
-//     syntaxStack = initAST();
-//     printf("initAST()\n");
-//     astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
-//     printf("ast init \n");
-//     topDownPass(ASTroot, parseTree->root, syntaxStack);    
-//     printf("top down pass done\n");
-//     printASTstack(syntaxStack);
-//     printf("here\n");
-//     callfindAction(ASTroot, syntaxStack);
-//     ast_traversal(ASTroot);
-//     printf("AST bottom up done\n");
-//     printf("Starting symbolTable\n");
-//     initSymbolTable(ASTroot);
-//     // callfindAction(ASTroot, syntaxStack);
-// }
+int main(){
+    astNodes = 0;
+    FILE* prog;
+    char* filename = "testOwn.txt";
+    char* parseTreeFile = "parseTree.txt";
+    // printf("read files\n");
+    removeComments(filename);
+    // printf("comments removed\n");
+    prog = readFile(filename);
+    // printf("file wo comments read\n");
+    populate_keyword_table();
+    printf("\n");
+    getNextToken(prog);
+    // printf("here\n");
+    InitializeParser();
+    // printf("here\n");
+    parse_code();
+    printf("parsing done\n");
+    //printParseTree(parseTree->root, parseTreeFile);   PRINT PARSE TREE HAS SEG FAULTS!!!!
+    printf("pt root: %s\n", nt_list[parseTree->root->element.nt.nid]);
+    syntaxStack = initAST();
+    printf("initAST()\n");
+    astNode* ASTroot = createASTNode(NON_TERMINAL, -1, parseTree->root);
+    printf("ast init \n");
+    topDownPass(ASTroot, parseTree->root, syntaxStack);    
+    printf("top down pass done\n");
+    printASTstack(syntaxStack);
+    printf("here\n");
+    callfindAction(ASTroot, syntaxStack);
+    ast_traversal(ASTroot);
+    printf("AST bottom up done\n");
+    printf("Starting symbolTable\n");
+    initSymbolTable(ASTroot);
+    // callfindAction(ASTroot, syntaxStack);
+}
