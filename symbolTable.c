@@ -313,7 +313,9 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break;
     
     case 7:
-        record = searchSymbolTable(node ->name.t.lexeme,table);
+        printASTnode(node);
+        record = searchSymbolTable(node ->pt ->element.t.lexeme,table);
+        printf("after searching symbol table");
         if(record == NULL){
             entrydt.isArray = false; 
             entrydt.varType.primitiveType = NA;
@@ -498,23 +500,23 @@ void printSymbolTables(symbolTable* entryTable){
                 //primitive or array type
                 if(entryTable->symbTable[i] ->entry_DT.isArray==1){
                     if(entryTable->symbTable[i] ->entry_DT.varType.arr.isDynamic){
-                        printf("Array element %s is of Type %d with lower bound %s and upper bound %s \n", 
+                        printf("Array element %s is of Type %d with lower bound %s and upper bound %s and width %d and offset %d \n", 
                         entryTable->symbTable[i] ->name, entryTable->symbTable[i] ->entry_DT.varType.arr.arraydType,
-                        entryTable->symbTable[i] -> entry_DT.varType.arr.lowerBound.variable, entryTable->symbTable[i] ->entry_DT.varType.arr.upperBound.variable);
+                        entryTable->symbTable[i] -> entry_DT.varType.arr.lowerBound.variable, entryTable->symbTable[i] ->entry_DT.varType.arr.upperBound.variable,entryTable->symbTable[i]->width,entryTable->symbTable[i]->offset);
 
                     }
                     else{
-                        printf("Array element %s is of Type %d with lower bound %d and upper bound %d \n", 
+                        printf("Array element %s is of Type %d with lower bound %d and upper bound %d width %d and offset %d  \n", 
                         entryTable->symbTable[i] ->name, entryTable->symbTable[i] ->entry_DT.varType.arr.arraydType,
-                        entryTable->symbTable[i] -> entry_DT.varType.arr.lowerBound.bound, entryTable->symbTable[i] ->entry_DT.varType.arr.upperBound.bound);
+                        entryTable->symbTable[i] -> entry_DT.varType.arr.lowerBound.bound, entryTable->symbTable[i] ->entry_DT.varType.arr.upperBound.bound,entryTable->symbTable[i]->width,entryTable->symbTable[i]->offset);
                         
 
                     }
                     
                 }
                 else{
-                    printf("Variable %s is of Type %d \n", entryTable->symbTable[i] ->name, 
-                    entryTable->symbTable[i] ->entry_DT.varType.primitiveType);
+                    printf("Variable %s is of Type %d width %d and offset %d \n", entryTable->symbTable[i] ->name, 
+                    entryTable->symbTable[i] ->entry_DT.varType.primitiveType,entryTable->symbTable[i]->width,entryTable->symbTable[i]->offset);
                 }
                 
             }
@@ -548,7 +550,7 @@ void initSymbolTable(astNode* node){
 int main(){
     astNodes = 0;
     FILE* prog;
-    char* filename = "testOwn.txt";
+    char* filename = "semanicTC//t1.txt";
     char* parseTreeFile = "parseTree.txt";
     // printf("read files\n");
     removeComments(filename);
