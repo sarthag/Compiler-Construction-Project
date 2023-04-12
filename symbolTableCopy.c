@@ -116,6 +116,7 @@ int hashingFunction(char* name){
 
 //this function just specifically searches a given symbol table not all the symbol tables we'll make another function for that
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
+    printf("RECORD NAME: %s",recordName);
     int i = 0;
     int hashValue = hashingFunction(recordName);
     int index = hashValue % ST_SIZE;
@@ -318,18 +319,19 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     case 5:
         printf("case 5");
         temp = node ->leftChild;
-        
         while(temp->name.t.tid != EPSILON){
             printASTnode(temp);
             entrydt.isArray = false; 
             entrydt.varType.primitiveType = NA;
-            record = insertIntoSymbolTable(table, node->pt->element.t.lexeme, FUNCTION, entrydt);
+            printf("INSERTING : %s",temp->pt->element.t.lexeme);
+            record = insertIntoSymbolTable(table, temp->pt->element.t.lexeme, FUNCTION, entrydt);
             printf("insertedIntosymboltable\n");  
             record->isFuncDecl=true;
             temp = temp ->rightSibling;
 
+
         }
-        
+        printf("EXITED LOOP\n");
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
         break;
@@ -379,7 +381,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         symbolRecord* funcRecord = searchSymbolTable(table->tableName, table->parentTable); 
-        // printf("funcRecord done");
+        printf("funcRecord done");
         while(astListnode -> name.t.tid != EPSILON){
             entrydt = gettypeFromtid(astListnode ->leftChild, table); // table is func table
             printf("DTYPE: %d",entrydt.varType.primitiveType);

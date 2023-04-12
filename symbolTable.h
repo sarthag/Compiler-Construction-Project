@@ -10,7 +10,7 @@ Pass 2 : Go back and add offset and width
 
 */
 
-
+dType staticTypeChecking(astNode * current, symbolTable * table);
 symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable);
 symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType);
 symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataType entryDt);
