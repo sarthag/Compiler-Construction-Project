@@ -146,7 +146,6 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->nodeType = prev->rightSibling->nodeType;
         current->name = prev->rightSibling->name;
         current->pt = prev->rightSibling->pt;
-        printf("%s\n", prev->rightSibling->pt->element.t.lexeme);
         current->leftChild = NULL;
         break;
     case 4:
@@ -157,6 +156,7 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         current->name = prev->name;
         current->pt = prev->pt;
         current->leftChild = prev->leftChild;
+
         break;
     case 5:
         current->nodeType = prev->nodeType;
@@ -190,59 +190,66 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         break;
     case 10:
         break;
-    case 11: 
-        temp = prev -> rightSibling;
-        prev->rightSibling = temp->rightSibling;
-        prev->leftChild = temp;
+    case 11:
+        prev->leftChild = prev->rightSibling;
+        prev->rightSibling = prev->leftChild->rightSibling;
+        prev->leftChild->rightSibling = NULL;
         break;
     case 12:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
-        current->rightSibling = prev->rightSibling->rightSibling;
         current->leftChild = prev->rightSibling;
+        current->rightSibling = prev->rightSibling->rightSibling;
+        current->leftChild->rightSibling = NULL;
+        current->leftChild->leftChild = NULL;
         break;
     case 13:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
-        current->leftChild = prev->leftChild;
+        current->leftChild = NULL;
+        current->rightSibling = NULL;
+
         break;
     case 14:
-        temp = prev -> rightSibling;
-        prev->rightSibling = temp->rightSibling;
-        prev->leftChild = temp;
+        prev->leftChild = prev->rightSibling;
+        prev->rightSibling = prev->leftChild->rightSibling;
+        prev->leftChild->rightSibling = NULL;
         break;
     case 15:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
-        current->rightSibling = prev->rightSibling->rightSibling;
         current->leftChild = prev->rightSibling;
+        current->rightSibling = prev->rightSibling->rightSibling;
+        current->leftChild->rightSibling = NULL;
+        current->leftChild->leftChild = NULL;
         break;
     case 16:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
-        current->leftChild = prev->leftChild;
+        current->leftChild = NULL;
+        current->rightSibling = NULL;
         break;
     case 17:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
-        current->leftChild = prev->leftChild;
+        current->leftChild = NULL;
         break;
     case 18:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
-        current->leftChild = prev->leftChild;
+        current->leftChild = NULL;
         break;
     case 19:
         current->nodeType = prev->nodeType;
         current->name = prev->name;
         current->pt = prev->pt;
-        current->leftChild = prev->leftChild;
+        current->leftChild = NULL;
         break;
     case 20:
         current->nodeType = prev->nodeType;
