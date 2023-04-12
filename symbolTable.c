@@ -327,6 +327,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     
     case 8:
         record = searchSymbolTable(node ->pt -> element.t.lexeme,table);
+        printf("searchsymboltable done\n");
         return record ->scopePointer;
         break; 
 
@@ -348,15 +349,17 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         return table;
         break;
     case 12:
-        printASTnode(node);
+        printASTnode(node -> leftChild);
         astListnode = node -> leftChild;
         
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         symbolRecord* funcRecord = searchSymbolTable(table->tableName, table->parentTable); 
+        // printf("funcRecord done");
         while(astListnode -> name.t.tid != EPSILON){
             entrydt = gettypeFromtid(astListnode ->leftChild, table); // table is func table
-            insertIntoSymbolTable(table, node ->pt ->element.t.lexeme, VARIABLE, entrydt);
+            printf("DTYPE: %d",entrydt.varType.primitiveType);
+            insertIntoSymbolTable(table, astListnode ->pt ->element.t.lexeme, VARIABLE, entrydt);
 
             plistNode* dataNode = (plistNode*)malloc(sizeof(plistNode));
             dataNode->entryDT = entrydt; 
