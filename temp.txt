@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 declare module readArr;
 <<module arraySum>>
 takes input[list:array[1..15] of    real, n integer];                       	returns  [sum:real];
@@ -16,6 +17,8 @@ start
 		end
 			end
 	print(+sum);								end
+=======
+>>>>>>> db8b0209c7078866c485b3649476484a7f126b2c
 <<<driver program>>>
 start
 	declare A:array[1...15] of real;						declare k:integer;
