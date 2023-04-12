@@ -25,4 +25,10 @@ void incrementOffset(symbolTable*table, entryDataType edt, int index);
 symbolTable* insertSTSwitch(astNode* node, symbolTable* table);
 void printSymbolTables(symbolTable* entryTable);
 void printAllST(symbolTable* table);
+dType checkRel(astNode * current, symbolTable * table);
+dType checkBool(astNode * current, symbolTable * table);
+dType staticTypeChecking(astNode * current, symbolTable * table);
+void matchInputParams(char* funcName, astNode* inputParams);
+void matchReturnParams(astNode* assignParams, char* funcName);
+void checkNestedFunctionCall(symbolTable* funcST);
 #endif
