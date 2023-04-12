@@ -11,7 +11,7 @@
 
 
 typedef enum{
-    INT_DT, REAL_DT, BOOL_DT, NA
+    INT_DT, REAL_DT, BOOL_DT, NA, ERROR
 }dType;
 
 typedef enum{
