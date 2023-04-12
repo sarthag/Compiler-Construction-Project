@@ -1,0 +1,3536 @@
+Node: program | Rule: 0 | Type: NON TERMINAL
+Node: program | Rule: 0 | Type: NON TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 2 | Type: TERMINAL
+Node: otherModules | Rule: 4 | Type: NON TERMINAL
+Node: ID | Lexeme: var_demo | Rule: 6 | Type: TERMINAL
+Node: input_plist1 | Rule: 11 | Type: NON TERMINAL
+Node: ID | Lexeme: x | Rule: -1 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ID | Lexeme: w | Rule: 12 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: w | Rule: 12 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: output_plist1 | Rule: 7 | Type: NON TERMINAL
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 22 | Type: TERMINAL
+Node: ID | Lexeme: u | Rule: 15 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 24 | Type: TERMINAL
+Node: ID | Lexeme: u | Rule: 15 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 24 | Type: TERMINAL
+Node: moduleDef | Rule: 10 | Type: NON TERMINAL
+Node: START | Lexeme: start | Rule: -1 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: b | Rule: 68 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+Node: NUM | Lexeme: 5 | Rule: 70 | Type: TERMINAL
+Node: ID | Lexeme: (null) | Rule: 27 | Type: TERMINAL
+Node: GET_VALUE | Lexeme: get_value | Rule: -1 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: value | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: q | Rule: 68 | Type: TERMINAL
+Node: ID | Lexeme: r | Rule: 68 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: ID | Lexeme: (null) | Rule: 27 | Type: TERMINAL
+Node: GET_VALUE | Lexeme: get_value | Rule: -1 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: r | Rule: -1 | Type: TERMINAL
+Node: RNUM | Lexeme: 2367.000000 | Rule: 70 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: value | Rule: -1 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: p | Rule: 87 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: term | Rule: 87 | Type: NON TERMINAL
+Node: ID | Lexeme: q | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+Node: ID | Lexeme: r | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: 87 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: ID | Lexeme: x | Rule: 87 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: u | Rule: -1 | Type: TERMINAL
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+Node: TRUE | Lexeme: true | Rule: 81 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+Node: ID | Lexeme: v | Rule: 81 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+Node: ID | Lexeme: v | Rule: 81 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: u | Rule: -1 | Type: TERMINAL
+Node: anyTerm | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+Node: ID | Lexeme: b | Rule: 84 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: w | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: w | Rule: -1 | Type: TERMINAL
+Node: NUM | Lexeme: 23 | Rule: 70 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: n | Rule: -1 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+Node: term | Rule: 87 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+Node: NUM | Lexeme: 25 | Rule: 91 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: NUM | Lexeme: 100 | Rule: 87 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: b | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 68 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: -1 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: value | Rule: 87 | Type: TERMINAL
+Node: MINUS | Lexeme: - | Rule: 85 | Type: TERMINAL
+Node: ID | Lexeme: q | Rule: 87 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: ID | Lexeme: r | Rule: 87 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: w | Rule: -1 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: w | Rule: 87 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: NUM | Lexeme: 5 | Rule: 87 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: END | Lexeme: end | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: compute | Rule: 4 | Type: TERMINAL
+Node: input_plist1 | Rule: 11 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ID | Lexeme: b | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: b | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+Node: output_plist1 | Rule: 7 | Type: NON TERMINAL
+Node: ID | Lexeme: res_1 | Rule: -1 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 24 | Type: TERMINAL
+Node: moduleDef | Rule: 10 | Type: NON TERMINAL
+Node: START | Lexeme: start | Rule: -1 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: abc_1 | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: pqr_2 | Rule: 68 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: pqr_2 | Rule: -1 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: abc_1 | Rule: 87 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: NUM | Lexeme: 6 | Rule: 87 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: abc_1 | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: res_2_a | Rule: -1 | Type: TERMINAL
+Node: u | Rule: 71 | Type: NON TERMINAL
+Node: MINUS | Lexeme: - | Rule: 112 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 73 | Type: NON TERMINAL
+Node: term | Rule: 87 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+Node: ID | Lexeme: b | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+Node: MINUS | Lexeme: - | Rule: 85 | Type: TERMINAL
+Node: term | Rule: 87 | Type: NON TERMINAL
+Node: ID | Lexeme: c | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: DIV | Lexeme: / | Rule: 88 | Type: TERMINAL
+Node: ID | Lexeme: pqr_2 | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: s | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: res_2__b | Rule: -1 | Type: TERMINAL
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: res_2_b | Rule: 87 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: term | Rule: 87 | Type: NON TERMINAL
+Node: ID | Lexeme: p | Rule: 94 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+Node: NUM | Lexeme: 12 | Rule: 91 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+Node: RNUM | Lexeme: 0.223400 | Rule: 87 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: n | Rule: 68 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: res_1 | Rule: -1 | Type: TERMINAL
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+Node: ID | Lexeme: b | Rule: 84 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: ID | Lexeme: c | Rule: 84 | Type: TERMINAL
+Node: GE | Lexeme: >= | Rule: 82 | Type: TERMINAL
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: ID | Lexeme: s | Rule: 84 | Type: TERMINAL
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+Node: NUM | Lexeme: 23 | Rule: 84 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: ID | Lexeme: s | Rule: 84 | Type: TERMINAL
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+Node: NUM | Lexeme: 23 | Rule: 84 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: n | Rule: 81 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: m | Rule: 81 | Type: TERMINAL
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: res_1 | Rule: -1 | Type: TERMINAL
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+Node: arithmeticOrBooleanExpr | Rule: 81 | Type: NON TERMINAL
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+Node: arithmeticOrBooleanExpr | Rule: 81 | Type: NON TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+Node: anyTerm | Rule: 70 | Type: NON TERMINAL
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+Node: LT | Lexeme: < | Rule: 82 | Type: TERMINAL
+Node: ID | Lexeme: b | Rule: 84 | Type: TERMINAL
+Node: var_print | Rule: 27 | Type: NON TERMINAL
+Node: PRINT | Lexeme: print | Rule: -1 | Type: TERMINAL
+Node: END | Lexeme: end | Rule: -1 | Type: TERMINAL
+Node: moduleDef | Rule: 9 | Type: NON TERMINAL
+Node: START | Lexeme: start | Rule: -1 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: v_1_2_3 | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: ID | Lexeme: (null) | Rule: 27 | Type: TERMINAL
+Node: GET_VALUE | Lexeme: get_value | Rule: -1 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: result_ | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: v7 | Rule: 68 | Type: TERMINAL
+Node: ID | Lexeme: v9 | Rule: 68 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+Node: idList1 | Rule: 43 | Type: NON TERMINAL
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+Node: ID | Lexeme: result_ | Rule: 68 | Type: TERMINAL
+Node: ID | Lexeme: k | Rule: 68 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: var_print | Rule: 27 | Type: NON TERMINAL
+Node: PRINT | Lexeme: print | Rule: -1 | Type: TERMINAL
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+Node: END | Lexeme: end | Rule: -1 | Type: TERMINAL
+Node: EPSILON | Lexeme: EPSILON | Rule: 5 | Type: TERMINAL
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:1
+Printing AST node:
+Node: program | Rule: 0 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:3
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 2 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:5
+Printing AST node:
+Node: otherModules | Rule: 4 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:7
+Printing AST node:
+Node: ID | Lexeme: var_demo | Rule: 6 | Type: TERMINAL
+===============================================
+Inside insertIntoSymbolTable
+var_demoname:var_demostrcpy done 	entryType done 	new st creation done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:12
+Printing AST node:
+Node: input_plist1 | Rule: 11 | Type: NON TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: x | Rule: -1 | Type: TERMINAL
+DTYPE: 0Inside insertIntoSymbolTable
+xname:xstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+DTYPE: 2Inside insertIntoSymbolTable
+wname:wstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+DTYPE: 1Inside insertIntoSymbolTable
+pname:pstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: x | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: w | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:20
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: w | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:20
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: p | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:8
+Printing AST node:
+Node: output_plist1 | Rule: 7 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:23
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 22 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:16
+Printing AST node:
+Node: ID | Lexeme: u | Rule: 15 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:25
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 24 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:16
+Printing AST node:
+Node: ID | Lexeme: u | Rule: 15 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:25
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 24 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:11
+Printing AST node:
+Node: moduleDef | Rule: 10 | Type: NON TERMINAL
+===============================================
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: START | Lexeme: start | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+aname:astrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+bname:bstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: NUM | Lexeme: 5 | Rule: 70 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:28
+Printing AST node:
+Node: ID | Lexeme: (null) | Rule: 27 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: GET_VALUE | Lexeme: get_value | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: value | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+valuename:valuestrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+Printing AST node:
+Node: ID | Lexeme: q | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+qname:qstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+Printing AST node:
+Node: ID | Lexeme: r | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+rname:rstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: value | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: q | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: r | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:28
+Printing AST node:
+Node: ID | Lexeme: (null) | Rule: 27 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: GET_VALUE | Lexeme: get_value | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: r | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: RNUM | Lexeme: 2367.000000 | Rule: 70 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: value | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: p | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: term | Rule: 87 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: q | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:89
+Printing AST node:
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: r | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:90
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: a | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: x | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: u | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: TRUE | Lexeme: true | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: ID | Lexeme: v | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: ID | Lexeme: v | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: u | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: anyTerm | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:83
+Printing AST node:
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: w | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+wERROR: Redeclaration of record---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: w | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: w | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: NUM | Lexeme: 23 | Rule: 70 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: n | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: term | Rule: 87 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: a | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:89
+Printing AST node:
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:92
+Printing AST node:
+Node: NUM | Lexeme: 25 | Rule: 91 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:90
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: NUM | Lexeme: 100 | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: b | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+bERROR: Redeclaration of recordPrinting AST node:
+Node: ID | Lexeme: c | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+cname:cstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: b | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: c | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: value | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: MINUS | Lexeme: - | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: q | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: r | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: w | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: w | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: NUM | Lexeme: 5 | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: END | Lexeme: end | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:5
+Printing AST node:
+Node: ID | Lexeme: compute | Rule: 4 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:12
+Printing AST node:
+Node: input_plist1 | Rule: 11 | Type: NON TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+DTYPE: 0Inside insertIntoSymbolTable
+aERROR: Redeclaration of recordDTYPE: 0Inside insertIntoSymbolTable
+bERROR: Redeclaration of recordDTYPE: 1Inside insertIntoSymbolTable
+sname:sstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+DTYPE: 0Inside insertIntoSymbolTable
+cERROR: Redeclaration of record---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: a | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: s | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:13
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 12 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:14
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 13 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:8
+Printing AST node:
+Node: output_plist1 | Rule: 7 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: res_1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:25
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 24 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:11
+Printing AST node:
+Node: moduleDef | Rule: 10 | Type: NON TERMINAL
+===============================================
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: START | Lexeme: start | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+newname:newstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:20
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: abc_1 | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+abc_1name:abc_1strcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+Printing AST node:
+Node: ID | Lexeme: pqr_2 | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+pqr_2name:pqr_2strcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: abc_1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: pqr_2 | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: pqr_2 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: abc_1 | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: NUM | Lexeme: 6 | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: abc_1 | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+abc_1ERROR: Redeclaration of record---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: abc_1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: res_2_a | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:72
+Printing AST node:
+Node: u | Rule: 71 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:113
+Printing AST node:
+Node: MINUS | Lexeme: - | Rule: 112 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:74
+Printing AST node:
+Node: arithmeticExpr | Rule: 73 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: term | Rule: 87 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: a | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:89
+Printing AST node:
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:90
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: MINUS | Lexeme: - | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: term | Rule: 87 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:89
+Printing AST node:
+Node: DIV | Lexeme: / | Rule: 88 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: pqr_2 | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:90
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: s | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+sERROR: Redeclaration of record---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: s | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: res_2__b | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: ID | Lexeme: res_2_b | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: term | Rule: 87 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:95
+Printing AST node:
+Node: ID | Lexeme: p | Rule: 94 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:97
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 96 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:89
+Printing AST node:
+Node: MUL | Lexeme: * | Rule: 88 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:92
+Printing AST node:
+Node: NUM | Lexeme: 12 | Rule: 91 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:90
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 89 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:86
+Printing AST node:
+Node: PLUS | Lexeme: + | Rule: 85 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:88
+Printing AST node:
+Node: RNUM | Lexeme: 0.223400 | Rule: 87 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:87
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 86 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+mname:mstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+Printing AST node:
+Node: ID | Lexeme: n | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+nname:nstrcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: n | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:20
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: res_1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:83
+Printing AST node:
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: c | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:83
+Printing AST node:
+Node: GE | Lexeme: >= | Rule: 82 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: s | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:83
+Printing AST node:
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: NUM | Lexeme: 23 | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: s | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:83
+Printing AST node:
+Node: LE | Lexeme: <= | Rule: 82 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: NUM | Lexeme: 23 | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: FALSE | Lexeme: false | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: ID | Lexeme: n | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: m | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: ID | Lexeme: m | Rule: 81 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: AND | Lexeme: AND | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: anyTerm | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: res_1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: arithmeticOrBooleanExpr | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: arithmeticOrBooleanExpr | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:80
+Printing AST node:
+Node: OR | Lexeme: OR | Rule: 79 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:82
+Printing AST node:
+Node: arithmeticOrBooleanExpr | Rule: 81 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:81
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 80 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+newERROR: Redeclaration of record---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:45
+Printing AST node:
+Node: ASSIGNOP | Lexeme: (null) | Rule: 44 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: new | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:71
+Printing AST node:
+Node: anyTerm | Rule: 70 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: a | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:83
+Printing AST node:
+Node: LT | Lexeme: < | Rule: 82 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:85
+Printing AST node:
+Node: ID | Lexeme: b | Rule: 84 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:28
+Printing AST node:
+Node: var_print | Rule: 27 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: PRINT | Lexeme: print | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: END | Lexeme: end | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:10
+Printing AST node:
+Node: moduleDef | Rule: 9 | Type: NON TERMINAL
+===============================================
+CASE 10
+before record 
+Inside insertIntoSymbolTable
+DRIVERname:DRIVERstrcpy done 	entryType done 	new st creation done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: START | Lexeme: start | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: v_1_2_3 | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+v_1_2_3name:v_1_2_3strcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: v_1_2_3 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:28
+Printing AST node:
+Node: ID | Lexeme: (null) | Rule: 27 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: GET_VALUE | Lexeme: get_value | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: result_ | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+result_name:result_strcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+Printing AST node:
+Node: ID | Lexeme: v7 | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+v7name:v7strcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+Printing AST node:
+Node: ID | Lexeme: v9 | Rule: 68 | Type: TERMINAL
+Inside insertIntoSymbolTable
+v9name:v9strcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: result_ | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: v7 | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: v9 | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:18
+Printing AST node:
+Node: INTEGER | Lexeme: integer | Rule: 17 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+u1name:u1strcpy done 	entryType done 	incrementOffset done
+Done inserting into symboltable
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:20
+Printing AST node:
+Node: BOOLEAN | Lexeme: boolean | Rule: 19 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:44
+Printing AST node:
+Node: idList1 | Rule: 43 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: result_ | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:69
+Printing AST node:
+Node: ID | Lexeme: k | Rule: 68 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:28
+Printing AST node:
+Node: var_print | Rule: 27 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: PRINT | Lexeme: print | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:124
+Printing AST node:
+Node: DECLARE | Lexeme: declare | Rule: 123 | Type: TERMINAL
+===============================================
+Printing AST node:
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+Inside insertIntoSymbolTable
+u1ERROR: Redeclaration of record---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:68
+Printing AST node:
+Node: idList1 | Rule: 67 | Type: NON TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: ID | Lexeme: u1 | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:70
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 69 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:19
+Printing AST node:
+Node: REAL | Lexeme: real | Rule: 18 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:0
+Printing AST node:
+Node: END | Lexeme: end | Rule: -1 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
+----Inside insertSTSwitch----
+===============================================
+Rule no:6
+Printing AST node:
+Node: EPSILON | Lexeme: EPSILON | Rule: 5 | Type: TERMINAL
+===============================================
+DEFAULT CASE::
+---Inside generateSTpass1---
