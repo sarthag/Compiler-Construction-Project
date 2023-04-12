@@ -1,4 +1,4 @@
-#include "codeGen2.h"
+#include "codeGen.h"
 
 //generate temporary variable
 //generate labels
