@@ -413,7 +413,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     case 124:  
         // printASTnode(node);
         // printASTnode(node ->leftChild->rightSibling);
-        printASTnode(node->leftChild ->leftChild ->rightSibling->leftChild);
+        printASTnode(node->leftChild ->leftChild ->rightSibling -> rightSibling->rightSibling);
         entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
         idListnode  = node -> leftChild -> leftChild;
         while(idListnode->pt->element.t.tid != EPSILON){

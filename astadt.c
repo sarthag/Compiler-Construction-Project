@@ -115,7 +115,7 @@ void ast_traversal(astNode *node) {
         }
         else if(tok.tid == EPSILON){
             astNodes--;
-            // printf("Node: %s | Lexeme: EPSILON | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->rule_no);
+            printf("Node: %s | Lexeme: EPSILON | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->rule_no);
             // fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
 
         }
@@ -165,7 +165,7 @@ void printASTnode(astNode*node){
         }
         else if(tok.tid == EPSILON){
             astNodes--;
-            // printf("Node: %s | Lexeme: EPSILON | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->rule_no);
+            printf("Node: %s | Lexeme: EPSILON | Rule: %d | Type: TERMINAL\n", token_list[node->name.nt.nid], node->rule_no);
             // fprintf(stdout, "| EPSILON | NA | %s | %s| yes |%d|%d \n",token_list[tok.tid], nt_list[node->parent->name.nt.nid],node ->rule_no, node ->nodeType); // change this back
 
         }
