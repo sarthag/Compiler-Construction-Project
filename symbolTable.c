@@ -294,7 +294,6 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     //variables for switch case
     symbolRecord* record;
     astNode* astListnode;
-    astNode* idListnode;
     astNode* temp;
     entryDataType entrydt;
 
@@ -406,17 +405,11 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         record->funcCall = true; // NIVZZZZZ CHECK
         return record ->scopePointer;
         break;
-    
-        
-
 
     case 124:  
-        // printASTnode(node);
-        // printASTnode(node ->leftChild->rightSibling);
-        printASTnode(node->leftChild ->leftChild ->rightSibling->leftChild);
         entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
-        idListnode  = node -> leftChild -> leftChild;
-        while(idListnode->pt->element.t.tid != EPSILON){
+        astNode* idListnode  = node -> leftChild -> leftChild;
+        while(idListnode -> name.t.tid != EPSILON){
             if(entrydt.isArray){
                 insertIntoSymbolTableArr(table,idListnode->pt->element.t.lexeme,entrydt);
             }
@@ -425,10 +418,8 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
             }
             
             idListnode = idListnode ->rightSibling;
-        }
-        return table;
-        break; 
-        
+        } 
+
         return table;
     //depends on the AST for the logic first get datatype and then iterate 
         break; 
@@ -549,6 +540,7 @@ void initSymbolTable(astNode* node){
     //generateSTpass2(syntaxTree->root, globalTable);
 }
 
+/*
 int main(){
     astNodes = 0;
     FILE* prog;
@@ -584,3 +576,4 @@ int main(){
     initSymbolTable(ASTroot);
     // callfindAction(ASTroot, syntaxStack);
 }
+*/
