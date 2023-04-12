@@ -111,7 +111,7 @@ int main(int argc, char* argv[]){
             printf("Total size of parse tree = %d\n", ptSize);
 
             astNodes = 0;
-            countASTNodes(ASTroot);
+            countASTNodes(ASTroot->leftChild);
             printf("\nFor AST :--\n");
             int astSize = astNodes*sizeof(astNode);
             printf("Number of nodes = %d\n", astNodes);
@@ -136,6 +136,7 @@ int main(int argc, char* argv[]){
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot);
             initSymbolTable(ASTroot);
+            printAllST(globalTable);
             break; 
 
         case 6: //activation record size

@@ -11,12 +11,20 @@
 
 
 typedef enum{
-    INT_DT, REAL_DT, BOOL_DT, NA
+    INT_DT, REAL_DT, BOOL_DT, NA, ERROR
 }dType;
+
+static char* d_type = {
+    "INT", "REAL", "BOOL", "---", "ERROR"
+};
 
 typedef enum{
     VARIABLE, FUNCTION, CONDITIONAL, ITERATIVE
 }stEntryType;
+
+static char* st_entry_type = {
+    "VARIABLE", "FUNCTION", "CONDITIONAL", "ITERATIVE"
+};
 
 typedef struct usageLLNode{
     int line_no;
