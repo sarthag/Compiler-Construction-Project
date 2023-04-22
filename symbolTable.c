@@ -34,8 +34,8 @@ symbolTable* createSymbolTable(char* tableName, symbolTable* parentTable){
 //Make separate functions and write the code to go through our ast and then call one of the functions depending on the label
 //Make dType NA for iterative and conditional
 symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType entryType, entryDataType entrydType){
-    printf("Inside insertIntoSymbolTable\n");
-    printf("SYMBOL TABLE name:%s",name);
+    //printf("Inside insertIntoSymbolTable\n");
+    //printf("SYMBOL TABLE name:%s",name);
     symbolRecord* searchRecord = searchSymbolTable(name, table);
     if (searchRecord != NULL){
         printf("ERROR: Redeclaration of record"); 
@@ -54,17 +54,17 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     }//open addressing incase of collision
 
     //assigning values
-    printf("name:%s",name);
+    //printf("name:%s",name);
     strcpy(table ->symbTable[index]->name, name);
-    printf("strcpy done \t");
+    //printf("strcpy done \t");
     table ->symbTable[index]->entryType = entryType;
-    printf("entryType done \t");
+    //printf("entryType done \t");
     //if it is a VARIABLE then we create no new table but if it is not then we create a new symbol table
     if(entryType == VARIABLE){
        table ->symbTable[index] ->isScope = 0; 
        table -> symbTable[index]->offset = table ->latestOffset;
        incrementOffset(table, entrydType, index);
-       printf("incrementOffset done\n");
+       //printf("incrementOffset done\n");
        
     }
     else{
@@ -78,14 +78,14 @@ symbolRecord* insertIntoSymbolTable(symbolTable* table, char* name,stEntryType e
     table -> symbTable[index] ->isFuncDef = false;
     table -> symbTable[index] ->isFuncDecl = false;
     table -> symbTable[index] ->funcCall = false;
-    printf("Done inserting into symboltable\n");
+    //printf("Done inserting into symboltable\n");
     return table -> symbTable[index];
 }
 
 
 symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataType entryDt){
-    printf("NAME:%s",name);
-    printf("DTYPE:%d",entryDt.varType.primitiveType);
+    //printf("NAME:%s",name);
+    //printf("DTYPE:%d",entryDt.varType.primitiveType);
     int i = 0;
     int hash = hashingFunction(name);
     int index = hash % ST_SIZE;
@@ -98,6 +98,7 @@ symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataT
     strcpy(table ->symbTable[index] ->name, name);
     bool isArray = true;
     bool isScope = false;
+    
     table ->symbTable[index] ->entryType = VARIABLE;
     table ->symbTable[index] ->entry_DT.isArray = true;
     table ->symbTable[index] ->entry_DT.varType.arr.arraydType = entryDt.varType.arr.arraydType;
@@ -106,6 +107,7 @@ symbolRecord* insertIntoSymbolTableArr(symbolTable* table, char* name,entryDataT
     table ->symbTable[index] ->occupied = true;
     table ->symbTable[index] ->offset = table->latestOffset;
     incrementOffset(table, entryDt, index);
+    printf("data type in insertST Func %d\n", table ->symbTable[index] ->entry_DT.varType.arr.arraydType);
     return table -> symbTable[index];
 }
 
@@ -126,8 +128,8 @@ int hashingFunction(char* name){
 
 //this function just specifically searches a given symbol table not all the symbol tables we'll make another function for that
 symbolRecord* searchSymbolTable(char* recordName, symbolTable* table){
-    printf("ENTERING SEARCH");
-    printf("RECORD NAME: %s",recordName);
+    //printf("ENTERING SEARCH");
+    //printf("RECORD NAME: %s",recordName);
     int i = 0;
     int hashValue = hashingFunction(recordName);
     int index = hashValue % ST_SIZE;
@@ -160,7 +162,7 @@ symbolRecord* searchAllSymbolTable(char* recordName, symbolTable* table){
 
 
 void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){ 
-    printf("---Inside generateSTpass1---\n");
+    //printf("---Inside generateSTpass1---\n");
     if(treeRoot == NULL){
         return; 
     }
@@ -180,7 +182,7 @@ void generateSTpass1(astNode* treeRoot, symbolTable* homeTable){
 
 
 void generateSTpass1withTC(astNode* treeRoot, symbolTable* homeTable){ 
-    printf("---Inside generateSTpass1---\n");
+    //printf("---Inside generateSTpass1---\n");
     if(treeRoot == NULL){
         return; 
     }
@@ -237,6 +239,8 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
                     //need to take care of ID type
                     edt.isArray = true;
                     edt.varType.arr.arraydType = gettypeFromtid(astnode ->leftChild -> rightSibling,table).varType.primitiveType;
+
+                    printf("SEG FAULT EH: %d\n",edt.varType.arr.arraydType);
                     int lbSign = 1;
                     int rbSign = 1;
                     boundType lb;
@@ -251,8 +255,8 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
                     //static case sorted
                     if(astnode ->leftChild ->leftChild ->leftChild->name.t.tid == NUM && astnode ->leftChild -> leftChild ->rightSibling->leftChild ->name.t.tid == NUM){
                         edt.varType.arr.isDynamic = false;
-                        lb.bound = lbSign*(astnode ->leftChild ->leftChild ->leftChild->name.t.num);
-                        rb.bound = rbSign*(astnode ->leftChild -> leftChild ->rightSibling->leftChild ->name.t.num);
+                        lb.bound = lbSign*(astnode ->leftChild ->leftChild ->leftChild->pt->element.t.num);
+                        rb.bound = rbSign*(astnode ->leftChild -> leftChild ->rightSibling->leftChild ->pt->element.t.num);
                         edt.varType.arr.lowerBound.bound = lb.bound;
                         edt.varType.arr.upperBound.bound = rb.bound;
                     } //dynamic type
@@ -261,7 +265,7 @@ entryDataType gettypeFromtid(astNode* astnode, symbolTable* table){
                         strcpy(edt.varType.arr.lowerBound.variable,astnode ->leftChild ->leftChild ->leftChild->pt->element.t.lexeme);
                         strcpy(edt.varType.arr.upperBound.variable,astnode ->leftChild -> leftChild ->rightSibling->leftChild ->pt->element.t.lexeme);
                     }
-                    
+                
             insertIntoSymbolTableArr(table,astnode->pt->element.t.lexeme,edt);
             break;
     }
@@ -338,18 +342,18 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
 
     //need to make the rule nos 0 indexed
     int rule = node->rule_no + 1;
-    printf("===============================================\n");
-    printf("Rule no:%d\n",rule);
-    printASTnode(node);
-    printf("===============================================\n");
+    //printf("===============================================\n");
+    //printf("Rule no:%d\n",rule);
+    //printASTnode(node);
+    //printf("===============================================\n");
     switch (rule){
     case 4:
-        printf("case 4");
+        //printf("case 4");
         temp = node;
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
         record = insertIntoSymbolTable(table, node->pt->element.t.lexeme, FUNCTION, entrydt);
-        printf("insertedIntosymboltable\n");  
+        //printf("insertedIntosymboltable\n");  
         record->isFuncDecl=true;
         return table;
         //FIGURE OUT FUNCTION DATATYPE    
@@ -378,12 +382,12 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
     
     case 7:
         // printASTnode(node);
-        record = searchSymbolTable(node ->pt ->element.t.lexeme,table);
+        record = searchSymbolTable(node ->pt ->element.t.lexeme,globalTable);
         // printf("after searching symbol table");
         if(record == NULL){
             entrydt.isArray = false; 
             entrydt.varType.primitiveType = NA;
-            record = insertIntoSymbolTable(table, node -> pt ->element.t.lexeme, FUNCTION, entrydt);
+            record = insertIntoSymbolTable(globalTable, node -> pt ->element.t.lexeme, FUNCTION, entrydt);
         }
         record -> isFuncDef = true;
         return record ->scopePointer;
@@ -397,34 +401,36 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
     */
     case 10:
-        printf("CASE 10\n");
+        //printf("CASE 10\n");
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
-        printf("before record \n");
+        //printf("before record \n");
         record = insertIntoSymbolTable(table, "DRIVER",FUNCTION,entrydt);
         return record ->scopePointer;
         break; 
     case 11:
-        table ->scopeBeginLine = node ->leftChild->name.t.line_no;
+        printf("Entering case 11 \n");
+        table ->scopeBeginLine = node ->leftChild->pt->element.t.line_no;
+        //printf("Start line %d    \n", node ->leftChild->pt->element.t.line_no);
         temp = node -> leftChild;
         while(temp ->rightSibling != NULL){
             temp = temp ->rightSibling;
         }
-        table ->scopeEndLine = temp->name.t.line_no;
+        table ->scopeEndLine = temp->pt->element.t.line_no;
         return table;
         break;
     case 12:
-        printASTnode(node -> leftChild);
+        //printASTnode(node -> leftChild);
         astListnode = node -> leftChild;
         
         entrydt.isArray = false; 
         entrydt.varType.primitiveType = NA;
-        printf("TABLE:%s\n",table ->parentTable->tableName);
+        //printf("TABLE:%s\n",table ->parentTable->tableName);
         symbolRecord* funcRecord = searchSymbolTable(table->tableName, table->parentTable); 
-        printf("funcRecord done");
+        //printf("funcRecord done");
         while(astListnode -> name.t.tid != EPSILON){
             entrydt = gettypeFromtid(astListnode ->leftChild, table); // table is func table
-            printf("DTYPE: %d",entrydt.varType.primitiveType);
+            //printf("DTYPE: %d",entrydt.varType.primitiveType);
             insertIntoSymbolTable(table, astListnode ->pt ->element.t.lexeme, VARIABLE, entrydt);
 
             plistNode* dataNode = (plistNode*)malloc(sizeof(plistNode));
@@ -486,7 +492,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         entrydt = gettypeFromtid(node ->leftChild -> rightSibling,table);
         astNode* idListnode  = node -> leftChild -> leftChild;
         while(idListnode ->name.t.tid != EPSILON){
-            printASTnode(idListnode);
+            //printASTnode(idListnode);
             if(entrydt.isArray){
                 insertIntoSymbolTableArr(table,idListnode->pt->element.t.lexeme,entrydt);
             }
@@ -550,7 +556,7 @@ symbolTable* insertSTSwitch(astNode* node, symbolTable* table){
         break; 
 
     default:
-        printf("DEFAULT CASE::\n");
+        //printf("DEFAULT CASE::\n");
         return table;
         break;
     }
@@ -563,15 +569,15 @@ void printSymbolTables(symbolTable* entryTable){
             //if the table is occupied 
             if(entryTable->symbTable[i] ->isScope==1){
                 //function, conditional or iterative
-                printf("1. Variable Name: %s \t", entryTable->symbTable[i]->name);
-                printf("2. Module: %s\t", entryTable->tableName);
-                printf("3. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine); 
-                printf("4. Element Type: %s\t", st_entry_type[entryTable->symbTable[i]->entryType]);
-                printf("5. Is Array: No\t");
-                printf("6. Statac or dynamic: ---\t");
-                printf("7. Array Range: ---\t");
-                printf("8. Width: %d\t", entryTable->symbTable[i]->width);
-                printf("9. Offset: %d\t", entryTable->symbTable[i]->offset);
+                printf("1. Variable Name: %s \n", entryTable->symbTable[i]->name);
+                printf("2. Module: %s\n", entryTable->tableName);
+                printf("3. Scope: [%d, %d]\n", entryTable->scopeBeginLine, entryTable->scopeEndLine); 
+                printf("4. Element Type: %s\n", st_entry_type[entryTable->symbTable[i]->entryType]);
+                printf("5. Is Array: No\n");
+                printf("6. Statac or dynamic: ---\n");
+                printf("7. Array Range: ---\n");
+                printf("8. Width: %d\n", entryTable->symbTable[i]->width);
+                printf("9. Offset: %d\n", entryTable->symbTable[i]->offset);
                 printf("10. Nesting Level: %d\n", entryTable->nestingLevel);
                 printSymbolTables(entryTable->symbTable[i] ->scopePointer);
             }
@@ -579,15 +585,15 @@ void printSymbolTables(symbolTable* entryTable){
                 //primitive or array type
                 if(entryTable->symbTable[i] ->entry_DT.isArray==1){
                     if(entryTable->symbTable[i] ->entry_DT.varType.arr.isDynamic){
-                        printf("1. Variable Name: %s \t", entryTable->symbTable[i]->name);
-                        printf("2. Module: %s\t", entryTable->tableName);
-                        printf("3. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine); 
-                        printf("4. Element Type: %s\t", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
-                        printf("5. Is Array: Yes\t");
-                        printf("6. Statac or dynamic: Dynamic\t");
-                        printf("7. Array Range: 1\t");
-                        printf("8. Width: 1\t");
-                        printf("9. Offset: %d\t", entryTable->symbTable[i]->offset);
+                        printf("1. Variable Name: %s \n", entryTable->symbTable[i]->name);
+                        printf("2. Module: %s\n", entryTable->tableName);
+                        printf("3. Scope: [%d, %d]\n", entryTable->scopeBeginLine, entryTable->scopeEndLine); 
+                        printf("4. Element Type: %s\n", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
+                        printf("5. Is Array: Yes\n");
+                        printf("6. Statac or dynamic: Dynamic\n");
+                        printf("7. Array Range: 1\n");
+                        printf("8. Width: 1\n");
+                        printf("9. Offset: %d\n", entryTable->symbTable[i]->offset);
                         printf("10. Nesting Level: %d\n", entryTable->nestingLevel);
                         // printf("Array element %s is of Type %d with lower bound %s and upper bound %s and width %d and offset %d \n", 
                         // entryTable->symbTable[i] ->name, entryTable->symbTable[i] ->entry_DT.varType.arr.arraydType,
@@ -595,15 +601,15 @@ void printSymbolTables(symbolTable* entryTable){
 
                     }
                     else{
-                        printf("1. Variable Name: %s \t", entryTable->symbTable[i]->name);
-                        printf("2. Module: %s\t", entryTable->tableName);
-                        printf("3. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine);
-                        printf("4. Element Type: %s\t", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
-                        printf("5. Is Array: Yes\t");
-                        printf("6. Statac or dynamic: Static\t");
-                        printf("7. Array Range: %d\t", entryTable->symbTable[i]->entry_DT.varType.arr.upperBound.bound - entryTable->symbTable[i]->entry_DT.varType.arr.lowerBound.bound + 1);
-                        printf("8. Width: %d\t", entryTable->symbTable[i]->width);
-                        printf("9. Offset: %d\t", entryTable->symbTable[i]->offset);
+                        printf("1. Variable Name: %s \n", entryTable->symbTable[i]->name);
+                        printf("2. Module: %s\n", entryTable->tableName);
+                        printf("3. Scope: [%d, %d]\n", entryTable->scopeBeginLine, entryTable->scopeEndLine);
+                        printf("4. Element Type: %s\n", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
+                        printf("5. Is Array: Yes\n");
+                        printf("6. Statac or dynamic: Static\n");
+                        printf("7. Array Range: %d\n", entryTable->symbTable[i]->entry_DT.varType.arr.upperBound.bound - entryTable->symbTable[i]->entry_DT.varType.arr.lowerBound.bound + 1);
+                        printf("8. Width: %d\n", entryTable->symbTable[i]->width);
+                        printf("9. Offset: %d\n", entryTable->symbTable[i]->offset);
                         printf("10. Nesting Level: %d\n", entryTable->nestingLevel);
                         // printf("Array element %s is of Type %d with lower bound %d and upper bound %d width %d and offset %d  \n", 
                         // entryTable->symbTable[i] ->name, entryTable->symbTable[i] ->entry_DT.varType.arr.arraydType,
@@ -614,16 +620,16 @@ void printSymbolTables(symbolTable* entryTable){
                     
                 }
                 else{
-                    printf("1. Variable Name: %s \t", entryTable->symbTable[i]->name);
-                    printf("2. Module: %s\t", entryTable->tableName);
-                    printf("3. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine);
-                    printf("4. Element Type: %s\t", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
-                    printf("5. Is Array: No\t");
-                    printf("6. Statac or dynamic: ---\t");
-                    printf("7. Array Range: --- \t");
-                    printf("8. Width: %d\t", entryTable->symbTable[i]->width);
-                    printf("9. Offset: %d\t", entryTable->symbTable[i]->offset);
-                    printf("10. Nesting Level: %d\n", entryTable->nestingLevel);
+                    printf("1. Variable Name: %s \n", entryTable->symbTable[i]->name);
+                    printf("2. Module: %s\n", entryTable->tableName);
+                    printf("3. Scope: [%d, %d]\n", entryTable->scopeBeginLine, entryTable->scopeEndLine);
+                    printf("4. Element Type: %s\n", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
+                    printf("5. Is Array: No\n");
+                    printf("6. Statac or dynamic: ---\n");
+                    printf("7. Array Range: --- \n");
+                    printf("8. Width: %d\n", entryTable->symbTable[i]->width);
+                    printf("9. Offset: %d\n", entryTable->symbTable[i]->offset);
+                    printf("10. Nesting Level: %d\n\n", entryTable->nestingLevel);
                     // printf("Variable %s is of Type %d width %d and offset %d \n", entryTable->symbTable[i] ->name, 
                     // entryTable->symbTable[i] ->entry_DT.varType.primitiveType,entryTable->symbTable[i]->width,entryTable->symbTable[i]->offset);
                 }
@@ -643,7 +649,7 @@ void initSymbolTable(astNode* node){
     counter = 0;
     globalTable = createSymbolTable("global", NULL);
     generateSTpass1(node, globalTable);
-    printSymbolTables(globalTable);
+    printAllST(globalTable);
     // printGlobalTable(globalTable);
     //generateSTpass2(syntaxTree->root, globalTable);
 }
@@ -652,7 +658,7 @@ void initSymbolTablewithTC(astNode* node){
     counter = 0;
     globalTable = createSymbolTable("global", NULL);
     generateSTpass1withTC(node, globalTable);
-    printSymbolTables(globalTable);
+    //printSymbolTables(globalTable);
     // printGlobalTable(globalTable);
     //generateSTpass2(syntaxTree->root, globalTable);
 }
@@ -786,7 +792,7 @@ dType checkRel(astNode * current, symbolTable * table){
     dType relType2;
     temp = temp->rightSibling;
     if(temp == NULL){
-        printf("no rhs\n");
+        //printf("no rhs\n");
         return ERROR;
     }
     //printf("term? %d\n", temp->nodeType);
@@ -794,7 +800,7 @@ dType checkRel(astNode * current, symbolTable * table){
         printf("is ID\n");
         symbolRecord* record = searchAllSymbolTable(temp->pt->element.t.lexeme, table);
         if (record == NULL){
-            printf("Undeclared variable\n");
+            //printf("Undeclared variable\n");
             return ERROR;
         }
         if(record->entry_DT.isArray == 0){
@@ -904,18 +910,21 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
         case 1:
             return checkBool(current, table);
         case 10:
-            //printf("left child %d\n", current->leftChild->name.t.tid);
+            printf("left child %d\n", current->leftChild->name.t.tid);
             if(current->leftChild->name.t.tid == ID){
                 symbolRecord * recordLHS = searchAllSymbolTable(current->leftChild->pt->element.t.lexeme, table);
-                //printf("found record 1\n");
+
+                //printf("before the check\n");
                 if (recordLHS == NULL){
+                    
                     printf("Undeclared variable\n");
                     return ERROR;
                 }
                 //printf("found record\n");
                 entryDataType locationTypeLHS = recordLHS->entry_DT;
+                printf("Search result data type %d\n", locationTypeLHS.varType.arr.arraydType);
                 if(locationTypeLHS.isArray == 0){
-                    //printf("found non-array %d\n", current->leftChild->rightSibling->name.t.tid);
+                    printf("found non-array %d\n", current->leftChild->rightSibling->name.t.tid);
                     if(current->leftChild->rightSibling->name.t.tid == ID){
                         symbolRecord * recordRHS = searchAllSymbolTable(current->leftChild->rightSibling->pt->element.t.lexeme, table);
                         if (recordRHS == NULL){
@@ -960,14 +969,21 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
                     }
                 }
                 else if(locationTypeLHS.isArray == 1){
-                    //printf("found array entity\n");
+                    printf("found array entity\n");
+                    //printf("%d\n", locationTypeLHS.varType.arr.lowerBound.bound);
                     if(locationTypeLHS.varType.arr.arraydType != INT_DT){
                         printf("Expected Integer as index\n");
                         return ERROR;
                     }
-                    //printf("lower bound %d\n", current->rightSibling->pt->element.t.num);
-                    if(locationTypeLHS.varType.arr.lowerBound.bound <= current->rightSibling->pt->element.t.num && locationTypeLHS.varType.arr.upperBound.bound >= current->rightSibling->pt->element.t.num){
-                        //printf("index in bounds\n");
+                    //printf("Search result data type %d\n", locationTypeLHS.varType.arr.arraydType);
+                    
+                    // printf("%d\n",locationTypeLHS.varType.arr.lowerBound.bound);
+                    // printf("%d\n", current->leftChild == NULL);
+                    // printf("%d\n",locationTypeLHS.varType.arr.upperBound.bound);
+                   
+                    if(locationTypeLHS.varType.arr.lowerBound.bound <= current->leftChild->pt->element.t.num && 
+                    locationTypeLHS.varType.arr.upperBound.bound >= current->leftChild->pt->element.t.num){
+                        printf("index in bounds\n");
                         dType arrType = locationTypeLHS.varType.arr.arraydType;
                         if(current->leftChild->rightSibling->name.t.tid == ID){
                             symbolRecord * recordRHS = searchAllSymbolTable(current->leftChild->rightSibling->pt->element.t.lexeme, table);
@@ -1110,7 +1126,8 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
         }
     }
     else{
-        //printf("non-terminal case %d \n", current->name.nt.nid);
+        //printf("non-terminal case %s \n", nt_list[current->name.nt.nid]);
+        //printf("%d\n%d\n", current->leftChild == NULL, current->rule_no);
         dType termType, factorPrimType;
         astNode* temp = current->leftChild;
         switch (current->name.nt.nid)
@@ -1126,11 +1143,11 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
                 }
                 if(record->entry_DT.isArray == 0){
                     termType = record->entry_DT.varType.primitiveType;
-                    //printf("got non-array type\n");
+                    printf("got non-array type\n");
                 }
                 else{
                     termType = record->entry_DT.varType.arr.arraydType;
-                    //printf("got array type\n");
+                    printf("got array type\n");
                 }
             }
             else if(temp->nodeType == NON_TERMINAL){
@@ -1206,7 +1223,12 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
         case 64:
             //dType factorPrimType = NULL;
             //astNode * temp1 = current->leftChild;
+            printf("case 64\n");
+            if(temp == NULL){
+                printf("temp is NULL\n");
+            }
             if(temp->nodeType == TERMINAL){
+                printf("left child terminal\n");
                 entryDataType factorType = gettypeFromtid(temp, table);
                 if(factorType.isArray == 0){
                     factorPrimType = factorType.varType.primitiveType;
@@ -1216,6 +1238,7 @@ dType staticTypeChecking(astNode * current, symbolTable * table){
                 }
             }
             else{
+                printf("left child non-terminal\n");
                 factorPrimType = staticTypeChecking(current->leftChild, table);
             }
             while(temp->rightSibling->name.t.tid  == EPSILON){
@@ -1298,7 +1321,7 @@ void matchInputParams(char* funcName, astNode* inputParams){
             }
         }
         else{
-            //array elements
+          //array elements
             if(temp->entryDT.varType.arr.arraydType != edt.varType.arr.arraydType){
                 printf("ERROR: Datatype Mismatch in Input Paramaters (Array case) ");
             } 

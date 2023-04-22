@@ -1,5 +1,5 @@
 // ------------------------------------------------
-// GROUP 06 
+// GROUP 06 `
 
 // ANSHIKA GUPTA 2020A7PS0111P
 // NIVEDITHA KOVILAKATH 2020A7PS0067P
@@ -663,8 +663,8 @@ astNode* findAction(astNode * current, astNode * prev, astNode * lastTerminal) {
         if(prev->rightSibling->name.t.tid == EPSILON) {
             current->nodeType = prev->nodeType;
             current->name = prev->name;
-        current->pt = prev->pt;
-            current->leftChild = NULL;
+            current->pt = prev->pt;
+            current->leftChild = prev->leftChild;
         }
         temp = current->leftChild;
         while(temp != NULL) {

@@ -65,7 +65,7 @@ void parse_code(){
 
         if (x->type == TERMINAL){
             //printf("Rule No: %d\n",(parse_table[L ->tid][x->element.t.tid])+1);
-
+            
             if((x->element.t.tid == $ || x == NULL)&& L -> next == NULL){
                 printf("Accept!\n");
                 pop(parserStack);
@@ -78,6 +78,7 @@ void parse_code(){
             }
 
             else if (x->element.t.tid == L->tid){
+                x->treeLocation->element.t.line_no = L->line_no;
                 if(x->element.t.tid == NUM){
                     x->treeLocation->element.t.num = L->num;
                 }
