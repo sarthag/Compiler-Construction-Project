@@ -49,22 +49,22 @@ void print_static_dynamic(symbolTable* entryTable){
                 if(entryTable->symbTable[i] ->entry_DT.isArray==1){
                     if(entryTable->symbTable[i] ->entry_DT.varType.arr.isDynamic){
                         
-                        printf("1. Module: %s\t", entryTable->tableName);
-                        printf("2. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine);
-                        printf("3. Variable Name: %s \t", entryTable->symbTable[i]->name);
-                        printf("4. Statac or dynamic: Dynamic\t");
+                        printf("1. Module: %s\n", entryTable->tableName);
+                        printf("2. Scope: [%d, %d]\n", entryTable->scopeBeginLine, entryTable->scopeEndLine);
+                        printf("3. Variable Name: %s \n", entryTable->symbTable[i]->name);
+                        printf("4. Statac or dynamic: Dynamic\n");
                         printf("5. Range Variables: [%s, %s]", entryTable->symbTable[i]->entry_DT.varType.arr.lowerBound.variable, entryTable->symbTable[i]->entry_DT.varType.arr.upperBound.variable);
-                        printf("6. Element Type: %s\t", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
+                        printf("6. Element Type: %s\n", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
     
 
                     }
                     else{
-                        printf("1. Module: %s\t", entryTable->tableName);
-                        printf("2. Scope: [%d, %d]\t", entryTable->scopeBeginLine, entryTable->scopeEndLine);
-                        printf("3. Variable Name: %s \t", entryTable->symbTable[i]->name);
-                        printf("4. Statac or dynamic: Static\t");
+                        printf("1. Module: %s\n", entryTable->tableName);
+                        printf("2. Scope: [%d, %d]\n", entryTable->scopeBeginLine, entryTable->scopeEndLine);
+                        printf("3. Variable Name: %s \n", entryTable->symbTable[i]->name);
+                        printf("4. Statac or dynamic: Static\n");
                         printf("5. Range Index: [%d, %d]", entryTable->symbTable[i]->entry_DT.varType.arr.lowerBound.bound, entryTable->symbTable[i]->entry_DT.varType.arr.upperBound.bound);
-                        printf("6. Element Type: %s\t", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
+                        printf("6. Element Type: %s\n", d_type[entryTable->symbTable[i]->entry_DT.varType.arr.arraydType]);
                         
 
                     }
@@ -96,12 +96,13 @@ void activationSizes(symbolTable* table){
         activationSize = 0;
 
         if(table->symbTable[i]->entryType == FUNCTION){
+            printf("entring table %s \n", table->symbTable[i]->name);
             funcTable = table->symbTable[i]->scopePointer;
             for(int j=0; j<ST_SIZE; j++){
                 activationSize += funcTable->symbTable[j]->width;
             }
 
-            printf("%s\t%d", table->symbTable[i]->name, activationSize);
+            printf("%s\t%d \n", table->symbTable[i]->name, activationSize);
         }
     }
 }
@@ -219,7 +220,7 @@ int main(int argc, char* argv[]){
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot);
             initSymbolTable(ASTroot);
-            // printAllST(globalTable);
+            //printAllST(globalTable);
             break; 
 
         case 6: //activation record size
@@ -267,7 +268,7 @@ int main(int argc, char* argv[]){
             topDownPass(ASTroot, parseTree->root, syntaxStack);    
             callfindAction(ASTroot, syntaxStack);
             ast_traversal(ASTroot);
-            initSymbolTable(ASTroot);
+            initSymbolTablewithTC(ASTroot);
             end_time = clock();
             total_CPU_time = (double) (end_time - start_time);
             total_CPU_time_in_seconds = total_CPU_time / CLOCKS_PER_SEC;
@@ -275,6 +276,9 @@ int main(int argc, char* argv[]){
             break; 
         case 9: // code generation
             printf("Code Generation not completed, Refer codeGen.c for the logic!!");
+            for(int i=0;i<ST_SIZE;i++){
+                printf("%s \t ", globalTable->symbTable[i]->name);
+            }
             break; 
         default:
             break;
